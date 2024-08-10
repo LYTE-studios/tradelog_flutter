@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TradelyIcons {
   /// PRIVATE | Base path for the icons
   static const String _basePath = 'assets/icons';
-  static const String _baseImagesPath = 'assets/images';
+  static const String _baseLogosPath = 'assets/logos';
 
   /// Preloads the icon assets
   static Future<void> preload(BuildContext context) async {
@@ -40,6 +40,10 @@ class TradelyIcons {
   static const String warning = '$_basePath/warning.svg';
   static const String infoCircle = '$_basePath/info_circle.svg';
 
+  // logos
+  static const String tradelyLogo = '$_baseLogosPath/tradelylogo.svg';
+  static const String tradelyLogoSmall = '$_baseLogosPath/tradelylogoSmall.svg';
+
   static const List<String> icons = [
     account,
     arrowBack,
@@ -60,5 +64,7 @@ class TradelyIcons {
     trendDown,
     trendUp,
     warning,
+    tradelyLogo,
+    tradelyLogoSmall,
   ];
 }

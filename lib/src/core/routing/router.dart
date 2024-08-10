@@ -18,33 +18,38 @@ GoRouter router = GoRouter(
     ),
     GoRoute(
       path: OverviewScreen.route,
-      builder: (BuildContext context, GoRouterState state) {
-        return const OverviewScreen();
-      },
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: OverviewScreen(),
+      ),
     ),
     GoRoute(
       path: DiaryScreen.route,
-      builder: (BuildContext context, GoRouterState state) {
-        return const DiaryScreen();
-      },
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: DiaryScreen(),
+      ),
     ),
     GoRoute(
-      path: DiaryScreen.route,
-      builder: (BuildContext context, GoRouterState state) {
-        return const MyTradesScreen();
-      },
+      path: MyTradesScreen.route,
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: MyTradesScreen(),
+      ),
     ),
     GoRoute(
       path: StatisticsScreen.route,
-      builder: (BuildContext context, GoRouterState state) {
-        return const StatisticsScreen();
-      },
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: StatisticsScreen(),
+      ),
     ),
     GoRoute(
       path: AccountScreen.route,
-      builder: (BuildContext context, GoRouterState state) {
-        return const AccountScreen();
-      },
+      pageBuilder: (BuildContext context, GoRouterState state) =>
+          const NoTransitionPage(
+        child: AccountScreen(),
+      ),
     ),
   ],
 );

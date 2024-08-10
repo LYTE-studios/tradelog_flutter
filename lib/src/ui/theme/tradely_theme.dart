@@ -19,6 +19,9 @@ final tradelyTheme = ThemeData(
       onPrimaryContainer: HexColor.fromHex('#CCCCCC'),
       secondaryContainer: HexColor.fromHex('#1A1A1A'),
       onSecondaryContainer: HexColor.fromHex('#CCCCCC'),
+
+      /// borders
+      outline: HexColor.fromHex("#1B1B1B"),
     ),
     textTheme: TextTheme(
       titleLarge: TextStyles.titleLarge,
