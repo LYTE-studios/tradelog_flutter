@@ -17,8 +17,17 @@ class OverviewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
+        subTitle: "Discover all your performance metrics & progress.",
+        icon: TradelyIcons.overview,
         currentRoute: location,
         title: "Good morning, Robin! 👋",
+        buttons: PrimaryButton(
+          onTap: () {},
+          height: 42,
+          text: "Add new trade",
+          prefixIcon: TradelyIcons.plusCircle,
+          prefixIconSize: 22,
+        ),
       ),
       child: Column(
         children: [

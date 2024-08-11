@@ -20,6 +20,8 @@ class PrimaryButton extends StatelessWidget {
 
   final String? prefixIcon;
 
+  final double? prefixIconSize;
+
   final EdgeInsets? prefixIconPadding;
 
   final Color? color;
@@ -40,6 +42,7 @@ class PrimaryButton extends StatelessWidget {
     this.prefixIconPadding,
     this.color,
     this.expand = true,
+    this.prefixIconSize,
   });
 
   @override
@@ -58,7 +61,7 @@ class PrimaryButton extends StatelessWidget {
         child: Padding(
           padding: padding ??
               const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.large,
+                horizontal: PaddingSizes.extraLarge,
               ),
           child: Row(
             mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
@@ -68,10 +71,11 @@ class PrimaryButton extends StatelessWidget {
                 Padding(
                   padding: prefixIconPadding ??
                       const EdgeInsets.only(
-                        right: PaddingSizes.small,
+                        right: PaddingSizes.extraSmall,
                       ),
                   child: SvgIcon(
                     prefixIcon!,
+                    size: prefixIconSize ?? 22,
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),

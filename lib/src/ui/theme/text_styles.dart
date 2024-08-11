@@ -6,6 +6,7 @@ class TextStyles {
   static Color selectedMediumTitleColor = HexColor.fromHex("#CCCCCC");
   static Color labelTextColor = HexColor.fromHex("#767676");
   static Color titleColor = HexColor.fromHex('#FFFFFF');
+  static Color subTitleColor = HexColor.fromHex('#7C7C7C');
 
   // --------------------------------------
   // Title

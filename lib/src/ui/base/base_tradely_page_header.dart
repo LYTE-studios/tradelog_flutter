@@ -26,31 +26,88 @@ class BaseTradelyPageHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          children: [
-            Row(
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: PaddingSizes.xxxl,
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (icon != null) SvgIcon(icon!),
-                Text(
-                  currentRoute,
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: TextStyles.selectedMediumTitleColor,
+                Row(
+                  children: [
+                    if (icon != null)
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          right: PaddingSizes.extraSmall,
+                        ),
+                        child: SvgIcon(
+                          icon!,
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
                       ),
+                    Text(
+                      currentRoute,
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: TextStyles.selectedMediumTitleColor,
+                          ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: PaddingSizes.medium,
+                      ),
+                      child: SvgIcon(
+                        TradelyIcons.slash,
+                        color: Theme.of(context).colorScheme.outline,
+                      ),
+                    ),
+                    Text(
+                      "General",
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: PaddingSizes.medium,
+                SizedBox(
+                  height: 30,
+                  width: 570,
+                  child: Divider(
+                    thickness: 2,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
-                  child: SvgIcon(TradelyIcons.diary),
                 ),
-                Text("General"),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          title,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(
+                          height: PaddingSizes.small,
+                        ),
+                        if (subTitle != null)
+                          Text(
+                            subTitle!,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          )
+                      ],
+                    ),
+                    // const Spacer(),
+                    if (buttons != null) buttons!,
+                  ],
+                ),
               ],
             ),
-          ],
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
