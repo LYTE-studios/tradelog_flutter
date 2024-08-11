@@ -6,6 +6,7 @@ import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
 import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
+import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
@@ -32,7 +33,11 @@ class OverviewScreen extends StatelessWidget {
       child: Column(
         children: [
           BaseContainer(
-            child: Text("Base container"),
+            child: ToolTipTitle(
+              toolTipText:
+                  'The total realized net profit and loss for all closed trades. The total realized net profit and loss for all closed trades. The total realized net profit and loss for all closed trades.',
+              titleText: 'test',
+            ),
           ),
           PrimaryButton(
             height: 42,

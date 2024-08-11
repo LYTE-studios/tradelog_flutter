@@ -52,8 +52,12 @@ class TextStyles {
     fontWeight: FontWeight.w500,
   );
 
+  /// tool tip text
   static TextStyle labelMedium = TextStyle(
     fontFamily: 'Inter',
+    fontSize: 13,
+    fontWeight: FontWeight.w500,
+    color: titleColor,
   );
 
   static TextStyle labelSmall = TextStyle(
