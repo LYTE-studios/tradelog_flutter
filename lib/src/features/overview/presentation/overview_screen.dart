@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
+import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
 import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
 
 class OverviewScreen extends StatelessWidget {
@@ -14,6 +16,10 @@ class OverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseTradelyPage(
+      header: BaseTradelyPageHeader(
+        currentRoute: location,
+        title: "Good morning, Robin! 👋",
+      ),
       child: Column(
         children: [
           BaseContainer(
@@ -23,19 +29,42 @@ class OverviewScreen extends StatelessWidget {
             height: 42,
             onTap: () {},
             text: "Primary button",
+            width: 500,
+          ),
+          SizedBox(
+            height: 10,
           ),
           PrimaryButton(
+            expand: false,
+            align: MainAxisAlignment.start,
             height: 42,
             onTap: () {},
             text: "Primary button icon",
             prefixIcon: TradelyIcons.diary,
           ),
           SizedBox(
+            height: 10,
+          ),
+          PrimaryTextInput(
+            label: "Test",
+            hint: "hint",
+            tec: TextEditingController(),
+          ),
+          SizedBox(
             height: 100,
           ),
           PrimaryTextInput(
-            label: "TEST",
-            hint: "hint",
+            height: 200,
+            isError: true,
+            label: "error",
+            hint: "error",
+            tec: TextEditingController(),
+          ),
+          SizedBox(
+            height: 100,
+          ),
+          PasswordTextInput(
+            label: "password",
             tec: TextEditingController(),
           ),
         ],

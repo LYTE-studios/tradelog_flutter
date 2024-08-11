@@ -29,6 +29,10 @@ class TradelyIcons {
   static const String chevronLeft = '$_basePath/chevron_left.svg';
   static const String chevronRight = '$_basePath/chevron_right.svg';
   static const String ellipsis = '$_basePath/ellipsis.svg';
+
+  //static const String eyeClosed = '$_basePath/eye-slash-regular.svg';
+  //static const String eyeOpen = '$_basePath/eye-regular.svg';
+
   static const String eyeClosed = '$_basePath/eye_closed.svg';
   static const String eyeOpen = '$_basePath/eye_open.svg';
 
@@ -39,6 +43,7 @@ class TradelyIcons {
   static const String checkCircle = '$_basePath/check_circle.svg';
   static const String warning = '$_basePath/warning.svg';
   static const String infoCircle = '$_basePath/info_circle.svg';
+  static const String slash = '$_basePath/slash-forward.svg';
 
   // logos
   static const String tradelyLogo = '$_baseLogosPath/tradelylogo.svg';
@@ -66,5 +71,6 @@ class TradelyIcons {
     warning,
     tradelyLogo,
     tradelyLogoSmall,
+    slash,
   ];
 }

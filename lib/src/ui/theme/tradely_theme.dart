@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 final tradelyTheme = ThemeData(
@@ -19,6 +20,8 @@ final tradelyTheme = ThemeData(
     onPrimaryContainer: HexColor.fromHex('#CCCCCC'),
     secondaryContainer: HexColor.fromHex('#1A1A1A'),
     onSecondaryContainer: HexColor.fromHex('#CCCCCC'),
+    tertiaryContainer: HexColor.fromHex("#171717"),
+    onTertiaryContainer: HexColor.fromHex("#8B8B8B"),
 
     /// borders
     outline: HexColor.fromHex("#1B1B1B"),
@@ -31,6 +34,55 @@ final tradelyTheme = ThemeData(
     bodyMedium: TextStyles.bodyMedium,
     bodySmall: TextStyles.bodySmall,
     labelLarge: TextStyles.labelLarge,
+    labelMedium: TextStyles.labelMedium,
+    labelSmall: TextStyles.labelSmall,
   ),
-  // inputDecorationTheme: InputDecorations.defaultInputDecoration,
+  inputDecorationTheme: InputDecorationTheme(
+    hintStyle: TextStyles.labelLarge.copyWith(
+      color: HexColor.fromHex("#8B8B8B"),
+    ),
+    filled: true,
+    fillColor: HexColor.fromHex("#171717"),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: HexColor.fromHex("#313334"),
+      ),
+      borderRadius: BorderRadius.circular(
+        BorderRadii.small,
+      ),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: HexColor.fromHex("#313334"),
+      ),
+      borderRadius: BorderRadius.circular(
+        BorderRadii.small,
+      ),
+    ),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: HexColor.fromHex("#313334"),
+      ),
+      borderRadius: BorderRadius.circular(
+        BorderRadii.small,
+      ),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: HexColor.fromHex("#E13232"),
+      ),
+      borderRadius: BorderRadius.circular(
+        BorderRadii.small,
+      ),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: BorderSide(
+        color: HexColor.fromHex("#E13232"),
+      ),
+      borderRadius: BorderRadius.circular(
+        BorderRadii.small,
+      ),
+    ),
+    hoverColor: null,
+  ),
 );

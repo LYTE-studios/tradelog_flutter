@@ -4,6 +4,8 @@ import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 class TextStyles {
   static Color mediumTitleColor = HexColor.fromHex("#898989");
   static Color selectedMediumTitleColor = HexColor.fromHex("#CCCCCC");
+  static Color labelTextColor = HexColor.fromHex("#767676");
+  static Color titleColor = HexColor.fromHex('#FFFFFF');
 
   // --------------------------------------
   // Title
@@ -11,13 +13,13 @@ class TextStyles {
     fontFamily: 'Inter',
     fontWeight: FontWeight.w700,
     fontSize: 28,
+    color: titleColor,
   );
 
   static TextStyle titleMedium = TextStyle(
     fontSize: 17,
     fontFamily: 'Inter',
     fontWeight: FontWeight.w500,
-    height: 0.07,
     color: mediumTitleColor,
   );
 
@@ -41,8 +43,12 @@ class TextStyles {
 
   // --------------------------------------
   // label
+  /// text input label
   static TextStyle labelLarge = TextStyle(
+    color: labelTextColor,
+    fontSize: 17,
     fontFamily: 'Inter',
+    fontWeight: FontWeight.w500,
   );
 
   static TextStyle labelMedium = TextStyle(

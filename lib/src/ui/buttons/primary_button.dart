@@ -14,7 +14,7 @@ class PrimaryButton extends StatelessWidget {
 
   final EdgeInsets? padding;
 
-  final Alignment? align;
+  final MainAxisAlignment? align;
 
   final double? borderRadii;
 
@@ -23,6 +23,9 @@ class PrimaryButton extends StatelessWidget {
   final EdgeInsets? prefixIconPadding;
 
   final Color? color;
+
+  /// expand button to parent widget, overwritten by width.
+  final bool expand;
 
   const PrimaryButton({
     super.key,
@@ -36,6 +39,7 @@ class PrimaryButton extends StatelessWidget {
     this.prefixIcon,
     this.prefixIconPadding,
     this.color,
+    this.expand = true,
   });
 
   @override
@@ -57,6 +61,8 @@ class PrimaryButton extends StatelessWidget {
                 horizontal: PaddingSizes.large,
               ),
           child: Row(
+            mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
+            mainAxisAlignment: align ?? MainAxisAlignment.center,
             children: [
               if (prefixIcon != null)
                 Padding(
@@ -69,10 +75,7 @@ class PrimaryButton extends StatelessWidget {
                     color: Theme.of(context).colorScheme.onPrimary,
                   ),
                 ),
-              Align(
-                alignment: align ?? Alignment.center,
-                child: Text(text ?? ""),
-              ),
+              Text(text ?? ""),
             ],
           ),
         ),

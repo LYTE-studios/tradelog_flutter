@@ -35,8 +35,8 @@ class TradelySidebar extends StatelessWidget {
       showToggleButton: true,
       theme: SidebarXTheme(
         margin: const EdgeInsets.only(
-          right: PaddingSizes.xxxl,
-        ),
+            //right: PaddingSizes.xxxl,
+            ),
         itemMargin: const EdgeInsets.symmetric(
           horizontal: PaddingSizes.medium,
         ),
