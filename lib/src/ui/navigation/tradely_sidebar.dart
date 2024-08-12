@@ -56,7 +56,7 @@ class TradelySidebar extends StatelessWidget {
         hoverTextStyle: Theme.of(context).textTheme.titleMedium,
         textStyle: Theme.of(context).textTheme.titleMedium,
         selectedTextStyle: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: TextStyles.selectedMediumTitleColor,
+              color: TextStyles.bodyColor,
             ),
         selectedItemDecoration: BoxDecoration(
           color: Theme.of(context).colorScheme.primaryContainer,
@@ -164,9 +164,8 @@ class TradelySidebar extends StatelessWidget {
             return SvgIcon(
               TradelyIcons.overview,
               size: 22,
-              color: selected
-                  ? TextStyles.selectedMediumTitleColor
-                  : TextStyles.mediumTitleColor,
+              color:
+                  selected ? TextStyles.bodyColor : TextStyles.mediumTitleColor,
             );
           },
           label: 'Overview',
@@ -182,9 +181,8 @@ class TradelySidebar extends StatelessWidget {
             return SvgIcon(
               TradelyIcons.diary,
               size: 22,
-              color: selected
-                  ? TextStyles.selectedMediumTitleColor
-                  : TextStyles.mediumTitleColor,
+              color:
+                  selected ? TextStyles.bodyColor : TextStyles.mediumTitleColor,
             );
           },
           label: 'Diary',
@@ -200,9 +198,8 @@ class TradelySidebar extends StatelessWidget {
             return SvgIcon(
               TradelyIcons.myTrades,
               size: 22,
-              color: selected
-                  ? TextStyles.selectedMediumTitleColor
-                  : TextStyles.mediumTitleColor,
+              color:
+                  selected ? TextStyles.bodyColor : TextStyles.mediumTitleColor,
             );
           },
           label: 'My Trades',
@@ -218,9 +215,8 @@ class TradelySidebar extends StatelessWidget {
             return SvgIcon(
               TradelyIcons.statistics,
               size: 22,
-              color: selected
-                  ? TextStyles.selectedMediumTitleColor
-                  : TextStyles.mediumTitleColor,
+              color:
+                  selected ? TextStyles.bodyColor : TextStyles.mediumTitleColor,
             );
           },
           label: 'Statistics',
@@ -236,9 +232,8 @@ class TradelySidebar extends StatelessWidget {
             return SvgIcon(
               TradelyIcons.account,
               size: 22,
-              color: selected
-                  ? TextStyles.selectedMediumTitleColor
-                  : TextStyles.mediumTitleColor,
+              color:
+                  selected ? TextStyles.bodyColor : TextStyles.mediumTitleColor,
             );
           },
           label: 'Account',

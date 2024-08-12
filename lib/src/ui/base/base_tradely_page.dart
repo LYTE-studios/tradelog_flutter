@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
-import 'package:tradelog_flutter/src/ui/navigation/tradely_sidebar.dart';
+import 'package:tradelog_flutter/src/ui/navigation/sidebar.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class BaseTradelyPage extends StatelessWidget {
@@ -20,7 +20,7 @@ class BaseTradelyPage extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-          const TradelySidebar(),
+          const Sidebar(),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(

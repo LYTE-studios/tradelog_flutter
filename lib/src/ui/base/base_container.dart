@@ -11,12 +11,15 @@ class BaseContainer extends StatelessWidget {
 
   final EdgeInsets? padding;
 
+  final double? borderRadius;
+
   const BaseContainer({
     super.key,
     this.child,
     this.height,
     this.width,
     this.padding,
+    this.borderRadius,
   });
 
   @override
@@ -30,7 +33,7 @@ class BaseContainer extends StatelessWidget {
           color: Theme.of(context).colorScheme.outline,
         ),
         borderRadius: BorderRadius.circular(
-          BorderRadii.large,
+          borderRadius ?? BorderRadii.large,
         ),
       ),
       child: Padding(

@@ -52,7 +52,7 @@ class BaseTradelyPageHeader extends StatelessWidget {
                     Text(
                       currentRoute,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: TextStyles.selectedMediumTitleColor,
+                            color: TextStyles.bodyColor,
                           ),
                     ),
                     Padding(
