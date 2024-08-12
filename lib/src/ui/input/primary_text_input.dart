@@ -22,6 +22,8 @@ class PrimaryTextInput extends StatelessWidget {
 
   final BoxConstraints? suffixIconConstraints;
 
+  final EdgeInsets? contentPadding;
+
   const PrimaryTextInput({
     super.key,
     this.height,
@@ -34,6 +36,7 @@ class PrimaryTextInput extends StatelessWidget {
     this.isObscure = false,
     this.suffixIcon,
     this.suffixIconConstraints,
+    this.contentPadding,
   });
 
   @override
@@ -58,6 +61,11 @@ class PrimaryTextInput extends StatelessWidget {
             style: Theme.of(context).textTheme.labelLarge,
             controller: tec,
             decoration: InputDecoration(
+              contentPadding: contentPadding ??
+                  const EdgeInsets.symmetric(
+                    horizontal: PaddingSizes.extraLarge,
+                    vertical: PaddingSizes.large,
+                  ),
               hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: isError
                         ? Theme.of(context).colorScheme.error

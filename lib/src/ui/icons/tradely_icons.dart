@@ -49,6 +49,8 @@ class TradelyIcons {
   static const String tradelyLogo = '$_baseLogosPath/tradelylogo.svg';
   static const String tradelyLogoSmall = '$_baseLogosPath/tradelylogoSmall.svg';
   static const String tradelyProLogo = '$_baseLogosPath/pro.svg';
+  static const String google = '$_baseLogosPath/google.svg';
+  static const String apple = '$_baseLogosPath/apple.svg';
 
   static const List<String> icons = [
     account,

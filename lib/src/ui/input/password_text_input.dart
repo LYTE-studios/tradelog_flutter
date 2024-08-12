@@ -19,6 +19,8 @@ class PasswordTextInput extends StatefulWidget {
 
   final Widget? suffixIcon;
 
+  final EdgeInsets? contentPadding;
+
   const PasswordTextInput({
     super.key,
     required this.tec,
@@ -28,6 +30,7 @@ class PasswordTextInput extends StatefulWidget {
     this.hint,
     this.isError = false,
     this.suffixIcon,
+    this.contentPadding,
   });
 
   @override
@@ -47,6 +50,7 @@ class _PasswordTextInputState extends State<PasswordTextInput> {
       isError: widget.isError,
       isPassword: true,
       isObscure: obscure,
+      contentPadding: widget.contentPadding,
       tec: widget.tec,
       suffixIconConstraints: const BoxConstraints(
         maxWidth: 40,
