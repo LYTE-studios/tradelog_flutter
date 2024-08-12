@@ -25,11 +25,6 @@ class ToolTipTitle extends StatelessWidget {
       child: Row(
         children: [
           SuperTooltip(
-            constraints: const BoxConstraints(
-              maxWidth: 150,
-              minWidth: 10,
-              minHeight: 20,
-            ),
             arrowBaseWidth: 30,
             arrowLength: 8,
             arrowTipDistance: 15,
@@ -39,11 +34,13 @@ class ToolTipTitle extends StatelessWidget {
             borderColor: Theme.of(context).colorScheme.primaryContainer,
             popupDirection: TooltipDirection.up,
             content: SizedBox(
-                width: 250,
-                child: Text(
-                  toolTipText,
-                  softWrap: true,
-                )),
+              width: 250,
+              child: Text(
+                toolTipText,
+                softWrap: true,
+                style: Theme.of(context).textTheme.labelMedium,
+              ),
+            ),
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             child: SvgIcon(
               TradelyIcons.infoCircle,

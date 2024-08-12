@@ -55,6 +55,7 @@ class PrimaryTextInput extends StatelessWidget {
           height: height,
           width: width ?? 200,
           child: TextField(
+            style: Theme.of(context).textTheme.labelLarge,
             controller: tec,
             decoration: InputDecoration(
               hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
