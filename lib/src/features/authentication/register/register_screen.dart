@@ -27,6 +27,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    // todo, ask Tanguy, this sucks.
     return Center(
       child: SizedBox(
         width: 600,
