@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/features/account/presentation/account_screen.dart';
-import 'package:tradelog_flutter/src/features/diary/presentation/diary_screen.dart';
-import 'package:tradelog_flutter/src/features/my_trades/presentation/my_trades_screen.dart';
-import 'package:tradelog_flutter/src/features/overview/presentation/overview_screen.dart';
-import 'package:tradelog_flutter/src/features/statistics/presentation/statistics_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/my_trades_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_footer.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_header.dart';
@@ -12,15 +12,12 @@ import 'package:tradelog_flutter/src/ui/navigation/sidebar_item.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_pro.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
-class Sidebar extends StatefulWidget {
-  const Sidebar({super.key});
+class Sidebar extends StatelessWidget {
+  final bool extended;
 
-  @override
-  State<Sidebar> createState() => _SidebarState();
-}
+  final Function() onTap;
 
-class _SidebarState extends State<Sidebar> {
-  bool extended = true;
+  const Sidebar({super.key, required this.extended, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -94,11 +91,7 @@ class _SidebarState extends State<Sidebar> {
             right: 11,
             top: PaddingSizes.xxxl,
             child: ClearInkWell(
-              onTap: () {
-                setState(() {
-                  extended = !extended;
-                });
-              },
+              onTap: onTap,
               child: Container(
                 height: 22,
                 width: 22,

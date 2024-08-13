@@ -41,7 +41,17 @@ class SidebarFooter extends StatelessWidget {
             width: extended ? null : 48,
             child: Row(
               children: [
-                const SvgIcon(TradelyIcons.eyeClosed),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal:
+                        // todo -> icons that rotate
+                        extended ? PaddingSizes.medium : PaddingSizes.xxs,
+                  ),
+                  child: const SvgIcon(
+                    TradelyIcons.tradelyProLogo,
+                    leaveUnaltered: true,
+                  ),
+                ),
                 if (extended)
                   Text(
                     "Link exchange",
@@ -54,38 +64,40 @@ class SidebarFooter extends StatelessWidget {
           ),
           onTap: () {},
         ),
-        const SizedBox(
-          height: PaddingSizes.large,
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: PaddingSizes.medium,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Robin Monseré",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontSize: 17,
-                      ),
-                ),
-                const SizedBox(
-                  height: PaddingSizes.xxs,
-                ),
-                Text(
-                  "robin@lyestudios.app",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-              ],
+        if (extended)
+          const SizedBox(
+            height: PaddingSizes.large,
+          ),
+        if (extended)
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                left: PaddingSizes.medium,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Robin Monseré",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontSize: 17,
+                        ),
+                  ),
+                  const SizedBox(
+                    height: PaddingSizes.xxs,
+                  ),
+                  Text(
+                    "robin@lyestudios.app",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
       ],
     );
   }

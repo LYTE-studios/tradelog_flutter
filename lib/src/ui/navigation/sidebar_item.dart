@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/features/account/presentation/account_screen.dart';
-import 'package:tradelog_flutter/src/features/diary/presentation/diary_screen.dart';
-import 'package:tradelog_flutter/src/features/my_trades/presentation/my_trades_screen.dart';
-import 'package:tradelog_flutter/src/features/overview/presentation/overview_screen.dart';
-import 'package:tradelog_flutter/src/features/statistics/presentation/statistics_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/my_trades_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
