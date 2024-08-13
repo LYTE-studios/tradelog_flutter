@@ -29,6 +29,8 @@ class PrimaryButton extends StatelessWidget {
 
   final TextStyle? textStyle;
 
+  final bool leaveIconUnaltered;
+
   /// expand button to parent widget, overwritten by width.
   final bool expand;
 
@@ -47,6 +49,7 @@ class PrimaryButton extends StatelessWidget {
     this.expand = true,
     this.prefixIconSize,
     this.textStyle,
+    this.leaveIconUnaltered = false,
   });
 
   @override
@@ -81,6 +84,7 @@ class PrimaryButton extends StatelessWidget {
                     prefixIcon!,
                     size: prefixIconSize ?? 22,
                     color: Theme.of(context).colorScheme.onPrimary,
+                    leaveUnaltered: leaveIconUnaltered,
                   ),
                 ),
               if (text != null)

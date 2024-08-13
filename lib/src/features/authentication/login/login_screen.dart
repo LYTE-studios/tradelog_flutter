@@ -108,7 +108,8 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 53,
             color: theme.colorScheme.primaryContainer,
             text: "Login with Google",
-            prefixIcon: TradelyIcons.eyeClosed,
+            prefixIcon: TradelyIcons.google,
+            leaveIconUnaltered: true,
           )
         ],
       ),
