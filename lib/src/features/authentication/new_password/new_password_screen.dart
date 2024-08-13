@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/features/authentication/login/login_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/shared/auth_divider.dart';
+import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
-import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class NewPasswordScreen extends StatefulWidget {
+  const NewPasswordScreen({super.key});
 
   static const String route = '/$location';
-  static const String location = 'register';
+  static const String location = 'new_password';
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<NewPasswordScreen> createState() => _NewPasswordScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController emailTec = TextEditingController();
+class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final TextEditingController pwTec = TextEditingController();
   final TextEditingController confirmPwTec = TextEditingController();
 
@@ -38,7 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: ClearInkWell(
                 onTap: () {
                   context.go(
-                    LoginScreen.route,
+                    ForgotPasswordScreen.route,
                   );
                 },
                 child: const SvgIcon(
@@ -57,26 +54,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Welcome to Tradely!",
+                        "Reset your password",
                         style: theme.textTheme.titleLarge,
                       ),
                     ),
                     const SizedBox(
                       height: PaddingSizes.xxl,
-                    ),
-                    PrimaryTextInput(
-                      width: double.infinity,
-                      tec: emailTec,
-                      label: "Email Address",
-                      height: 57,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: PaddingSizes.extraLarge,
-                        // why does xxxl doe weird shit?
-                        vertical: PaddingSizes.xxxxl,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: PaddingSizes.large,
                     ),
                     PasswordTextInput(
                       contentPadding: const EdgeInsets.symmetric(
@@ -109,37 +92,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     PrimaryButton(
                       onTap: () {},
                       height: 53,
-                      text: "Create account",
+                      text: "Reset password",
                       textStyle: theme.textTheme.titleLarge?.copyWith(
                         fontSize: 19,
                       ),
-                    ),
-                    const SizedBox(
-                      height: PaddingSizes.xxl,
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        'Something went wrong, badly, blame backend.',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          color: theme.colorScheme.error,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: PaddingSizes.extraLarge,
-                    ),
-                    const AuthDivider(),
-                    const SizedBox(
-                      height: PaddingSizes.extraLarge,
-                    ),
-                    PrimaryButton(
-                      onTap: () {},
-                      height: 53,
-                      color: theme.colorScheme.primaryContainer,
-                      text: "Login with Google",
-                      prefixIcon: TradelyIcons.google,
-                      leaveIconUnaltered: true,
                     ),
                   ],
                 ),

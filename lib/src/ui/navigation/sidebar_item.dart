@@ -48,7 +48,9 @@ class SidebarItem extends StatelessWidget {
       ),
       child: ClearInkWell(
         onTap: () {
-          context.go(route);
+          context.go(
+            route,
+          );
         },
         child: Container(
           height: 48,

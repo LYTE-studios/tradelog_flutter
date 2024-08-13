@@ -19,16 +19,11 @@ class AuthScreen extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
               ),
-              child: ImageCarousel(),
+              child: const ImageCarousel(),
             ),
           ),
           Expanded(
-            child: Center(
-              child: SizedBox(
-                width: 430,
-                child: child,
-              ),
-            ),
+            child: child,
           ),
         ],
       ),

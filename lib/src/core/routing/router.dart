@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/login/login_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/new_password/new_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/shared/auth_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
@@ -11,7 +13,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/ov
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
 
 GoRouter router = GoRouter(
-  initialLocation: OverviewScreen.route,
+  initialLocation: LoginScreen.route,
   routes: <RouteBase>[
     ShellRoute(
       builder: (context, state, child) {
@@ -20,15 +22,31 @@ GoRouter router = GoRouter(
       routes: [
         GoRoute(
           path: LoginScreen.route,
-          builder: (BuildContext context, GoRouterState state) {
-            return const LoginScreen();
-          },
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: LoginScreen(),
+          ),
         ),
         GoRoute(
           path: RegisterScreen.route,
-          builder: (BuildContext context, GoRouterState state) {
-            return const RegisterScreen();
-          },
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: RegisterScreen(),
+          ),
+        ),
+        GoRoute(
+          path: ForgotPasswordScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: ForgotPasswordScreen(),
+          ),
+        ),
+        GoRoute(
+          path: NewPasswordScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: NewPasswordScreen(),
+          ),
         ),
       ],
     ),
