@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tradelog_flutter/src/features/authentication/login/login_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/register/register_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/shared/auth_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/dashboard_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary_screen.dart';
@@ -12,17 +13,24 @@ import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/
 GoRouter router = GoRouter(
   initialLocation: OverviewScreen.route,
   routes: <RouteBase>[
-    GoRoute(
-      path: LoginScreen.route,
-      builder: (BuildContext context, GoRouterState state) {
-        return const LoginScreen();
+    ShellRoute(
+      builder: (context, state, child) {
+        return AuthScreen(child: child);
       },
-    ),
-    GoRoute(
-      path: RegisterScreen.route,
-      builder: (BuildContext context, GoRouterState state) {
-        return const RegisterScreen();
-      },
+      routes: [
+        GoRoute(
+          path: LoginScreen.route,
+          builder: (BuildContext context, GoRouterState state) {
+            return const LoginScreen();
+          },
+        ),
+        GoRoute(
+          path: RegisterScreen.route,
+          builder: (BuildContext context, GoRouterState state) {
+            return const RegisterScreen();
+          },
+        ),
+      ],
     ),
     ShellRoute(
       builder: (context, state, child) {

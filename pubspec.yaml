@@ -42,6 +42,7 @@ dependencies:
   super_tooltip: ^2.0.8
 
   serverpod_auth_shared_flutter: ^2.0.2
+  smooth_page_indicator: ^1.2.0+3
 
 
 dev_dependencies:
@@ -58,6 +59,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/logos/
+    - assets/images/
 
   fonts:
     - family: Inter

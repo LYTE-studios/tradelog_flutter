@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/features/authentication/shared/auth_page.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -9,8 +8,6 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AuthPage(
-      child: Container(),
-    );
+    return Container();
   }
 }

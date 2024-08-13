@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/features/authentication/shared/image_carousel.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthScreen extends StatelessWidget {
   final Widget child;
 
-  const AuthPage({
+  const AuthScreen({
     super.key,
     required this.child,
   });
@@ -18,7 +19,7 @@ class AuthPage extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
               ),
-              child: Container(),
+              child: ImageCarousel(),
             ),
           ),
           Expanded(
