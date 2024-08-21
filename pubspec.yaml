@@ -21,7 +21,6 @@ dependencies:
 
   # NAVIGATION
   go_router: ^14.2.3
-  sidebarx: ^0.17.1
 
   # TRADELY
   tradelog_client:
