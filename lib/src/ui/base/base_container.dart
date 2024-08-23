@@ -13,6 +13,8 @@ class BaseContainer extends StatelessWidget {
 
   final double? borderRadius;
 
+  final int? flex;
+
   const BaseContainer({
     super.key,
     this.child,
@@ -20,6 +22,7 @@ class BaseContainer extends StatelessWidget {
     this.width,
     this.padding,
     this.borderRadius,
+    this.flex,
   });
 
   @override
