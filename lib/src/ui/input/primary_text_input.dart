@@ -58,13 +58,16 @@ class PrimaryTextInput extends StatelessWidget {
           height: height,
           width: width ?? 200,
           child: TextField(
-            style: Theme.of(context).textTheme.labelLarge,
+            style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: Theme.of(context).colorScheme.onPrimary,
+                  fontWeight: FontWeight.w400,
+                ),
             controller: tec,
             decoration: InputDecoration(
               contentPadding: contentPadding ??
                   const EdgeInsets.symmetric(
                     horizontal: PaddingSizes.extraLarge,
-                    vertical: PaddingSizes.large,
+                    vertical: PaddingSizes.extraLarge,
                   ),
               hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: isError

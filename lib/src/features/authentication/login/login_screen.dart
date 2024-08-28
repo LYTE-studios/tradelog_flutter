@@ -33,12 +33,15 @@ class _LoginScreenState extends State<LoginScreen> {
         width: 430,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Welcome!",
-                style: theme.textTheme.titleLarge,
+                "Welcome back!",
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             const SizedBox(
@@ -47,25 +50,18 @@ class _LoginScreenState extends State<LoginScreen> {
             PrimaryTextInput(
               width: double.infinity,
               tec: emailTec,
-              label: "Email Address",
+              label: "Email",
+              hint: "Enter your email address...",
               height: 57,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.extraLarge,
-                // why does xxxl doe weird shit?
-                vertical: PaddingSizes.xxxxl,
-              ),
             ),
             const SizedBox(
               height: PaddingSizes.large,
             ),
             PasswordTextInput(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.extraLarge,
-                vertical: PaddingSizes.xxxxl,
-              ),
               tec: pwTec,
               width: double.infinity,
               label: "Password",
+              hint: "*****",
               height: 57,
             ),
             const SizedBox(
@@ -103,18 +99,18 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: PaddingSizes.xxl,
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Something went wrong, badly, blame backend.',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color: theme.colorScheme.error,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: PaddingSizes.extraLarge,
-            ),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(
+            //     'Something went wrong, badly, blame backend.',
+            //     style: theme.textTheme.titleMedium?.copyWith(
+            //       color: theme.colorScheme.error,
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: PaddingSizes.extraLarge,
+            // ),
             const AuthDivider(),
             const SizedBox(
               height: PaddingSizes.extraLarge,
@@ -131,11 +127,13 @@ class _LoginScreenState extends State<LoginScreen> {
               height: PaddingSizes.xxxxl,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "New here?",
                   style: theme.textTheme.titleMedium?.copyWith(
                     color: theme.colorScheme.onPrimary,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 const SizedBox(
