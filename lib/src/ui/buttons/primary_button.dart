@@ -56,6 +56,8 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      // TODO: Remove the double border radii.
+      // This is currently a workaround for clipping the InkWell
       borderRadius: BorderRadius.circular(
         borderRadii ?? BorderRadii.small,
       ),
