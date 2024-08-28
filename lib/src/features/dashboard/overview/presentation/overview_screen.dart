@@ -30,9 +30,9 @@ class OverviewScreen extends StatelessWidget {
           prefixIconSize: 22,
         ),
       ),
-      child: Column(
+      child: ListView(
         children: [
-          BaseContainer(
+          const BaseContainer(
             child: ToolTipTitle(
               toolTipText:
                   'The total realized net profit and loss for all closed trades. The total realized net profit and loss for all closed trades. The total realized net profit and loss for all closed trades.',
@@ -45,7 +45,7 @@ class OverviewScreen extends StatelessWidget {
             text: "Primary button",
             width: 500,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           PrimaryButton(
@@ -56,7 +56,7 @@ class OverviewScreen extends StatelessWidget {
             text: "Primary button icon",
             prefixIcon: TradelyIcons.diary,
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           PrimaryTextInput(
@@ -64,7 +64,7 @@ class OverviewScreen extends StatelessWidget {
             hint: "hint",
             tec: TextEditingController(),
           ),
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           PrimaryTextInput(
@@ -74,7 +74,7 @@ class OverviewScreen extends StatelessWidget {
             hint: "error",
             tec: TextEditingController(),
           ),
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           PasswordTextInput(

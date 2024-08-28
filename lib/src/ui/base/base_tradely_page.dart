@@ -23,20 +23,16 @@ class BaseTradelyPage extends StatelessWidget {
       child: Column(
         children: [
           header ?? const SizedBox.shrink(),
-          child ??
-              const Expanded(
-                child: Column(
-                  children: [
-                    Center(
-                      child: SvgIcon(
-                        TradelyIcons.tradelyLogo,
-                        leaveUnaltered: true,
-                        size: 40,
-                      ),
-                    ),
-                  ],
+          Expanded(
+            child: child ??
+                const Center(
+                  child: SvgIcon(
+                    TradelyIcons.tradelyLogo,
+                    leaveUnaltered: true,
+                    size: 40,
+                  ),
                 ),
-              ),
+          ),
         ],
       ),
     );
