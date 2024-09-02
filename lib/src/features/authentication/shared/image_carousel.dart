@@ -60,55 +60,31 @@ class _ImageCarouselState extends State<ImageCarousel> {
           leaveUnaltered: true,
           size: 50,
         ),
-        const Spacer(),
-        SizedBox(
-          height: 500,
+        Expanded(
           child: PageView(
             controller: controller,
+            physics: const NeverScrollableScrollPhysics(),
             children: const [
-              Center(
-                child: Image(
-                  width: 530,
-                  fit: BoxFit.contain,
-                  image: AssetImage('assets/images/auth_pic_1.png'),
-                ),
+              _BaseImageCarouselItem(
+                imageAsset: 'assets/images/auth_pic_1.png',
+                title: 'Transform your trading \n routine, journal every trade',
+                description:
+                    "Record all your trades and monitor \n performance metrics to maximize your trading \n success.",
               ),
-              Center(
-                child: Image(
-                  width: 670,
-                  fit: BoxFit.contain,
-                  image: AssetImage('assets/images/auth_pic_2.png'),
-                ),
+              _BaseImageCarouselItem(
+                imageAsset: 'assets/images/auth_pic_2.png',
+                title: 'Transform your trading \n routine, journal every trade',
+                description:
+                    "Record all your trades and monitor \n performance metrics to maximize your trading \n success.",
               ),
-              Center(
-                child: Image(
-                  width: 560,
-                  fit: BoxFit.contain,
-                  image: AssetImage('assets/images/auth_pic_3.png'),
-                ),
+              _BaseImageCarouselItem(
+                imageAsset: 'assets/images/auth_pic_3.png',
+                title: 'Transform your trading \n routine, journal every trade',
+                description:
+                    "Record all your trades and monitor \n performance metrics to maximize your trading \n success.",
               ),
             ],
           ),
-        ),
-        const Spacer(),
-        Text(
-          'Transform your trading \n routine, journal every trade',
-          style: Theme.of(context).textTheme.titleLarge,
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(
-          height: PaddingSizes.extraLarge,
-        ),
-        Text(
-          "Record all your trades and monitor \n performance metrics to maximize your trading \n success.",
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontSize: 16,
-                color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.5),
-              ),
-        ),
-        const SizedBox(
-          height: PaddingSizes.xxxxl,
         ),
         SmoothPageIndicator(
           controller: controller,
@@ -124,6 +100,65 @@ class _ImageCarouselState extends State<ImageCarousel> {
         const SizedBox(
           height: PaddingSizes.xxxxl,
         ),
+      ],
+    );
+  }
+}
+
+class _BaseImageCarouselItem extends StatelessWidget {
+  final String imageAsset;
+
+  final String title;
+
+  final String description;
+
+  const _BaseImageCarouselItem({
+    super.key,
+    required this.imageAsset,
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: Image(
+            width: 560,
+            fit: BoxFit.contain,
+            image: AssetImage(imageAsset),
+          ),
+        ),
+        if (MediaQuery.of(context).size.height > 640)
+          Column(
+            children: [
+              const SizedBox(
+                height: PaddingSizes.extraLarge,
+              ),
+              Text(
+                title,
+                style: Theme.of(context).textTheme.titleLarge,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(
+                height: PaddingSizes.extraLarge,
+              ),
+              Text(
+                description,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: 16,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onPrimary
+                          .withOpacity(0.5),
+                    ),
+              ),
+            ],
+          ),
       ],
     );
   }

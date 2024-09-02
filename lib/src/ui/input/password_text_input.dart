@@ -56,20 +56,26 @@ class _PasswordTextInputState extends State<PasswordTextInput> {
         maxWidth: 40,
         maxHeight: 25,
       ),
-      suffixIcon: ClearInkWell(
-        onTap: () {
-          setState(() {
-            obscure = !obscure;
-          });
-        },
-        child: Padding(
-          padding: const EdgeInsets.only(
-            right: PaddingSizes.medium,
-          ),
-          child: SvgIcon(
-            obscure ? TradelyIcons.eyeOpen : TradelyIcons.eyeClosed,
-            size: obscure ? 16 : 25,
-            color: Theme.of(context).colorScheme.onSecondaryContainer,
+      suffixIcon: SizedBox(
+        // Fixes sizing issue
+        height: double.infinity,
+        child: ClearInkWell(
+          onTap: () {
+            setState(() {
+              obscure = !obscure;
+            });
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(
+              right: PaddingSizes.medium,
+            ),
+            child: Center(
+              child: SvgIcon(
+                obscure ? TradelyIcons.eyeOpen : TradelyIcons.eyeClosed,
+                size: obscure ? 16 : 25,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
+              ),
+            ),
           ),
         ),
       ),

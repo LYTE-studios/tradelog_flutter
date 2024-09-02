@@ -61,7 +61,6 @@ class _LoginScreenState extends State<LoginScreen> {
             PasswordTextInput(
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: PaddingSizes.extraLarge,
-                // why does xxxl doe weird shit?
                 vertical: PaddingSizes.xxxxl,
               ),
               tec: pwTec,

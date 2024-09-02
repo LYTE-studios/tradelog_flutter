@@ -7,6 +7,7 @@ import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/m
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/ui/navigation/sidebar.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
@@ -42,53 +43,62 @@ class SidebarItem extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final currentRoute = GoRouterState.of(context).fullPath;
     bool selected = currentRoute == route;
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: PaddingSizes.xxs,
-      ),
-      child: ClearInkWell(
-        onTap: () {
-          context.go(
-            route,
-          );
-        },
-        child: Container(
-          height: 48,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              BorderRadii.small,
-            ),
-            color: selected ? theme.colorScheme.primaryContainer : null,
+    return AnimatedSize(
+      duration: Sidebar.animationDuration,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: PaddingSizes.xxs,
+        ),
+        child: InkWell(
+          hoverColor: theme.colorScheme.primary.withOpacity(0.2),
+          onTap: () {
+            context.go(
+              route,
+            );
+          },
+          borderRadius: BorderRadius.circular(
+            BorderRadii.small,
           ),
-          child: Row(
-            mainAxisAlignment:
-                extended ? MainAxisAlignment.start : MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: extended ? PaddingSizes.medium : 0,
-                ),
-                child: SvgIcon(
-                  routeToIcon[route] ?? TradelyIcons.warning,
-                  size: 22,
-                  color: selected
-                      ? TextStyles.bodyColor
-                      : TextStyles.mediumTitleColor,
-                ),
+          child: Ink(
+            height: 48,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                BorderRadii.small,
               ),
-              if (extended)
+              color: selected ? theme.colorScheme.primary : null,
+            ),
+            child: Row(
+              mainAxisAlignment:
+                  extended ? MainAxisAlignment.start : MainAxisAlignment.center,
+              children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: PaddingSizes.small,
+                  padding: EdgeInsets.only(
+                    left: extended ? PaddingSizes.medium : 0,
                   ),
-                  child: Text(
-                    routeToTitle[route] ?? "route not found",
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      color: selected ? TextStyles.bodyColor : null,
+                  child: SvgIcon(
+                    routeToIcon[route] ?? TradelyIcons.warning,
+                    size: 22,
+                    color: selected
+                        ? Theme.of(context).colorScheme.onPrimary
+                        : TextStyles.bodyColor,
+                  ),
+                ),
+                if (extended)
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: PaddingSizes.small,
                     ),
-                  ),
-                )
-            ],
+                    child: Text(
+                      routeToTitle[route] ?? "route not found",
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: selected
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : TextStyles.bodyColor,
+                      ),
+                    ),
+                  )
+              ],
+            ),
           ),
         ),
       ),

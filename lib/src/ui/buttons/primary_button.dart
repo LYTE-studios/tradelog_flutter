@@ -54,16 +54,21 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClearInkWell(
+    return InkWell(
       onTap: onTap,
-      child: Container(
+      // TODO: Remove the double border radii.
+      // This is currently a workaround for clipping the InkWell
+      borderRadius: BorderRadius.circular(
+        borderRadii ?? BorderRadii.small,
+      ),
+      child: Ink(
         height: height,
         width: width,
         decoration: BoxDecoration(
+          color: color ?? Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(
             borderRadii ?? BorderRadii.small,
           ),
-          color: color ?? Theme.of(context).colorScheme.primary,
         ),
         child: Padding(
           padding: padding ??
