@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tradelog_flutter/src/core/utils/page_builder_utils.dart';
 import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/login/login_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/new_password/new_password_screen.dart';
@@ -37,15 +38,19 @@ GoRouter router = GoRouter(
         GoRoute(
           path: ForgotPasswordScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
-            child: ForgotPasswordScreen(),
+              PageBuilderUtils.buildPageWithAnimationBuilder(
+            context: context,
+            child: const ForgotPasswordScreen(),
+            builder: PageBuilderUtils.buildRightSlideAnimation,
           ),
         ),
         GoRoute(
           path: NewPasswordScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
-            child: NewPasswordScreen(),
+              PageBuilderUtils.buildPageWithAnimationBuilder(
+            context: context,
+            child: const NewPasswordScreen(),
+            builder: PageBuilderUtils.buildRightSlideAnimation,
           ),
         ),
       ],

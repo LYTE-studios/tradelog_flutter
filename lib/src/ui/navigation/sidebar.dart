@@ -17,12 +17,18 @@ class Sidebar extends StatelessWidget {
 
   final Function() onTap;
 
-  const Sidebar({super.key, required this.extended, required this.onTap});
+  const Sidebar({
+    super.key,
+    required this.extended,
+    required this.onTap,
+  });
+
+  static const Duration animationDuration = Duration(milliseconds: 200);
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
-      duration: const Duration(milliseconds: 200),
+      duration: Sidebar.animationDuration,
       child: Stack(
         children: [
           Padding(
@@ -38,13 +44,14 @@ class Sidebar extends StatelessWidget {
                   ),
                 ),
               ),
-              width: extended ? 270 : 100,
+              width: extended ? 270 : 81,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: PaddingSizes.xxxl,
                   horizontal: PaddingSizes.large,
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SidebarHeader(
                       extended: extended,
