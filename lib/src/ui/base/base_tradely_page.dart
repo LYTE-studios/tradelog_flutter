@@ -21,9 +21,7 @@ class BaseTradelyPage extends StatelessWidget {
       child: Column(
         children: [
           header ?? const SizedBox.shrink(),
-          Expanded(
-            child: child ?? const Spacer(),
-          ),
+          Expanded(child: child ?? const Spacer()),
         ],
       ),
     );

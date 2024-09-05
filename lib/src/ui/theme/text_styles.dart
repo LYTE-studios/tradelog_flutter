@@ -49,6 +49,9 @@ class TextStyles {
 
   static TextStyle bodySmall = TextStyle(
     fontFamily: 'Inter',
+    fontSize: 16,
+    fontWeight: FontWeight.w500,
+    color: mediumBodyColor,
   );
 
   // --------------------------------------
