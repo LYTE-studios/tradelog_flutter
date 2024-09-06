@@ -27,6 +27,9 @@ class TextStyles {
 
   static TextStyle titleSmall = TextStyle(
     fontFamily: 'Inter',
+    fontSize: 15,
+    fontWeight: FontWeight.w500,
+    color: titleColor,
   );
 
   // --------------------------------------
@@ -72,7 +75,11 @@ class TextStyles {
     color: titleColor,
   );
 
+  // not used yet -
   static TextStyle labelSmall = TextStyle(
     fontFamily: 'Inter',
+    fontSize: 10,
+    fontWeight: FontWeight.w500,
+    color: titleColor,
   );
 }

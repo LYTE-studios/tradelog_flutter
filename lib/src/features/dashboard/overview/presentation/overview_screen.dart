@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/data_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -41,11 +44,19 @@ class OverviewScreen extends StatelessWidget {
                         title: 'Net Profit/Loss',
                         toolTip: 'test',
                       ),
-                      BaseContainerExpanded(
-                        child: Text("data"),
+                      DataContainer(
+                        title: 'Trade win rate',
+                        toolTip: 'test',
+                        data: "43%",
+                        percentage: 2,
+                        up: false,
                       ),
-                      BaseContainerExpanded(
-                        child: Text("data"),
+                      DataContainer(
+                        title: ' Avg realized R:R',
+                        toolTip: 'test',
+                        data: "\$123,88",
+                        percentage: 45,
+                        up: true,
                       ),
                     ],
                   ),
@@ -61,15 +72,12 @@ class OverviewScreen extends StatelessWidget {
               flex: 1,
               child: Column(
                 children: [
-                  BaseContainerExpanded(
-                    flex: 2,
-                    child: Text("data"),
+                  LongShortContainer(),
+                  HoldingContainer(
+                    holdingTime: 20,
                   ),
-                  BaseContainerExpanded(
-                    child: Text("data"),
-                  ),
-                  BaseContainerExpanded(
-                    child: Text("data"),
+                  ProfitContainer(
+                    percentage: 45,
                   ),
                 ],
               )),
