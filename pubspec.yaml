@@ -23,11 +23,15 @@ dependencies:
   # https://github.com/syncfusion/flutter-widgets/issues/2012
   # https://github.com/syncfusion/flutter-widgets/issues/1907
   syncfusion_flutter_charts: ^22.2.9
-  # this is also downgraded
+  # these is also downgraded
   syncfusion_flutter_gauges: ^22.2.12
+  syncfusion_flutter_datepicker: ^22.2.12
 
   # NAVIGATION
   go_router: ^14.2.3
+
+  # UTIL
+  intl: ^0.18.1
 
   # TRADELY
   tradelog_client:

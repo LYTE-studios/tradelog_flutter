@@ -16,9 +16,9 @@ class MyTradesScreen extends StatelessWidget {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
-        icon: TradelyIcons.diary,
+        icon: TradelyIcons.myTrades,
         currentRoute: location,
-        title: "Your diary 📝",
+        title: "My trades 📈",
         buttons: Row(
           children: [
             PrimaryButton(

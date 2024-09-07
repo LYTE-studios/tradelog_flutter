@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -35,9 +36,7 @@ class DiaryScreen extends StatelessWidget {
           Expanded(
             child: Column(
               children: [
-                BaseContainerExpanded(
-                  flex: 2,
-                ),
+                DateSelectorContainer(),
                 BaseContainerExpanded(),
               ],
             ),

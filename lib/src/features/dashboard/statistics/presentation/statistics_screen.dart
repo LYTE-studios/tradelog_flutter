@@ -33,7 +33,17 @@ class StatisticsScreen extends StatelessWidget {
               width: PaddingSizes.large,
             ),
             PrimaryButton(
-              onTap: () {},
+              onTap: () {
+                print("tessst");
+                return showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      print("test");
+                      return AlertDialog(
+                        title: Text("dd"),
+                      );
+                    });
+              },
               height: 42,
               text: "Filter trades",
               prefixIcon: TradelyIcons.diary,
