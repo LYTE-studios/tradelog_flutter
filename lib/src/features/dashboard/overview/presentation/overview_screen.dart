@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -61,9 +61,8 @@ class OverviewScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                BaseContainerExpanded(
-                  flex: 3,
-                  child: Text("data"),
+                ChartContainer(
+                  data: null,
                 ),
               ],
             ),
