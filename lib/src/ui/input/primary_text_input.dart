@@ -24,6 +24,8 @@ class PrimaryTextInput extends StatelessWidget {
 
   final EdgeInsets? contentPadding;
 
+  final bool readOnly;
+
   const PrimaryTextInput({
     super.key,
     this.height,
@@ -37,6 +39,7 @@ class PrimaryTextInput extends StatelessWidget {
     this.suffixIcon,
     this.suffixIconConstraints,
     this.contentPadding,
+    this.readOnly = false,
   });
 
   @override
@@ -58,6 +61,7 @@ class PrimaryTextInput extends StatelessWidget {
           height: height,
           width: width ?? 200,
           child: TextField(
+            readOnly: readOnly,
             style: Theme.of(context).textTheme.labelLarge,
             controller: tec,
             decoration: InputDecoration(
