@@ -44,6 +44,7 @@ dependencies:
     git:
       url: https://lyte-manager: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@github.com/LYTE-studios/lyte_studios_flutter_ui
       ref: release/0.0.1
+  url_launcher: ^6.3.0
 
 dependency_overrides:
   image_cropper: 7.1.0
