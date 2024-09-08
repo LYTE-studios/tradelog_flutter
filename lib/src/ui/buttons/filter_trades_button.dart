@@ -6,6 +6,7 @@ import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/date_selector.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class FilterTradesButton extends StatelessWidget {
   final Function() onTap;
@@ -134,8 +135,13 @@ class FilterTradesButton extends StatelessWidget {
                   width: 195,
                   prefixIcon: TradelyIcons.reset,
                   text: "Reset filters",
-                  textStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(),
+                  textStyle: Theme.of(context).textTheme.titleMedium,
                   color: Theme.of(context).scaffoldBackgroundColor,
+                  prefixIconColor: TextStyles.mediumTitleColor,
+                  border: Border.all(
+                    width: 1,
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                 ),
               ],
             )

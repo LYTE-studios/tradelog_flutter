@@ -25,11 +25,15 @@ class PrimaryButton extends StatelessWidget {
 
   final EdgeInsets? prefixIconPadding;
 
+  final Color? prefixIconColor;
+
   final Color? color;
 
   final TextStyle? textStyle;
 
   final bool leaveIconUnaltered;
+
+  final Border? border;
 
   /// expand button to parent widget, overwritten by width.
   final bool expand;
@@ -50,6 +54,8 @@ class PrimaryButton extends StatelessWidget {
     this.prefixIconSize,
     this.textStyle,
     this.leaveIconUnaltered = false,
+    this.prefixIconColor,
+    this.border,
   });
 
   @override
@@ -67,6 +73,7 @@ class PrimaryButton extends StatelessWidget {
           height: height,
           width: width,
           decoration: BoxDecoration(
+            border: border,
             color: color ?? Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.circular(
               borderRadii ?? BorderRadii.small,
@@ -90,7 +97,8 @@ class PrimaryButton extends StatelessWidget {
                     child: SvgIcon(
                       prefixIcon!,
                       size: prefixIconSize ?? 22,
-                      color: Theme.of(context).colorScheme.onPrimary,
+                      color: prefixIconColor ??
+                          Theme.of(context).colorScheme.onPrimary,
                       leaveUnaltered: leaveIconUnaltered,
                     ),
                   ),

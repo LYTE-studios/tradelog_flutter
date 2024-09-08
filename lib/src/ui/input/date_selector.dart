@@ -109,6 +109,9 @@ class _DateSelectorState extends State<DateSelector> {
             child: SfDateRangePicker(
               selectionMode: widget.pickerSelectionMode,
               onViewChanged: onSwipe,
+              rangeTextStyle: textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.w400,
+              ),
               monthCellStyle: DateRangePickerMonthCellStyle(
                 todayTextStyle: TextStyle(
                   color: colorScheme.onPrimary,
