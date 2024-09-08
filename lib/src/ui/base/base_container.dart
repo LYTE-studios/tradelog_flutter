@@ -13,6 +13,8 @@ class BaseContainer extends StatelessWidget {
 
   final double? borderRadius;
 
+  final Color? backgroundColor;
+
   const BaseContainer({
     super.key,
     this.child,
@@ -20,6 +22,7 @@ class BaseContainer extends StatelessWidget {
     this.width,
     this.padding,
     this.borderRadius,
+    this.backgroundColor,
   });
 
   @override
@@ -33,6 +36,7 @@ class BaseContainer extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
+          color: backgroundColor,
           border: Border.all(
             width: 1,
             color: Theme.of(context).colorScheme.outline,

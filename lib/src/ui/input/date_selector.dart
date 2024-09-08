@@ -7,7 +7,13 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class DateSelector extends StatefulWidget {
-  const DateSelector({super.key});
+  final DateRangePickerSelectionMode pickerSelectionMode;
+
+  /// has a fixed height of 380
+  const DateSelector({
+    super.key,
+    this.pickerSelectionMode = DateRangePickerSelectionMode.single,
+  });
 
   @override
   State<DateSelector> createState() => _DateSelectorState();
@@ -56,88 +62,104 @@ class _DateSelectorState extends State<DateSelector> {
       });
     }
 
-    ;
-
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: textTheme.bodyMedium?.copyWith(
-                fontSize: 23,
-              ),
-            ),
-            Row(
-              children: [
-                PrimaryButton(
-                  prefixIcon: TradelyIcons.chevronLeft,
-                  onTap: onPrevious,
-                  height: 35,
-                  width: 35,
-                  padding: EdgeInsets.zero,
-                  prefixIconPadding: EdgeInsets.zero,
-                  color: colorScheme.secondaryContainer,
+    return SizedBox(
+      height: 380,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: textTheme.bodyMedium?.copyWith(
+                  fontSize: 23,
                 ),
-                const SizedBox(
-                  width: PaddingSizes.large,
-                ),
-                PrimaryButton(
-                  prefixIcon: TradelyIcons.chevronRight,
-                  onTap: onNext,
-                  height: 35,
-                  width: 35,
-                  padding: EdgeInsets.zero,
-                  prefixIconPadding: EdgeInsets.zero,
-                  color: colorScheme.secondaryContainer,
-                ),
-              ],
-            )
-          ],
-        ),
-        const SizedBox(
-          height: PaddingSizes.extraLarge,
-        ),
-        Expanded(
-          child: SfDateRangePicker(
-            onViewChanged: onSwipe,
-            monthCellStyle: DateRangePickerMonthCellStyle(
-              todayTextStyle: TextStyle(
-                color: colorScheme.onPrimary,
               ),
-              // sorry, I couldn't be bothered with writing a custom cell builder
-              // just to make the today date a smaller circle...
-              // yes, it's a fake border that matches the size of the select circle
-              todayCellDecoration: BoxDecoration(
-                border: Border.all(
-                  width: 15,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  strokeAlign: BorderSide.strokeAlignCenter,
-                ),
-                color: colorScheme.primary.withOpacity(0.5),
-                shape: BoxShape.circle,
-                // Make it a circle
-              ),
-            ),
-            monthViewSettings: DateRangePickerMonthViewSettings(
-              viewHeaderHeight: 60,
-              showTrailingAndLeadingDates: true,
-              dayFormat: 'EE',
-              firstDayOfWeek: 1,
-              viewHeaderStyle: DateRangePickerViewHeaderStyle(
-                textStyle: textTheme.titleSmall?.copyWith(),
-              ),
-            ),
-            selectionRadius: 20,
-            todayHighlightColor: TextStyles.titleColor,
-            enablePastDates: true,
-            controller: _controller,
-            headerHeight: 0,
-            allowViewNavigation: false,
+              Row(
+                children: [
+                  PrimaryButton(
+                    prefixIcon: TradelyIcons.chevronLeft,
+                    onTap: onPrevious,
+                    height: 35,
+                    width: 35,
+                    padding: EdgeInsets.zero,
+                    prefixIconPadding: EdgeInsets.zero,
+                    color: colorScheme.secondaryContainer,
+                  ),
+                  const SizedBox(
+                    width: PaddingSizes.large,
+                  ),
+                  PrimaryButton(
+                    prefixIcon: TradelyIcons.chevronRight,
+                    onTap: onNext,
+                    height: 35,
+                    width: 35,
+                    padding: EdgeInsets.zero,
+                    prefixIconPadding: EdgeInsets.zero,
+                    color: colorScheme.secondaryContainer,
+                  ),
+                ],
+              )
+            ],
           ),
-        ),
-      ],
+          const SizedBox(
+            height: PaddingSizes.extraLarge,
+          ),
+          Expanded(
+            child: SfDateRangePicker(
+              selectionMode: widget.pickerSelectionMode,
+              onViewChanged: onSwipe,
+              monthCellStyle: DateRangePickerMonthCellStyle(
+                todayTextStyle: TextStyle(
+                  color: colorScheme.onPrimary,
+                ),
+                // sorry, I couldn't be bothered with writing a custom cell builder
+                // just to make the today date a smaller circle...
+                // yes, it's a fake border that matches the size of the select circle
+                todayCellDecoration: BoxDecoration(
+                  border: Border.all(
+                    width: 9,
+                    color: Theme.of(context).scaffoldBackgroundColor,
+                    strokeAlign: BorderSide.strokeAlignCenter,
+                  ),
+                  color: colorScheme.primary.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                  // Make it a circle
+                ),
+                textStyle: textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w400,
+                ),
+                trailingDatesTextStyle: textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: TextStyles.titleColor.withOpacity(0.3),
+                ),
+                leadingDatesTextStyle: textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.w400,
+                  color: TextStyles.titleColor.withOpacity(0.3),
+                ),
+              ),
+              monthViewSettings: DateRangePickerMonthViewSettings(
+                viewHeaderHeight: 60,
+                showTrailingAndLeadingDates: true,
+                dayFormat: 'EE',
+                firstDayOfWeek: 1,
+                viewHeaderStyle: DateRangePickerViewHeaderStyle(
+                  textStyle: textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              selectionRadius: 17,
+              todayHighlightColor: TextStyles.titleColor,
+              rangeSelectionColor: colorScheme.secondaryContainer,
+              enablePastDates: true,
+              controller: _controller,
+              headerHeight: 0,
+              allowViewNavigation: false,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

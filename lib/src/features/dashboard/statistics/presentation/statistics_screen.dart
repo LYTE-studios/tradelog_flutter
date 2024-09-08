@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/widgets/small_data_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
+import 'package:tradelog_flutter/src/ui/buttons/filter_trades_button.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/data/data_list.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -32,18 +33,8 @@ class StatisticsScreen extends StatelessWidget {
             const SizedBox(
               width: PaddingSizes.large,
             ),
-            PrimaryButton(
-              onTap: () {
-                print("tessst");
-                return showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      print("test");
-                      return AlertDialog(
-                        title: Text("dd"),
-                      );
-                    });
-              },
+            FilterTradesButton(
+              onTap: () {},
               height: 42,
               text: "Filter trades",
               prefixIcon: TradelyIcons.diary,
