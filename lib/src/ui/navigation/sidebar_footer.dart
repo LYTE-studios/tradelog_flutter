@@ -52,7 +52,7 @@ class SidebarFooter extends StatelessWidget {
                           extended ? PaddingSizes.medium : PaddingSizes.xxs,
                     ),
                     child: const SvgIcon(
-                      TradelyIcons.tradelyProLogo,
+                      TradelyIcons.tradelyLogoPro,
                       leaveUnaltered: true,
                     ),
                   ),

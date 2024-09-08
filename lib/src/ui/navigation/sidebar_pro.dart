@@ -21,7 +21,7 @@ class SidebarPro extends StatelessWidget {
       duration: Sidebar.animationDuration,
       child: !extended
           ? const SvgIcon(
-              TradelyIcons.tradelyProLogo,
+              TradelyIcons.tradelyLogoPro,
               leaveUnaltered: true,
               size: 24,
             )
@@ -52,7 +52,7 @@ class SidebarPro extends StatelessWidget {
                           width: PaddingSizes.medium,
                         ),
                         SvgIcon(
-                          TradelyIcons.tradelyProLogo,
+                          TradelyIcons.tradelyLogoPro,
                           leaveUnaltered: true,
                           size: 24,
                         )

@@ -41,6 +41,7 @@ class TradelyIcons {
   static const String warning = '$_basePath/warning.svg';
   static const String infoCircle = '$_basePath/info_circle.svg';
   static const String slash = '$_basePath/slash-forward.svg';
+  static const String save30 = '$_basePath/save_30.svg';
 
   // logos
   static const String tradelyLogo = '$_baseLogosPath/tradely_logo.svg';
@@ -48,7 +49,8 @@ class TradelyIcons {
       '$_baseLogosPath/tradely_logo_small.svg';
   static const String tradelyLogoInverted =
       '$_baseLogosPath/tradely_logo_inverted.svg';
-  static const String tradelyProLogo = '$_baseLogosPath/pro.svg';
+  static const String tradelyLogoText = '$_baseLogosPath/tradely_logo_text.svg';
+  static const String tradelyLogoPro = '$_baseLogosPath/pro.svg';
   static const String google = '$_baseLogosPath/google.svg';
   static const String apple = '$_baseLogosPath/apple.svg';
 
@@ -75,9 +77,11 @@ class TradelyIcons {
     warning,
     tradelyLogo,
     tradelyLogoSmall,
+    tradelyLogoText,
     slash,
-    tradelyProLogo,
+    tradelyLogoPro,
     google,
     apple,
+    save30,
   ];
 }
