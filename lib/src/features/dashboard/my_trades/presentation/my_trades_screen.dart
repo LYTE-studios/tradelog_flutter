@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
+import 'package:tradelog_flutter/src/ui/buttons/filter_trades_button.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -16,9 +17,9 @@ class MyTradesScreen extends StatelessWidget {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
-        icon: TradelyIcons.diary,
+        icon: TradelyIcons.myTrades,
         currentRoute: location,
-        title: "Your diary 📝",
+        title: "My trades 📈",
         buttons: Row(
           children: [
             PrimaryButton(
@@ -30,7 +31,7 @@ class MyTradesScreen extends StatelessWidget {
             const SizedBox(
               width: PaddingSizes.large,
             ),
-            PrimaryButton(
+            FilterTradesButton(
               onTap: () {},
               height: 42,
               text: "Filter trades",

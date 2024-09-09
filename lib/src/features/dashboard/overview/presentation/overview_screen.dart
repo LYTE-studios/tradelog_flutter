@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
-import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
-import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
-import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 
 class OverviewScreen extends StatelessWidget {
   const OverviewScreen({super.key});
@@ -30,57 +31,55 @@ class OverviewScreen extends StatelessWidget {
           prefixIconSize: 22,
         ),
       ),
-      child: Column(
+      child: const Row(
         children: [
-          BaseContainer(
-            child: ToolTipTitle(
-              toolTipText:
-                  'The total realized net profit and loss for all closed trades. The total realized net profit and loss for all closed trades. The total realized net profit and loss for all closed trades.',
-              titleText: 'test',
+          Expanded(
+            flex: 2,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      DataContainer(
+                        title: 'Net Profit/Loss',
+                        toolTip: 'test',
+                      ),
+                      DataContainer(
+                        title: 'Trade win rate',
+                        toolTip: 'test',
+                        data: "43%",
+                        percentage: 2,
+                        up: false,
+                      ),
+                      DataContainer(
+                        title: ' Avg realized R:R',
+                        toolTip: 'test',
+                        data: "\$123,88",
+                        percentage: 45,
+                        up: true,
+                      ),
+                    ],
+                  ),
+                ),
+                ChartContainer(
+                  data: null,
+                ),
+              ],
             ),
           ),
-          PrimaryButton(
-            height: 42,
-            onTap: () {},
-            text: "Primary button",
-            width: 500,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          PrimaryButton(
-            expand: false,
-            align: MainAxisAlignment.start,
-            height: 42,
-            onTap: () {},
-            text: "Primary button icon",
-            prefixIcon: TradelyIcons.diary,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          PrimaryTextInput(
-            label: "Test",
-            hint: "hint",
-            tec: TextEditingController(),
-          ),
-          SizedBox(
-            height: 100,
-          ),
-          PrimaryTextInput(
-            height: 200,
-            isError: true,
-            label: "error",
-            hint: "error",
-            tec: TextEditingController(),
-          ),
-          SizedBox(
-            height: 100,
-          ),
-          PasswordTextInput(
-            label: "password",
-            tec: TextEditingController(),
-          ),
+          Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  LongShortContainer(),
+                  HoldingContainer(
+                    holdingTime: 20,
+                  ),
+                  ProfitContainer(
+                    percentage: 45,
+                  ),
+                ],
+              )),
         ],
       ),
     );

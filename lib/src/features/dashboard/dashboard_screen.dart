@@ -26,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               });
             },
           ),
-          Expanded(child: widget.child)
+          Expanded(child: widget.child),
           //widget.child,
         ],
       ),
