@@ -42,11 +42,12 @@ class _LongShortContainerState extends State<LongShortContainer> {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const Spacer(),
-                    SizedBox(
+                    const SizedBox(
                       height: 160,
                       width: 160,
                       child: LongShortGauge(),
                     ),
+                    const Spacer(),
                   ],
                 ),
                 Column(
@@ -57,7 +58,9 @@ class _LongShortContainerState extends State<LongShortContainer> {
                       selected: selected,
                       onChanged: setSelected,
                     ),
+                    const Spacer(),
                     const LongShortColorIdentifier(),
+                    const Spacer(),
                   ],
                 ),
               ],

@@ -27,12 +27,19 @@ class LinkedAccounts extends StatelessWidget {
         const SizedBox(
           height: PaddingSizes.extraLarge,
         ),
-        const Row(
-          children: [
-            LinkedAccount(),
-            LinkedAccount(),
-            LinkedAccount(),
-          ],
+        SizedBox(
+          height: 135,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              LinkedAccount(),
+              LinkedAccount(),
+              LinkedAccount(),
+              LinkedAccount(),
+              LinkedAccount(),
+              LinkedAccount(),
+            ],
+          ),
         ),
         const SizedBox(
           height: PaddingSizes.xxl,
