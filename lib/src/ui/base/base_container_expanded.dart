@@ -14,6 +14,8 @@ class BaseContainerExpanded extends StatelessWidget {
 
   final int flex;
 
+  final BoxConstraints? boxConstraints;
+
   const BaseContainerExpanded({
     super.key,
     this.child,
@@ -22,6 +24,7 @@ class BaseContainerExpanded extends StatelessWidget {
     this.padding,
     this.borderRadius,
     this.flex = 1,
+    this.boxConstraints,
   });
 
   @override

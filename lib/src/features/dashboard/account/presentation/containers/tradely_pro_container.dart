@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/plan_option.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/subscription_toggle_tab.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
+import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -18,121 +18,128 @@ class TradelyProContainer extends StatelessWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return BaseContainerExpanded(
+    return BaseContainer(
+      //width: 687,
+      boxConstraints: const BoxConstraints(
+        minWidth: 100,
+        maxWidth: 687,
+      ),
       padding: const EdgeInsets.symmetric(
         horizontal: PaddingSizes.xxxl,
         vertical: PaddingSizes.xxxxxl,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Row(
-            children: [
-              SvgIcon(
-                size: 30,
-                TradelyIcons.tradelyLogoText,
-                leaveUnaltered: true,
-              ),
-              SizedBox(
-                width: PaddingSizes.xxs,
-              ),
-              SvgIcon(
-                size: 30,
-                TradelyIcons.tradelyLogoPro,
-                leaveUnaltered: true,
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: PaddingSizes.large,
-          ),
-          SubscriptionToggleTab(
-            callback: (int) {},
-            height: 50,
-            width: 350,
-          ),
-          const SizedBox(
-            height: PaddingSizes.xxl,
-          ),
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              PlanOption(
-                title: SizedBox(
-                  height: 50,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text("Free"),
-                  ),
+      child: IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              children: [
+                SvgIcon(
+                  size: 30,
+                  TradelyIcons.tradelyLogoText,
+                  leaveUnaltered: true,
                 ),
-                price: 20,
-                isSelected: true,
-                subTitle: "Need more? Go PRO!",
-              ),
-              SizedBox(
-                width: PaddingSizes.large,
-              ),
-              PlanOption(
-                title: SizedBox(
-                  height: 50,
-                  child: SvgIcon(
-                    size: 35,
-                    TradelyIcons.tradelyLogoPro,
-                    leaveUnaltered: true,
-                  ),
+                SizedBox(
+                  width: PaddingSizes.xxs,
                 ),
-                price: 20,
-                isSelected: true,
-                subTitle: "Save \$45 with annual plan",
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: PaddingSizes.extraLarge,
-          ),
-          Container(
-            width: 620,
-            decoration: BoxDecoration(
-              color: colorScheme.primaryContainer,
-              borderRadius: BorderRadius.circular(
-                BorderRadii.large,
-              ),
+                SvgIcon(
+                  size: 30,
+                  TradelyIcons.tradelyLogoPro,
+                  leaveUnaltered: true,
+                ),
+              ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.xxl,
-                vertical: PaddingSizes.medium,
-              ),
-              child: RichText(
-                text: TextSpan(
-                  text: "Terms and conditions apply, for more info ",
-                  children: [
-                    TextSpan(
-                      text: "click here",
-                      recognizer: TapGestureRecognizer()
-                        ..onTap = () async {
-                          Uri url = Uri.parse("https://tradely.io/");
-                          if (await canLaunchUrl(url)) {
-                            launchUrl(
-                              Uri.parse("https://tradely.io/"),
-                            );
-                          }
-                        },
-                      style: textTheme.labelMedium?.copyWith(
-                        color: colorScheme.primary,
-                        decoration: TextDecoration.underline,
-                        decorationColor: colorScheme.primary,
-                      ),
+            const SizedBox(
+              height: PaddingSizes.large,
+            ),
+            SubscriptionToggleTab(
+              callback: (int) {},
+              height: 50,
+              width: 350,
+            ),
+            const SizedBox(
+              height: PaddingSizes.xxl,
+            ),
+            const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                PlanOption(
+                  title: SizedBox(
+                    height: 50,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text("Free"),
                     ),
-                  ],
-                  style: textTheme.labelMedium?.copyWith(
-                    color: TextStyles.subTitleColor,
+                  ),
+                  price: 20,
+                  isSelected: true,
+                  subTitle: "Need more? Go PRO!",
+                ),
+                SizedBox(
+                  width: PaddingSizes.large,
+                ),
+                PlanOption(
+                  title: SizedBox(
+                    height: 50,
+                    child: SvgIcon(
+                      size: 35,
+                      TradelyIcons.tradelyLogoPro,
+                      leaveUnaltered: true,
+                    ),
+                  ),
+                  price: 20,
+                  isSelected: true,
+                  subTitle: "Save \$45 with annual plan",
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: PaddingSizes.extraLarge,
+            ),
+            Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(
+                  BorderRadii.large,
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: PaddingSizes.xxl,
+                  vertical: PaddingSizes.medium,
+                ),
+                child: RichText(
+                  text: TextSpan(
+                    text: "Terms and conditions apply, for more info ",
+                    children: [
+                      TextSpan(
+                        text: "click here",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () async {
+                            Uri url = Uri.parse("https://tradely.io/");
+                            if (await canLaunchUrl(url)) {
+                              launchUrl(
+                                Uri.parse("https://tradely.io/"),
+                              );
+                            }
+                          },
+                        style: textTheme.labelMedium?.copyWith(
+                          color: colorScheme.primary,
+                          decoration: TextDecoration.underline,
+                          decorationColor: colorScheme.primary,
+                        ),
+                      ),
+                    ],
+                    style: textTheme.labelMedium?.copyWith(
+                      color: TextStyles.subTitleColor,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

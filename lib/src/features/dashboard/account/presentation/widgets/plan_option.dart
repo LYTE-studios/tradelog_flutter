@@ -25,34 +25,35 @@ class PlanOption extends StatelessWidget {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Container(
-      width: 300,
-      decoration: BoxDecoration(
-        color: colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(
-          BorderRadii.large,
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: colorScheme.primaryContainer,
+          borderRadius: BorderRadius.circular(
+            BorderRadii.large,
+          ),
         ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: PaddingSizes.xxl,
-          vertical: PaddingSizes.extraLarge,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            title,
-            Text("\$$price /month"),
-            Text(
-              subTitle,
-              style: textTheme.titleMedium?.copyWith(
-                color: TextStyles.subTitleColor,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: PaddingSizes.xxl,
+            vertical: PaddingSizes.extraLarge,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              title,
+              Text("\$$price /month"),
+              Text(
+                subTitle,
+                style: textTheme.titleMedium?.copyWith(
+                  color: TextStyles.subTitleColor,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: PaddingSizes.extraLarge,
-            ),
-          ],
+              const SizedBox(
+                height: PaddingSizes.extraLarge,
+              ),
+            ],
+          ),
         ),
       ),
     );

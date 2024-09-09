@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/data/enum/long_short_selector.dart';
+import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_buttons.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_color_identifier.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_gauge.dart';

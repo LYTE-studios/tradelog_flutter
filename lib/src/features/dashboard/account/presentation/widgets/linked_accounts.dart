@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account.dart';
-import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LinkedAccounts extends StatelessWidget {
@@ -29,28 +28,21 @@ class LinkedAccounts extends StatelessWidget {
         ),
         SizedBox(
           height: 135,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              LinkedAccount(),
-              LinkedAccount(),
-              LinkedAccount(),
-              LinkedAccount(),
-              LinkedAccount(),
-              LinkedAccount(),
-            ],
+          child: Scrollbar(
+            child: ListView(
+              primary: true,
+              scrollDirection: Axis.horizontal,
+              children: [
+                LinkedAccount(),
+                LinkedAccount(),
+                LinkedAccount(),
+                LinkedAccount(),
+                LinkedAccount(),
+                LinkedAccount(),
+              ],
+            ),
           ),
         ),
-        const SizedBox(
-          height: PaddingSizes.xxl,
-        ),
-        PrimaryButton(
-          onTap: () {},
-          height: 42,
-          text: "See all accounts",
-          expand: false,
-          color: colorScheme.secondaryContainer,
-        )
       ],
     );
   }

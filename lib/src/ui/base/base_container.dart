@@ -19,6 +19,8 @@ class BaseContainer extends StatelessWidget {
 
   final EdgeInsets? outsidePadding;
 
+  final BoxConstraints? boxConstraints;
+
   const BaseContainer({
     super.key,
     this.child,
@@ -29,6 +31,7 @@ class BaseContainer extends StatelessWidget {
     this.backgroundColor,
     this.enableBorder = true,
     this.outsidePadding,
+    this.boxConstraints,
   });
 
   @override
@@ -45,6 +48,7 @@ class BaseContainer extends StatelessWidget {
           borderRadius ?? BorderRadii.large,
         ),
         child: Container(
+          constraints: boxConstraints,
           height: height,
           width: width,
           decoration: BoxDecoration(
