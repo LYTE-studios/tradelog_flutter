@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -40,134 +42,138 @@ class _GeneralInfoState extends State<GeneralInfo> {
 
     final TextEditingController firstNameTec = TextEditingController();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "General info",
-                  style: textTheme.titleSmall?.copyWith(
-                    fontSize: 19,
-                  ),
-                ),
-                Visibility(
-                  visible: widget.warningText != null,
-                  child: Row(
-                    children: [
-                      const SvgIcon(
-                        TradelyIcons.warning,
-                        leaveUnaltered: true,
-                      ),
-                      Text(
-                        widget.warningText!,
-                        style: textTheme.titleSmall?.copyWith(
-                          color: colorScheme.onError,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            PrimaryButton(
-              color: colorScheme.errorContainer,
-              onTap: () {},
-              height: 38,
-              text: "Delete Account",
-              textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: colorScheme.error,
-                    fontSize: 16,
-                  ),
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: PaddingSizes.extraLarge,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            PrimaryTextInput(
-              readOnly: !isEditing,
-              width: 350,
-              label: "First Name",
-              tec: firstNameTec,
-              hint: "Robin",
-            ),
-            const SizedBox(
-              width: PaddingSizes.xxxl,
-            ),
-            PrimaryTextInput(
-              readOnly: !isEditing,
-              width: 350,
-              label: "Last Name",
-              tec: lastNameTec,
-              hint: "Monseré",
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: PaddingSizes.extraLarge,
-        ),
-        Row(
-          children: [
-            PrimaryTextInput(
-              readOnly: !isEditing,
-              width: 350,
-              label: "Your email",
-              tec: emailTec,
-              hint: "monsere.robin@gmail.com",
-            ),
-            const SizedBox(
-              width: PaddingSizes.xxxl,
-            ),
-            PrimaryTextInput(
-              readOnly: !isEditing,
-              width: 350,
-              label: "Your email",
-              tec: emailTec,
-              hint: "monsere.robin@gmail.com",
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: PaddingSizes.extraLarge,
-        ),
-        Visibility(
-          visible: !isEditing,
-          replacement: Row(
+    return LayoutBuilder(builder: (context, constraints) {
+      double columnWidth = constraints.maxWidth;
+      double inputWidth = min((columnWidth - PaddingSizes.xxxl) / 2, 350);
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              PrimaryButton(
-                onTap: toggleEditing,
-                width: 150,
-                height: 42,
-                text: "Save changes",
-                color: colorScheme.primaryContainer,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "General info",
+                    style: textTheme.titleSmall?.copyWith(
+                      fontSize: 19,
+                    ),
+                  ),
+                  Visibility(
+                    visible: widget.warningText != null,
+                    child: Row(
+                      children: [
+                        const SvgIcon(
+                          TradelyIcons.warning,
+                          leaveUnaltered: true,
+                        ),
+                        Text(
+                          widget.warningText!,
+                          style: textTheme.titleSmall?.copyWith(
+                            color: colorScheme.onError,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               PrimaryButton(
-                onTap: toggleEditing,
-                width: 100,
-                height: 42,
-                text: "Cancel",
-                color: Colors.orange,
+                color: colorScheme.errorContainer,
+                onTap: () {},
+                height: 38,
+                text: "Delete Account",
+                textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                      color: colorScheme.error,
+                      fontSize: 16,
+                    ),
               ),
             ],
           ),
-          child: PrimaryButton(
-            onTap: toggleEditing,
-            width: 150,
-            height: 42,
-            text: "Edit info",
-            color: colorScheme.primaryContainer,
+          const SizedBox(
+            height: PaddingSizes.extraLarge,
           ),
-        ),
-      ],
-    );
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              PrimaryTextInput(
+                readOnly: !isEditing,
+                width: inputWidth,
+                label: "First Name",
+                tec: firstNameTec,
+                hint: "Robin",
+              ),
+              const SizedBox(
+                width: PaddingSizes.xxxl,
+              ),
+              PrimaryTextInput(
+                readOnly: !isEditing,
+                width: inputWidth,
+                label: "Last Name",
+                tec: lastNameTec,
+                hint: "Monseré",
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: PaddingSizes.extraLarge,
+          ),
+          Row(
+            children: [
+              PrimaryTextInput(
+                readOnly: !isEditing,
+                width: inputWidth,
+                label: "Your email",
+                tec: emailTec,
+                hint: "monsere.robin@gmail.com",
+              ),
+              const SizedBox(
+                width: PaddingSizes.xxxl,
+              ),
+              PrimaryTextInput(
+                readOnly: !isEditing,
+                width: inputWidth,
+                label: "Your email",
+                tec: emailTec,
+                hint: "monsere.robin@gmail.com",
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: PaddingSizes.extraLarge,
+          ),
+          Visibility(
+            visible: !isEditing,
+            replacement: Row(
+              children: [
+                PrimaryButton(
+                  onTap: toggleEditing,
+                  width: 150,
+                  height: 42,
+                  text: "Save changes",
+                  color: colorScheme.primaryContainer,
+                ),
+                PrimaryButton(
+                  onTap: toggleEditing,
+                  width: 100,
+                  height: 42,
+                  text: "Cancel",
+                  color: Colors.orange,
+                ),
+              ],
+            ),
+            child: PrimaryButton(
+              onTap: toggleEditing,
+              width: 150,
+              height: 42,
+              text: "Edit info",
+              color: colorScheme.primaryContainer,
+            ),
+          ),
+        ],
+      );
+    });
   }
 }

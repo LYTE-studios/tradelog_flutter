@@ -27,6 +27,7 @@ class PlanOption extends StatelessWidget {
 
     return Expanded(
       child: Container(
+        //width: 300,
         decoration: BoxDecoration(
           color: colorScheme.primaryContainer,
           borderRadius: BorderRadius.circular(
