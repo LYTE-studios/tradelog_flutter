@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
+import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -25,6 +27,21 @@ class DiaryScreen extends StatelessWidget {
           prefixIcon: TradelyIcons.plusCircle,
           prefixIconSize: 22,
         ),
+      ),
+      child: const Row(
+        children: [
+          BaseContainerExpanded(
+            flex: 2,
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                DateSelectorContainer(),
+                BaseContainerExpanded(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

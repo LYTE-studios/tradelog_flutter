@@ -13,6 +13,8 @@ class BaseContainer extends StatelessWidget {
 
   final double? borderRadius;
 
+  final Color? backgroundColor;
+
   const BaseContainer({
     super.key,
     this.child,
@@ -20,28 +22,36 @@ class BaseContainer extends StatelessWidget {
     this.width,
     this.padding,
     this.borderRadius,
+    this.backgroundColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1,
-          color: Theme.of(context).colorScheme.outline,
-        ),
-        borderRadius: BorderRadius.circular(
-          borderRadius ?? BorderRadii.large,
-        ),
+    // clipRRect is specifically for the data_list, the list items can have a different color.
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(
+        borderRadius ?? BorderRadii.large,
       ),
-      child: Padding(
-        padding: padding ??
-            const EdgeInsets.all(
-              PaddingSizes.xxl,
-            ),
-        child: child,
+      child: Container(
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: Border.all(
+            width: 1,
+            color: Theme.of(context).colorScheme.outline,
+          ),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? BorderRadii.large,
+          ),
+        ),
+        child: Padding(
+          padding: padding ??
+              const EdgeInsets.all(
+                PaddingSizes.xxl,
+              ),
+          child: child,
+        ),
       ),
     );
   }

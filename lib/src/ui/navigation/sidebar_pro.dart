@@ -27,6 +27,7 @@ class SidebarPro extends StatelessWidget {
             )
           : Container(
               decoration: BoxDecoration(
+                // TODO, buttons are broken because of this color.
                 color: Theme.of(context).colorScheme.secondaryContainer,
                 borderRadius: BorderRadius.circular(
                   BorderRadii.small,
@@ -61,6 +62,7 @@ class SidebarPro extends StatelessWidget {
                       height: PaddingSizes.extraLarge,
                     ),
                     PrimaryButton(
+                      // color: Colors.amber,
                       onTap: () {},
                       height: 40,
                       text: "Upgrade now",
