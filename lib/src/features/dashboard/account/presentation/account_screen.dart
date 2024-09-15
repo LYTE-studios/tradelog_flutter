@@ -13,8 +13,8 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseTradelyPage(
-      header: const BaseTradelyPageHeader(
+    return const BaseTradelyPage(
+      header: BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
         icon: TradelyIcons.account,
         currentRoute: location,

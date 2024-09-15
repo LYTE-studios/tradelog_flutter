@@ -144,9 +144,8 @@ class _GeneralInfoState extends State<GeneralInfo> {
           const SizedBox(
             height: PaddingSizes.extraLarge,
           ),
-          Visibility(
-            visible: !isEditing,
-            replacement: Row(
+          if (isEditing)
+            Row(
               children: [
                 PrimaryButton(
                   onTap: toggleEditing,
@@ -160,18 +159,19 @@ class _GeneralInfoState extends State<GeneralInfo> {
                   width: 100,
                   height: 42,
                   text: "Cancel",
-                  color: Colors.orange,
+                  textStyle: textTheme.titleMedium,
+                  color: Theme.of(context).scaffoldBackgroundColor,
                 ),
               ],
             ),
-            child: PrimaryButton(
+          if (!isEditing)
+            PrimaryButton(
               onTap: toggleEditing,
               width: 150,
               height: 42,
               text: "Edit info",
               color: colorScheme.primaryContainer,
             ),
-          ),
         ],
       );
     });

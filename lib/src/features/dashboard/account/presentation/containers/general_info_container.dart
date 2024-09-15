@@ -14,6 +14,7 @@ class GeneralInfoContainer extends StatelessWidget {
       child: Column(
         children: [
           GeneralInfo(
+            // These might need to be in GeneralInfo anyways.
             onEdit: () {},
             warningText: "Please verify your email address",
           ),
