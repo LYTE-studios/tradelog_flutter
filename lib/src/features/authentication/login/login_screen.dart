@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/shared/auth_divider.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -33,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
         width: 430,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Align(
               alignment: Alignment.centerLeft,
