@@ -126,34 +126,25 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: PaddingSizes.xxxxl,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "New here?",
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: theme.colorScheme.onPrimary,
-                    fontWeight: FontWeight.w400,
+            RichText(
+              text: TextSpan(
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onPrimary,
+                  fontWeight: FontWeight.w400,
+                ),
+                children: [
+                  const TextSpan(
+                    text: "New here?",
                   ),
-                ),
-                const SizedBox(
-                  width: PaddingSizes.extraSmall,
-                ),
-                ClearInkWell(
-                  onTap: () {
-                    context.go(
-                      RegisterScreen.route,
-                    );
-                  },
-                  child: Text(
-                    "Create an account",
+                  TextSpan(
+                    text: "Create an account",
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: theme.colorScheme.primary,
                     ),
                   ),
-                ),
-              ],
-            )
+                ],
+              ),
+            ),
           ],
         ),
       ),
