@@ -1,13 +1,14 @@
 import 'dart:developer';
 
-import 'package:tradelog_client/tradelog_client.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/secrets.dart';
 
 import 'data/test_data.dart';
 
 void main() {
   var client = Client(
-    'http://localhost:8080/',
+    apiUrl,
     authenticationKeyManager: TestAuthKeyManager(),
   );
 
@@ -51,8 +52,9 @@ void main() {
 
     test('tradelocker authenticate', () async {
       try {
-        var response = await client.tradeLocker.authenticate(tradelockerDemoEmail, tradelockerDemoPass, tradelockerDemoServer);
-        
+        var response = await client.tradeLocker.authenticate(
+            tradelockerDemoEmail, tradelockerDemoPass, tradelockerDemoServer);
+
         expect(response, isNotNull);
       } on Exception catch (e) {
         log(e.toString());
@@ -81,7 +83,8 @@ void main() {
 
     test('tradelocker getPositions', () async {
       try {
-        var response = await client.tradeLocker.getPositions(tradelockerDemoAccountId, tradelockerDemoAccNum);
+        var response = await client.tradeLocker
+            .getPositions(tradelockerDemoAccountId, tradelockerDemoAccNum);
 
         expect(response, equals('200'));
       } on Exception catch (e) {

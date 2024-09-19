@@ -1,6 +1,7 @@
-import 'package:tradelog_client/tradelog_client.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
+import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/secrets.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/ui/theme/tradely_theme.dart';
 
@@ -9,15 +10,14 @@ import 'package:tradelog_flutter/src/ui/theme/tradely_theme.dart';
 // The client is set up to connect to a Serverpod running on a local server on
 // the default port. You will need to modify this to connect to staging or
 // production servers.
-var client = Client('http://$localhost:8080/')
-  ..connectivityMonitor = FlutterConnectivityMonitor();
+var client = Client(apiUrl)..connectivityMonitor = FlutterConnectivityMonitor();
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TradelyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TradelyApp extends StatelessWidget {
+  const TradelyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
