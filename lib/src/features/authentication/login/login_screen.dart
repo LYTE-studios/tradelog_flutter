@@ -1,7 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/shared/auth_divider.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -20,7 +24,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
   final TextEditingController emailTec = TextEditingController();
   final TextEditingController pwTec = TextEditingController();
 
@@ -132,10 +136,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 children: [
                   const TextSpan(
-                    text: "New here?",
+                    text: "New here? ",
                   ),
                   TextSpan(
                     text: "Create an account",
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        router.go(RegisterScreen.route);
+                      },
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: theme.colorScheme.primary,
                     ),
