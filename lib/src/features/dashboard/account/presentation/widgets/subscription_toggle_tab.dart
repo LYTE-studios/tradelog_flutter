@@ -11,7 +11,7 @@ import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 // and modified it so it could handle the custom text
 class SubscriptionToggleTab extends StatefulWidget {
   /// function(int) for call back and control the view of tabs
-  final Function(ProFrequency) callback;
+  final Function(ProFrequency) onToggle;
 
   /// height of the tab
   final double height;
@@ -23,7 +23,7 @@ class SubscriptionToggleTab extends StatefulWidget {
 
   const SubscriptionToggleTab({
     super.key,
-    required this.callback,
+    required this.onToggle,
     required this.height,
     required this.width,
     this.initialIndex = 0,
@@ -49,7 +49,7 @@ class _SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
   void setFrequency(ProFrequency frequency) {
     setState(() {
       selectedFrequency = frequency;
-      widget.callback(selectedFrequency);
+      widget.onToggle(selectedFrequency);
     });
   }
 

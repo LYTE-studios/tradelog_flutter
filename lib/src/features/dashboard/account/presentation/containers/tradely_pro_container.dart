@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/plan_option.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/subscription_toggle_tab.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
@@ -53,7 +54,7 @@ class TradelyProContainer extends StatelessWidget {
               height: PaddingSizes.large,
             ),
             SubscriptionToggleTab(
-              callback: (int) {},
+              onToggle: (ProFrequency proFrequency) {},
               height: 50,
               width: 350,
             ),
