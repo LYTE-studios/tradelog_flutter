@@ -135,7 +135,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
               PrimaryTextInput(
                 readOnly: !isEditing,
                 width: inputWidth,
-                label: "Your email",
+                label: "Date of birth",
                 tec: emailTec,
                 hint: "monsere.robin@gmail.com",
               ),
