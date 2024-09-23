@@ -18,7 +18,6 @@ dependencies:
   smooth_page_indicator: ^1.2.0+3
   cupertino_icons: ^1.0.5
   super_tooltip: ^2.0.8
-  appinio_animated_toggle_tab: ^1.0.3
   # older version because SyncFusion is broken in latest flutter update
   # https://stackoverflow.com/a/78883987
   # https://github.com/syncfusion/flutter-widgets/issues/2012
