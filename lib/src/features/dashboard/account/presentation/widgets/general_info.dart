@@ -27,6 +27,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
   TextEditingController lastNameTec = TextEditingController();
   TextEditingController emailTec = TextEditingController();
 
+  // todo make this a real date input field
+  TextEditingController dateTec = TextEditingController();
+
   bool isEditing = false;
 
   void toggleEditing() {
@@ -136,8 +139,8 @@ class _GeneralInfoState extends State<GeneralInfo> {
                 readOnly: !isEditing,
                 width: inputWidth,
                 label: "Date of birth",
-                tec: emailTec,
-                hint: "monsere.robin@gmail.com",
+                tec: dateTec,
+                hint: "07/03/2003",
               ),
             ],
           ),
@@ -153,6 +156,9 @@ class _GeneralInfoState extends State<GeneralInfo> {
                   height: 42,
                   text: "Save changes",
                   color: colorScheme.primaryContainer,
+                ),
+                const SizedBox(
+                  width: PaddingSizes.xxs,
                 ),
                 PrimaryButton(
                   onTap: toggleEditing,
