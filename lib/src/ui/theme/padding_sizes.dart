@@ -22,7 +22,4 @@ class PaddingSizes {
 
   ///
   static const double xxxxl = 45;
-
-  ///
-  static const double xxxxxl = 55;
 }

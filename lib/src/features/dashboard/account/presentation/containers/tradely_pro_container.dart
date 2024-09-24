@@ -20,14 +20,13 @@ class TradelyProContainer extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return BaseContainer(
-      //width: 687,
       boxConstraints: const BoxConstraints(
         minWidth: 100,
         maxWidth: 687,
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: PaddingSizes.xxxl,
-        vertical: PaddingSizes.xxxxxl,
+        vertical: PaddingSizes.xxl * 2,
       ),
       child: IntrinsicWidth(
         child: Column(
