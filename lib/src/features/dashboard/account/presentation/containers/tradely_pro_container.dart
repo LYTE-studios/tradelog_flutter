@@ -30,7 +30,7 @@ class TradelyProContainer extends StatelessWidget {
       ),
       child: IntrinsicWidth(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Row(
               children: [
@@ -97,7 +97,7 @@ class TradelyProContainer extends StatelessWidget {
               height: PaddingSizes.extraLarge,
             ),
             Container(
-              width: double.infinity,
+              //   width: double.infinity,
               decoration: BoxDecoration(
                 color: colorScheme.primaryContainer,
                 borderRadius: BorderRadius.circular(

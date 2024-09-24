@@ -6,6 +6,7 @@ import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
+// todo move this to the UI package
 // I yoinked this from
 // https://pub.dev/packages/appinio_animated_toggle_tab/example
 // and modified it so it could handle the custom text
@@ -56,6 +57,9 @@ class _SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(
+        maxWidth: widget.width,
+      ),
       height: widget.height,
       width: widget.width,
       decoration: BoxDecoration(
