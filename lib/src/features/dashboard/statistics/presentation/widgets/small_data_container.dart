@@ -27,9 +27,10 @@ class SmallDataContainer extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return BaseContainerExpanded(
-      padding: const EdgeInsets.symmetric(
-        horizontal: PaddingSizes.xxl,
-        vertical: PaddingSizes.extraLarge,
+      padding: const EdgeInsets.only(
+        left: PaddingSizes.xxl,
+        top: PaddingSizes.extraLarge,
+        bottom: PaddingSizes.extraLarge,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
