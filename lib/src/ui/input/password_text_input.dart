@@ -73,7 +73,7 @@ class _PasswordTextInputState extends State<PasswordTextInput> {
               child: SvgIcon(
                 obscure ? TradelyIcons.eyeOpen : TradelyIcons.eyeClosed,
                 size: obscure ? 16 : 25,
-                color: Theme.of(context).colorScheme.onSecondaryContainer,
+                color: Theme.of(context).colorScheme.onPrimary,
               ),
             ),
           ),

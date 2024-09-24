@@ -1,6 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/shared/auth_divider.dart';
@@ -21,7 +24,7 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
   final TextEditingController emailTec = TextEditingController();
   final TextEditingController pwTec = TextEditingController();
 
@@ -37,8 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                "Welcome!",
-                style: theme.textTheme.titleLarge,
+                "Welcome back!",
+                style: theme.textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             const SizedBox(
@@ -47,25 +52,18 @@ class _LoginScreenState extends State<LoginScreen> {
             PrimaryTextInput(
               width: double.infinity,
               tec: emailTec,
-              label: "Email Address",
+              label: "Email",
+              hint: "Enter your email address...",
               height: 57,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.extraLarge,
-                // why does xxxl doe weird shit?
-                vertical: PaddingSizes.xxxxl,
-              ),
             ),
             const SizedBox(
               height: PaddingSizes.large,
             ),
             PasswordTextInput(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.extraLarge,
-                vertical: PaddingSizes.xxxxl,
-              ),
               tec: pwTec,
               width: double.infinity,
               label: "Password",
+              hint: "*****",
               height: 57,
             ),
             const SizedBox(
@@ -103,18 +101,18 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: PaddingSizes.xxl,
             ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Something went wrong, badly, blame backend.',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color: theme.colorScheme.error,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: PaddingSizes.extraLarge,
-            ),
+            // Align(
+            //   alignment: Alignment.centerLeft,
+            //   child: Text(
+            //     'Something went wrong, badly, blame backend.',
+            //     style: theme.textTheme.titleMedium?.copyWith(
+            //       color: theme.colorScheme.error,
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: PaddingSizes.extraLarge,
+            // ),
             const AuthDivider(),
             const SizedBox(
               height: PaddingSizes.extraLarge,
@@ -130,32 +128,29 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: PaddingSizes.xxxxl,
             ),
-            Row(
-              children: [
-                Text(
-                  "New here?",
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: theme.colorScheme.onPrimary,
+            RichText(
+              text: TextSpan(
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onPrimary,
+                  fontWeight: FontWeight.w400,
+                ),
+                children: [
+                  const TextSpan(
+                    text: "New here? ",
                   ),
-                ),
-                const SizedBox(
-                  width: PaddingSizes.extraSmall,
-                ),
-                ClearInkWell(
-                  onTap: () {
-                    context.go(
-                      RegisterScreen.route,
-                    );
-                  },
-                  child: Text(
-                    "Create an account",
+                  TextSpan(
+                    text: "Create an account",
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        router.go(RegisterScreen.route);
+                      },
                     style: theme.textTheme.titleMedium?.copyWith(
                       color: theme.colorScheme.primary,
                     ),
                   ),
-                ),
-              ],
-            )
+                ],
+              ),
+            ),
           ],
         ),
       ),
