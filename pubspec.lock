@@ -146,10 +146,10 @@ packages:
     dependency: "direct dev"
     description:
       name: flutter_launcher_icons
-      sha256: "526faf84284b86a4cb36d20a5e45147747b7563d921373d4ee0559c54fcdbcea"
+      sha256: "619817c4b65b322b5104b6bb6dfe6cda62d9729bd7ad4303ecc8b4e690a67a77"
       url: "https://pub.dev"
     source: hosted
-    version: "0.13.1"
+    version: "0.14.1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -180,10 +180,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "2ddb88e9ad56ae15ee144ed10e33886777eb5ca2509a914850a5faa7b52ff459"
+      sha256: "5cf5fdcf853b0629deb35891c7af643be900c3dcaed7489009f9e7dbcfe55ab6"
       url: "https://pub.dev"
     source: hosted
-    version: "14.2.7"
+    version: "14.2.8"
   http:
     dependency: transitive
     description:
@@ -361,6 +361,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  serverpod_auth_client:
+    dependency: transitive
+    description:
+      name: serverpod_auth_client
+      sha256: "805d84dab365b517bda96e1e3841ad9c53978b5dd7725428b121d1899e59c52f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   serverpod_client:
     dependency: transitive
     description:
@@ -499,7 +507,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: c5d95ba508cc6fb88fe0076fbc2c296d6cee3362
+      resolved-ref: "1a08c5273499ed66ffeee8e25443a4d8737aef06"
       url: "https://lyte-manager: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@github.com/LYTE-studios/tradelog_client"
     source: git
     version: "0.0.0"
@@ -515,10 +523,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: f33d6bb662f0e4f79dcd7ada2e6170f3b3a2530c28fc41f49a411ddedd576a77
+      sha256: a5be9ef6618a7ac1e964353ef476418026db906c4facdedaa299b7a2e71690ff
       url: "https://pub.dev"
     source: hosted
-    version: "4.5.0"
+    version: "4.5.1"
   vector_graphics:
     dependency: transitive
     description:
