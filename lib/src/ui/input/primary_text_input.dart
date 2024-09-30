@@ -61,15 +61,11 @@ class PrimaryTextInput extends StatelessWidget {
           height: height,
           width: width ?? 200,
           child: TextField(
-<<<<<<< HEAD
             readOnly: readOnly,
-            style: Theme.of(context).textTheme.labelLarge,
-=======
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.w400,
                 ),
->>>>>>> bc5c0c90798462c9aa6abaad55c4eedea1aa6196
             controller: tec,
             decoration: InputDecoration(
               contentPadding: contentPadding ??
