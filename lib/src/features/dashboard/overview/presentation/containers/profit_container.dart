@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 
 class ProfitContainer extends StatelessWidget {
@@ -31,27 +30,17 @@ class ProfitContainer extends StatelessWidget {
               ),
             ],
           ),
-          // FittedBox is needed for Syncfusion widget.
-          FittedBox(
-            child: SfCircularChart(
-              margin: EdgeInsets.zero,
-              series: <CircularSeries>[
-                RadialBarSeries<String, String>(
-                  trackColor: Theme.of(context).colorScheme.tertiary,
-                  enableTooltip: true,
-                  maximumValue: 100,
-                  cornerStyle: CornerStyle.bothCurve,
-                  radius: "100%",
-                  dataSource: [""],
-                  innerRadius: '80%',
-                  xValueMapper: (_, __) => 'Profit',
-                  yValueMapper: (_, __) => 100 - percentage,
-                  pointColorMapper: (_, __) =>
-                      Theme.of(context).colorScheme.error,
-                )
-              ],
+          SizedBox(
+            width: 70,
+            height: 70,
+            child: CircularProgressIndicator(
+              value: 0.45,
+              backgroundColor: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).colorScheme.error,
+              strokeCap: StrokeCap.round,
+              strokeWidth: 7,
             ),
-          )
+          ),
         ],
       ),
     );

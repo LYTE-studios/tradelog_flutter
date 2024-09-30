@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
-import 'package:tradelog_flutter/src/ui/buttons/dialog_button.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
-import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
-import 'package:tradelog_flutter/src/ui/input/date_selector.dart';
+import 'package:tradelog_flutter/src/ui/dialogs/filter_trades_dialog.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
-import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
-class FilterTradesButton extends StatelessWidget {
+class FilterTradesButton extends StatefulWidget {
   final Function() onTap;
-
   final double height;
-
   final String? text;
-
   final String? prefixIcon;
-
   final bool? leaveIconUnaltered;
+  final TradeStatus tradeStatusFilter;
+  final TradeType tradeTypeFilter;
+  final Function(TradeType) onUpdateTradeTypeFilter;
+  final Function(TradeStatus) onUpdateTradeStatusFilter;
+  final Function() onResetFilters;
+  final Function() onShowTrades;
 
   const FilterTradesButton({
     super.key,
@@ -26,128 +25,110 @@ class FilterTradesButton extends StatelessWidget {
     this.text,
     this.prefixIcon,
     this.leaveIconUnaltered,
+    required this.tradeStatusFilter,
+    required this.tradeTypeFilter,
+    required this.onUpdateTradeTypeFilter,
+    required this.onUpdateTradeStatusFilter,
+    required this.onResetFilters,
+    required this.onShowTrades,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return DialogButton(
-      onTap: () {},
-      height: height,
-      text: text,
-      prefixIcon: prefixIcon,
-      dialog: BaseContainer(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        height: 640,
-        width: 520,
-        child: Column(
-          children: [
-            const DateSelector(
-              pickerSelectionMode: DateRangePickerSelectionMode.range,
-            ),
-            const SizedBox(
-              height: PaddingSizes.xxxl,
-            ),
-            Row(
-              children: [
-                PrimaryButton(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: PaddingSizes.medium,
-                  ),
-                  onTap: () {},
-                  height: 34,
-                  width: 95,
-                  text: "Long",
-                  prefixIcon: TradelyIcons.trendUp,
-                  prefixIconSize: 12,
-                ),
-                const SizedBox(
-                  width: PaddingSizes.medium,
-                ),
-                PrimaryButton(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: PaddingSizes.medium,
-                  ),
-                  onTap: () {},
-                  height: 34,
-                  width: 95,
-                  text: "Short",
-                  prefixIcon: TradelyIcons.trendDown,
-                  prefixIconSize: 12,
-                ),
-                const SizedBox(
-                  width: PaddingSizes.medium,
-                ),
-                PrimaryButton(
-                  onTap: () {},
-                  height: 34,
-                  width: 95,
-                  text: "- Both",
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: PaddingSizes.extraLarge,
-            ),
-            Row(
-              children: [
-                PrimaryButton(
-                  onTap: () {},
-                  height: 34,
-                  width: 95,
-                  text: "Closed",
-                ),
-                const SizedBox(
-                  width: PaddingSizes.medium,
-                ),
-                PrimaryButton(
-                  onTap: () {},
-                  height: 34,
-                  width: 95,
-                  text: "Open",
-                ),
-                const SizedBox(
-                  width: PaddingSizes.medium,
-                ),
-                PrimaryButton(
-                  onTap: () {},
-                  height: 34,
-                  width: 95,
-                  text: "Both",
-                ),
-              ],
-            ),
-            const Spacer(),
-            Row(
-              children: [
-                PrimaryButton(
-                  onTap: () {},
-                  height: 46,
-                  width: 195,
-                  prefixIcon: TradelyIcons.search,
-                  text: "Show 23 trades",
-                ),
-                const SizedBox(
-                  width: PaddingSizes.medium,
-                ),
-                PrimaryButton(
-                  onTap: () {},
-                  height: 46,
-                  width: 195,
-                  prefixIcon: TradelyIcons.reset,
-                  text: "Reset filters",
-                  textStyle: Theme.of(context).textTheme.titleMedium,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  prefixIconColor: TextStyles.mediumTitleColor,
-                  border: Border.all(
-                    width: 1,
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
-                ),
-              ],
-            )
-          ],
+  State<FilterTradesButton> createState() => _FilterTradesButtonState();
+}
+
+class _FilterTradesButtonState extends State<FilterTradesButton> {
+  TradeType tradeTypeFilter = TradeType.both;
+  TradeStatus tradeStatusFilter = TradeStatus.both;
+
+  OverlayEntry? _overlayEntry;
+
+  // Method to create the OverlayEntry (dialog)
+  OverlayEntry _createOverlayEntry() {
+    print("render");
+    RenderBox renderBox = context.findRenderObject() as RenderBox;
+    var size = renderBox.size; // size of the button
+    var offset = renderBox.localToGlobal(Offset.zero);
+    double width = MediaQuery.sizeOf(context).width;
+
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        right: width - offset.dx - size.width,
+        top: offset.dy + widget.height + PaddingSizes.large,
+        child: BaseContainer(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          height: 640,
+          width: 520,
+          child: FilterTradesDialog(
+            tradeTypeFilter: tradeTypeFilter,
+            tradeStatusFilter: tradeStatusFilter,
+            onResetFilters: widget.onResetFilters,
+            onUpdateTradeTypeFilter: onUpdateTradeType,
+            onUpdateTradeStatusFilter: onUpdateTradeStatus,
+            onShowTrades: widget.onShowTrades,
+          ),
         ),
       ),
+    );
+  }
+
+  void onUpdateTradeStatus(TradeStatus type) {
+    setState(() {
+      print("here zazaza");
+      tradeStatusFilter = type;
+      widget.onUpdateTradeStatusFilter(type);
+      _hideOverlay();
+      _showOverlay();
+    });
+  }
+
+  void onUpdateTradeType(TradeType type) {
+    setState(() {
+      print("here zazaza");
+      tradeTypeFilter = type;
+      widget.onUpdateTradeTypeFilter(type);
+      _hideOverlay();
+      _showOverlay();
+    });
+  }
+
+  void _showOverlay() {
+    _overlayEntry = _createOverlayEntry();
+    Overlay.of(context).insert(_overlayEntry!);
+  }
+
+  void _hideOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
+  void _toggleOverlay() {
+    if (_overlayEntry == null) {
+      _showOverlay();
+    } else {
+      _hideOverlay();
+    }
+  }
+
+  @override
+  void initState() {
+    tradeTypeFilter = widget.tradeTypeFilter;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _hideOverlay();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PrimaryButton(
+      onTap: _toggleOverlay,
+      height: widget.height,
+      text: widget.text,
+      prefixIcon: widget.prefixIcon,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/widgets/small_data_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -38,6 +39,16 @@ class StatisticsScreen extends StatelessWidget {
               height: 42,
               text: "Filter trades",
               prefixIcon: TradelyIcons.diary,
+              tradeStatusFilter: TradeStatus.both,
+              tradeTypeFilter: TradeType.both,
+              onUpdateTradeTypeFilter: (TradeType ty) {
+                print(ty);
+              },
+              onUpdateTradeStatusFilter: (TradeStatus st) {
+                print(st);
+              },
+              onResetFilters: () {},
+              onShowTrades: () {},
             ),
           ],
         ),
