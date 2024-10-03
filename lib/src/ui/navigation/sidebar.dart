@@ -79,12 +79,6 @@ class Sidebar extends StatelessWidget {
                       extended: extended,
                       route: AccountScreen.route,
                     ),
-                    const SizedBox(
-                      height: PaddingSizes.large,
-                    ),
-                    SidebarPro(
-                      extended: extended,
-                    ),
                     const Spacer(),
                     SidebarFooter(
                       extended: extended,

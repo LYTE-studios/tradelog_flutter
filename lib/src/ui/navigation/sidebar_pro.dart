@@ -7,6 +7,7 @@ import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
+/// This widget is currently not being used, leaving the code here if it does happen to be necessary
 class SidebarPro extends StatelessWidget {
   final bool extended;
 

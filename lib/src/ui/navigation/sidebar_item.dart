@@ -50,7 +50,7 @@ class SidebarItem extends StatelessWidget {
           vertical: PaddingSizes.xxs,
         ),
         child: InkWell(
-          hoverColor: theme.colorScheme.primary.withOpacity(0.2),
+          hoverColor: theme.colorScheme.primaryContainer.withOpacity(0.2),
           onTap: () {
             context.go(
               route,
@@ -65,7 +65,7 @@ class SidebarItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                 BorderRadii.small,
               ),
-              color: selected ? theme.colorScheme.primary : null,
+              color: selected ? theme.colorScheme.primaryContainer : null,
             ),
             child: Row(
               mainAxisAlignment:
