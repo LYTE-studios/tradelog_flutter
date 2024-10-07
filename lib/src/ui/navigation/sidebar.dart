@@ -9,7 +9,6 @@ import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_footer.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_header.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_item.dart';
-import 'package:tradelog_flutter/src/ui/navigation/sidebar_pro.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class Sidebar extends StatelessWidget {
@@ -78,12 +77,6 @@ class Sidebar extends StatelessWidget {
                     SidebarItem(
                       extended: extended,
                       route: AccountScreen.route,
-                    ),
-                    const SizedBox(
-                      height: PaddingSizes.large,
-                    ),
-                    SidebarPro(
-                      extended: extended,
                     ),
                     const Spacer(),
                     SidebarFooter(
