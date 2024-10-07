@@ -15,6 +15,12 @@ class BaseContainer extends StatelessWidget {
 
   final Color? backgroundColor;
 
+  final bool enableBorder;
+
+  final EdgeInsets? outsidePadding;
+
+  final BoxConstraints? boxConstraints;
+
   const BaseContainer({
     super.key,
     this.child,
@@ -23,34 +29,47 @@ class BaseContainer extends StatelessWidget {
     this.padding,
     this.borderRadius,
     this.backgroundColor,
+    this.enableBorder = true,
+    this.outsidePadding,
+    this.boxConstraints,
   });
 
   @override
   Widget build(BuildContext context) {
     // clipRRect is specifically for the data_list, the list items can have a different color.
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(
-        borderRadius ?? BorderRadii.large,
-      ),
-      child: Container(
-        height: height,
-        width: width,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          border: Border.all(
-            width: 1,
-            color: Theme.of(context).colorScheme.outline,
+    return Padding(
+      padding: outsidePadding ??
+          const EdgeInsets.symmetric(
+            vertical: PaddingSizes.extraSmall,
+            horizontal: PaddingSizes.xxs,
           ),
-          borderRadius: BorderRadius.circular(
-            borderRadius ?? BorderRadii.large,
-          ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(
+          borderRadius ?? BorderRadii.large,
         ),
-        child: Padding(
-          padding: padding ??
-              const EdgeInsets.all(
-                PaddingSizes.xxl,
-              ),
-          child: child,
+        child: Container(
+          constraints: boxConstraints,
+          height: height,
+          width: width,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            border: enableBorder
+                ? Border.all(
+                    width: 1,
+                    color: Theme.of(context).colorScheme.outline,
+                  )
+                : null,
+            borderRadius: BorderRadius.circular(
+              borderRadius ?? BorderRadii.large,
+            ),
+          ),
+          child: Padding(
+            padding: padding ??
+                const EdgeInsets.all(
+                  PaddingSizes.xxl,
+                ),
+            child: child,
+          ),
         ),
       ),
     );
