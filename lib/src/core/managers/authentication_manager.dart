@@ -1,4 +1,3 @@
-import 'package:serverpod_auth_email_flutter/serverpod_auth_email_flutter.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/main.dart';
 
@@ -8,11 +7,12 @@ class AuthenticationManager {
     required String email,
     required String password,
   }) async {
-    final authController = EmailAuthController(client.modules.auth);
+    var response = await client.modules.auth.email.authenticate(
+      email,
+      password,
+    );
 
-    UserInfo? user = await authController.signIn(email, password);
-
-    if (user == null) {
+    if (!response.success) {
       return AuthenticationResult.failure;
     }
 
@@ -29,13 +29,10 @@ class AuthenticationManager {
       return AuthenticationResult.passwordTooShort;
     }
 
-    // Fetches the auth controller used for email authentication
-    final authController = EmailAuthController(client.modules.auth);
-
     try {
       // Sends a request to create the user account
       // Sets the username equal to the email
-      bool created = await authController.createAccountRequest(
+      bool created = await client.modules.auth.email.createAccountRequest(
         email,
         email,
         password,
