@@ -1,8 +1,47 @@
+import 'dart:io' as io;
+
+import 'package:flutter/foundation.dart';
+import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/main.dart';
+import 'package:tradelog_flutter/secrets.dart';
 
 /// Class for bundled authentication functionality
 class AuthenticationManager {
+  static Future<AuthenticationResult> googleSignIn() async {
+// local
+    UserInfo? userInfo;
+
+    // Get the user info from trying to sign in
+    try {
+      String clientId = '';
+      if (kIsWeb) {
+        clientId = googleClientIdWeb;
+      } else if (io.Platform.isIOS) {
+        throw UnimplementedError();
+      } else if (io.Platform.isAndroid) {
+        throw UnimplementedError();
+      } else {
+        throw Exception('Platform undefined');
+      }
+
+      userInfo = await signInWithGoogle(
+        client.modules.auth,
+        clientId: clientId,
+        serverClientId: googleClientIdAPI,
+        redirectUri: Uri.parse('${apiUrl}googlesignin'),
+      );
+
+      if (userInfo == null) {
+        return AuthenticationResult.failure;
+      }
+    } catch (e) {
+      return AuthenticationResult.error;
+    }
+
+    return AuthenticationResult.success;
+  }
+
   static Future<AuthenticationResult> signIn({
     required String email,
     required String password,
@@ -61,6 +100,7 @@ class AuthenticationManager {
 }
 
 enum AuthenticationResult {
+  success,
   newUser,
   authenticated,
   failure,

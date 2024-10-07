@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
@@ -118,7 +119,14 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
               height: PaddingSizes.extraLarge,
             ),
             PrimaryButton(
-              onTap: () {},
+              onTap: () async {
+                AuthenticationResult result =
+                    await AuthenticationManager.googleSignIn();
+
+                if (result == AuthenticationResult.success) {
+                  router.go(OverviewScreen.route);
+                }
+              },
               height: 53,
               color: theme.colorScheme.primaryContainer,
               text: "Login with Google",
