@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tradelog_flutter/src/core/utils/page_builder_utils.dart';
-import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/login/login_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/new_password/new_password_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/register/register_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/register/verification_code_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/shared/auth_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/forgot_password/forgot_password_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/new_password/new_password_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/register/register_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/register/verification_code_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/widgets/auth_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/dashboard_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary_screen.dart';
@@ -28,42 +27,42 @@ GoRouter router = GoRouter(
               const NoTransitionPage(
             child: LoginScreen(),
           ),
-        ),
-        GoRoute(
-          path: RegisterScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
-            child: RegisterScreen(),
-          ),
           routes: [
             GoRoute(
-              path: VerificationCodeScreen.location,
+              path: RegisterScreen.location,
               pageBuilder: (BuildContext context, GoRouterState state) =>
-                  NoTransitionPage(
-                child: VerificationCodeScreen(
-                  email: state.extra as String,
-                ),
+                  const NoTransitionPage(
+                child: RegisterScreen(),
               ),
+              routes: [
+                GoRoute(
+                  path: VerificationCodeScreen.location,
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      NoTransitionPage(
+                    child: VerificationCodeScreen(
+                      email: state.extra as String,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            GoRoute(
+              path: ForgotPasswordScreen.location,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  const NoTransitionPage(
+                child: ForgotPasswordScreen(),
+              ),
+              routes: [
+                GoRoute(
+                  path: NewPasswordScreen.location,
+                  pageBuilder: (BuildContext context, GoRouterState state) =>
+                      const NoTransitionPage(
+                    child: NewPasswordScreen(),
+                  ),
+                ),
+              ],
             ),
           ],
-        ),
-        GoRoute(
-          path: ForgotPasswordScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              PageBuilderUtils.buildPageWithAnimationBuilder(
-            context: context,
-            child: const ForgotPasswordScreen(),
-            builder: PageBuilderUtils.buildRightSlideAnimation,
-          ),
-        ),
-        GoRoute(
-          path: NewPasswordScreen.route,
-          pageBuilder: (BuildContext context, GoRouterState state) =>
-              PageBuilderUtils.buildPageWithAnimationBuilder(
-            context: context,
-            child: const NewPasswordScreen(),
-            builder: PageBuilderUtils.buildRightSlideAnimation,
-          ),
         ),
       ],
     ),
