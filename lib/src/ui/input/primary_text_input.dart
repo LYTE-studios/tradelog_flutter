@@ -82,7 +82,7 @@ class PrimaryTextInput extends StatelessWidget {
                   ? Theme.of(context).colorScheme.error.withOpacity(0.1)
                   : Theme.of(context).colorScheme.tertiaryContainer,
               hintText: hint,
-              errorText: isError ? "" : null,
+              error: isError ? const SizedBox() : null,
               suffixIcon: suffixIcon,
               suffixIconConstraints: suffixIconConstraints,
             ),

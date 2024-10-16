@@ -1,14 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/register/register_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/widgets/auth_error.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/extra_login_options.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
@@ -31,16 +29,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
   final TextEditingController emailTec = TextEditingController();
   final TextEditingController pwTec = TextEditingController();
 
-  @override
-  Future<void> loadData() {
-    UserInfo? user = sessionManager.signedInUser;
-
-    if (user != null) {
-      router.go(OverviewScreen.route);
-    }
-
-    return super.loadData();
-  }
+  String? error;
 
   Future<void> signIn() async {
     AuthenticationResult result = await AuthenticationManager.signIn(
@@ -48,6 +37,14 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
 
     if (result == AuthenticationResult.success) {
       router.go(OverviewScreen.route);
+    } else if (result == AuthenticationResult.failure) {
+      setState(() {
+        error = 'No user was found for the given credentials';
+      });
+    } else if (result == AuthenticationResult.error) {
+      setState(() {
+        error = 'An unexpected error occurred.';
+      });
     }
   }
 
@@ -69,6 +66,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           height: PaddingSizes.xxl,
         ),
         PrimaryTextInput(
+          isError: error != null,
           width: double.infinity,
           tec: emailTec,
           label: "Email",
@@ -79,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           height: PaddingSizes.large,
         ),
         PasswordTextInput(
+          isError: error != null,
           tec: pwTec,
           width: double.infinity,
           label: "Password",
@@ -116,18 +115,9 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
         const SizedBox(
           height: PaddingSizes.xxl,
         ),
-        // Align(
-        //   alignment: Alignment.centerLeft,
-        //   child: Text(
-        //     'Something went wrong, badly, blame backend.',
-        //     style: theme.textTheme.titleMedium?.copyWith(
-        //       color: theme.colorScheme.error,
-        //     ),
-        //   ),
-        // ),
-        // const SizedBox(
-        //   height: PaddingSizes.extraLarge,
-        // ),
+        AuthError(
+          error: error,
+        ),
         const ExtraLoginOptions(),
         const SizedBox(
           height: PaddingSizes.xxxxl,
