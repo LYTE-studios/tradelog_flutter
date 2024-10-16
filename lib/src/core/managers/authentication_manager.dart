@@ -8,6 +8,41 @@ import 'package:tradelog_flutter/src/core/data/client.dart';
 
 /// Class for bundled authentication functionality
 class AuthenticationManager {
+  static Future<AuthenticationResult> startPasswordReset(
+    String email,
+  ) async {
+    try {
+      bool result =
+          await client.modules.auth.email.initiatePasswordReset(email);
+
+      if (result == true) {
+        return AuthenticationResult.success;
+      }
+
+      return AuthenticationResult.failure;
+    } catch (e) {
+      return AuthenticationResult.error;
+    }
+  }
+
+  static Future<AuthenticationResult> resetPassword(
+    String code,
+    String newPassword,
+  ) async {
+    try {
+      bool result =
+          await client.modules.auth.email.resetPassword(code, newPassword);
+
+      if (result == true) {
+        return AuthenticationResult.success;
+      }
+
+      return AuthenticationResult.failure;
+    } catch (e) {
+      return AuthenticationResult.error;
+    }
+  }
+
   static Future<AuthenticationResult> googleSignIn() async {
 // local
     UserInfo? userInfo;

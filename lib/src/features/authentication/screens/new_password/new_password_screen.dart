@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
+import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/forgot_password/forgot_password_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/widgets/auth_error.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
-import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
+import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class NewPasswordScreen extends StatefulWidget {
@@ -19,8 +21,35 @@ class NewPasswordScreen extends StatefulWidget {
 }
 
 class _NewPasswordScreenState extends State<NewPasswordScreen> {
+  final TextEditingController codeTec = TextEditingController();
   final TextEditingController pwTec = TextEditingController();
   final TextEditingController confirmPwTec = TextEditingController();
+
+  String? error;
+
+  Future<void> resetPassword() async {
+    if (pwTec.text != confirmPwTec.text) {
+      setState(() {
+        error = 'Passwords don\'t match';
+      });
+      return;
+    }
+
+    AuthenticationResult result =
+        await AuthenticationManager.resetPassword(codeTec.text, pwTec.text);
+
+    if (result == AuthenticationResult.success) {
+      router.pushReplacement(LoginScreen.route);
+    } else if (result == AuthenticationResult.failure) {
+      setState(() {
+        error = 'Verification code was incorrect';
+      });
+    } else if (result == AuthenticationResult.error) {
+      setState(() {
+        error = 'An unexpected error occured.';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +63,17 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
             "Reset your password",
             style: theme.textTheme.titleLarge,
           ),
+        ),
+        const SizedBox(
+          height: PaddingSizes.xxl,
+        ),
+        PrimaryTextInput(
+          isError: error != null,
+          width: double.infinity,
+          tec: codeTec,
+          label: "Code",
+          hint: "Your verification code",
+          height: 57,
         ),
         const SizedBox(
           height: PaddingSizes.xxl,
@@ -67,12 +107,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
           height: PaddingSizes.xxl,
         ),
         PrimaryButton(
-          onTap: () {},
+          onTap: resetPassword,
           height: 53,
           text: "Reset password",
           textStyle: theme.textTheme.titleLarge?.copyWith(
             fontSize: 19,
           ),
+        ),
+        AuthError(
+          error: error,
         ),
       ],
     );

@@ -19,8 +19,8 @@ class AuthError extends StatelessWidget {
           ? const SizedBox()
           : Center(
               child: Padding(
-                padding: const EdgeInsets.only(
-                  bottom: PaddingSizes.medium,
+                padding: const EdgeInsets.symmetric(
+                  vertical: PaddingSizes.medium,
                 ),
                 child: Text(
                   error ?? '',
