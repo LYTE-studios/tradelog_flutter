@@ -6,7 +6,7 @@ import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/login/login_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/register/verification_code_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/shared/auth_divider.dart';
+import 'package:tradelog_flutter/src/features/authentication/shared/extra_login_options.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
@@ -166,18 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
                     const SizedBox(
                       height: PaddingSizes.extraLarge,
                     ),
-                    const AuthDivider(),
-                    const SizedBox(
-                      height: PaddingSizes.extraLarge,
-                    ),
-                    PrimaryButton(
-                      onTap: () {},
-                      height: 53,
-                      color: theme.colorScheme.primaryContainer,
-                      text: "Login with Google",
-                      prefixIcon: TradelyIcons.google,
-                      leaveIconUnaltered: true,
-                    ),
+                    const ExtraLoginOptions(),
                   ],
                 ),
               ),

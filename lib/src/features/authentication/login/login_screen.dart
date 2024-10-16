@@ -10,6 +10,7 @@ import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/shared/auth_divider.dart';
+import 'package:tradelog_flutter/src/features/authentication/shared/extra_login_options.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -132,25 +133,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
             // const SizedBox(
             //   height: PaddingSizes.extraLarge,
             // ),
-            const AuthDivider(),
-            const SizedBox(
-              height: PaddingSizes.extraLarge,
-            ),
-            PrimaryButton(
-              onTap: () async {
-                AuthenticationResult result =
-                    await AuthenticationManager.googleSignIn();
-
-                if (result == AuthenticationResult.success) {
-                  router.go(OverviewScreen.route);
-                }
-              },
-              height: 53,
-              color: theme.colorScheme.primaryContainer,
-              text: "Login with Google",
-              prefixIcon: TradelyIcons.google,
-              leaveIconUnaltered: true,
-            ),
+            const ExtraLoginOptions(),
             const SizedBox(
               height: PaddingSizes.xxxxl,
             ),
