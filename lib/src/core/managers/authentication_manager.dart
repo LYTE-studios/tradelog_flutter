@@ -86,11 +86,21 @@ class AuthenticationManager {
       password,
     );
 
-    if (!response.success) {
-      return AuthenticationResult.failure;
+    if (response.success) {
+      try {
+        sessionManager.registerSignedInUser(
+          response.userInfo!,
+          response.keyId!,
+          response.key!,
+        );
+      } catch (e) {
+        return AuthenticationResult.failure;
+      }
+
+      return AuthenticationResult.authenticated;
     }
 
-    return AuthenticationResult.authenticated;
+    return AuthenticationResult.failure;
   }
 
   /// Creates an account with given email and password

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/new_password/new_password_screen.dart';
@@ -14,7 +15,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/ov
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
 
 GoRouter router = GoRouter(
-  initialLocation: LoginScreen.route,
+  initialLocation: OverviewScreen.route,
   routes: <RouteBase>[
     ShellRoute(
       builder: (context, state, child) {
@@ -68,6 +69,10 @@ GoRouter router = GoRouter(
     ),
     ShellRoute(
       builder: (context, state, child) {
+        if (!sessionManager.isSignedIn) {
+          router.pushReplacement(LoginScreen.route);
+        }
+
         return DashboardScreen(child: child);
       },
       routes: [

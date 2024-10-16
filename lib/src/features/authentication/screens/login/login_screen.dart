@@ -33,9 +33,11 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
 
   Future<void> signIn() async {
     AuthenticationResult result = await AuthenticationManager.signIn(
-        email: emailTec.text, password: pwTec.text);
+      email: emailTec.text,
+      password: pwTec.text,
+    );
 
-    if (result == AuthenticationResult.success) {
+    if (result == AuthenticationResult.authenticated) {
       router.go(OverviewScreen.route);
     } else if (result == AuthenticationResult.failure) {
       setState(() {
