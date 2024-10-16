@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/login/login_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/register/verification_code_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/shared/auth_divider.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -44,8 +46,9 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
     );
 
     if (result == AuthenticationResult.verificationCodeSent) {
+      router.go(VerificationCodeScreen.route, extra: emailTec.text);
+
       setLoading(false);
-      // TODO Handle success
       return;
     }
 

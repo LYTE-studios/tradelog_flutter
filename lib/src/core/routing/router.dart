@@ -5,6 +5,7 @@ import 'package:tradelog_flutter/src/features/authentication/forgot_password/for
 import 'package:tradelog_flutter/src/features/authentication/login/login_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/new_password/new_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/register/register_screen.dart';
+import 'package:tradelog_flutter/src/features/authentication/register/verification_code_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/shared/auth_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/dashboard_screen.dart';
@@ -34,6 +35,17 @@ GoRouter router = GoRouter(
               const NoTransitionPage(
             child: RegisterScreen(),
           ),
+          routes: [
+            GoRoute(
+              path: VerificationCodeScreen.location,
+              pageBuilder: (BuildContext context, GoRouterState state) =>
+                  NoTransitionPage(
+                child: VerificationCodeScreen(
+                  email: state.extra as String,
+                ),
+              ),
+            ),
+          ],
         ),
         GoRoute(
           path: ForgotPasswordScreen.route,

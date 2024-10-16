@@ -3,8 +3,8 @@ import 'dart:io' as io;
 import 'package:flutter/foundation.dart';
 import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/main.dart';
 import 'package:tradelog_flutter/secrets.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
 
 /// Class for bundled authentication functionality
 class AuthenticationManager {
@@ -27,7 +27,7 @@ class AuthenticationManager {
 
       userInfo = await signInWithGoogle(
         client.modules.auth,
-        clientId: clientId,
+        // clientId: clientId,
         serverClientId: googleClientIdAPI,
         redirectUri: Uri.parse('${apiUrl}googlesignin'),
       );
@@ -56,6 +56,35 @@ class AuthenticationManager {
     }
 
     return AuthenticationResult.authenticated;
+  }
+
+  /// Creates an account with given email and password
+  static Future<AuthenticationResult> verifyAccount({
+    required String email,
+    required String code,
+  }) async {
+    try {
+      // Sends a request to create the user account from a verification code
+      UserInfo? user = await client.modules.auth.email.createAccount(
+        email,
+        code,
+      );
+
+      // If the account does not get created, the user simply didn't pass the correct credentials
+      if (user == null) {
+        return AuthenticationResult.failure;
+      }
+
+      // If all goes well, the user account got created
+      return AuthenticationResult.success;
+    } catch (e) {
+      if (e is ServerpodClientException) {
+        return AuthenticationResult.error;
+      }
+
+      // If the thrown exception is NOT a serverpod exception, something very wrong has happened.
+      return AuthenticationResult.error;
+    }
   }
 
   /// Creates an account with given email and password
