@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
-import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -35,7 +34,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
         icon: TradelyIcons.diary,
         currentRoute: DiaryScreen.location,
         title: "Your diary",
-        titleIconPath: 'assets/images/memo.png',
+        titleIconPath: 'assets/images/emojis/pencil_emoji.png',
         buttons: PrimaryButton(
           onTap: () {},
           height: 42,
