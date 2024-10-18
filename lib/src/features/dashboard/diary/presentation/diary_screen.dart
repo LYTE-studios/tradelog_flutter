@@ -61,6 +61,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                 controller: _controller,
                 configurations: const QuillSimpleToolbarConfigurations(
                   sectionDividerColor: Color(0xFF5C5C5C),
+                  toolbarIconAlignment: WrapAlignment.start,
                   showFontFamily: false,
                   showCodeBlock: false,
                   showInlineCode: false,
