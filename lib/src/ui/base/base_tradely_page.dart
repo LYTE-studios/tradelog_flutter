@@ -15,7 +15,9 @@ class BaseTradelyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: PaddingSizes.large),
+      padding: const EdgeInsets.symmetric(
+        horizontal: PaddingSizes.large,
+      ),
       child: Column(
         children: [
           Padding(

@@ -33,7 +33,7 @@ class ToolTipTitle extends StatelessWidget {
               borderColor: Theme.of(context).colorScheme.primaryContainer,
               popupDirection: TooltipDirection.up,
               content: SizedBox(
-                width: 250,
+                width: 128,
                 child: Text(
                   toolTipText,
                   softWrap: true,
