@@ -34,6 +34,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> {
         icon: TradelyIcons.myTrades,
         currentRoute: MyTradesScreen.location,
         title: "My trades 📈",
+        titleIconPath: 'assets/images/memo.png',
         buttons: Row(
           children: [
             PrimaryButton(

@@ -22,7 +22,8 @@ class OverviewScreen extends StatelessWidget {
         subTitle: "Discover all your performance metrics & progress.",
         icon: TradelyIcons.overview,
         currentRoute: location,
-        title: "Good morning, Robin! 👋",
+        title: "Good morning, Robin!",
+        titleIconPath: 'assets/images/memo.png',
         buttons: PrimaryButton(
           onTap: () {},
           height: 42,

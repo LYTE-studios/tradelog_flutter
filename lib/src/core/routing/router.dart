@@ -86,7 +86,7 @@ GoRouter router = GoRouter(
         GoRoute(
           path: DiaryScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+              NoTransitionPage(
             child: DiaryScreen(),
           ),
         ),

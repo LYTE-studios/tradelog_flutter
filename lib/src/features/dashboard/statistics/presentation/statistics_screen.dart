@@ -23,6 +23,7 @@ class StatisticsScreen extends StatelessWidget {
         icon: TradelyIcons.statistics,
         currentRoute: location,
         title: "Statistics 📊",
+        titleIconPath: 'assets/images/memo.png',
         buttons: Row(
           children: [
             PrimaryButton(

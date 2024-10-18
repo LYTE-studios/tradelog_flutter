@@ -19,6 +19,7 @@ class AccountScreen extends StatelessWidget {
         icon: TradelyIcons.account,
         currentRoute: location,
         title: "Account details 💱",
+        titleIconPath: 'assets/images/memo.png',
       ),
       child: Row(
         children: [
