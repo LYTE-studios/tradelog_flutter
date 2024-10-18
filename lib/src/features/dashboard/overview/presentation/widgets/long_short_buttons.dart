@@ -24,6 +24,7 @@ class LongShortButtons extends StatelessWidget {
         child: Text(
           label,
           style: theme.textTheme.titleMedium?.copyWith(
+            fontSize: 14,
             color: selected == value ? TextStyles.titleColor : null,
           ),
         ),
@@ -33,9 +34,13 @@ class LongShortButtons extends StatelessWidget {
     return Row(
       children: [
         buildButton("All", LongShortSelector.all),
-        const SizedBox(width: PaddingSizes.extraLarge),
+        const SizedBox(
+          width: PaddingSizes.medium,
+        ),
         buildButton("Long", LongShortSelector.long),
-        const SizedBox(width: PaddingSizes.extraLarge),
+        const SizedBox(
+          width: PaddingSizes.medium,
+        ),
         buildButton("Short", LongShortSelector.short),
       ],
     );

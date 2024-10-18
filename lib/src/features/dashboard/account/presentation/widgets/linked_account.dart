@@ -15,7 +15,7 @@ class LinkedAccount extends StatelessWidget {
         vertical: PaddingSizes.medium,
       ),
       outsidePadding: const EdgeInsets.only(
-        right: PaddingSizes.large,
+        bottom: PaddingSizes.medium,
       ),
       width: 210,
       height: 135,

@@ -38,7 +38,7 @@ class OverviewScreen extends StatelessWidget {
             flex: 2,
             child: Column(
               children: [
-                Expanded(
+                IntrinsicHeight(
                   child: Row(
                     children: [
                       DataContainer(
@@ -49,15 +49,13 @@ class OverviewScreen extends StatelessWidget {
                         title: 'Trade win rate',
                         toolTip: 'test',
                         data: "43%",
-                        percentage: 2,
-                        up: false,
+                        percentage: -2,
                       ),
                       DataContainer(
                         title: ' Avg realized R:R',
                         toolTip: 'test',
                         data: "\$123,88",
                         percentage: 45,
-                        up: true,
                       ),
                     ],
                   ),
@@ -69,18 +67,18 @@ class OverviewScreen extends StatelessWidget {
             ),
           ),
           Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  LongShortContainer(),
-                  HoldingContainer(
-                    holdingTime: 20,
-                  ),
-                  ProfitContainer(
-                    percentage: 45,
-                  ),
-                ],
-              )),
+            child: Column(
+              children: [
+                LongShortContainer(),
+                HoldingContainer(
+                  holdingTime: 20,
+                ),
+                ProfitContainer(
+                  percentage: 45,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

@@ -16,7 +16,6 @@ class ChartContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseContainerExpanded(
-      flex: 3,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

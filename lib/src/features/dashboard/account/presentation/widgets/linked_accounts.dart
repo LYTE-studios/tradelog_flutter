@@ -11,7 +11,7 @@ class LinkedAccounts extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           "Linked accounts",
@@ -26,23 +26,12 @@ class LinkedAccounts extends StatelessWidget {
         const SizedBox(
           height: PaddingSizes.extraLarge,
         ),
-        SizedBox(
-          height: 135,
-          child: Scrollbar(
-            child: ListView(
-              primary: true,
-              scrollDirection: Axis.horizontal,
-              children: [
-                LinkedAccount(),
-                LinkedAccount(),
-                LinkedAccount(),
-                LinkedAccount(),
-                LinkedAccount(),
-                LinkedAccount(),
-              ],
-            ),
-          ),
-        ),
+        LinkedAccount(),
+        LinkedAccount(),
+        LinkedAccount(),
+        LinkedAccount(),
+        LinkedAccount(),
+        LinkedAccount(),
       ],
     );
   }
