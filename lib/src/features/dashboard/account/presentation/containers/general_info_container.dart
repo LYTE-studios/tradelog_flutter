@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/general_info.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_accounts.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
+import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class GeneralInfoContainer extends StatelessWidget {
@@ -10,7 +10,7 @@ class GeneralInfoContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    return BaseContainerExpanded(
+    return BaseContainer(
       child: Column(
         children: [
           GeneralInfo(
@@ -25,7 +25,9 @@ class GeneralInfoContainer extends StatelessWidget {
             height: 1,
             color: colorScheme.outline,
           ),
-          const Spacer(),
+          const SizedBox(
+            height: PaddingSizes.extraLarge,
+          ),
           const LinkedAccounts(),
         ],
       ),

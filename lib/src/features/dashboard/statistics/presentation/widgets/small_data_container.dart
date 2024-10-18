@@ -27,9 +27,8 @@ class SmallDataContainer extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return BaseContainerExpanded(
-      padding: const EdgeInsets.symmetric(
-        horizontal: PaddingSizes.xxl,
-        vertical: PaddingSizes.extraLarge,
+      padding: const EdgeInsets.all(
+        PaddingSizes.large,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,15 +47,19 @@ class SmallDataContainer extends StatelessWidget {
               child: const Text("N/A"),
             ),
           if (!blurred)
-            Text(
-              data != null ? "\$ $data" : "-",
-              style: textTheme.bodyLarge?.copyWith(
-                fontSize: 35,
-                color: positive != null
-                    ? positive!
-                        ? colorScheme.tertiary
-                        : colorScheme.error
-                    : null,
+            Expanded(
+              child: FittedBox(
+                child: Text(
+                  data != null ? "\$ $data" : "-",
+                  style: textTheme.bodyLarge?.copyWith(
+                    fontSize: 35,
+                    color: positive != null
+                        ? positive!
+                            ? colorScheme.tertiary
+                            : colorScheme.error
+                        : null,
+                  ),
+                ),
               ),
             ),
         ],
