@@ -26,9 +26,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         vertical: 128,
       ),
       child: BaseDialog(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 50,
-          vertical: 50,
+        padding: const EdgeInsets.all(
+          PaddingSizes.xxl,
         ),
         constraints: const BoxConstraints(
           maxWidth: 620,
