@@ -47,6 +47,8 @@ class TradelyIcons {
 
   // logos
   static const String tradelyLogo = '$_baseLogosPath/tradely_logo.svg';
+  static const String tradelySimpleLogo =
+      '$_baseLogosPath/tradely_simple_logo.svg';
   static const String tradelyLogoSmall =
       '$_baseLogosPath/tradely_logo_small.svg';
   static const String tradelyLogoInverted =

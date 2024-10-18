@@ -43,7 +43,7 @@ class Sidebar extends StatelessWidget {
                   ),
                 ),
               ),
-              width: extended ? 270 : 81,
+              width: extended ? 240 : 81,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: PaddingSizes.xxxl,

@@ -14,14 +14,14 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseTradelyPage(
-      header: BaseTradelyPageHeader(
+      header: const BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
         icon: TradelyIcons.account,
         currentRoute: location,
         title: "Account details 💱",
       ),
       child: ListView(
-        children: [
+        children: const [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
