@@ -26,6 +26,9 @@ class _LongShortContainerState extends State<LongShortContainer> {
   Widget build(BuildContext context) {
     return BaseContainerExpanded(
       flex: 3,
+      padding: const EdgeInsets.all(
+        PaddingSizes.large,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -47,7 +50,7 @@ class _LongShortContainerState extends State<LongShortContainer> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        vertical: PaddingSizes.xxl,
+                        vertical: PaddingSizes.large,
                       ),
                       child: Align(
                         alignment: Alignment.centerLeft,
