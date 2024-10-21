@@ -33,8 +33,8 @@ class _MyTradesScreenState extends State<MyTradesScreen> {
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
         icon: TradelyIcons.myTrades,
         currentRoute: MyTradesScreen.location,
-        title: "My trades 📈",
-        titleIconPath: 'assets/images/memo.png',
+        title: "My trades",
+        titleIconPath: 'assets/images/emojis/chart_emoji.png',
         buttons: Row(
           children: [
             PrimaryButton(

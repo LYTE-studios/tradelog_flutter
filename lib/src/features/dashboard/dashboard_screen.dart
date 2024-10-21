@@ -30,6 +30,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           AnimatedPositioned(
+            curve: Curves.fastLinearToSlowEaseIn,
             duration: Sidebar.animationDuration,
             left: extended
                 ? Sidebar.extendedLength - 11

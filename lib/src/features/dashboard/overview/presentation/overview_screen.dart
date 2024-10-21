@@ -23,7 +23,7 @@ class OverviewScreen extends StatelessWidget {
         icon: TradelyIcons.overview,
         currentRoute: location,
         title: "Good morning, Robin!",
-        titleIconPath: 'assets/images/memo.png',
+        titleIconPath: 'assets/images/emojis/hand_emoji.png',
         buttons: PrimaryButton(
           onTap: () {},
           height: 42,
