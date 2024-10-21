@@ -12,7 +12,6 @@ class EquityLineChart extends StatefulWidget {
 }
 
 class _EquityLineChartState extends State<EquityLineChart> {
-  late TooltipBehavior _tooltipBehavior;
   num? _highlightedPointIndex;
 
   void setHighlightedPointIndex(num? index) {

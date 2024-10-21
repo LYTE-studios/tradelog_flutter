@@ -31,7 +31,7 @@ class BaseTradelyPageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        bottom: PaddingSizes.xxxl,
+        bottom: PaddingSizes.xxl,
       ),
       child: Row(
         children: [

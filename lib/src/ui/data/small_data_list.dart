@@ -14,15 +14,13 @@ class SmallDataList extends StatelessWidget {
     {"label": "Best Loss", "value": "-"},
   ];
 
-  // todo this widgets needs to be redone, child aspect ratio is not good for big screens.
-  // better to be 2 columns with rows.
-  // todo fix themes on text
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
               buildRow(
                 context,
@@ -44,6 +42,7 @@ class SmallDataList extends StatelessWidget {
         ),
         Expanded(
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
               buildRow(
                 context,
