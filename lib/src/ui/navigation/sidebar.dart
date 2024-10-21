@@ -25,6 +25,7 @@ class Sidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
+      curve: Curves.fastLinearToSlowEaseIn,
       duration: Sidebar.animationDuration,
       child: Stack(
         children: [
