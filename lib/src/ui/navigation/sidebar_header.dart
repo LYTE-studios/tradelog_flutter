@@ -20,9 +20,11 @@ class SidebarHeader extends StatelessWidget {
           left: extended ? PaddingSizes.medium : 0,
         ),
         child: SvgIcon(
-          extended ? TradelyIcons.tradelyLogo : TradelyIcons.tradelyLogoSmall,
+          extended
+              ? TradelyIcons.tradelySimpleLogo
+              : TradelyIcons.tradelyLogoSmall,
           leaveUnaltered: true,
-          size: 25,
+          size: extended ? 25 : 36,
         ),
       ),
     );

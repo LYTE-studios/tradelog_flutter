@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
-import 'package:tradelog_flutter/src/features/authentication/shared/image_carousel.dart';
+import 'package:tradelog_flutter/src/features/authentication/widgets/image_carousel.dart';
 
 class AuthScreen extends StatelessWidget {
   final Widget child;

@@ -19,43 +19,55 @@ class ToolTipTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = SuperTooltipController();
 
-    return MouseRegion(
-      // onEnter: (_) => controller.showTooltip(),
-      onExit: (_) => controller.hideTooltip(),
-      child: Row(
-        children: [
-          SuperTooltip(
-            arrowBaseWidth: 30,
-            arrowLength: 8,
-            arrowTipDistance: 15,
-            showBarrier: false,
-            hasShadow: false,
-            controller: controller,
-            borderColor: Theme.of(context).colorScheme.primaryContainer,
-            popupDirection: TooltipDirection.up,
-            content: SizedBox(
-              width: 250,
-              child: Text(
-                toolTipText,
-                softWrap: true,
-                style: Theme.of(context).textTheme.labelMedium,
+    return Row(
+      children: [
+        MouseRegion(
+          cursor: SystemMouseCursors.click,
+          onExit: (_) => controller.hideTooltip(),
+          onEnter: (_) => controller.showTooltip(),
+          child: IgnorePointer(
+            child: SuperTooltip(
+              showBarrier: false,
+              hasShadow: false,
+              controller: controller,
+              borderColor: Theme.of(context).colorScheme.primaryContainer,
+              popupDirection: TooltipDirection.up,
+              content: SizedBox(
+                width: 128,
+                child: Text(
+                  toolTipText,
+                  softWrap: true,
+                  style: Theme.of(context).textTheme.labelMedium,
+                ),
+              ),
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              child: SvgIcon(
+                TradelyIcons.infoCircle,
+                color: TextStyles.mediumTitleColor,
               ),
             ),
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            child: SvgIcon(
-              TradelyIcons.infoCircle,
-              color: TextStyles.mediumTitleColor,
+          ),
+        ),
+        const SizedBox(
+          width: PaddingSizes.extraSmall,
+        ),
+        Expanded(
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxHeight: 18,
+              ),
+              child: FittedBox(
+                child: Text(
+                  titleText,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
             ),
           ),
-          const SizedBox(
-            width: PaddingSizes.extraSmall,
-          ),
-          Text(
-            titleText,
-            style: Theme.of(context).textTheme.titleMedium,
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

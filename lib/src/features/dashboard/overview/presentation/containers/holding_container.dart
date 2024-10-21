@@ -13,13 +13,18 @@ class HoldingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseContainerExpanded(
+      padding: const EdgeInsets.all(
+        PaddingSizes.large,
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Average Holding Time",
-            style: Theme.of(context).textTheme.titleMedium,
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontSize: 14,
+                ),
           ),
           Row(
             children: [
@@ -29,9 +34,8 @@ class HoldingContainer extends StatelessWidget {
                 size: 22,
               ),
               const SizedBox(
-                width: PaddingSizes.large,
+                width: PaddingSizes.small,
               ),
-              // todo make widget for these
               RichText(
                 text: TextSpan(
                   style: Theme.of(context)
@@ -39,13 +43,13 @@ class HoldingContainer extends StatelessWidget {
                       .bodyLarge
                       ?.copyWith(fontSize: 18),
                   children: const <TextSpan>[
-                    TextSpan(text: '0 ', style: TextStyle(fontSize: 24)),
+                    TextSpan(text: '0 ', style: TextStyle(fontSize: 18)),
                     TextSpan(text: 'Days'),
                   ],
                 ),
               ),
               const SizedBox(
-                width: PaddingSizes.large,
+                width: PaddingSizes.small,
               ),
               RichText(
                 text: TextSpan(
@@ -54,13 +58,13 @@ class HoldingContainer extends StatelessWidget {
                       .bodyLarge
                       ?.copyWith(fontSize: 18),
                   children: const <TextSpan>[
-                    TextSpan(text: '7 ', style: TextStyle(fontSize: 24)),
+                    TextSpan(text: '7 ', style: TextStyle(fontSize: 18)),
                     TextSpan(text: 'Hours '),
                   ],
                 ),
               ),
               const SizedBox(
-                width: PaddingSizes.large,
+                width: PaddingSizes.small,
               ),
               RichText(
                 text: TextSpan(
@@ -69,7 +73,7 @@ class HoldingContainer extends StatelessWidget {
                       .bodyLarge
                       ?.copyWith(fontSize: 18),
                   children: const <TextSpan>[
-                    TextSpan(text: '12 ', style: TextStyle(fontSize: 24)),
+                    TextSpan(text: '12 ', style: TextStyle(fontSize: 18)),
                     TextSpan(text: 'Minutes'),
                   ],
                 ),

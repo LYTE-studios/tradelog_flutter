@@ -50,7 +50,7 @@ class SidebarItem extends StatelessWidget {
           vertical: PaddingSizes.xxs,
         ),
         child: InkWell(
-          hoverColor: theme.colorScheme.primary.withOpacity(0.2),
+          hoverColor: theme.colorScheme.primaryContainer.withOpacity(0.2),
           onTap: () {
             context.go(
               route,
@@ -60,12 +60,12 @@ class SidebarItem extends StatelessWidget {
             BorderRadii.small,
           ),
           child: Ink(
-            height: 48,
+            height: 42,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(
                 BorderRadii.small,
               ),
-              color: selected ? theme.colorScheme.primary : null,
+              color: selected ? theme.colorScheme.primaryContainer : null,
             ),
             child: Row(
               mainAxisAlignment:
@@ -77,7 +77,7 @@ class SidebarItem extends StatelessWidget {
                   ),
                   child: SvgIcon(
                     routeToIcon[route] ?? TradelyIcons.warning,
-                    size: 22,
+                    size: 18,
                     color: selected
                         ? Theme.of(context).colorScheme.onPrimary
                         : TextStyles.bodyColor,
@@ -91,6 +91,7 @@ class SidebarItem extends StatelessWidget {
                     child: Text(
                       routeToTitle[route] ?? "route not found",
                       style: theme.textTheme.titleMedium?.copyWith(
+                        fontSize: 16,
                         color: selected
                             ? Theme.of(context).colorScheme.onPrimary
                             : TextStyles.bodyColor,
