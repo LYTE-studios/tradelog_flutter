@@ -46,7 +46,9 @@ class ChartContainer extends StatelessWidget {
             height: PaddingSizes.large,
           ),
           Expanded(
-            child: EquityLineChart(),
+            child: EquityLineChart(
+              data: [],
+            ),
           ),
         ],
       ),

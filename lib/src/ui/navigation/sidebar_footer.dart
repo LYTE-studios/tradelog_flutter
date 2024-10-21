@@ -40,14 +40,21 @@ class SidebarFooter extends StatelessWidget {
             onTap: () => BrokerConnectionDialog.show(context),
             height: 42,
             align: MainAxisAlignment.start,
-            padding: const EdgeInsets.symmetric(
-              horizontal: PaddingSizes.large,
-            ),
-            prefixChild: const _RotatingIcons(
-              icons: [
-                TradelyIcons.tradelocker,
-                TradelyIcons.metatrader,
-              ],
+            padding: extended
+                ? const EdgeInsets.symmetric(
+                    horizontal: PaddingSizes.large,
+                  )
+                : const EdgeInsets.symmetric(
+                    horizontal: 9,
+                  ),
+            prefixChild: Padding(
+              padding: EdgeInsets.only(right: extended ? 3 : 0),
+              child: const _RotatingIcons(
+                icons: [
+                  TradelyIcons.tradelocker,
+                  TradelyIcons.metatrader,
+                ],
+              ),
             ),
             outlined: true,
             color: Colors.transparent,
@@ -152,7 +159,7 @@ class _RotatingIconsState extends State<_RotatingIcons> {
     return Padding(
       padding: const EdgeInsets.only(
         left: PaddingSizes.xxs,
-        right: PaddingSizes.extraSmall,
+        right: PaddingSizes.xxs,
       ),
       child: SizedBox(
         height: 21,

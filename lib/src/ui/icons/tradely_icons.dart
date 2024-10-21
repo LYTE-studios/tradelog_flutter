@@ -86,6 +86,7 @@ class TradelyIcons {
     tradelyLogo,
     tradelyLogoSmall,
     tradelyLogoText,
+    tradelySimpleLogo,
     slash,
     tradelyLogoPro,
     google,

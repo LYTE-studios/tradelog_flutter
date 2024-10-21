@@ -3,7 +3,9 @@ import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class BrokerConnectionDialog extends StatefulWidget {
   const BrokerConnectionDialog({super.key});
@@ -45,10 +47,10 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         ),
         constraints: const BoxConstraints(
           maxWidth: 620,
-          minWidth: 360,
           maxHeight: 650,
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
@@ -70,14 +72,24 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                     fontSize: 14,
                   ),
             ),
+            const SizedBox(
+              height: PaddingSizes.xxl,
+            ),
             ...Platform.values.map(
               (Platform platform) {
                 return _BaseBrokerRow(
+                  onTap: () {},
                   icon: getIconForBroker(platform),
                   title: platform.name,
+                  description: 'Automatic Sync of Completed Trades',
+                  isFirst: Platform.values.first == platform,
+                  isLast: Platform.values.last == platform,
                 );
               },
-            )
+            ),
+            const SizedBox(
+              height: PaddingSizes.medium,
+            ),
           ],
         ),
       ),
@@ -90,25 +102,110 @@ class _BaseBrokerRow extends StatelessWidget {
 
   final String title;
 
+  final String description;
+
+  final bool isFirst;
+
+  final bool isLast;
+
+  final Function()? onTap;
+
   const _BaseBrokerRow({
     super.key,
     required this.icon,
     required this.title,
+    required this.description,
+    this.isFirst = false,
+    this.isLast = false,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 56,
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Theme.of(context).colorScheme.outline,
-          ),
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: PaddingSizes.large,
       ),
-      child: Row(
-        children: [],
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.only(
+              topRight: isFirst
+                  ? const Radius.circular(BorderRadii.medium)
+                  : Radius.zero,
+              topLeft: isFirst
+                  ? const Radius.circular(BorderRadii.medium)
+                  : Radius.zero,
+              bottomLeft: isLast
+                  ? const Radius.circular(BorderRadii.medium)
+                  : Radius.zero,
+              bottomRight: isLast
+                  ? const Radius.circular(BorderRadii.medium)
+                  : Radius.zero,
+            ),
+            child: Material(
+              child: InkWell(
+                onTap: onTap,
+                child: SizedBox(
+                  height: 64,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: PaddingSizes.large,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Center(
+                          child: SizedBox(
+                            height: 36,
+                            width: 36,
+                            child: Image.asset(
+                              icon,
+                              fit: BoxFit.fitHeight,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: PaddingSizes.medium,
+                        ),
+                        Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                title,
+                                style: TextStyles.titleMedium.copyWith(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: PaddingSizes.xxs,
+                              ),
+                              Text(
+                                description,
+                                style: TextStyles.bodySmall.copyWith(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          if (!isLast)
+            Divider(
+              thickness: 2,
+              height: 0,
+              color: Theme.of(context).colorScheme.outline,
+            ),
+        ],
       ),
     );
   }

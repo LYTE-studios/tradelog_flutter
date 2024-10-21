@@ -217,7 +217,9 @@ class _DiaryScreenState extends State<DiaryScreen> {
                               height: PaddingSizes.large,
                             ),
                             const Expanded(
-                              child: EquityLineChart(),
+                              child: EquityLineChart(
+                                data: [],
+                              ),
                             ),
                           ],
                         ),
