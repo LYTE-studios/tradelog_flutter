@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/broker_connection_dialog.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar.dart';
-import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
@@ -39,37 +36,28 @@ class SidebarFooter extends StatelessWidget {
           const SizedBox(
             height: PaddingSizes.small,
           ),
-          ClearInkWell(
-            child: BaseContainer(
-              outsidePadding: EdgeInsets.zero,
-              padding: EdgeInsets.zero,
-              borderRadius: BorderRadii.small,
-              height: 48,
-              width: extended ? null : 48,
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal:
-                          // todo -> icons that rotate
-                          extended ? PaddingSizes.medium : PaddingSizes.xxs,
-                    ),
-                    child: const SvgIcon(
-                      TradelyIcons.tradelyLogoPro,
-                      leaveUnaltered: true,
-                    ),
-                  ),
-                  if (extended)
-                    Text(
-                      "Link exchange",
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: TextStyles.bodyColor,
-                          ),
-                    ),
-                ],
-              ),
-            ),
+          PrimaryButton(
             onTap: () => BrokerConnectionDialog.show(context),
+            height: 42,
+            align: MainAxisAlignment.start,
+            padding: const EdgeInsets.symmetric(
+              horizontal: PaddingSizes.large,
+            ),
+            prefixChild: const _RotatingIcons(
+              icons: [
+                TradelyIcons.tradelocker,
+                TradelyIcons.metatrader,
+              ],
+            ),
+            outlined: true,
+            color: Colors.transparent,
+            borderColor: Theme.of(context).colorScheme.outline,
+            textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                  color: TextStyles.mediumTitleColor,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+            text: extended ? "Link exchange" : null,
           ),
           // if (extended)
           //   const SizedBox(
@@ -106,6 +94,88 @@ class SidebarFooter extends StatelessWidget {
           //     ),
           //   ),
         ],
+      ),
+    );
+  }
+}
+
+class _RotatingIcons extends StatefulWidget {
+  final List<String> icons;
+
+  const _RotatingIcons({
+    required this.icons,
+  });
+
+  @override
+  State<_RotatingIcons> createState() => _RotatingIconsState();
+}
+
+class _RotatingIconsState extends State<_RotatingIcons> {
+  late PageController controller = PageController();
+
+  Future<void> syncController() async {
+    while (context.mounted) {
+      await Future.delayed(
+        const Duration(seconds: 3),
+      );
+
+      int total = widget.icons.length - 1;
+
+      int current = ((controller.page ?? 0) + 1).toInt();
+
+      if (current > total) {
+        current = 0;
+      }
+
+      controller.animateToPage(
+        current,
+        duration: const Duration(seconds: 1),
+        curve: Curves.fastLinearToSlowEaseIn,
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    syncController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        left: PaddingSizes.xxs,
+        right: PaddingSizes.extraSmall,
+      ),
+      child: SizedBox(
+        height: 21,
+        width: 21,
+        child: PageView(
+          controller: controller,
+          scrollDirection: Axis.vertical,
+          physics: const NeverScrollableScrollPhysics(),
+          children: widget.icons
+              .map(
+                (icon) => Center(
+                  child: SizedBox(
+                    width: 21,
+                    height: 21,
+                    child: Image.asset(
+                      icon,
+                      fit: BoxFit.fitHeight,
+                    ),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
       ),
     );
   }

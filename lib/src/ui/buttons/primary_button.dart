@@ -33,7 +33,11 @@ class PrimaryButton extends StatelessWidget {
 
   final bool leaveIconUnaltered;
 
-  final Border? border;
+  final bool outlined;
+
+  final Color? borderColor;
+
+  final Widget? prefixChild;
 
   /// expand button to parent widget, overwritten by width.
   final bool expand;
@@ -55,25 +59,34 @@ class PrimaryButton extends StatelessWidget {
     this.textStyle,
     this.leaveIconUnaltered = false,
     this.prefixIconColor,
-    this.border,
+    this.outlined = false,
+    this.borderColor,
+    this.prefixChild,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(
-        borderRadii ?? BorderRadii.small,
+    return Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+        border: outlined
+            ? Border.all(
+                color: borderColor ?? const Color(0xFF2D62FE),
+              )
+            : null,
+        borderRadius: BorderRadius.circular(
+          borderRadii ?? BorderRadii.small,
+        ),
       ),
-      child: Material(
-        color: color ?? Theme.of(context).colorScheme.primary,
-        child: InkWell(
-          onTap: onTap,
-          child: Container(
-            height: height,
-            width: width,
-            decoration: BoxDecoration(
-              border: border,
-            ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(
+          borderRadii ?? BorderRadii.small,
+        ),
+        child: Material(
+          color: color ?? Theme.of(context).colorScheme.primary,
+          child: InkWell(
+            onTap: onTap,
             child: Padding(
               padding: padding ??
                   const EdgeInsets.symmetric(
@@ -97,6 +110,7 @@ class PrimaryButton extends StatelessWidget {
                         leaveUnaltered: leaveIconUnaltered,
                       ),
                     ),
+                  if (prefixChild != null) prefixChild!,
                   if (text != null)
                     Text(
                       text!,
