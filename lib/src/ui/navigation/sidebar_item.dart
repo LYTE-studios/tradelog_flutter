@@ -44,6 +44,7 @@ class SidebarItem extends StatelessWidget {
     final currentRoute = GoRouterState.of(context).fullPath;
     bool selected = currentRoute == route;
     return AnimatedSize(
+      curve: Curves.fastLinearToSlowEaseIn,
       duration: Sidebar.animationDuration,
       child: Padding(
         padding: const EdgeInsets.symmetric(

@@ -116,6 +116,7 @@ class _DateSelectorState extends State<DateSelector> {
                 todayTextStyle: TextStyle(
                   color: colorScheme.onPrimary,
                 ),
+                // @ Robin
                 // sorry, I couldn't be bothered with writing a custom cell builder
                 // just to make the today date a smaller circle...
                 // yes, it's a fake border that matches the size of the select circle
@@ -125,9 +126,8 @@ class _DateSelectorState extends State<DateSelector> {
                     color: Theme.of(context).scaffoldBackgroundColor,
                     strokeAlign: BorderSide.strokeAlignCenter,
                   ),
-                  color: colorScheme.primary.withOpacity(0.5),
+                  color: colorScheme.onPrimary.withOpacity(0.15),
                   shape: BoxShape.circle,
-                  // Make it a circle
                 ),
                 textStyle: textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w400,
