@@ -85,9 +85,25 @@ class BaseTradelyPageHeader extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: Theme.of(context).textTheme.titleLarge,
+                        Row(
+                          children: [
+                            Text(
+                              title,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const SizedBox(
+                              width: PaddingSizes.small,
+                            ),
+                            SizedBox(
+                              height: PaddingSizes.xxl,
+                              child: icon != null
+                                  ? Image(
+                                      image: AssetImage(
+                                          icon!), // Non-null assertion since we checked
+                                    )
+                                  : const SizedBox(), // You can replace this with any fallback widget if needed
+                            )
+                          ],
                         ),
                         const SizedBox(
                           height: PaddingSizes.small,

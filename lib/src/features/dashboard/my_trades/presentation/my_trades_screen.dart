@@ -31,9 +31,9 @@ class _MyTradesScreenState extends State<MyTradesScreen> {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
-        icon: TradelyIcons.myTrades,
         currentRoute: MyTradesScreen.location,
-        title: "My trades 📈",
+        icon: 'assets/emojis/Chart.png',
+        title: "My trades",
         buttons: Row(
           children: [
             PrimaryButton(

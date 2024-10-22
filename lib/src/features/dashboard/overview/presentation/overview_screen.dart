@@ -20,9 +20,9 @@ class OverviewScreen extends StatelessWidget {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Discover all your performance metrics & progress.",
-        icon: TradelyIcons.overview,
+        icon: 'assets/emojis/Wave.png',
         currentRoute: location,
-        title: "Good morning, Robin! 👋",
+        title: "Good morning, Robin!",
         buttons: PrimaryButton(
           onTap: () {},
           height: 42,

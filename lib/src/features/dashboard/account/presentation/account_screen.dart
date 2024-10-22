@@ -3,7 +3,6 @@ import 'package:tradelog_flutter/src/features/dashboard/account/presentation/con
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/containers/tradely_pro_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
-import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -16,9 +15,9 @@ class AccountScreen extends StatelessWidget {
     return const BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
-        icon: TradelyIcons.account,
+        icon: 'assets/emojis/Gear.png',
         currentRoute: location,
-        title: "Account details 💱",
+        title: "Account details",
       ),
       child: Row(
         children: [

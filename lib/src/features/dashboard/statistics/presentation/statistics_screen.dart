@@ -20,9 +20,9 @@ class StatisticsScreen extends StatelessWidget {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
-        icon: TradelyIcons.statistics,
+        icon: 'assets/emojis/BarChart.png',
         currentRoute: location,
-        title: "Statistics 📊",
+        title: "Statistics",
         buttons: Row(
           children: [
             PrimaryButton(
