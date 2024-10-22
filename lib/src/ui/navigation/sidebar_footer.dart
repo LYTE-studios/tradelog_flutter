@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/broker_connection_dialog.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -21,6 +20,7 @@ class SidebarFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
+      curve: Curves.fastLinearToSlowEaseIn,
       duration: Sidebar.animationDuration,
       child: Column(
         children: [
@@ -37,10 +37,11 @@ class SidebarFooter extends StatelessWidget {
             prefixIconSize: 22,
           ),
           const SizedBox(
-            height: PaddingSizes.extraSmall,
+            height: PaddingSizes.small,
           ),
           ClearInkWell(
             child: BaseContainer(
+              outsidePadding: EdgeInsets.zero,
               padding: EdgeInsets.zero,
               borderRadius: BorderRadii.small,
               height: 48,
@@ -70,40 +71,40 @@ class SidebarFooter extends StatelessWidget {
             ),
             onTap: () => BrokerConnectionDialog.show(context),
           ),
-          if (extended)
-            const SizedBox(
-              height: PaddingSizes.large,
-            ),
-          if (extended)
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: PaddingSizes.medium,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      sessionManager.signedInUser?.fullName ?? '',
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            fontSize: 17,
-                          ),
-                    ),
-                    const SizedBox(
-                      height: PaddingSizes.xxs,
-                    ),
-                    Text(
-                      sessionManager.signedInUser?.email ?? '',
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          // if (extended)
+          //   const SizedBox(
+          //     height: PaddingSizes.large,
+          //   ),
+          // if (extended)
+          //   Align(
+          //     alignment: Alignment.centerLeft,
+          //     child: Padding(
+          //       padding: const EdgeInsets.only(
+          //         left: PaddingSizes.medium,
+          //       ),
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Text(
+          //             sessionManager.signedInUser?.fullName ?? '',
+          //             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+          //                   fontSize: 17,
+          //                 ),
+          //           ),
+          //           const SizedBox(
+          //             height: PaddingSizes.xxs,
+          //           ),
+          //           Text(
+          //             sessionManager.signedInUser?.email ?? '',
+          //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+          //                   fontSize: 15,
+          //                   fontWeight: FontWeight.w500,
+          //                 ),
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ),
         ],
       ),
     );

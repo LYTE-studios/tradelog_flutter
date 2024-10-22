@@ -22,7 +22,8 @@ class StatisticsScreen extends StatelessWidget {
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
         icon: TradelyIcons.statistics,
         currentRoute: location,
-        title: "Statistics 📊",
+        title: "Statistics",
+        titleIconPath: 'assets/images/emojis/statistics_emoji.png',
         buttons: Row(
           children: [
             PrimaryButton(

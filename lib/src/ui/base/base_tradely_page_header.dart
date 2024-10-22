@@ -9,6 +9,8 @@ class BaseTradelyPageHeader extends StatelessWidget {
 
   final String title;
 
+  final String titleIconPath;
+
   final String? subTitle;
 
   final String? icon;
@@ -19,6 +21,7 @@ class BaseTradelyPageHeader extends StatelessWidget {
     super.key,
     required this.currentRoute,
     required this.title,
+    required this.titleIconPath,
     this.subTitle,
     this.buttons,
     this.icon,
@@ -85,9 +88,20 @@ class BaseTradelyPageHeader extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          title,
-                          style: Theme.of(context).textTheme.titleLarge,
+                        Row(
+                          children: [
+                            Text(
+                              title,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            const SizedBox(
+                              width: PaddingSizes.extraSmall,
+                            ),
+                            Image.asset(
+                              titleIconPath,
+                              width: 25,
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: PaddingSizes.small,

@@ -18,7 +18,8 @@ class AccountScreen extends StatelessWidget {
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
         icon: TradelyIcons.account,
         currentRoute: location,
-        title: "Account details 💱",
+        title: "Account details",
+        titleIconPath: 'assets/images/emojis/cogwheel_emoji.png',
       ),
       child: ListView(
         children: const [
