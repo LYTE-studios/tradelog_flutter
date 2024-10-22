@@ -18,7 +18,7 @@ class Sidebar extends StatelessWidget {
   });
 
   static const double extendedLength = 240;
-  static const double closedLength = 81;
+  static const double closedLength = 80;
 
   static const Duration animationDuration = Duration(milliseconds: 200);
 

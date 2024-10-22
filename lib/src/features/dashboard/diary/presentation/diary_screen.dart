@@ -17,9 +17,9 @@ class DiaryScreen extends StatelessWidget {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
-        icon: TradelyIcons.diary,
+        icon: 'assets/emojis/Memo.png',
         currentRoute: location,
-        title: "Your diary 📝",
+        title: "Your diary",
         buttons: PrimaryButton(
           onTap: () {},
           height: 42,

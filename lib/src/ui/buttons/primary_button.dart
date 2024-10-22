@@ -62,6 +62,8 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     // keep this here or it breaks the colors
     return Material(
+      // Transparent fixes the background issues on the rounded corners
+      color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         // TODO: Remove the double border radii.
