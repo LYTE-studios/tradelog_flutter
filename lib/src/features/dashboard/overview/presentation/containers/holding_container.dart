@@ -26,59 +26,39 @@ class HoldingContainer extends StatelessWidget {
                   fontSize: 14,
                 ),
           ),
-          Row(
-            children: [
-              SvgIcon(
-                TradelyIcons.reset,
-                color: TextStyles.mediumTitleColor,
-                size: 22,
-              ),
-              const SizedBox(
-                width: PaddingSizes.small,
-              ),
-              RichText(
-                text: TextSpan(
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 18),
-                  children: const <TextSpan>[
-                    TextSpan(text: '0 ', style: TextStyle(fontSize: 18)),
-                    TextSpan(text: 'Days'),
-                  ],
+          Expanded(
+            child: Row(
+              children: [
+                SvgIcon(
+                  TradelyIcons.reset,
+                  color: TextStyles.mediumTitleColor,
+                  size: 22,
                 ),
-              ),
-              const SizedBox(
-                width: PaddingSizes.small,
-              ),
-              RichText(
-                text: TextSpan(
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 18),
-                  children: const <TextSpan>[
-                    TextSpan(text: '7 ', style: TextStyle(fontSize: 18)),
-                    TextSpan(text: 'Hours '),
-                  ],
+                const SizedBox(
+                  width: PaddingSizes.small,
                 ),
-              ),
-              const SizedBox(
-                width: PaddingSizes.small,
-              ),
-              RichText(
-                text: TextSpan(
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 18),
-                  children: const <TextSpan>[
-                    TextSpan(text: '12 ', style: TextStyle(fontSize: 18)),
-                    TextSpan(text: 'Minutes'),
-                  ],
+                Expanded(
+                  child: FittedBox(
+                    child: RichText(
+                      text: TextSpan(
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: 18),
+                        children: const [
+                          TextSpan(text: '0 ', style: TextStyle(fontSize: 18)),
+                          TextSpan(text: 'Days  '),
+                          TextSpan(text: '7 ', style: TextStyle(fontSize: 18)),
+                          TextSpan(text: 'Hours  '),
+                          TextSpan(text: '12 ', style: TextStyle(fontSize: 18)),
+                          TextSpan(text: 'Minutes  '),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),

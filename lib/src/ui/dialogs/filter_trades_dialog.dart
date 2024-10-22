@@ -146,10 +146,8 @@ class FilterTradesDialog extends StatelessWidget {
               textStyle: Theme.of(context).textTheme.titleMedium,
               color: Theme.of(context).scaffoldBackgroundColor,
               prefixIconColor: TextStyles.mediumTitleColor,
-              border: Border.all(
-                width: 1,
-                color: Theme.of(context).colorScheme.outline,
-              ),
+              outlined: true,
+              borderColor: Theme.of(context).colorScheme.outline,
             ),
           ],
         )

@@ -21,6 +21,7 @@ class SmallDataList extends StatelessWidget {
         Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               buildRow(
                 context,
@@ -43,6 +44,7 @@ class SmallDataList extends StatelessWidget {
         Expanded(
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               buildRow(
                 context,

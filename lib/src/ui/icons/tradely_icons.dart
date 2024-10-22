@@ -58,6 +58,10 @@ class TradelyIcons {
   static const String google = '$_baseLogosPath/google.svg';
   static const String apple = '$_baseLogosPath/apple.svg';
 
+  // PNG Logos
+  static const String metatrader = '$_basePath/metatrader.png';
+  static const String tradelocker = '$_basePath/tradelocker.png';
+
   static const List<String> icons = [
     account,
     arrowBack,
@@ -82,10 +86,13 @@ class TradelyIcons {
     tradelyLogo,
     tradelyLogoSmall,
     tradelyLogoText,
+    tradelySimpleLogo,
     slash,
     tradelyLogoPro,
     google,
     apple,
+    metatrader,
+    tradelocker,
     save30,
     check,
     x,

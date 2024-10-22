@@ -24,7 +24,7 @@ class BaseDialog extends StatelessWidget {
         constraints: constraints,
         padding: padding,
         decoration: BoxDecoration(
-          color: theme.scaffoldBackgroundColor,
+          color: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(
             BorderRadii.large,
           ),

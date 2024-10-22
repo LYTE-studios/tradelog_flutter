@@ -3,11 +3,8 @@ import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
+import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_header_trades.dart';
-import 'package:tradelog_flutter/src/ui/list/header_row_item.dart';
-import 'package:tradelog_flutter/src/ui/list/text_profit_loss.dart';
-import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
@@ -15,6 +12,9 @@ import 'package:tradelog_flutter/src/ui/base/generic_list_view_trades.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/data/small_data_list.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/ui/list/header_row_item.dart';
+import 'package:tradelog_flutter/src/ui/list/text_profit_loss.dart';
+import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
 import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -202,6 +202,7 @@ class DiaryScreen extends StatefulWidget {
       ],
     ),
   ];
+
   DiaryScreen({super.key});
 
   static const String route = '/$location';
@@ -246,43 +247,46 @@ class _DiaryScreenState extends State<DiaryScreen> {
             child: Stack(
               children: [
                 // Main content: Quill editor or Container
-                BaseContainerExpanded(
+                BaseContainer(
                   child: isAnnotationFieldVisible
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: PaddingSizes.extraSmall,
-                              ),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFF161616),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: QuillToolbar.simple(
-                                controller: _controller,
-                                configurations:
-                                    const QuillSimpleToolbarConfigurations(
-                                  sectionDividerColor: Color(0xFF5C5C5C),
-                                  toolbarIconAlignment: WrapAlignment.start,
-                                  showFontFamily: false,
-                                  showCodeBlock: false,
-                                  showInlineCode: false,
-                                  showSubscript: false,
-                                  showSuperscript: false,
-                                  showColorButton: false,
-                                  showBackgroundColorButton: false,
-                                  showQuote: false,
-                                  showIndent: false,
-                                  showLink: false,
-                                  showSearchButton: false,
-                                  showClipboardCut: false,
-                                  showClipboardCopy: false,
-                                  showClipboardPaste: false,
-                                  showClearFormat: false,
-                                  showListCheck: false,
-                                  showFontSize: false,
-                                  showAlignmentButtons: true,
+                            Padding(
+                              padding: const EdgeInsets.only(right: 150),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: PaddingSizes.extraSmall,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: const Color(0xFF161616),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: QuillToolbar.simple(
+                                  controller: _controller,
+                                  configurations:
+                                      const QuillSimpleToolbarConfigurations(
+                                    sectionDividerColor: Color(0xFF5C5C5C),
+                                    toolbarIconAlignment: WrapAlignment.start,
+                                    showFontFamily: false,
+                                    showCodeBlock: false,
+                                    showInlineCode: false,
+                                    showSubscript: false,
+                                    showSuperscript: false,
+                                    showColorButton: false,
+                                    showBackgroundColorButton: false,
+                                    showQuote: false,
+                                    showIndent: false,
+                                    showLink: false,
+                                    showSearchButton: false,
+                                    showClipboardCut: false,
+                                    showClipboardCopy: false,
+                                    showClipboardPaste: false,
+                                    showClearFormat: false,
+                                    showListCheck: false,
+                                    showFontSize: false,
+                                    showAlignmentButtons: true,
+                                  ),
                                 ),
                               ),
                             ),
@@ -408,7 +412,9 @@ class _DiaryScreenState extends State<DiaryScreen> {
                             // Use fixed height for chart and list
                             const SizedBox(
                               height: 250, // Set a fixed height
-                              child: EquityLineChart(),
+                              child: EquityLineChart(
+                                data: [],
+                              ),
                             ),
                             const SizedBox(height: PaddingSizes.extraSmall),
                             const Divider(
@@ -471,9 +477,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                       color: const Color(0xFF2D62FE),
                     ),
                     color: const Color(0xFF111111),
-                    border: Border.all(
-                      color: const Color(0xFF2D62FE),
-                    ),
+                    outlined: true,
                     prefixIcon: isAnnotationFieldVisible
                         ? TradelyIcons.trendUp
                         : TradelyIcons.diary,
@@ -490,15 +494,13 @@ class _DiaryScreenState extends State<DiaryScreen> {
             child: Column(
               children: [
                 Expanded(
-                  flex: 4,
+                  flex: 3,
                   child: DateSelectorContainer(),
                 ),
                 Expanded(
                   flex: 1,
-                  child: BaseContainerExpanded(
-                    child: Expanded(
-                      child: SmallDataList(),
-                    ),
+                  child: BaseContainer(
+                    child: SmallDataList(),
                   ),
                 ),
               ],
