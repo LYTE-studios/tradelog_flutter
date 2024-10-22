@@ -56,6 +56,12 @@ class _EquityLineChartState extends State<EquityLineChart> {
       plotAreaBorderWidth: 0,
       // Removes the border around the chart plot area
       primaryXAxis: NumericAxis(
+        labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFFA2A2AA),
+              letterSpacing: 0,
+            ),
         majorGridLines: const MajorGridLines(width: 0),
         majorTickLines: const MajorTickLines(width: 0),
       ),
@@ -65,6 +71,12 @@ class _EquityLineChartState extends State<EquityLineChart> {
         minimum:
             ((minimum - ((maximum - minimum) * 2)) / 10).roundToDouble() * 10,
         maximum: maximum + ((maximum - minimum) * 2),
+        labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFFA2A2AA),
+              letterSpacing: 0,
+            ),
         majorGridLines: const MajorGridLines(width: 0),
         majorTickLines: const MajorTickLines(width: 0),
       ),

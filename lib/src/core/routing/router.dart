@@ -93,7 +93,7 @@ GoRouter router = GoRouter(
         GoRoute(
           path: MyTradesScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              const NoTransitionPage(
+              NoTransitionPage(
             child: MyTradesScreen(),
           ),
         ),
