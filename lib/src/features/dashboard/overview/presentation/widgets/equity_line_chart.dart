@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -47,10 +46,22 @@ class _EquityLineChartState extends State<EquityLineChart> {
       plotAreaBorderWidth: 0,
       // Removes the border around the chart plot area
       primaryXAxis: NumericAxis(
+        labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFFA2A2AA),
+              letterSpacing: 0,
+            ),
         majorGridLines: const MajorGridLines(width: 0),
         majorTickLines: const MajorTickLines(width: 0),
       ),
       primaryYAxis: NumericAxis(
+        labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+              fontSize: 13,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFFA2A2AA),
+              letterSpacing: 0,
+            ),
         majorGridLines: const MajorGridLines(width: 0),
         majorTickLines: const MajorTickLines(width: 0),
       ),

@@ -2,19 +2,207 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
+import 'package:tradelog_flutter/src/ui/base/base_header_trades.dart';
+import 'package:tradelog_flutter/src/ui/list/header_row_item.dart';
+import 'package:tradelog_flutter/src/ui/list/text_profit_loss.dart';
+import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
+import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
+import 'package:tradelog_flutter/src/ui/base/generic_list_view_trades.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/data/small_data_list.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
 import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class DiaryScreen extends StatefulWidget {
-  const DiaryScreen({super.key});
+  final allRows = [
+    const CustomRow(
+      horizontalPadding: 20,
+      rowItems: [
+        TextRowItem(
+          text: '14:23:05',
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'EURJPY',
+          flex: 1,
+        ),
+        TrendRowItem(
+          short: true,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'Closed',
+          flex: 1,
+        ),
+        TextProfitLoss(
+          text: '\$8,37',
+          short: true,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: '2.25%',
+          flex: 1,
+        ),
+      ],
+    ),
+    const CustomRow(
+      horizontalPadding: 20,
+      rowItems: [
+        TextRowItem(
+          text: '16:46:12',
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'EURJPY',
+          flex: 1,
+        ),
+        TrendRowItem(
+          short: false,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'Closed',
+          flex: 1,
+        ),
+        TextProfitLoss(
+          text: '\$234,23',
+          short: false,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: '24.02%',
+          flex: 1,
+        ),
+      ],
+    ),
+    const CustomRow(
+      horizontalPadding: 20,
+      rowItems: [
+        TextRowItem(
+          text: '16:58:02',
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'EURJPY',
+          flex: 1,
+        ),
+        TrendRowItem(
+          short: false,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'Closed',
+          flex: 1,
+        ),
+        TextProfitLoss(
+          text: '\$19,11',
+          short: false,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: '3.28%',
+          flex: 1,
+        ),
+      ],
+    ),
+    const CustomRow(
+      horizontalPadding: 20,
+      rowItems: [
+        TextRowItem(
+          text: '17:17:58',
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'EURJPY',
+          flex: 1,
+        ),
+        TrendRowItem(
+          short: true,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'Closed',
+          flex: 1,
+        ),
+        TextProfitLoss(
+          text: '\$8,37',
+          short: true,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: '25%',
+          flex: 1,
+        ),
+      ],
+    ),
+    const CustomRow(
+      horizontalPadding: 20,
+      rowItems: [
+        TextRowItem(
+          text: '17:17:58',
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'EURJPY',
+          flex: 1,
+        ),
+        TrendRowItem(
+          short: true,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'Closed',
+          flex: 1,
+        ),
+        TextProfitLoss(
+          text: '\$8,37',
+          short: true,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: '25%',
+          flex: 1,
+        ),
+      ],
+    ),
+    const CustomRow(
+      horizontalPadding: 20,
+      rowItems: [
+        TextRowItem(
+          text: '17:17:58',
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'EURJPY',
+          flex: 1,
+        ),
+        TrendRowItem(
+          short: true,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: 'Closed',
+          flex: 1,
+        ),
+        TextProfitLoss(
+          text: '\$8,37',
+          short: true,
+          flex: 1,
+        ),
+        TextRowItem(
+          text: '25%',
+          flex: 1,
+        ),
+      ],
+    ),
+  ];
+  DiaryScreen({super.key});
 
   static const String route = '/$location';
   static const String location = 'diary';
@@ -42,7 +230,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
         icon: TradelyIcons.diary,
         currentRoute: DiaryScreen.location,
         title: "Your diary",
-        titleIconPath: 'assets/images/memo.png',
+        titleIconPath: 'assets/images/emojis/pencil_emoji.png',
         buttons: PrimaryButton(
           onTap: () {},
           height: 42,
@@ -185,7 +373,7 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   'This graph shows your Running Profit/Loss',
                             ),
                             const SizedBox(
-                              height: PaddingSizes.large,
+                              height: PaddingSizes.small,
                             ),
                             Row(
                               children: [
@@ -197,25 +385,69 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 RichText(
                                   text: TextSpan(
                                     text: "\$543,09",
-                                    style:
-                                        Theme.of(context).textTheme.bodyLarge,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge
+                                        ?.copyWith(
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                     children: [
                                       TextSpan(
-                                        text: ".24",
+                                        text: " .24",
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyMedium,
+                                            .titleMedium,
                                       ),
                                     ],
                                   ),
                                 ),
                               ],
                             ),
+                            const SizedBox(height: PaddingSizes.large),
+                            // Use fixed height for chart and list
                             const SizedBox(
-                              height: PaddingSizes.large,
-                            ),
-                            const Expanded(
+                              height: 250, // Set a fixed height
                               child: EquityLineChart(),
+                            ),
+                            const SizedBox(height: PaddingSizes.extraSmall),
+                            const Divider(
+                              color: Color(0xFF1F1F1F),
+                            ),
+
+                            Expanded(
+                              child: GenericListView(
+                                header: const CustomHeader(
+                                  horizontalPadding: 20,
+                                  children: [
+                                    HeaderRowItem(
+                                      flex: 1,
+                                      text: 'Open Time',
+                                    ),
+                                    HeaderRowItem(
+                                      flex: 1,
+                                      text: 'Symbol',
+                                    ),
+                                    HeaderRowItem(
+                                      flex: 1,
+                                      text: 'Direction',
+                                    ),
+                                    HeaderRowItem(
+                                      flex: 1,
+                                      text: 'Status',
+                                    ),
+                                    HeaderRowItem(
+                                      flex: 1,
+                                      text: 'Net P/L',
+                                    ),
+                                    HeaderRowItem(
+                                      flex: 1,
+                                      text: 'Net ROI %',
+                                    ),
+                                  ],
+                                ),
+                                rows: widget.allRows,
+                              ),
                             ),
                           ],
                         ),
