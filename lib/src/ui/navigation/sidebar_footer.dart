@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/broker_connection_dialog.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -66,7 +68,7 @@ class SidebarFooter extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () {},
+            onTap: () => BrokerConnectionDialog.show(context),
           ),
           if (extended)
             const SizedBox(
@@ -83,7 +85,7 @@ class SidebarFooter extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Robin Monseré",
+                      sessionManager.signedInUser?.fullName ?? '',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 17,
                           ),
@@ -92,7 +94,7 @@ class SidebarFooter extends StatelessWidget {
                       height: PaddingSizes.xxs,
                     ),
                     Text(
-                      "robin@lyestudios.app",
+                      sessionManager.signedInUser?.email ?? '',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontSize: 15,
                             fontWeight: FontWeight.w500,

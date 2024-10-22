@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_buttons.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_color_identifier.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_gauge.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 import 'package:tradelog_flutter/src/ui/data/small_data_list.dart';
+import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LongShortContainer extends StatefulWidget {
   const LongShortContainer({super.key});
@@ -26,47 +26,56 @@ class _LongShortContainerState extends State<LongShortContainer> {
   Widget build(BuildContext context) {
     return BaseContainerExpanded(
       flex: 3,
+      padding: const EdgeInsets.all(
+        PaddingSizes.large,
+      ),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            "Long/short trades",
+            style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontSize: 14,
+                ),
+          ),
           Expanded(
-            flex: 2,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    Text(
-                      "Long/short trades",
-                      style: Theme.of(context).textTheme.titleMedium,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: PaddingSizes.medium,
                     ),
-                    const Spacer(),
-                    const SizedBox(
-                      height: 160,
-                      width: 160,
-                      child: LongShortGauge(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: PaddingSizes.large,
+                      ),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxHeight: 256,
+                            maxWidth: 256,
+                          ),
+                          child: const LongShortGauge(),
+                        ),
+                      ),
                     ),
-                    const Spacer(),
-                  ],
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    LongShortButtons(
-                      selected: selected,
-                      onChanged: setSelected,
-                    ),
-                    const Spacer(),
-                    const LongShortColorIdentifier(),
-                    const Spacer(),
-                  ],
+                const Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: LongShortColorIdentifier(),
+                  ),
                 ),
               ],
             ),
           ),
-          const Expanded(
+          const SizedBox(
+            height: 64,
             child: SmallDataList(),
           ),
         ],

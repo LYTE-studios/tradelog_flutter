@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class EquityLineChart extends StatefulWidget {
@@ -65,18 +66,18 @@ class _EquityLineChartState extends State<EquityLineChart> {
       series: [
         AreaSeries(
             // this does not work as intended, waiting for further ui changes until I know how the data looks like
-            markerSettings: MarkerSettings(
+            markerSettings: const MarkerSettings(
               height: 14,
               width: 14,
               isVisible: false,
             ),
             borderDrawMode: BorderDrawMode.top,
-            borderWidth: 5,
+            borderWidth: 3,
             borderColor: Theme.of(context).colorScheme.primary,
             gradient: LinearGradient(
               colors: [
-                Theme.of(context).colorScheme.primary.withOpacity(0.2),
-                Theme.of(context).scaffoldBackgroundColor,
+                HexColor.fromHex('232135'),
+                Colors.transparent,
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,

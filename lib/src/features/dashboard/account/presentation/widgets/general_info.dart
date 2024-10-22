@@ -2,6 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/routing/router.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
@@ -85,7 +88,11 @@ class _GeneralInfoState extends State<GeneralInfo> {
               ),
               PrimaryButton(
                 color: colorScheme.errorContainer,
-                onTap: () {},
+                onTap: () async {
+                  await sessionManager.signOut();
+
+                  router.pushReplacement(LoginScreen.route);
+                },
                 height: 38,
                 text: "Delete Account",
                 textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
