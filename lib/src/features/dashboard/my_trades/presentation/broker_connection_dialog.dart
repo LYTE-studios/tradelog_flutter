@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
@@ -60,13 +59,13 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
       const Duration(seconds: 2),
     );
 
-    await client.metaApi.(
-      LinkedAccount(
-        userInfoId: userInfoId,
-        apiKey: apiKey,
-        platform: _selectedPlatform!,
-      ),
-    );
+    // await client.metaApi.(
+    //   LinkedAccount(
+    //     userInfoId: userInfoId,
+    //     apiKey: apiKey,
+    //     platform: _selectedPlatform!,
+    //   ),
+    // );
 
     setLoading(false);
   }

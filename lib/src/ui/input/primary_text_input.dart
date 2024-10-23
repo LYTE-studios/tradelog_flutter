@@ -26,6 +26,8 @@ class PrimaryTextInput extends StatelessWidget {
 
   final bool readOnly;
 
+  final Function()? onSave;
+
   const PrimaryTextInput({
     super.key,
     this.height,
@@ -40,6 +42,7 @@ class PrimaryTextInput extends StatelessWidget {
     this.suffixIconConstraints,
     this.contentPadding,
     this.readOnly = false,
+    this.onSave,
   });
 
   @override
@@ -60,12 +63,13 @@ class PrimaryTextInput extends StatelessWidget {
         SizedBox(
           height: height,
           width: width ?? 200,
-          child: TextField(
+          child: TextFormField(
             readOnly: readOnly,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.w400,
                 ),
+            onFieldSubmitted: (_) => onSave?.call(),
             controller: tec,
             decoration: InputDecoration(
               contentPadding: contentPadding ??

@@ -32,6 +32,8 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
   String? error;
 
   Future<void> signIn() async {
+    setLoading(true);
+
     AuthenticationResult result = await AuthenticationManager.signIn(
       email: emailTec.text,
       password: pwTec.text,
@@ -39,13 +41,16 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
 
     if (result == AuthenticationResult.authenticated) {
       router.go(OverviewScreen.route);
+      setLoading(false);
     } else if (result == AuthenticationResult.failure) {
       setState(() {
         error = 'No user was found for the given credentials';
+        loading = false;
       });
     } else if (result == AuthenticationResult.error) {
       setState(() {
         error = 'An unexpected error occurred.';
+        loading = false;
       });
     }
   }
@@ -68,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           height: PaddingSizes.xxl,
         ),
         PrimaryTextInput(
+          onSave: signIn,
           isError: error != null,
           width: double.infinity,
           tec: emailTec,
@@ -79,6 +85,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           height: PaddingSizes.large,
         ),
         PasswordTextInput(
+          onSave: signIn,
           isError: error != null,
           tec: pwTec,
           width: double.infinity,
@@ -107,6 +114,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           height: PaddingSizes.xxl,
         ),
         PrimaryButton(
+          loading: loading,
           onTap: signIn,
           height: 53,
           text: "Login",

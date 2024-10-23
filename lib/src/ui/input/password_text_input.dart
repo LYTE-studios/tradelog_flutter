@@ -21,6 +21,8 @@ class PasswordTextInput extends StatefulWidget {
 
   final EdgeInsets? contentPadding;
 
+  final Function()? onSave;
+
   const PasswordTextInput({
     super.key,
     required this.tec,
@@ -31,6 +33,7 @@ class PasswordTextInput extends StatefulWidget {
     this.isError = false,
     this.suffixIcon,
     this.contentPadding,
+    this.onSave,
   });
 
   @override
@@ -44,6 +47,7 @@ class _PasswordTextInputState extends State<PasswordTextInput> {
   Widget build(BuildContext context) {
     return PrimaryTextInput(
       hint: widget.hint,
+      onSave: widget.onSave,
       label: widget.label,
       height: widget.height,
       width: widget.width,
