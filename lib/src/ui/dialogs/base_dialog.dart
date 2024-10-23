@@ -35,6 +35,7 @@ class BaseDialog extends StatelessWidget {
           width: double.infinity,
           child: Stack(
             children: [
+              child,
               Positioned(
                 top: 0,
                 right: 0,
@@ -49,7 +50,6 @@ class BaseDialog extends StatelessWidget {
                   ),
                 ),
               ),
-              child,
             ],
           ),
         ),
