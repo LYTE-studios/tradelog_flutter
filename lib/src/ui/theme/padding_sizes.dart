@@ -1,4 +1,6 @@
 class PaddingSizes {
+  static const double xxxs = 2;
+
   static const double xxs = 4;
 
   static const double extraSmall = 7;
