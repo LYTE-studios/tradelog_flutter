@@ -4,7 +4,6 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
-import 'package:tradelog_flutter/src/ui/base/base_header_trades.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
@@ -18,6 +17,8 @@ import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
 import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+
+import '../../../../ui/base/custom_header.dart';
 
 class DiaryScreen extends StatefulWidget {
   final allRows = [
@@ -494,14 +495,10 @@ class _DiaryScreenState extends State<DiaryScreen> {
             child: Column(
               children: [
                 Expanded(
-                  flex: 3,
                   child: DateSelectorContainer(),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: BaseContainer(
-                    child: SmallDataList(),
-                  ),
+                BaseContainer(
+                  child: SmallDataList(),
                 ),
               ],
             ),

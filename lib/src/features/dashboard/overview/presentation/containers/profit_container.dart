@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
+import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class ProfitContainer extends StatelessWidget {
@@ -9,33 +9,32 @@ class ProfitContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseContainerExpanded(
+    return BaseContainer(
       padding: const EdgeInsets.all(
         PaddingSizes.large,
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Profit Factor",
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Expanded(
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: Text(
-                      "$percentage%",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+          const SizedBox(
+            width: PaddingSizes.large,
           ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Profit Factor",
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontSize: 14),
+              ),
+              Text(
+                "$percentage%",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ],
+          ),
+          const Spacer(),
           SizedBox(
             width: 70,
             height: 70,

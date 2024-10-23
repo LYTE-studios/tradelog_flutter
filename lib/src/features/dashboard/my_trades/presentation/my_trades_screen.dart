@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
-import 'package:tradelog_flutter/src/ui/base/base_header_trades.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
+import 'package:tradelog_flutter/src/ui/base/custom_header.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
 import 'package:tradelog_flutter/src/ui/base/generic_list_view_trades.dart';
 import 'package:tradelog_flutter/src/ui/buttons/filter_trades_button.dart';

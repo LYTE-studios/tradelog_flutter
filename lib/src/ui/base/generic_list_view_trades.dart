@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/ui/base/base_header_trades.dart';
+import 'package:tradelog_flutter/src/ui/base/custom_header.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
 
 class GenericListView extends StatelessWidget {

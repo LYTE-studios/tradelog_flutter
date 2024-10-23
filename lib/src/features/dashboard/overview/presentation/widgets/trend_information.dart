@@ -32,7 +32,7 @@ class TrendInformation extends StatelessWidget {
         Text(
           percentage != null ? "$percentage%" : "- %",
           style: textTheme.bodySmall?.copyWith(
-            fontSize: 12,
+            fontSize: 14,
             color: percentage != null
                 ? up
                     ? colorScheme.tertiary
@@ -43,7 +43,7 @@ class TrendInformation extends StatelessWidget {
         Text(
           " vs last month",
           style: textTheme.bodySmall?.copyWith(
-            fontSize: 12,
+            fontSize: 14,
           ),
         )
       ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/ui/base/base_Row_Item.dart';
 
 class CustomHeader extends StatelessWidget {
   final List<Widget> children;
@@ -17,15 +16,16 @@ class CustomHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          left: horizontalPadding, right: horizontalPadding, top: 0, bottom: 8),
+        left: horizontalPadding,
+        right: horizontalPadding,
+        top: 0,
+        bottom: 8,
+      ),
       child: SizedBox(
         height: 37,
-        child: BaseRowItem(
-          flex: flex,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: children,
-          ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: children,
         ),
       ),
     );
