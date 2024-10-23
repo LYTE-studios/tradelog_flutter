@@ -7,7 +7,6 @@ class LinkedAccounts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Column(

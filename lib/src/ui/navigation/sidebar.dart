@@ -45,6 +45,7 @@ class Sidebar extends StatelessWidget {
                 horizontal: PaddingSizes.large,
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SidebarHeader(

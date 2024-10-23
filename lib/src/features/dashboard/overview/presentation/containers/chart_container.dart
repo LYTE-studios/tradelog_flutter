@@ -7,10 +7,14 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 class ChartContainer extends StatelessWidget {
   // Example data
   final String? data;
+  final String titleText;
+  final String toolTipText;
 
   const ChartContainer({
     super.key,
     required this.data,
+    required this.titleText,
+    required this.toolTipText,
   });
 
   @override
@@ -19,9 +23,9 @@ class ChartContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const ToolTipTitle(
-            titleText: 'Equity line',
-            toolTipText: 'This is the equity chart',
+          ToolTipTitle(
+            titleText: titleText,
+            toolTipText: toolTipText,
           ),
           const SizedBox(
             height: PaddingSizes.large,
@@ -42,7 +46,9 @@ class ChartContainer extends StatelessWidget {
             height: PaddingSizes.large,
           ),
           Expanded(
-            child: EquityLineChart(),
+            child: EquityLineChart(
+              data: [],
+            ),
           ),
         ],
       ),

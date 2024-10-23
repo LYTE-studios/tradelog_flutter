@@ -26,7 +26,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
               Sidebar(
                 extended: extended,
               ),
-              Expanded(child: widget.child),
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    double height = constraints.maxHeight;
+                    double width = constraints.maxWidth;
+
+                    if (width < 1000) {
+                      width = 1000;
+                    }
+
+                    if (height < 640) {
+                      height = 640;
+                    } else if (height > 1200) {
+                      height = 1200;
+                    }
+
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.vertical,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: SizedBox(
+                          height: height,
+                          width: width,
+                          child: widget.child,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
           AnimatedPositioned(

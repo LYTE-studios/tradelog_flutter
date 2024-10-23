@@ -16,7 +16,7 @@ final tradelyTheme = ThemeData(
     onError: HexColor.fromHex('#E67E22'),
     errorContainer: HexColor.fromHex('#2A1718'),
     onErrorContainer: HexColor.fromHex('#1C1612'),
-    surface: HexColor.fromHex('#111111'),
+    surface: HexColor.fromHex('#222222'),
     onSurface: HexColor.fromHex('#FFFFFF'),
     primaryContainer: HexColor.fromHex('#242424'),
     onPrimaryContainer: HexColor.fromHex('#CCCCCC'),

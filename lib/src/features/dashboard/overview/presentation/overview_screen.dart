@@ -61,6 +61,8 @@ class OverviewScreen extends StatelessWidget {
                   ),
                 ),
                 ChartContainer(
+                  titleText: 'Equity Line',
+                  toolTipText: 'This graph shows the equity line',
                   data: null,
                 ),
               ],
