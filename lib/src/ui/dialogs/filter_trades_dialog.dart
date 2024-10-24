@@ -65,7 +65,7 @@ class FilterTradesDialog extends StatelessWidget {
               ),
               onTap: () => onUpdateTradeTypeFilter.call(TradeType.short),
               height: 34,
-              width: 95,
+              width: 100,
               text: "Short",
               prefixIcon: TradelyIcons.trendDown,
               prefixIconSize: 12,
