@@ -101,7 +101,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                 const ProfitContainer(
                   percentage: 45,
                 ),
-                ActivityHeatmapContainer(),
+                Expanded(child: ActivityHeatmapContainer()),
               ],
             ),
           ),

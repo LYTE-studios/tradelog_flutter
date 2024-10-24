@@ -26,7 +26,7 @@ final tradelyTheme = ThemeData(
     onTertiaryContainer: HexColor.fromHex("#8B8B8B"),
 
     /// borders
-    outline: HexColor.fromHex("#2B2B2B"),
+    outline: HexColor.fromHex("#1F1F1F"),
   ),
   textTheme: TextTheme(
     titleLarge: TextStyles.titleLarge,
