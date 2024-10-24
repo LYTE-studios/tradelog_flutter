@@ -5,7 +5,21 @@ import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LinkedAccount extends StatelessWidget {
-  const LinkedAccount({super.key});
+  final double balance;
+
+  final String symbol;
+
+  final String name;
+
+  final bool active;
+
+  const LinkedAccount({
+    super.key,
+    required this.name,
+    required this.balance,
+    required this.active,
+    required this.symbol,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +56,7 @@ class LinkedAccount extends StatelessWidget {
                     height: PaddingSizes.xxs,
                   ),
                   Text(
-                    "\$123.456",
+                    "$symbol${balance.toStringAsFixed(2)}",
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: 19,
                         ),
@@ -64,7 +78,7 @@ class LinkedAccount extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Cove account",
+                    name,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           fontSize: 15,
                         ),
@@ -80,10 +94,10 @@ class LinkedAccount extends StatelessWidget {
                   ),
                 ],
               ),
-              const SvgIcon(
-                TradelyIcons.warning,
-                leaveUnaltered: true,
-              )
+              // const SvgIcon(
+              //   TradelyIcons.warning,
+              //   leaveUnaltered: true,
+              // ),
             ],
           )
         ],

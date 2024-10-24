@@ -4,7 +4,6 @@ import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/add_trade_toggle_tab.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/buy_sell_toggle_tab.dart';
-import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -207,11 +206,11 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                               const BouncingScrollPhysics(),
                                           scrollDirection: Axis.horizontal,
                                           children: const [
-                                            LinkedAccount(),
-                                            SizedBox(width: PaddingSizes.small),
-                                            LinkedAccount(),
-                                            SizedBox(width: PaddingSizes.small),
-                                            LinkedAccount(),
+                                            // LinkedAccount(),
+                                            // SizedBox(width: PaddingSizes.small),
+                                            // LinkedAccount(),
+                                            // SizedBox(width: PaddingSizes.small),
+                                            // LinkedAccount(),
                                           ],
                                         ),
                                       ),
@@ -478,11 +477,11 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                       physics: const BouncingScrollPhysics(),
                                       scrollDirection: Axis.horizontal,
                                       children: const [
-                                        LinkedAccount(),
-                                        SizedBox(width: PaddingSizes.small),
-                                        LinkedAccount(),
-                                        SizedBox(width: PaddingSizes.small),
-                                        LinkedAccount(),
+                                        // LinkedAccount(),
+                                        // SizedBox(width: PaddingSizes.small),
+                                        // LinkedAccount(),
+                                        // SizedBox(width: PaddingSizes.small),
+                                        // LinkedAccount(),
                                       ],
                                     ),
                                   ),
