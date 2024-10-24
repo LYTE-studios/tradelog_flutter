@@ -9,8 +9,8 @@ class HeaderRowItem extends StatelessWidget {
   const HeaderRowItem({
     required this.text,
     this.flex = 1,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -15,22 +15,24 @@ class LinkedAccounts extends StatelessWidget {
         Text(
           "Linked accounts",
           style: textTheme.titleSmall?.copyWith(
-            fontSize: 19,
+            fontSize: 18.5,
           ),
         ),
         Text(
           "Click to see more",
-          style: textTheme.titleMedium,
+          style: textTheme.titleMedium?.copyWith(
+            fontSize: 15,
+          ),
         ),
         const SizedBox(
           height: PaddingSizes.extraLarge,
         ),
-        LinkedAccount(),
-        LinkedAccount(),
-        LinkedAccount(),
-        LinkedAccount(),
-        LinkedAccount(),
-        LinkedAccount(),
+        const LinkedAccount(),
+        const LinkedAccount(),
+        const LinkedAccount(),
+        const LinkedAccount(),
+        const LinkedAccount(),
+        const LinkedAccount(),
       ],
     );
   }

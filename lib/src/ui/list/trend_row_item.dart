@@ -9,7 +9,7 @@ class TrendRowItem extends StatelessWidget {
   final bool short;
   final int flex;
 
-  const TrendRowItem({
+  const TrendRowItem({super.key, 
     required this.short,
     this.flex = 1,
   });

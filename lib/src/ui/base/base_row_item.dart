@@ -7,8 +7,8 @@ class BaseRowItem extends StatelessWidget {
   const BaseRowItem({
     required this.child,
     this.flex = 1,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

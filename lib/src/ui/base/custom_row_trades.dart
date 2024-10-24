@@ -7,8 +7,8 @@ class CustomRow extends StatelessWidget {
   const CustomRow({
     required this.rowItems,
     this.horizontalPadding = 0,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -67,6 +67,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                       fontSize: 19,
                     ),
                   ),
+                  const SizedBox(height: PaddingSizes.xxs),
                   Visibility(
                     visible: widget.warningText != null,
                     child: Row(
@@ -75,6 +76,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                           TradelyIcons.warning,
                           leaveUnaltered: true,
                         ),
+                        const SizedBox(width: PaddingSizes.xxxs),
                         Text(
                           widget.warningText!,
                           style: textTheme.titleSmall?.copyWith(
@@ -116,7 +118,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                 hint: "Robin",
               ),
               const SizedBox(
-                width: PaddingSizes.xxxl,
+                width: PaddingSizes.extraLarge,
               ),
               PrimaryTextInput(
                 readOnly: !isEditing,
@@ -140,7 +142,7 @@ class _GeneralInfoState extends State<GeneralInfo> {
                 hint: "monsere.robin@gmail.com",
               ),
               const SizedBox(
-                width: PaddingSizes.xxxl,
+                width: PaddingSizes.extraLarge,
               ),
               PrimaryTextInput(
                 readOnly: !isEditing,
