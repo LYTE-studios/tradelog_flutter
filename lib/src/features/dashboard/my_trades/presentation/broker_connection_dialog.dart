@@ -84,7 +84,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
 
     setLoading(false);
 
-    Navigator.pop(context);
+    _navigateToNextPage(_selectedPlatform!);
   }
 
   @override
@@ -311,11 +311,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                           PrimaryButton(
                             width: 180,
                             loading: loading,
-                            onTap: () {
-                              if (_selectedPlatform != null) {
-                                _navigateToNextPage(_selectedPlatform!);
-                              }
-                            },
+                            onTap: linkAccount,
                             height: 44,
                             text: 'Add exchange',
                             prefixIcon: TradelyIcons.plusCircle,
