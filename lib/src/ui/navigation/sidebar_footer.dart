@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/broker_connection_dialog.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -25,7 +26,7 @@ class SidebarFooter extends StatelessWidget {
             width: extended ? null : 48,
             align:
                 extended ? MainAxisAlignment.start : MainAxisAlignment.center,
-            onTap: () {},
+            onTap: () => AddTradeDialog.show(context),
             height: 48,
             padding: extended ? null : EdgeInsets.zero,
             prefixIconPadding: extended ? null : EdgeInsets.zero,

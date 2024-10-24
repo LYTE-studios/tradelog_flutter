@@ -10,9 +10,9 @@ import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 // I yoinked this from
 // https://pub.dev/packages/appinio_animated_toggle_tab/example
 // and modified it so it could handle the custom text
-class SubscriptionToggleTab extends StatefulWidget {
+class BuySellToggleTab extends StatefulWidget {
   /// function(int) for call back and control the view of tabs
-  final Function(ProFrequency) onToggle;
+  final Function(BuySellType) onToggle;
 
   /// height of the tab
   final double height;
@@ -22,7 +22,7 @@ class SubscriptionToggleTab extends StatefulWidget {
 
   final int initialIndex;
 
-  const SubscriptionToggleTab({
+  const BuySellToggleTab({
     super.key,
     required this.onToggle,
     required this.height,
@@ -31,15 +31,15 @@ class SubscriptionToggleTab extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => SubscriptionToggleTabState();
+  State<StatefulWidget> createState() => BuySellToggleTabState();
 }
 
-class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
+class BuySellToggleTabState extends State<BuySellToggleTab> {
   late int index;
 
-  ProFrequency selectedFrequency = ProFrequency.monthly;
+  BuySellType selectedType = BuySellType.buy;
 
-  SubscriptionToggleTabState() : super();
+  BuySellToggleTabState() : super();
 
   @override
   void initState() {
@@ -47,10 +47,10 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
     index = widget.initialIndex;
   }
 
-  void setFrequency(ProFrequency frequency) {
+  void setType(BuySellType type) {
     setState(() {
-      selectedFrequency = frequency;
-      widget.onToggle(selectedFrequency);
+      selectedType = type;
+      widget.onToggle(type);
     });
   }
 
@@ -70,8 +70,8 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
       ),
       child: Stack(children: [
         AnimatedAlign(
-          alignment:
-              Alignment(selectedFrequency == ProFrequency.monthly ? -1 : 1, 0),
+          alignment: Alignment(selectedType == BuySellType.buy ? -1 : 1, 0),
+          curve: Curves.fastEaseInToSlowEaseOut,
           duration: const Duration(milliseconds: 300),
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -81,7 +81,9 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
               width: (widget.width / 2),
               height: widget.height * 0.8,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: selectedType == BuySellType.buy
+                    ? const Color(0xFF14D39F)
+                    : const Color(0xFFF21111),
                 borderRadius: BorderRadius.circular(
                   BorderRadii.medium,
                 ),
@@ -94,23 +96,23 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
           children: [
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () => setFrequency(ProFrequency.monthly),
+              onTap: () => setType(BuySellType.buy),
               child: Container(
                 alignment: Alignment.center,
                 width: widget.width / 2,
                 height: widget.height,
                 child: Text(
-                  "Monthly",
+                  "Buy",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: TextStyles.titleColor,
+                        color: Colors.white, // Color for unselected option,
                       ),
                 ),
               ),
             ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () => setFrequency(ProFrequency.yearly),
+              onTap: () => setType(BuySellType.sell),
               child: Container(
                 alignment: Alignment.center,
                 width: widget.width / 2,
@@ -119,20 +121,11 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Yearly",
+                      "Sell",
                       textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(color: TextStyles.titleColor),
-                    ),
-                    const SizedBox(
-                      width: PaddingSizes.xxs,
-                    ),
-                    const SvgIcon(
-                      size: 25,
-                      TradelyIcons.save30,
-                      leaveUnaltered: true,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: Colors.white, // Color for unselected option,
+                          ),
                     ),
                   ],
                 ),
