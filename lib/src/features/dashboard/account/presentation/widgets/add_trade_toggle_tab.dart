@@ -10,9 +10,9 @@ import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 // I yoinked this from
 // https://pub.dev/packages/appinio_animated_toggle_tab/example
 // and modified it so it could handle the custom text
-class SubscriptionToggleTab extends StatefulWidget {
+class AddTradeToggleTab extends StatefulWidget {
   /// function(int) for call back and control the view of tabs
-  final Function(ProFrequency) onToggle;
+  final Function(AddTradeType) onToggle;
 
   /// height of the tab
   final double height;
@@ -22,7 +22,7 @@ class SubscriptionToggleTab extends StatefulWidget {
 
   final int initialIndex;
 
-  const SubscriptionToggleTab({
+  const AddTradeToggleTab({
     super.key,
     required this.onToggle,
     required this.height,
@@ -34,10 +34,10 @@ class SubscriptionToggleTab extends StatefulWidget {
   State<StatefulWidget> createState() => SubscriptionToggleTabState();
 }
 
-class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
+class SubscriptionToggleTabState extends State<AddTradeToggleTab> {
   late int index;
 
-  ProFrequency selectedFrequency = ProFrequency.monthly;
+  AddTradeType selectedType = AddTradeType.manual;
 
   SubscriptionToggleTabState() : super();
 
@@ -47,10 +47,10 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
     index = widget.initialIndex;
   }
 
-  void setFrequency(ProFrequency frequency) {
+  void setType(AddTradeType type) {
     setState(() {
-      selectedFrequency = frequency;
-      widget.onToggle(selectedFrequency);
+      selectedType = type;
+      widget.onToggle(type);
     });
   }
 
@@ -70,8 +70,8 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
       ),
       child: Stack(children: [
         AnimatedAlign(
-          alignment:
-              Alignment(selectedFrequency == ProFrequency.monthly ? -1 : 1, 0),
+          alignment: Alignment(selectedType == AddTradeType.manual ? -1 : 1, 0),
+          curve: Curves.fastEaseInToSlowEaseOut,
           duration: const Duration(milliseconds: 300),
           child: Padding(
             padding: const EdgeInsets.symmetric(
@@ -81,7 +81,7 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
               width: (widget.width / 2),
               height: widget.height * 0.8,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
+                color: const Color(0xFF3B3B3B),
                 borderRadius: BorderRadius.circular(
                   BorderRadii.medium,
                 ),
@@ -94,23 +94,26 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
           children: [
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () => setFrequency(ProFrequency.monthly),
+              onTap: () => setType(AddTradeType.manual),
               child: Container(
                 alignment: Alignment.center,
                 width: widget.width / 2,
                 height: widget.height,
                 child: Text(
-                  "Monthly",
+                  "Manual",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: TextStyles.titleColor,
+                        color: selectedType == AddTradeType.manual
+                            ? TextStyles.titleColor // Default selected color
+                            : const Color(
+                                0xFF919191), // Color for unselected option,
                       ),
                 ),
               ),
             ),
             GestureDetector(
               behavior: HitTestBehavior.translucent,
-              onTap: () => setFrequency(ProFrequency.yearly),
+              onTap: () => setType(AddTradeType.file),
               child: Container(
                 alignment: Alignment.center,
                 width: widget.width / 2,
@@ -119,20 +122,15 @@ class SubscriptionToggleTabState extends State<SubscriptionToggleTab> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Yearly",
+                      "Upload CSV",
                       textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(color: TextStyles.titleColor),
-                    ),
-                    const SizedBox(
-                      width: PaddingSizes.xxs,
-                    ),
-                    const SvgIcon(
-                      size: 25,
-                      TradelyIcons.save30,
-                      leaveUnaltered: true,
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: selectedType == AddTradeType.file
+                                ? TextStyles
+                                    .titleColor // Default selected color
+                                : const Color(
+                                    0xFF919191), // Color for unselected option,
+                          ),
                     ),
                   ],
                 ),

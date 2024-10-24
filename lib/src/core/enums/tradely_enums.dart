@@ -9,6 +9,16 @@ enum ProFrequency {
   yearly,
 }
 
+enum AddTradeType {
+  manual,
+  file,
+}
+
+enum BuySellType {
+  buy,
+  sell,
+}
+
 enum PlanType {
   free,
   proMonthly,
