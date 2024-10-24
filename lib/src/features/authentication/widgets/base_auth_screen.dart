@@ -9,10 +9,13 @@ class BaseAuthScreen extends StatelessWidget {
 
   final List<Widget> children;
 
+  final Function()? onEnter;
+
   const BaseAuthScreen({
     super.key,
     this.canGoBack = false,
     required this.children,
+    this.onEnter,
   });
 
   @override

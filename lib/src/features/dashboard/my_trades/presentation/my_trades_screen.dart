@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
+import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -58,14 +60,23 @@ class MyTradesScreen extends StatefulWidget {
   State<MyTradesScreen> createState() => _MyTradesScreenState();
 }
 
-class _MyTradesScreenState extends State<MyTradesScreen> {
+class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
   TradeType tradeTypeFilter = TradeType.short;
+
+  List<DisplayTrade> trades = [];
 
   void onUpdateTradeType(TradeType type) {
     setState(() {
       tradeTypeFilter = type;
     });
   }
+
+  // @override
+  // Future<void> loadData() async {
+  //   trades = await client.tradeLocker.getTrades(accountId, accNum);
+  //
+  //   return super.loadData();
+  // }
 
   @override
   Widget build(BuildContext context) {

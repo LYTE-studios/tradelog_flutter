@@ -24,6 +24,7 @@ dependencies:
   syncfusion_flutter_charts: ^22.2.9
   syncfusion_flutter_gauges: ^22.2.12
   syncfusion_flutter_datepicker: ^22.2.12
+  flutter_svg_provider: ^1.0.7
 
   # NAVIGATION
   go_router: ^14.2.3

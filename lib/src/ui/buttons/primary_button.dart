@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
@@ -42,6 +43,8 @@ class PrimaryButton extends StatelessWidget {
   /// expand button to parent widget, overwritten by width.
   final bool expand;
 
+  final bool loading;
+
   const PrimaryButton({
     super.key,
     required this.onTap,
@@ -62,6 +65,7 @@ class PrimaryButton extends StatelessWidget {
     this.outlined = false,
     this.borderColor,
     this.prefixChild,
+    this.loading = false,
   });
 
   @override
@@ -92,35 +96,38 @@ class PrimaryButton extends StatelessWidget {
                   const EdgeInsets.symmetric(
                     horizontal: PaddingSizes.extraLarge,
                   ),
-              child: Row(
-                mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
-                mainAxisAlignment: align ?? MainAxisAlignment.center,
-                children: [
-                  if (prefixIcon != null)
-                    Padding(
-                      padding: prefixIconPadding ??
-                          const EdgeInsets.only(
-                            right: PaddingSizes.extraSmall,
-                          ),
-                      child: SvgIcon(
-                        prefixIcon!,
-                        size: prefixIconSize ?? 22,
-                        color: prefixIconColor ??
-                            Theme.of(context).colorScheme.onPrimary,
-                        leaveUnaltered: leaveIconUnaltered,
+              child: TradelyLoadingSwitcher(
+                loading: loading,
+                child: Row(
+                  mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
+                  mainAxisAlignment: align ?? MainAxisAlignment.center,
+                  children: [
+                    if (prefixIcon != null)
+                      Padding(
+                        padding: prefixIconPadding ??
+                            const EdgeInsets.only(
+                              right: PaddingSizes.extraSmall,
+                            ),
+                        child: SvgIcon(
+                          prefixIcon!,
+                          size: prefixIconSize ?? 22,
+                          color: prefixIconColor ??
+                              Theme.of(context).colorScheme.onPrimary,
+                          leaveUnaltered: leaveIconUnaltered,
+                        ),
                       ),
-                    ),
-                  if (prefixChild != null) prefixChild!,
-                  if (text != null)
-                    Text(
-                      text!,
-                      style: textStyle ??
-                          Theme.of(context).textTheme.labelLarge?.copyWith(
-                                color: TextStyles.titleColor,
-                                fontSize: 16,
-                              ),
-                    ),
-                ],
+                    if (prefixChild != null) prefixChild!,
+                    if (text != null)
+                      Text(
+                        text!,
+                        style: textStyle ??
+                            Theme.of(context).textTheme.labelLarge?.copyWith(
+                                  color: TextStyles.titleColor,
+                                  fontSize: 16,
+                                ),
+                      ),
+                  ],
+                ),
               ),
             ),
           ),

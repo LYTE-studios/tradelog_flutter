@@ -71,6 +71,7 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
           height: PaddingSizes.xxl,
         ),
         PrimaryTextInput(
+          onSave: registerUser,
           width: double.infinity,
           tec: emailTec,
           label: "Email Address",
@@ -85,6 +86,7 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
           height: PaddingSizes.large,
         ),
         PasswordTextInput(
+          onSave: registerUser,
           isError: errorText != null,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: PaddingSizes.extraLarge,
@@ -117,6 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
         PrimaryButton(
           onTap: registerUser,
           height: 53,
+          loading: loading,
           text: "Create account",
           textStyle: theme.textTheme.titleLarge?.copyWith(
             fontSize: 19,

@@ -25,12 +25,74 @@ class BrokerConnectionDialog extends StatefulWidget {
 
 class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
     with ScreenStateMixin {
-  final TextEditingController _textController = TextEditingController();
+  final TextEditingController tecAccountName = TextEditingController();
+  final TextEditingController tecServerName = TextEditingController();
+  final TextEditingController tecUserName = TextEditingController();
+  final TextEditingController tecPassword = TextEditingController();
+
+  String? error;
+
+  late List<TextEditingController> requiredControllers = [
+    tecAccountName,
+    tecServerName,
+    tecUserName,
+    tecPassword,
+  ];
+
+  Future<void> linkAccount() async {
+    assert(_selectedPlatform != null);
+
+    setLoading(true);
+
+    if (requiredControllers.map((e) => e.text.isEmpty).contains(true)) {
+      setState(() {
+        error = 'Please fill in all fields';
+        loading = false;
+      });
+      return;
+    } else {
+      setState(() {
+        error = null;
+      });
+    }
+
+    switch (_selectedPlatform) {
+      case Platform.Metatrader:
+        {
+          // await client.metaApi.authenticate();
+        }
+      case Platform.Tradelocker:
+        {
+          try {
+            await client.tradeLocker.authenticate(
+              tecUserName.text,
+              tecPassword.text,
+              tecServerName.text,
+            );
+          } catch (e) {
+            setState(() {
+              loading = false;
+              error =
+                  'Incorrect login data. Please check all fields and try again.';
+            });
+            return;
+          }
+        }
+      default:
+    }
+
+    setLoading(false);
+
+    _navigateToNextPage(_selectedPlatform!);
+  }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed
-    _textController.dispose();
+    tecAccountName.dispose();
+    tecServerName.dispose();
+    tecUserName.dispose();
+    tecPassword.dispose();
     super.dispose();
   }
 
@@ -77,6 +139,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         ),
         constraints: const BoxConstraints(
           maxWidth: 620,
+          minHeight: 650,
           maxHeight: 650,
         ),
         child: PageView(
@@ -84,7 +147,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
           physics: const NeverScrollableScrollPhysics(),
           children: [
             Column(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
@@ -142,7 +205,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
             ),
             if (_selectedPlatform != null)
               Column(
-                mainAxisSize: MainAxisSize.max,
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
@@ -180,7 +243,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                       const SizedBox(height: PaddingSizes.medium),
                       Material(
                         child: PrimaryTextInput(
-                          tec: _textController,
+                          tec: tecAccountName,
+                          isError: error != null && tecAccountName.text.isEmpty,
                           height: 52,
                           width: 420,
                           hint: 'Account name',
@@ -208,7 +272,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                       const SizedBox(height: PaddingSizes.medium),
                       Material(
                         child: PrimaryTextInput(
-                          tec: _textController,
+                          tec: tecServerName,
+                          isError: error != null && tecServerName.text.isEmpty,
                           height: 52,
                           width: 420,
                           hint: 'Server',
@@ -217,7 +282,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                       const SizedBox(height: PaddingSizes.medium),
                       Material(
                         child: PrimaryTextInput(
-                          tec: _textController,
+                          tec: tecUserName,
+                          isError: error != null && tecUserName.text.isEmpty,
                           height: 52,
                           width: 420,
                           hint: 'Login',
@@ -226,7 +292,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                       const SizedBox(height: PaddingSizes.medium),
                       Material(
                         child: PrimaryTextInput(
-                          tec: _textController,
+                          tec: tecPassword,
+                          isError: error != null && tecPassword.text.isEmpty,
                           height: 52,
                           width: 420,
                           hint: 'Investor password',
@@ -242,22 +309,23 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                         children: [
                           PrimaryButton(
                             width: 180,
-                            onTap: () {
-                              if (_selectedPlatform != null) {
-                                _navigateToNextPage(_selectedPlatform!);
-                              }
-                            },
+                            loading: loading,
+                            onTap: linkAccount,
                             height: 44,
                             text: 'Add exchange',
                             prefixIcon: TradelyIcons.plusCircle,
                           ),
                           const SizedBox(width: PaddingSizes.xxs),
-                          PrimaryButton(
-                            width: 110,
-                            color: Colors.transparent,
-                            onTap: _navigateToPreviousPage,
-                            height: 44,
-                            text: 'Go back',
+                          Visibility(
+                            // Can't go back when loading
+                            visible: loading == false,
+                            child: PrimaryButton(
+                              width: 110,
+                              color: Colors.transparent,
+                              onTap: _navigateToPreviousPage,
+                              height: 44,
+                              text: 'Go back',
+                            ),
                           ),
                         ],
                       ),
