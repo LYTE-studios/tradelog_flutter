@@ -36,8 +36,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       width = 1000;
                     }
 
-                    if (height < 640) {
-                      height = 640;
+                    if (height < 810) {
+                      height = 810;
                     } else if (height > 1200) {
                       height = 1200;
                     }
