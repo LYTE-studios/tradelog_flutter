@@ -122,11 +122,11 @@ class _RotatingIconsState extends State<_RotatingIcons> {
   late PageController controller = PageController();
 
   Future<void> syncController() async {
-    while (context.mounted) {
-      await Future.delayed(
-        const Duration(seconds: 3),
-      );
+    await Future.delayed(
+      const Duration(seconds: 3),
+    );
 
+    while (context.mounted) {
       int total = widget.icons.length - 1;
 
       int current = ((controller.page ?? 0) + 1).toInt();
@@ -139,6 +139,10 @@ class _RotatingIconsState extends State<_RotatingIcons> {
         current,
         duration: const Duration(seconds: 1),
         curve: Curves.fastLinearToSlowEaseIn,
+      );
+
+      await Future.delayed(
+        const Duration(seconds: 3),
       );
     }
   }
