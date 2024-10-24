@@ -46,6 +46,9 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen>
 
   @override
   Future<void> loadData() async {
+    if (!context.mounted) {
+      return;
+    }
     await Future.delayed(
       const Duration(milliseconds: 3250),
     );

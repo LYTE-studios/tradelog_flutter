@@ -9,10 +9,13 @@ import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 class DateSelector extends StatefulWidget {
   final DateRangePickerSelectionMode pickerSelectionMode;
 
+  final Function(DateTime)? onDateChanged;
+
   /// has a fixed height of 380
   const DateSelector({
     super.key,
     this.pickerSelectionMode = DateRangePickerSelectionMode.single,
+    this.onDateChanged,
   });
 
   @override
@@ -107,6 +110,10 @@ class _DateSelectorState extends State<DateSelector> {
           ),
           Expanded(
             child: SfDateRangePicker(
+              initialSelectedDate: DateTime.now(),
+              onSelectionChanged: (args) {
+                widget.onDateChanged?.call(args.value);
+              },
               selectionMode: widget.pickerSelectionMode,
               onViewChanged: onSwipe,
               rangeTextStyle: textTheme.titleSmall?.copyWith(
