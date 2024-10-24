@@ -36,32 +36,31 @@ class BaseContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // clipRRect is specifically for the data_list, the list items can have a different color.
     return Padding(
       padding: outsidePadding ??
           const EdgeInsets.symmetric(
             vertical: PaddingSizes.extraSmall,
             horizontal: PaddingSizes.xxs,
           ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(
-          borderRadius ?? BorderRadii.large,
+      child: Container(
+        constraints: boxConstraints,
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: enableBorder
+              ? Border.all(
+                  width: 1,
+                  color: Theme.of(context).colorScheme.outline,
+                )
+              : null,
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? BorderRadii.large,
+          ),
         ),
-        child: Container(
-          constraints: boxConstraints,
-          height: height,
-          width: width,
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            border: enableBorder
-                ? Border.all(
-                    width: 1,
-                    color: Theme.of(context).colorScheme.outline,
-                  )
-                : null,
-            borderRadius: BorderRadius.circular(
-              borderRadius ?? BorderRadii.large,
-            ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? BorderRadii.large,
           ),
           child: Padding(
             padding: padding ??
