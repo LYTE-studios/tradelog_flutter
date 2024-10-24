@@ -27,6 +27,7 @@ class SmallDataContainer extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return BaseContainerExpanded(
+      height: 100,
       padding: const EdgeInsets.all(
         PaddingSizes.large,
       ),
@@ -51,7 +52,7 @@ class SmallDataContainer extends StatelessWidget {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: ConstrainedBox(
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxHeight: 56,
                   ),
                   child: FittedBox(

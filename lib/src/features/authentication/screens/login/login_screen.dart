@@ -44,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
       setLoading(false);
     } else if (result == AuthenticationResult.failure) {
       setState(() {
-        error = 'No user was found for the given credentials';
+        error = 'Email or/and password are not correct';
         loading = false;
       });
     } else if (result == AuthenticationResult.error) {
