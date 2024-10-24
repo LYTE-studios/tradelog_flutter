@@ -24,6 +24,28 @@ class PageBuilderUtils {
     );
   }
 
+  static Widget buildUpSlideAnimation(
+    context,
+    animation,
+    secondaryAnimation,
+    child,
+  ) {
+    late final Animation<Offset> offsetAnimation = Tween<Offset>(
+      begin: const Offset(0, 1),
+      end: Offset.zero,
+    ).animate(
+      CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeIn,
+      ),
+    );
+
+    return SlideTransition(
+      position: offsetAnimation,
+      child: child,
+    );
+  }
+
   static Page buildPageWithAnimationBuilder({
     required BuildContext context,
     required Widget child,

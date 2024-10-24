@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/utils/page_builder_utils.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/first_glance/first_glance_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
@@ -21,7 +22,8 @@ GoRouter router = GoRouter(
     GoRoute(
       path: FirstGlanceScreen.route,
       pageBuilder: (BuildContext context, GoRouterState state) =>
-          const NoTransitionPage(
+          const CustomTransitionPage(
+        transitionsBuilder: PageBuilderUtils.buildUpSlideAnimation,
         child: FirstGlanceScreen(),
       ),
     ),

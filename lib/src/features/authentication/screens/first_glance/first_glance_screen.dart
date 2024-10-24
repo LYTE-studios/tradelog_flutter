@@ -46,12 +46,16 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen>
 
   @override
   Future<void> loadData() async {
-    if (!context.mounted) {
+    if (!mounted) {
       return;
     }
     await Future.delayed(
       const Duration(milliseconds: 3250),
     );
+
+    if (!mounted) {
+      return;
+    }
 
     await TradelyIcons.preload(context);
 

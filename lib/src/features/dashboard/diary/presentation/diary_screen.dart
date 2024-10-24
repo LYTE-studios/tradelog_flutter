@@ -265,7 +265,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   }
 
   Future<void> startTicker() async {
-    while (context.mounted) {
+    while (mounted) {
       if (toBeUpdatedValue != lastUpdatedValue) {
         if (note != null) {
           await update();
