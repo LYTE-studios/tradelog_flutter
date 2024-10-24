@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/add_trade_toggle_tab.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -108,7 +111,17 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                       ),
                 ),
                 const SizedBox(
-                  height: PaddingSizes.xxl,
+                  height: PaddingSizes.xxxl,
+                ),
+                Text(
+                  'Choose an exchange',
+                  style: TextStyles.titleMedium.copyWith(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(
+                  height: PaddingSizes.extraLarge,
                 ),
                 ...Platform.values.map(
                   (Platform platform) {
@@ -118,7 +131,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                       padding: const EdgeInsets.symmetric(
                         horizontal: PaddingSizes.large,
                       ),
-                      color: const Color(0xFF2B2B2B),
+                      color: const Color(0xFF171717),
                       icon: getIconForBroker(platform),
                       title: platform.name,
                       description: 'Automatic Sync of Completed Trades',
@@ -162,7 +175,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                         'Account name',
                         style: TextStyles.titleMedium.copyWith(
                           color: Colors.white,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
                         ),
                       ),
                       const SizedBox(height: PaddingSizes.medium),
@@ -189,7 +203,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                         'Your credentials',
                         style: TextStyles.titleMedium.copyWith(
                           color: Colors.white,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
                         ),
                       ),
                       const SizedBox(height: PaddingSizes.medium),
@@ -229,7 +244,11 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                         children: [
                           PrimaryButton(
                             width: 180,
-                            onTap: () {},
+                            onTap: () {
+                              if (_selectedPlatform != null) {
+                                _navigateToNextPage(_selectedPlatform!);
+                              }
+                            },
                             height: 44,
                             text: 'Add exchange',
                             prefixIcon: TradelyIcons.plusCircle,
@@ -245,9 +264,64 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                         ],
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 20,
+                      height: 20,
+                      decoration: const BoxDecoration(
+                        color: Color(0xFF14D39F),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Center(
+                        child: SvgIcon(
+                          TradelyIcons.check,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: PaddingSizes.small),
+                    Text(
+                      '${_selectedPlatform?.name ?? ''} succesfully connected',
+                      style: TextStyles.titleMedium.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 19,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: PaddingSizes.medium),
+                Text(
+                  'Your exchange is now succesfully \nconnected to your Tradely account.',
+                  style: TextStyles.bodyLarge.copyWith(
+                    color: const Color(0XFF4A4A4A),
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: PaddingSizes.xxl),
+                PrimaryButton(
+                  width: 185,
+                  onTap: () {},
+                  height: 45,
+                  text: 'See all accounts',
+                  textStyle: TextStyles.labelLarge.copyWith(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
+                )
+              ],
+            ),
           ],
         ),
       ),
@@ -259,7 +333,7 @@ class _BaseBrokerRow extends StatelessWidget {
   final String icon;
   final Color color;
   final String title;
-  final String? description; // Make description optional (nullable)
+  final String? description;
   final bool isFirst;
   final bool isLast;
   final Function()? onTap;
@@ -273,7 +347,7 @@ class _BaseBrokerRow extends StatelessWidget {
     required this.color,
     required this.padding,
     required this.height,
-    this.description, // Optional description
+    this.description,
     this.isFirst = false,
     this.isLast = false,
     this.onTap,
