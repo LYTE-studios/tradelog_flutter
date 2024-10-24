@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
+import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_header.dart';
@@ -115,7 +115,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
           ],
         ),
       ),
-      child: BaseContainerExpanded(
+      child: BaseContainer(
         padding: const EdgeInsets.only(top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

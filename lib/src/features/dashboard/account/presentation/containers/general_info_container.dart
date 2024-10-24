@@ -13,11 +13,7 @@ class GeneralInfoContainer extends StatelessWidget {
     return BaseContainer(
       child: Column(
         children: [
-          GeneralInfo(
-            // These might need to be in GeneralInfo anyways.
-            onEdit: () {},
-            warningText: "Please verify your email address",
-          ),
+          const GeneralInfo(),
           const SizedBox(
             height: PaddingSizes.extraLarge,
           ),

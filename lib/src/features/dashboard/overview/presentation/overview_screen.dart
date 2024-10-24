@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
@@ -9,11 +12,29 @@ import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 
-class OverviewScreen extends StatelessWidget {
+class OverviewScreen extends StatefulWidget {
   const OverviewScreen({super.key});
 
   static const String route = '/$location';
   static const String location = 'overview';
+
+  @override
+  State<OverviewScreen> createState() => _OverviewScreenState();
+}
+
+class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
+  TradelyProfile? profile;
+
+  @override
+  Future<void> loadData() async {
+    profile = await client.profile.getProfile();
+
+    setState(() {
+      profile = profile;
+    });
+
+    return super.loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +42,9 @@ class OverviewScreen extends StatelessWidget {
       header: BaseTradelyPageHeader(
         subTitle: "Discover all your performance metrics & progress.",
         icon: TradelyIcons.overview,
-        currentRoute: location,
-        title: "Good morning, Robin!",
+        currentRoute: OverviewScreen.location,
+        title:
+            "Good morning${(profile?.firstName.isEmpty ?? true) ? '' : ' ${profile?.firstName ?? ''}'}!",
         titleIconPath: 'assets/images/emojis/hand_emoji.png',
         buttons: PrimaryButton(
           onTap: () {},
