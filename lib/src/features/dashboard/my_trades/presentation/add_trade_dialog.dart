@@ -37,6 +37,8 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
 
   bool isProfit = true;
 
+  bool selected = false;
+
   @override
   void dispose() {
     _textController.dispose();
@@ -192,22 +194,30 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                       //intercept horizontal drag gestures
                                       onHorizontalDragUpdate: (details) {
                                         //prevent browser from navigating back/forward
-                                        if (details.delta.dx < 0 ||
-                                            details.delta.dx > 0) {
-                                          //dragging left
-                                          return;
-                                        }
+                                        // if (details.delta.dx < 0 ||
+                                        //     details.delta.dx > 0) {
+                                        //   //dragging left
+                                        //   return;
+                                        // }
                                       },
                                       child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
+                                        padding: const EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
                                         child: ListView(
-                                          shrinkWrap: true,
+                                          primary: true,
                                           physics:
                                               const BouncingScrollPhysics(),
                                           scrollDirection: Axis.horizontal,
-                                          children: const [
-                                            LinkedAccount(),
+                                          children: [
+                                            LinkedAccount(
+                                              selected: selected,
+                                              onTap: () {
+                                                setState(() {
+                                                  selected = !selected;
+                                                });
+                                              },
+                                            ),
                                             SizedBox(width: PaddingSizes.small),
                                             LinkedAccount(),
                                             SizedBox(width: PaddingSizes.small),

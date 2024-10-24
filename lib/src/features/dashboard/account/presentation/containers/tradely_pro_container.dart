@@ -4,9 +4,19 @@ import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TradelyProContainer extends StatelessWidget {
   const TradelyProContainer({super.key});
+
+  Future<void> _launchUrl() async {
+    const url = 'https://www.stripe.com';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +165,7 @@ class TradelyProContainer extends StatelessWidget {
             ],
           ),
           PrimaryButton(
-            onTap: () {}, // link to Stripe Subscription Management System
+            onTap: _launchUrl, // link to Stripe Subscription Management System
             height: 48,
             text: 'Manage subscription',
             color: const Color(0xFF262626),
