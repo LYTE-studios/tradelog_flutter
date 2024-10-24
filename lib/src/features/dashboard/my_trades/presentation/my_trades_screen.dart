@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -19,39 +21,6 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class MyTradesScreen extends StatefulWidget {
   MyTradesScreen({super.key});
-
-  final allRows = List.generate(20, (int index) {
-    return const CustomRow(
-      horizontalPadding: 20,
-      rowItems: [
-        TextRowItem(
-          text: '14:23:05',
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'EURJPY',
-          flex: 1,
-        ),
-        TrendRowItem(
-          short: true,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'Closed',
-          flex: 1,
-        ),
-        TextProfitLoss(
-          text: '\$8,37',
-          short: true,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: '2.25%',
-          flex: 1,
-        ),
-      ],
-    );
-  });
 
   static const String route = '/$location';
   static const String location = 'my_trades';
@@ -71,12 +40,19 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
     });
   }
 
-  // @override
-  // Future<void> loadData() async {
-  //   trades = await client.tradeLocker.getTrades(accountId, accNum);
-  //
-  //   return super.loadData();
-  // }
+  @override
+  Future<void> loadData() async {
+    trades = await client.tradeLocker.getTrades(
+      1,
+      957803,
+    );
+
+    setState(() {
+      trades = trades;
+    });
+
+    return super.loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +127,40 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                     ),
                   ],
                 ),
-                rows: widget.allRows,
+                rows: trades
+                    .map(
+                      (trade) => CustomRow(
+                        rowItems: [
+                          TextRowItem(
+                            text: TradelyDateTimeUtils.toReadableTime(
+                                trade.openTime),
+                            flex: 1,
+                          ),
+                          TextRowItem(
+                            text: trade.symbol,
+                            flex: 1,
+                          ),
+                          TrendRowItem(
+                            short: trade.direction == 'short',
+                            flex: 1,
+                          ),
+                          TextRowItem(
+                            text: trade.status,
+                            flex: 1,
+                          ),
+                          TextProfitLoss(
+                            text: trade.netpl.toStringAsFixed(2),
+                            short: true,
+                            flex: 1,
+                          ),
+                          TextRowItem(
+                            text: trade.netroi.toStringAsFixed(2),
+                            flex: 1,
+                          ),
+                        ],
+                      ),
+                    )
+                    .toList(),
               ),
             ),
           ],
