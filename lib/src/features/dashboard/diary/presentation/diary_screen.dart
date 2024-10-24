@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/core/utils/asset_util.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
@@ -218,9 +222,23 @@ class DiaryScreen extends StatefulWidget {
   _DiaryScreenState createState() => _DiaryScreenState();
 }
 
-class _DiaryScreenState extends State<DiaryScreen> {
+class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   bool isAnnotationFieldVisible = false;
-  final QuillController _controller = QuillController.basic();
+  late final QuillController _controller = QuillController.basic()
+    ..addListener(() {
+      toBeUpdatedValue = jsonEncode(_controller.document.toDelta().toJson());
+    });
+
+  String toBeUpdatedValue = '';
+  String lastUpdatedValue = '';
+
+  DateTime selectedDate = DateTime.now();
+
+  Note? note;
+
+  Future<String?> _saveImage(FilePickerResult result) async {
+    return AssetUtil.uploadImage(result.files.first);
+  }
 
   // Custom function to pick an image from the file system
   Future<void> _pickImageFromFile() async {
@@ -228,13 +246,66 @@ class _DiaryScreenState extends State<DiaryScreen> {
       type: FileType.image,
     );
 
-    if (result != null && result.files.single.path != null) {
-      final imagePath = result.files.single.path!;
-      _controller.document.insert(
-        _controller.selection.baseOffset,
-        BlockEmbed.image(imagePath),
+    if (result != null) {
+      String? url = await _saveImage(result);
+
+      if (url == null) {
+        return;
+      }
+
+      _controller.insertImageBlock(imageSource: url);
+    }
+  }
+
+  Future<void> update() async {
+    note!.content = toBeUpdatedValue;
+    lastUpdatedValue = toBeUpdatedValue;
+
+    await client.note.updateNote(note!);
+  }
+
+  Future<void> startTicker() async {
+    while (context.mounted) {
+      if (toBeUpdatedValue != lastUpdatedValue) {
+        if (note != null) {
+          await update();
+        }
+      }
+
+      await Future.delayed(
+        const Duration(
+          seconds: 3,
+        ),
       );
     }
+  }
+
+  @override
+  void initState() {
+    startTicker();
+    super.initState();
+  }
+
+  @override
+  Future<void> loadData() async {
+    if (toBeUpdatedValue != lastUpdatedValue) {
+      await update();
+    }
+
+    note = await client.note.getNoteForDate(selectedDate);
+
+    Document document = Document();
+
+    if (note!.content.isNotEmpty) {
+      document = Document.fromJson(jsonDecode(note!.content));
+    }
+
+    setState(() {
+      note = note;
+      _controller.document = document;
+    });
+
+    return super.loadData();
   }
 
   @override
@@ -267,8 +338,17 @@ class _DiaryScreenState extends State<DiaryScreen> {
             flex: 1,
             child: Column(
               children: [
-                const Expanded(
-                  child: DateSelectorContainer(),
+                Expanded(
+                  child: DateSelectorContainer(
+                    onDateChanged: (date) {
+                      date = DateTime.utc(date.year, date.month, date.day);
+
+                      setState(() {
+                        selectedDate = date;
+                      });
+                      loadData();
+                    },
+                  ),
                 ),
                 BaseContainer(
                   child: Column(
@@ -377,18 +457,19 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                   placeholder: 'Add a note',
                                   customStyles: const DefaultStyles(
                                     lists: DefaultListBlockStyle(
-                                        TextStyle(
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white,
-                                          letterSpacing: 0,
-                                          fontSize: 15,
-                                        ),
-                                        HorizontalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        VerticalSpacing.zero,
-                                        null,
-                                        null),
+                                      TextStyle(
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.normal,
+                                        color: Colors.white,
+                                        letterSpacing: 0,
+                                        fontSize: 15,
+                                      ),
+                                      HorizontalSpacing(2, 2),
+                                      VerticalSpacing(2, 2),
+                                      VerticalSpacing.zero,
+                                      null,
+                                      null,
+                                    ),
                                     h1: DefaultTextBlockStyle(
                                       TextStyle(
                                         fontFamily: 'Inter',

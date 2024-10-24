@@ -534,7 +534,7 @@ packages:
     source: hosted
     version: "4.0.2"
   image:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image
       sha256: f31d52537dc417fdcde36088fdf11d191026fd5e4fae742491ebd40e5a8bea7d
@@ -1248,7 +1248,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: f3257a6c5a2aa62d413b9169d1648bda18e964a6
+      resolved-ref: "0aa3dc8b84df67107bbd86e79422f5a86a4b18e6"
       url: "https://lyte-manager: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@github.com/LYTE-studios/tradelog_client"
     source: git
     version: "0.0.0"
