@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
@@ -55,19 +56,34 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
       });
     }
 
-    await Future.delayed(
-      const Duration(seconds: 2),
-    );
-
-    // await client.metaApi.(
-    //   LinkedAccount(
-    //     userInfoId: userInfoId,
-    //     apiKey: apiKey,
-    //     platform: _selectedPlatform!,
-    //   ),
-    // );
+    switch (_selectedPlatform) {
+      case Platform.Metatrader:
+        {
+          // await client.metaApi.authenticate();
+        }
+      case Platform.Tradelocker:
+        {
+          try {
+            await client.tradeLocker.authenticate(
+              tecUserName.text,
+              tecPassword.text,
+              tecServerName.text,
+            );
+          } catch (e) {
+            setState(() {
+              loading = false;
+              error =
+                  'Incorrect login data. Please check all fields and try again.';
+            });
+            return;
+          }
+        }
+      default:
+    }
 
     setLoading(false);
+
+    Navigator.pop(context);
   }
 
   @override

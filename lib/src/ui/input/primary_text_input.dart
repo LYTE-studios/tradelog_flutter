@@ -75,7 +75,6 @@ class PrimaryTextInput extends StatelessWidget {
               contentPadding: contentPadding ??
                   const EdgeInsets.symmetric(
                     horizontal: PaddingSizes.extraLarge,
-                    vertical: PaddingSizes.extraLarge,
                   ),
               hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: isError
