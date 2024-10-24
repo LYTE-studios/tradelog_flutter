@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 
 class TradelyIcons {
   /// PRIVATE | Base path for the icons
@@ -8,10 +9,17 @@ class TradelyIcons {
   /// Preloads the icon assets
   static Future<void> preload(BuildContext context) async {
     for (String icon in icons) {
-      await precacheImage(
-        AssetImage(icon),
-        context,
-      );
+      if (icon.contains('.svg')) {
+        await precacheImage(
+          Svg(icon),
+          context,
+        );
+      } else {
+        await precacheImage(
+          AssetImage(icon),
+          context,
+        );
+      }
     }
   }
 
