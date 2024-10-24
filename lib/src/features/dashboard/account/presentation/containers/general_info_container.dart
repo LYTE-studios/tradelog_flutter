@@ -21,11 +21,7 @@ class GeneralInfoContainer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          GeneralInfo(
-            // These might need to be in GeneralInfo anyways.
-            onEdit: () {},
-            warningText: "Please verify your email address",
-          ),
+          const GeneralInfo(),
           const SizedBox(
             height: PaddingSizes.extraLarge,
           ),
