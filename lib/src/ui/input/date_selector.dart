@@ -103,7 +103,7 @@ class _DateSelectorState extends State<DateSelector> {
             ],
           ),
           const SizedBox(
-            height: PaddingSizes.extraLarge,
+            height: PaddingSizes.large,
           ),
           Expanded(
             child: SfDateRangePicker(
@@ -126,7 +126,7 @@ class _DateSelectorState extends State<DateSelector> {
                     color: Theme.of(context).scaffoldBackgroundColor,
                     strokeAlign: BorderSide.strokeAlignCenter,
                   ),
-                  color: colorScheme.onPrimary.withOpacity(0.15),
+                  color: colorScheme.onPrimary.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 textStyle: textTheme.titleSmall?.copyWith(

@@ -78,11 +78,8 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           width: double.infinity,
           tec: emailTec,
           label: "Email",
-          hint: "Enter your email address...",
-          height: 57,
-        ),
-        const SizedBox(
-          height: PaddingSizes.large,
+          hint: "Your email address",
+          height: 70,
         ),
         PasswordTextInput(
           onSave: signIn,
@@ -90,11 +87,11 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           tec: pwTec,
           width: double.infinity,
           label: "Password",
-          hint: "*****",
-          height: 57,
+          hint: "Your password",
+          height: 50,
         ),
         const SizedBox(
-          height: PaddingSizes.large,
+          height: PaddingSizes.medium,
         ),
         ClearInkWell(
           onTap: () {
@@ -141,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
               ),
               children: [
                 const TextSpan(
-                  text: "New here? ",
+                  text: "New here?  ",
                 ),
                 TextSpan(
                   text: "Create an account",
@@ -151,6 +148,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
                     },
                   style: theme.textTheme.titleMedium?.copyWith(
                     color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
