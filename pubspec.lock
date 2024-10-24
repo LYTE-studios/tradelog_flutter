@@ -558,7 +558,7 @@ packages:
     source: hosted
     version: "7.0.0"
   image_picker:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: image_picker
       sha256: "021834d9c0c3de46bf0fe40341fa07168407f694d9b2bb18d532dc1261867f7a"
@@ -1238,9 +1238,11 @@ packages:
   tradelog_client:
     dependency: "direct main"
     description:
-      path: "../tradelog_client"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: f3257a6c5a2aa62d413b9169d1648bda18e964a6
+      url: "https://lyte-manager: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@github.com/LYTE-studios/tradelog_client"
+    source: git
     version: "0.0.0"
   typed_data:
     dependency: transitive

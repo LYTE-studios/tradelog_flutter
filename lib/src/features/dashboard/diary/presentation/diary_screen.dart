@@ -1,6 +1,10 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
@@ -218,6 +222,21 @@ class _DiaryScreenState extends State<DiaryScreen> {
   bool isAnnotationFieldVisible = false;
   final QuillController _controller = QuillController.basic();
 
+  // Custom function to pick an image from the file system
+  Future<void> _pickImageFromFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+
+    if (result != null && result.files.single.path != null) {
+      final imagePath = result.files.single.path!;
+      _controller.document.insert(
+        _controller.selection.baseOffset,
+        BlockEmbed.image(imagePath),
+      );
+    }
+  }
+
   @override
   void dispose() {
     _controller.dispose();
@@ -305,9 +324,27 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 child: QuillToolbar.simple(
                                   controller: _controller,
                                   configurations:
-                                      const QuillSimpleToolbarConfigurations(
-                                    sectionDividerColor: Color(0xFF5C5C5C),
+                                      QuillSimpleToolbarConfigurations(
+                                    sectionDividerColor:
+                                        const Color(0xFF5C5C5C),
                                     toolbarIconAlignment: WrapAlignment.start,
+                                    embedButtons:
+                                        FlutterQuillEmbeds.toolbarButtons(
+                                      videoButtonOptions: null,
+                                      imageButtonOptions:
+                                          QuillToolbarImageButtonOptions(
+                                        imageButtonConfigurations:
+                                            QuillToolbarImageConfigurations(
+                                          onRequestPickImage: (_, __) async {
+                                            await _pickImageFromFile();
+
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    showListNumbers: false,
+                                    showListBullets: false,
                                     showFontFamily: false,
                                     showCodeBlock: false,
                                     showInlineCode: false,
@@ -334,9 +371,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
                             Expanded(
                               child: QuillEditor.basic(
                                 controller: _controller,
-                                configurations: const QuillEditorConfigurations(
+                                configurations: QuillEditorConfigurations(
+                                  embedBuilders:
+                                      FlutterQuillEmbeds.editorWebBuilders(),
                                   placeholder: 'Add a note',
-                                  customStyles: DefaultStyles(
+                                  customStyles: const DefaultStyles(
                                     lists: DefaultListBlockStyle(
                                         TextStyle(
                                           fontFamily: 'Inter',
