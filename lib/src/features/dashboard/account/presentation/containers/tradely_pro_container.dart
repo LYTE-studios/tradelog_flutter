@@ -28,6 +28,7 @@ class TradelyProContainer extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,10 +65,13 @@ class TradelyProContainer extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SvgIcon(
                         TradelyIcons.check,
@@ -76,7 +80,7 @@ class TradelyProContainer extends StatelessWidget {
                       ),
                       const SizedBox(width: PaddingSizes.extraSmall),
                       Text(
-                        'Lorem Ipsum Dolor',
+                        'Tracking trades',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,
@@ -86,6 +90,7 @@ class TradelyProContainer extends StatelessWidget {
                   ),
                   const SizedBox(height: PaddingSizes.xxs),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SvgIcon(
                         TradelyIcons.check,
@@ -94,7 +99,7 @@ class TradelyProContainer extends StatelessWidget {
                       ),
                       const SizedBox(width: PaddingSizes.extraSmall),
                       Text(
-                        'Lorem Ipsum Dolor',
+                        'Export reports',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,
@@ -106,8 +111,10 @@ class TradelyProContainer extends StatelessWidget {
               ),
               const SizedBox(width: PaddingSizes.extraLarge),
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SvgIcon(
                         TradelyIcons.check,
@@ -116,7 +123,7 @@ class TradelyProContainer extends StatelessWidget {
                       ),
                       const SizedBox(width: PaddingSizes.extraSmall),
                       Text(
-                        'Lorem Ipsum Dolor',
+                        'Sync broker',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,
@@ -126,6 +133,7 @@ class TradelyProContainer extends StatelessWidget {
                   ),
                   const SizedBox(height: PaddingSizes.xxs),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SvgIcon(
                         TradelyIcons.check,
@@ -134,7 +142,7 @@ class TradelyProContainer extends StatelessWidget {
                       ),
                       const SizedBox(width: PaddingSizes.extraSmall),
                       Text(
-                        'Lorem Ipsum Dolor',
+                        'Key metrics',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,

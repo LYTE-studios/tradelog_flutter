@@ -1,7 +1,12 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
@@ -214,8 +219,23 @@ class DiaryScreen extends StatefulWidget {
 }
 
 class _DiaryScreenState extends State<DiaryScreen> {
-  bool isAnnotationFieldVisible = true;
+  bool isAnnotationFieldVisible = false;
   final QuillController _controller = QuillController.basic();
+
+  // Custom function to pick an image from the file system
+  Future<void> _pickImageFromFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.image,
+    );
+
+    if (result != null && result.files.single.path != null) {
+      final imagePath = result.files.single.path!;
+      _controller.document.insert(
+        _controller.selection.baseOffset,
+        BlockEmbed.image(imagePath),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -225,16 +245,16 @@ class _DiaryScreenState extends State<DiaryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
-        subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
+        subTitle: "Review daily trading analytics, and add annotations.",
         icon: TradelyIcons.diary,
         currentRoute: DiaryScreen.location,
         title: "Your diary",
         titleIconPath: 'assets/images/emojis/pencil_emoji.png',
         buttons: PrimaryButton(
-          onTap: () {},
+          onTap: () => AddTradeDialog.show(context),
           height: 42,
           text: "Add new trade",
           prefixIcon: TradelyIcons.plusCircle,
@@ -243,6 +263,44 @@ class _DiaryScreenState extends State<DiaryScreen> {
       ),
       child: Row(
         children: [
+          Expanded(
+            flex: 1,
+            child: Column(
+              children: [
+                const Expanded(
+                  child: DateSelectorContainer(),
+                ),
+                BaseContainer(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SvgIcon(
+                            TradelyIcons.trendUp,
+                            color: Colors.white,
+                            size: 10,
+                          ),
+                          const SizedBox(width: PaddingSizes.extraSmall),
+                          Text(
+                            'Statistics',
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              fontSize: 19,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: PaddingSizes.large),
+                      const SmallDataList(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
           Expanded(
             flex: 2,
             child: Stack(
@@ -266,9 +324,27 @@ class _DiaryScreenState extends State<DiaryScreen> {
                                 child: QuillToolbar.simple(
                                   controller: _controller,
                                   configurations:
-                                      const QuillSimpleToolbarConfigurations(
-                                    sectionDividerColor: Color(0xFF5C5C5C),
+                                      QuillSimpleToolbarConfigurations(
+                                    sectionDividerColor:
+                                        const Color(0xFF5C5C5C),
                                     toolbarIconAlignment: WrapAlignment.start,
+                                    embedButtons:
+                                        FlutterQuillEmbeds.toolbarButtons(
+                                      videoButtonOptions: null,
+                                      imageButtonOptions:
+                                          QuillToolbarImageButtonOptions(
+                                        imageButtonConfigurations:
+                                            QuillToolbarImageConfigurations(
+                                          onRequestPickImage: (_, __) async {
+                                            await _pickImageFromFile();
+
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    showListNumbers: false,
+                                    showListBullets: false,
                                     showFontFamily: false,
                                     showCodeBlock: false,
                                     showInlineCode: false,
@@ -295,9 +371,11 @@ class _DiaryScreenState extends State<DiaryScreen> {
                             Expanded(
                               child: QuillEditor.basic(
                                 controller: _controller,
-                                configurations: const QuillEditorConfigurations(
+                                configurations: QuillEditorConfigurations(
+                                  embedBuilders:
+                                      FlutterQuillEmbeds.editorWebBuilders(),
                                   placeholder: 'Add a note',
-                                  customStyles: DefaultStyles(
+                                  customStyles: const DefaultStyles(
                                     lists: DefaultListBlockStyle(
                                         TextStyle(
                                           fontFamily: 'Inter',
@@ -486,19 +564,6 @@ class _DiaryScreenState extends State<DiaryScreen> {
                     prefixIconColor: const Color(0xFF2D62FE),
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                   ),
-                ),
-              ],
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: Column(
-              children: [
-                Expanded(
-                  child: DateSelectorContainer(),
-                ),
-                BaseContainer(
-                  child: SmallDataList(),
                 ),
               ],
             ),
