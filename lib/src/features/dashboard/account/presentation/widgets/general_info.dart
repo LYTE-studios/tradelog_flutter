@@ -90,6 +90,8 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
                       fontSize: 19,
                     ),
                   ),
+                  const SizedBox(height: PaddingSizes.xxs),
+
                   // Visibility(
                   //   visible: widget.warningText != null,
                   //   child: Row(
@@ -139,7 +141,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
                 hint: "Robin",
               ),
               const SizedBox(
-                width: PaddingSizes.xxxl,
+                width: PaddingSizes.extraLarge,
               ),
               PrimaryTextInput(
                 readOnly: !isEditing,
@@ -163,7 +165,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
                 hint: "monsere.robin@gmail.com",
               ),
               const SizedBox(
-                width: PaddingSizes.xxxl,
+                width: PaddingSizes.extraLarge,
               ),
               PrimaryTextInput(
                 readOnly: !isEditing,

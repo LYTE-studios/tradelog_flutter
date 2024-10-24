@@ -134,7 +134,6 @@ class _BaseImageCarouselItem extends StatelessWidget {
   final Offset shadowOffset;
 
   const _BaseImageCarouselItem({
-    super.key,
     required this.imageAsset,
     required this.title,
     required this.description,

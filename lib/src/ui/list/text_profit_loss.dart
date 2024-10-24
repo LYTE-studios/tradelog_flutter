@@ -11,8 +11,8 @@ class TextProfitLoss extends StatelessWidget {
     required this.text,
     required this.short,
     this.flex = 1,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
