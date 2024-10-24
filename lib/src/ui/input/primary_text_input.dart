@@ -66,7 +66,9 @@ class PrimaryTextInput extends StatelessWidget {
           child: TextFormField(
             readOnly: readOnly,
             style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimary,
+                  color: readOnly
+                      ? Theme.of(context).colorScheme.onTertiaryContainer
+                      : Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.w400,
                 ),
             onFieldSubmitted: (_) => onSave?.call(),
