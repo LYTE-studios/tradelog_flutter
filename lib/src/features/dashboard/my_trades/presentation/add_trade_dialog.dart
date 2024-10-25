@@ -99,7 +99,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 100,
+        vertical: 35,
       ),
       child: BaseDialog(
         padding: const EdgeInsets.all(
@@ -341,7 +341,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                 ),
                               ],
                             ),
-                            const SizedBox(height: PaddingSizes.xxl),
+                            const SizedBox(height: PaddingSizes.extraLarge),
                             const Divider(
                               height: 0.5,
                               color: Color(0xFF323232),
@@ -405,7 +405,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                 ),
                               ],
                             ),
-                            const SizedBox(height: PaddingSizes.xxxxl),
+                            const SizedBox(height: PaddingSizes.xxl),
                             Row(
                               children: [
                                 PrimaryButton(

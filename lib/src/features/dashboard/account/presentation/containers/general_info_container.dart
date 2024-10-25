@@ -58,12 +58,7 @@ class _GeneralInfoContainerState extends State<GeneralInfoContainer>
             const SizedBox(
               height: PaddingSizes.extraLarge,
             ),
-            const LinkedAccount(
-              name: 'My Account',
-              balance: 1233,
-              active: true,
-              symbol: '\$',
-            ), // make this List of all accounts
+            const LinkedAccount(), // make this List of all accounts
             const SizedBox(
               height: PaddingSizes.extraLarge,
             ),

@@ -33,6 +33,7 @@ class BaseDialog extends StatelessWidget {
         ),
         child: SizedBox(
           width: double.infinity,
+          height: double.infinity,
           child: Stack(
             children: [
               child,
