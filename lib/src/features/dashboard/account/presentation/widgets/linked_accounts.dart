@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LinkedAccounts extends StatelessWidget {
@@ -27,12 +26,12 @@ class LinkedAccounts extends StatelessWidget {
         const SizedBox(
           height: PaddingSizes.extraLarge,
         ),
-        const LinkedAccount(),
-        const LinkedAccount(),
-        const LinkedAccount(),
-        const LinkedAccount(),
-        const LinkedAccount(),
-        const LinkedAccount(),
+        // const LinkedAccount(),
+        // const LinkedAccount(),
+        // const LinkedAccount(),
+        // const LinkedAccount(),
+        // const LinkedAccount(),
+        // const LinkedAccount(),
       ],
     );
   }

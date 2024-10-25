@@ -3,6 +3,7 @@ import 'package:tradelog_flutter/src/features/dashboard/account/presentation/con
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
@@ -12,27 +13,24 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseTradelyPage(
-      header: const BaseTradelyPageHeader(
+    return const BaseTradelyPage(
+      padding: EdgeInsets.only(
+        left: PaddingSizes.large,
+      ),
+      header: BaseTradelyPageHeader(
         subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
         icon: TradelyIcons.account,
         currentRoute: location,
         title: "Account details",
         titleIconPath: 'assets/images/emojis/cogwheel_emoji.png',
       ),
-      child: ListView(
-        children: const [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                child: GeneralInfoContainer(),
-              ),
-            ],
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(
+            right: PaddingSizes.large,
           ),
-        ],
+          child: GeneralInfoContainer(),
+        ),
       ),
     );
   }
