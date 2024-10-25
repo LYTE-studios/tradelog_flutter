@@ -17,6 +17,8 @@ class BaseContainer extends StatelessWidget {
 
   final bool enableBorder;
 
+  final Color? borderColor;
+
   final EdgeInsets? outsidePadding;
 
   final BoxConstraints? boxConstraints;
@@ -32,6 +34,7 @@ class BaseContainer extends StatelessWidget {
     this.enableBorder = true,
     this.outsidePadding,
     this.boxConstraints,
+    this.borderColor,
   });
 
   @override

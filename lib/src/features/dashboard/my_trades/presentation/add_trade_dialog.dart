@@ -4,6 +4,7 @@ import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/add_trade_toggle_tab.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/buy_sell_toggle_tab.dart';
+import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -35,6 +36,8 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
   BuySellType selectedBuySellType = BuySellType.buy;
 
   bool isProfit = true;
+
+  bool selected = false;
 
   @override
   void dispose() {
@@ -191,26 +194,34 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                       //intercept horizontal drag gestures
                                       onHorizontalDragUpdate: (details) {
                                         //prevent browser from navigating back/forward
-                                        if (details.delta.dx < 0 ||
-                                            details.delta.dx > 0) {
-                                          //dragging left
-                                          return;
-                                        }
+                                        // if (details.delta.dx < 0 ||
+                                        //     details.delta.dx > 0) {
+                                        //   //dragging left
+                                        //   return;
+                                        // }
                                       },
                                       child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
+                                        padding: const EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
                                         child: ListView(
-                                          shrinkWrap: true,
+                                          primary: true,
                                           physics:
                                               const BouncingScrollPhysics(),
                                           scrollDirection: Axis.horizontal,
-                                          children: const [
-                                            // LinkedAccount(),
-                                            // SizedBox(width: PaddingSizes.small),
-                                            // LinkedAccount(),
-                                            // SizedBox(width: PaddingSizes.small),
-                                            // LinkedAccount(),
+                                          children: [
+                                            LinkedAccount(
+                                              selected: selected,
+                                              onTap: () {
+                                                setState(() {
+                                                  selected = !selected;
+                                                });
+                                              },
+                                            ),
+                                            SizedBox(width: PaddingSizes.small),
+                                            LinkedAccount(),
+                                            SizedBox(width: PaddingSizes.small),
+                                            LinkedAccount(),
                                           ],
                                         ),
                                       ),
@@ -477,11 +488,11 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                       physics: const BouncingScrollPhysics(),
                                       scrollDirection: Axis.horizontal,
                                       children: const [
-                                        // LinkedAccount(),
-                                        // SizedBox(width: PaddingSizes.small),
-                                        // LinkedAccount(),
-                                        // SizedBox(width: PaddingSizes.small),
-                                        // LinkedAccount(),
+                                        LinkedAccount(),
+                                        SizedBox(width: PaddingSizes.small),
+                                        LinkedAccount(),
+                                        SizedBox(width: PaddingSizes.small),
+                                        LinkedAccount(),
                                       ],
                                     ),
                                   ),
