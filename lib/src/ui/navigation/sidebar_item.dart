@@ -51,6 +51,8 @@ class SidebarItem extends StatelessWidget {
           vertical: PaddingSizes.xxs,
         ),
         child: InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           hoverColor: theme.colorScheme.primaryContainer.withOpacity(0.2),
           onTap: () {
             context.go(
