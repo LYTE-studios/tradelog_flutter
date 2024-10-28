@@ -30,14 +30,11 @@ class _EquityLineChartState extends State<EquityLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    final List<ChartData> chartData = widget.data.isEmpty
-        ? List.generate(20, (index) {
-            int year = 2010 + (index * 5);
-            double value = 70 +
-                Random().nextDouble() * 30; // Random values between 20 and 100
-            return ChartData(year, value);
-          })
-        : widget.data;
+    if (widget.data.isEmpty) {
+      return _buildEmptyState(context);
+    }
+
+    final List<ChartData> chartData = widget.data.isEmpty ? [] : widget.data;
 
     double minimum = chartData.map((e) => e.y).reduce(min);
     double maximum = chartData.map((e) => e.y).reduce(max);
@@ -177,4 +174,91 @@ class ChartData {
 
   final int x;
   final double y;
+}
+
+Widget _buildEmptyState(BuildContext context) {
+  final List<ChartData> emptyChartData = _getEmptyChartData();
+
+  return Stack(
+    children: [
+      SfCartesianChart(
+        primaryXAxis: NumericAxis(
+          labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFFA2A2AA),
+                letterSpacing: 0,
+              ),
+          majorGridLines: const MajorGridLines(width: 0),
+          majorTickLines: const MajorTickLines(width: 0),
+        ),
+        primaryYAxis: NumericAxis(
+          minimum: 40,
+          maximum: 150,
+          interval: 20,
+          labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFFA2A2AA),
+                letterSpacing: 0,
+              ),
+          majorGridLines: const MajorGridLines(width: 0),
+          majorTickLines: const MajorTickLines(width: 0),
+        ),
+        series: <ChartSeries<ChartData, int>>[
+          AreaSeries<ChartData, int>(
+            dataSource: emptyChartData,
+            xValueMapper: (ChartData data, _) => data.x,
+            yValueMapper: (ChartData data, _) => data.y,
+            markerSettings: const MarkerSettings(
+              height: 14,
+              width: 14,
+              isVisible: false,
+            ),
+            borderDrawMode: BorderDrawMode.top,
+            borderWidth: 4,
+            borderColor: const Color(0xFF181818),
+            gradient: LinearGradient(
+              stops: [0.5, 1],
+              colors: [
+                HexColor.fromHex('141414'),
+                HexColor.fromHex('111111').withOpacity(0),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ],
+        plotAreaBorderWidth: 0,
+      ),
+      Center(
+        child: Text(
+          'Add exchange \nfirst to start',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                color: const Color(0xFFCCCCCC).withOpacity(0.6),
+                fontWeight: FontWeight.w600,
+                fontSize: 17,
+              ),
+        ),
+      ),
+    ],
+  );
+}
+
+List<ChartData> _getEmptyChartData() {
+  List<ChartData> emptyData = [
+    ChartData(0, 60),
+    ChartData(1, 72),
+    ChartData(2, 80),
+    ChartData(3, 70),
+    ChartData(4, 90),
+    ChartData(5, 85),
+    ChartData(6, 100),
+    ChartData(7, 110),
+    ChartData(8, 130),
+    ChartData(9, 120), // small dip at the end
+  ];
+
+  return emptyData;
 }

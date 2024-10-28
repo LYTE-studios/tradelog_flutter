@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
-import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class ActivityHeatmapContainer extends StatelessWidget {

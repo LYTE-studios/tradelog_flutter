@@ -3,6 +3,7 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -306,29 +307,31 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                         color: Color(0xFF323232),
                       ),
                       const SizedBox(height: PaddingSizes.xxxl),
-                      Row(
-                        children: [
-                          PrimaryButton(
-                            width: 180,
-                            loading: loading,
-                            onTap: linkAccount,
-                            height: 44,
-                            text: 'Add exchange',
-                            prefixIcon: TradelyIcons.plusCircle,
-                          ),
-                          const SizedBox(width: PaddingSizes.xxs),
-                          Visibility(
-                            // Can't go back when loading
-                            visible: loading == false,
-                            child: PrimaryButton(
-                              width: 110,
-                              color: Colors.transparent,
-                              onTap: _navigateToPreviousPage,
+                      Material(
+                        child: Row(
+                          children: [
+                            PrimaryButton(
+                              width: 180,
+                              loading: loading,
+                              onTap: linkAccount,
                               height: 44,
-                              text: 'Go back',
+                              text: 'Add exchange',
+                              prefixIcon: TradelyIcons.plusCircle,
                             ),
-                          ),
-                        ],
+                            const SizedBox(width: PaddingSizes.xxs),
+                            Visibility(
+                              // Can't go back when loading
+                              visible: loading == false,
+                              child: PrimaryButton(
+                                width: 110,
+                                color: Colors.transparent,
+                                onTap: _navigateToPreviousPage,
+                                height: 44,
+                                text: 'Go back',
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -377,14 +380,18 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: PaddingSizes.xxl),
-                PrimaryButton(
-                  width: 185,
-                  onTap: () {},
-                  height: 45,
-                  text: 'See all accounts',
-                  textStyle: TextStyles.labelLarge.copyWith(
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
+                Material(
+                  child: PrimaryButton(
+                    width: 185,
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                    height: 45,
+                    text: 'See all accounts',
+                    textStyle: TextStyles.labelLarge.copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                    ),
                   ),
                 )
               ],

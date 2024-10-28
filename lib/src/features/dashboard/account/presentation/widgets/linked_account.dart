@@ -41,8 +41,7 @@ class _LinkedAccountState extends State<LinkedAccount> {
           ),
           width: 210,
           height: 135,
-          borderColor:
-              widget.selected ? Theme.of(context).colorScheme.primary : null,
+          borderColor: widget.selected ? const Color(0xFF2D62FE) : null,
           backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
           enableBorder: isHovering,
           child: MouseRegion(

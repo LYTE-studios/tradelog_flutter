@@ -41,7 +41,7 @@ class _ImageCarouselState extends State<ImageCarousel> {
         controller.animateToPage(
           nextPage,
           duration: const Duration(milliseconds: 750),
-          curve: Curves.easeInOut,
+          curve: Curves.fastEaseInToSlowEaseOut,
         );
       }
     });
