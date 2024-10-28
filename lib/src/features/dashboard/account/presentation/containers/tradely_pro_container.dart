@@ -7,10 +7,22 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class TradelyProContainer extends StatelessWidget {
-  const TradelyProContainer({super.key});
+  final String? buttonText;
+  final Color? buttonColor;
+  final String? price;
+  final String? period;
+  final String link;
+
+  const TradelyProContainer(
+      {super.key,
+      required this.buttonText,
+      required this.buttonColor,
+      required this.price,
+      required this.period,
+      required this.link});
 
   Future<void> _launchUrl() async {
-    const url = 'https://www.stripe.com';
+    var url = link;
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -56,14 +68,14 @@ class TradelyProContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
-                      '\$29',
+                      '\$$price',
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontSize: 22,
                       ),
                     ),
                     const SizedBox(width: PaddingSizes.xxxs),
                     Text(
-                      '/month',
+                      '/$period',
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontSize: 15,
                         color: const Color(0xFF949494),
@@ -164,11 +176,13 @@ class TradelyProContainer extends StatelessWidget {
               ),
             ],
           ),
-          PrimaryButton(
-            onTap: _launchUrl, // link to Stripe Subscription Management System
-            height: 48,
-            text: 'Manage subscription',
-            color: const Color(0xFF262626),
+          Material(
+            child: PrimaryButton(
+                onTap:
+                    _launchUrl, // link to Stripe Subscription Management System
+                height: 48,
+                text: buttonText,
+                color: buttonColor),
           )
         ],
       ),

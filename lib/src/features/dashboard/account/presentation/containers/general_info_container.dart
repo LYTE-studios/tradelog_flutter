@@ -84,7 +84,13 @@ class _GeneralInfoContainerState extends State<GeneralInfoContainer>
             const SizedBox(
               height: PaddingSizes.medium,
             ),
-            const TradelyProContainer(),
+            const TradelyProContainer(
+              link: 'https://www.stripe.com',
+              period: 'month',
+              buttonText: 'Manage subscription',
+              buttonColor: const Color(0xFF262626),
+              price: '29',
+            ),
             const SizedBox(
               height: PaddingSizes.extraLarge,
             ),

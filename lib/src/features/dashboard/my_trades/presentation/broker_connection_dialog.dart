@@ -136,6 +136,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         vertical: 100,
       ),
       child: BaseDialog(
+        opacity: 1,
         padding: const EdgeInsets.all(
           PaddingSizes.xxl,
         ),

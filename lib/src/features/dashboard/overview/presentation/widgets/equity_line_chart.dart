@@ -219,7 +219,7 @@ Widget _buildEmptyState(BuildContext context) {
             borderWidth: 4,
             borderColor: const Color(0xFF181818),
             gradient: LinearGradient(
-              stops: [0.5, 1],
+              stops: const [0.5, 1],
               colors: [
                 HexColor.fromHex('141414'),
                 HexColor.fromHex('111111').withOpacity(0),

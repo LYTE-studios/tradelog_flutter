@@ -127,6 +127,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
       child: Stack(
         children: [
           BaseDialog(
+            opacity: 1,
             padding: const EdgeInsets.all(
               PaddingSizes.xxl,
             ),

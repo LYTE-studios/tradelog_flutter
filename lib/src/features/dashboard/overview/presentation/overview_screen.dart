@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/paywall_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/activity_heatmap_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
@@ -35,6 +36,15 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
     });
 
     return super.loadData();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Show the paywall dialog after the screen is built
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showPaywallDialog(context);
+    });
   }
 
   @override
@@ -109,4 +119,19 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
       ),
     );
   }
+}
+
+Future<void> _showPaywallDialog(BuildContext context) async {
+  await showDialog(
+    context: context,
+    barrierDismissible:
+        false, // Prevent dismissing the dialog by tapping outside
+    builder: (BuildContext context) {
+      return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: PaywallDialog());
+    },
+  );
 }
