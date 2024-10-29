@@ -233,7 +233,7 @@ Widget _buildEmptyState(BuildContext context) {
       ),
       Center(
         child: Padding(
-          padding: const EdgeInsets.only(bottom: 5),
+          padding: const EdgeInsets.only(bottom: 20),
           child: Text(
             'Add exchange \nfirst to start',
             textAlign: TextAlign.center,
