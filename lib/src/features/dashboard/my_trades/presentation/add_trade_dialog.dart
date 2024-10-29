@@ -37,6 +37,8 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
 
   bool isProfit = true;
 
+  bool selected = false;
+
   @override
   void dispose() {
     _textController.dispose();
@@ -97,7 +99,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
-        vertical: 100,
+        vertical: 35,
       ),
       child: BaseDialog(
         padding: const EdgeInsets.all(
@@ -192,22 +194,30 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                       //intercept horizontal drag gestures
                                       onHorizontalDragUpdate: (details) {
                                         //prevent browser from navigating back/forward
-                                        if (details.delta.dx < 0 ||
-                                            details.delta.dx > 0) {
-                                          //dragging left
-                                          return;
-                                        }
+                                        // if (details.delta.dx < 0 ||
+                                        //     details.delta.dx > 0) {
+                                        //   //dragging left
+                                        //   return;
+                                        // }
                                       },
                                       child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5),
+                                        padding: const EdgeInsets.only(
+                                          bottom: 5,
+                                        ),
                                         child: ListView(
-                                          shrinkWrap: true,
+                                          primary: true,
                                           physics:
                                               const BouncingScrollPhysics(),
                                           scrollDirection: Axis.horizontal,
-                                          children: const [
-                                            LinkedAccount(),
+                                          children: [
+                                            LinkedAccount(
+                                              selected: selected,
+                                              onTap: () {
+                                                setState(() {
+                                                  selected = !selected;
+                                                });
+                                              },
+                                            ),
                                             SizedBox(width: PaddingSizes.small),
                                             LinkedAccount(),
                                             SizedBox(width: PaddingSizes.small),
@@ -331,7 +341,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                 ),
                               ],
                             ),
-                            const SizedBox(height: PaddingSizes.xxl),
+                            const SizedBox(height: PaddingSizes.extraLarge),
                             const Divider(
                               height: 0.5,
                               color: Color(0xFF323232),
@@ -395,7 +405,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                 ),
                               ],
                             ),
-                            const SizedBox(height: PaddingSizes.xxxxl),
+                            const SizedBox(height: PaddingSizes.xxl),
                             Row(
                               children: [
                                 PrimaryButton(

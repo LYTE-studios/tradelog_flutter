@@ -17,36 +17,10 @@ class ToolTipTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = SuperTooltipController();
-
     return Row(
       children: [
-        MouseRegion(
-          cursor: SystemMouseCursors.click,
-          onExit: (_) => controller.hideTooltip(),
-          onEnter: (_) => controller.showTooltip(),
-          child: IgnorePointer(
-            child: SuperTooltip(
-              showBarrier: false,
-              hasShadow: false,
-              controller: controller,
-              borderColor: Theme.of(context).colorScheme.primaryContainer,
-              popupDirection: TooltipDirection.up,
-              content: SizedBox(
-                width: 128,
-                child: Text(
-                  toolTipText,
-                  softWrap: true,
-                  style: Theme.of(context).textTheme.labelMedium,
-                ),
-              ),
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              child: SvgIcon(
-                TradelyIcons.infoCircle,
-                color: TextStyles.mediumTitleColor,
-              ),
-            ),
-          ),
+        TooltipIcon(
+          tooltipText: toolTipText,
         ),
         const SizedBox(
           width: PaddingSizes.extraSmall,
@@ -68,6 +42,69 @@ class ToolTipTitle extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class TooltipIcon extends StatefulWidget {
+  final String tooltipText;
+
+  const TooltipIcon({
+    super.key,
+    required this.tooltipText,
+  });
+
+  @override
+  State<TooltipIcon> createState() => _TooltipIconState();
+}
+
+class _TooltipIconState extends State<TooltipIcon> {
+  SuperTooltipController controller = SuperTooltipController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) {
+        if (controller.isVisible) {
+          return;
+        }
+        controller.showTooltip();
+      },
+      onExit: (_) {
+        if (!controller.isVisible) {
+          return;
+        }
+        controller.hideTooltip();
+      },
+      child: IgnorePointer(
+        child: SuperTooltip(
+          showBarrier: false,
+          hasShadow: false,
+          controller: controller,
+          borderColor: Theme.of(context).colorScheme.primaryContainer,
+          popupDirection: TooltipDirection.up,
+          content: SizedBox(
+            width: 164,
+            child: Text(
+              widget.tooltipText,
+              softWrap: true,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
+          ),
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          child: SvgIcon(
+            TradelyIcons.infoCircle,
+            color: TextStyles.mediumTitleColor,
+          ),
+        ),
+      ),
     );
   }
 }

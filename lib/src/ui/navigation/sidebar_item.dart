@@ -51,6 +51,8 @@ class SidebarItem extends StatelessWidget {
           vertical: PaddingSizes.xxs,
         ),
         child: InkWell(
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
           hoverColor: theme.colorScheme.primaryContainer.withOpacity(0.2),
           onTap: () {
             context.go(
@@ -81,7 +83,7 @@ class SidebarItem extends StatelessWidget {
                     size: 18,
                     color: selected
                         ? Theme.of(context).colorScheme.onPrimary
-                        : TextStyles.bodyColor,
+                        : const Color(0xFF898989),
                   ),
                 ),
                 if (extended)
@@ -95,7 +97,7 @@ class SidebarItem extends StatelessWidget {
                         fontSize: 16,
                         color: selected
                             ? Theme.of(context).colorScheme.onPrimary
-                            : TextStyles.bodyColor,
+                            : const Color(0xFF898989),
                       ),
                     ),
                   )

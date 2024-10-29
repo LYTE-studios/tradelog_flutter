@@ -8,6 +8,7 @@ import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
+import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class GeneralInfo extends StatefulWidget {
@@ -69,6 +70,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
 
     firstNameTec.text = profile?.firstName ?? '';
     lastNameTec.text = profile?.lastName ?? '';
+    emailTec.text = sessionManager.signedInUser?.email ?? '';
 
     return LayoutBuilder(builder: (context, constraints) {
       double columnWidth = constraints.maxWidth;
@@ -138,7 +140,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
                 width: inputWidth,
                 label: "First Name",
                 tec: firstNameTec,
-                hint: "Robin",
+                hint: "",
               ),
               const SizedBox(
                 width: PaddingSizes.extraLarge,
@@ -148,7 +150,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
                 width: inputWidth,
                 label: "Last Name",
                 tec: lastNameTec,
-                hint: "Monseré",
+                hint: "",
               ),
             ],
           ),
@@ -158,21 +160,30 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
           Row(
             children: [
               PrimaryTextInput(
-                readOnly: !isEditing,
+                suffixIcon: const SizedBox(
+                  width: 42,
+                  child: Center(
+                    child: TooltipIcon(
+                      tooltipText:
+                          'To edit your email address, please contact Tradely support.',
+                    ),
+                  ),
+                ),
+                readOnly: true,
                 width: inputWidth,
                 label: "Your email",
                 tec: emailTec,
-                hint: "monsere.robin@gmail.com",
+                hint: "hello@tradely.io",
               ),
               const SizedBox(
                 width: PaddingSizes.extraLarge,
               ),
               PrimaryTextInput(
-                readOnly: !isEditing,
+                readOnly: true,
                 width: inputWidth,
                 label: "Date of birth",
                 tec: dateTec,
-                hint: "07/03/2003",
+                hint: "",
               ),
             ],
           ),

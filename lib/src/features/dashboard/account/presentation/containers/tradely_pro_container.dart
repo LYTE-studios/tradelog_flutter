@@ -4,9 +4,19 @@ import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TradelyProContainer extends StatelessWidget {
   const TradelyProContainer({super.key});
+
+  Future<void> _launchUrl() async {
+    const url = 'https://www.stripe.com';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +38,7 @@ class TradelyProContainer extends StatelessWidget {
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,10 +75,13 @@ class TradelyProContainer extends StatelessWidget {
             ],
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SvgIcon(
                         TradelyIcons.check,
@@ -76,7 +90,7 @@ class TradelyProContainer extends StatelessWidget {
                       ),
                       const SizedBox(width: PaddingSizes.extraSmall),
                       Text(
-                        'Lorem Ipsum Dolor',
+                        'Tracking trades',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,
@@ -86,6 +100,7 @@ class TradelyProContainer extends StatelessWidget {
                   ),
                   const SizedBox(height: PaddingSizes.xxs),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SvgIcon(
                         TradelyIcons.check,
@@ -94,7 +109,7 @@ class TradelyProContainer extends StatelessWidget {
                       ),
                       const SizedBox(width: PaddingSizes.extraSmall),
                       Text(
-                        'Lorem Ipsum Dolor',
+                        'Export reports',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,
@@ -106,8 +121,10 @@ class TradelyProContainer extends StatelessWidget {
               ),
               const SizedBox(width: PaddingSizes.extraLarge),
               Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SvgIcon(
                         TradelyIcons.check,
@@ -116,7 +133,7 @@ class TradelyProContainer extends StatelessWidget {
                       ),
                       const SizedBox(width: PaddingSizes.extraSmall),
                       Text(
-                        'Lorem Ipsum Dolor',
+                        'Sync broker',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,
@@ -126,6 +143,7 @@ class TradelyProContainer extends StatelessWidget {
                   ),
                   const SizedBox(height: PaddingSizes.xxs),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SvgIcon(
                         TradelyIcons.check,
@@ -134,7 +152,7 @@ class TradelyProContainer extends StatelessWidget {
                       ),
                       const SizedBox(width: PaddingSizes.extraSmall),
                       Text(
-                        'Lorem Ipsum Dolor',
+                        'Key metrics',
                         style: theme.textTheme.titleMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,
@@ -147,7 +165,7 @@ class TradelyProContainer extends StatelessWidget {
             ],
           ),
           PrimaryButton(
-            onTap: () {}, // link to Stripe Subscription Management System
+            onTap: _launchUrl, // link to Stripe Subscription Management System
             height: 48,
             text: 'Manage subscription',
             color: const Color(0xFF262626),

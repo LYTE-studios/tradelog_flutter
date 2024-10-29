@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/activity_heatmap_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
@@ -54,9 +55,9 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
           prefixIconSize: 22,
         ),
       ),
-      child: const Row(
+      child: Row(
         children: [
-          Expanded(
+          const Expanded(
             flex: 2,
             child: Column(
               children: [
@@ -93,13 +94,14 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
           Expanded(
             child: Column(
               children: [
-                LongShortContainer(),
-                HoldingContainer(
+                const LongShortContainer(),
+                const HoldingContainer(
                   holdingTime: 20,
                 ),
-                ProfitContainer(
+                const ProfitContainer(
                   percentage: 45,
                 ),
+                Expanded(child: ActivityHeatmapContainer()),
               ],
             ),
           ),

@@ -5,7 +5,7 @@ import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
-class PrimaryButton extends StatelessWidget {
+class PrimaryButton extends StatefulWidget {
   final Function() onTap;
 
   final double height;
@@ -69,65 +69,88 @@ class PrimaryButton extends StatelessWidget {
   });
 
   @override
+  State<PrimaryButton> createState() => _PrimaryButtonState();
+}
+
+class _PrimaryButtonState extends State<PrimaryButton> {
+  bool shouldScaleDown = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
+    return AnimatedContainer(
+      duration: kThemeAnimationDuration,
+      height: widget.height,
+      width: widget.width,
+      alignment: Alignment.center,
+      transformAlignment: Alignment.center,
+      transform: (shouldScaleDown
+          ? (Matrix4.identity()..scale(0.98, 0.98))
+          : Matrix4.identity()),
       decoration: BoxDecoration(
-        border: outlined
+        color: widget.color ?? Theme.of(context).colorScheme.primary,
+        border: widget.outlined
             ? Border.all(
-                color: borderColor ?? const Color(0xFF2D62FE),
+                color: widget.borderColor ?? const Color(0xFF2D62FE),
               )
             : null,
         borderRadius: BorderRadius.circular(
-          borderRadii ?? BorderRadii.small,
+          widget.borderRadii ?? BorderRadii.small,
         ),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(
-          borderRadii ?? BorderRadii.small,
+          widget.borderRadii ?? BorderRadii.small,
         ),
-        child: Material(
-          color: color ?? Theme.of(context).colorScheme.primary,
-          child: InkWell(
-            onTap: onTap,
-            child: Padding(
-              padding: padding ??
-                  const EdgeInsets.symmetric(
-                    horizontal: PaddingSizes.extraLarge,
-                  ),
-              child: TradelyLoadingSwitcher(
-                loading: loading,
-                child: Row(
-                  mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
-                  mainAxisAlignment: align ?? MainAxisAlignment.center,
-                  children: [
-                    if (prefixIcon != null)
-                      Padding(
-                        padding: prefixIconPadding ??
-                            const EdgeInsets.only(
-                              right: PaddingSizes.extraSmall,
-                            ),
-                        child: SvgIcon(
-                          prefixIcon!,
-                          size: prefixIconSize ?? 22,
-                          color: prefixIconColor ??
-                              Theme.of(context).colorScheme.onPrimary,
-                          leaveUnaltered: leaveIconUnaltered,
-                        ),
-                      ),
-                    if (prefixChild != null) prefixChild!,
-                    if (text != null)
-                      Text(
-                        text!,
-                        style: textStyle ??
-                            Theme.of(context).textTheme.labelLarge?.copyWith(
-                                  color: TextStyles.titleColor,
-                                  fontSize: 16,
-                                ),
-                      ),
-                  ],
+        child: ClearInkWell(
+          onTap: () async {
+            widget.onTap.call();
+
+            setState(() {
+              shouldScaleDown = true;
+            });
+            await Future.delayed(const Duration(milliseconds: 50));
+
+            setState(() {
+              shouldScaleDown = false;
+            });
+          },
+          child: Padding(
+            padding: widget.padding ??
+                const EdgeInsets.symmetric(
+                  horizontal: PaddingSizes.extraLarge,
                 ),
+            child: TradelyLoadingSwitcher(
+              loading: widget.loading,
+              child: Row(
+                mainAxisSize:
+                    widget.expand ? MainAxisSize.max : MainAxisSize.min,
+                mainAxisAlignment: widget.align ?? MainAxisAlignment.center,
+                children: [
+                  if (widget.prefixIcon != null)
+                    Padding(
+                      padding: widget.prefixIconPadding ??
+                          const EdgeInsets.only(
+                            right: PaddingSizes.extraSmall,
+                          ),
+                      child: SvgIcon(
+                        widget.prefixIcon!,
+                        size: widget.prefixIconSize ?? 22,
+                        color: widget.prefixIconColor ??
+                            Theme.of(context).colorScheme.onPrimary,
+                        leaveUnaltered: widget.leaveIconUnaltered,
+                      ),
+                    ),
+                  if (widget.prefixChild != null) widget.prefixChild!,
+                  if (widget.text != null)
+                    Text(
+                      widget.text!,
+                      style: widget.textStyle ??
+                          Theme.of(context).textTheme.labelLarge?.copyWith(
+                                color: TextStyles.titleColor,
+                                fontSize: 16,
+                              ),
+                    ),
+                ],
               ),
             ),
           ),

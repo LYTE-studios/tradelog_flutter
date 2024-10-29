@@ -58,7 +58,7 @@ class StatisticsScreen extends StatelessWidget {
         children: [
           // should this Row be a fixed height?
           SizedBox(
-            height: 150,
+            height: 114,
             child: Row(
               children: [
                 SmallDataContainer(

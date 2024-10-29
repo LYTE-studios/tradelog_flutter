@@ -30,7 +30,9 @@ class ProfitContainer extends StatelessWidget {
               ),
               Text(
                 "$percentage%",
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontSize: 30,
+                    ),
               ),
             ],
           ),
