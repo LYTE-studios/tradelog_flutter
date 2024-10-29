@@ -24,6 +24,8 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
 
     return OverlayEntry(
       builder: (context) {
+        final ThemeData theme = Theme.of(context);
+
         return Stack(
           children: [
             GestureDetector(
@@ -56,7 +58,7 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
                       _buildMenuItem("Edit", Colors.white),
                       _buildMenuItem("Clear all trades", Colors.white),
                       _buildMenuItem("Disable", Colors.white),
-                      _buildMenuItem("Delete", Colors.red),
+                      _buildMenuItem("Delete", theme.colorScheme.error),
                     ],
                   ),
                 ),
@@ -74,7 +76,7 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
     final ThemeData theme = Theme.of(context);
 
     Color effectiveTextColor =
-        text == "Delete" ? const Color(0xFFE2474E) : textColor;
+        text == "Delete" ? theme.colorScheme.error : textColor;
 
     return GestureDetector(
       onTap: () {

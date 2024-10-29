@@ -232,14 +232,17 @@ Widget _buildEmptyState(BuildContext context) {
         plotAreaBorderWidth: 0,
       ),
       Center(
-        child: Text(
-          'Add exchange \nfirst to start',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                color: const Color(0xFFCCCCCC).withOpacity(0.6),
-                fontWeight: FontWeight.w600,
-                fontSize: 17,
-              ),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: Text(
+            'Add exchange \nfirst to start',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                  color: const Color(0xFFCCCCCC).withOpacity(0.6),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 17,
+                ),
+          ),
         ),
       ),
     ],
@@ -257,7 +260,7 @@ List<ChartData> _getEmptyChartData() {
     ChartData(6, 100),
     ChartData(7, 110),
     ChartData(8, 130),
-    ChartData(9, 120), // small dip at the end
+    ChartData(9, 120),
   ];
 
   return emptyData;

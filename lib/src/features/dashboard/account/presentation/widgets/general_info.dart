@@ -130,7 +130,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
             ],
           ),
           const SizedBox(
-            height: PaddingSizes.extraLarge,
+            height: PaddingSizes.medium,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
