@@ -88,7 +88,7 @@ class _GeneralInfoContainerState extends State<GeneralInfoContainer>
               link: 'https://www.stripe.com',
               period: 'month',
               buttonText: 'Manage subscription',
-              buttonColor: const Color(0xFF262626),
+              buttonColor: Color(0xFF262626),
               price: '29',
             ),
             const SizedBox(

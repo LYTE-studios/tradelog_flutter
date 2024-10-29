@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/custom_pop_menu.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LinkedAccount extends StatefulWidget {
   final bool selected;
-
   final Function()? onTap;
 
   const LinkedAccount({
@@ -85,10 +85,25 @@ class _LinkedAccountState extends State<LinkedAccount> {
                         ),
                       ],
                     ),
-                    SvgIcon(
-                      TradelyIcons.ellipsisVertical,
-                      color: Theme.of(context).colorScheme.onPrimary,
-                      size: 20,
+                    // Add the custom popup menu here
+                    CustomPopupMenu(
+                      onSelected: (String value) {
+                        // Handle the selected option
+                        switch (value) {
+                          case 'Edit':
+                            // Do something for Edit
+                            break;
+                          case 'Clear all trades':
+                            // Do something for Clear all trades
+                            break;
+                          case 'Disable':
+                            // Do something for Disable
+                            break;
+                          case 'Delete':
+                            // Do something for Delete
+                            break;
+                        }
+                      },
                     ),
                   ],
                 ),

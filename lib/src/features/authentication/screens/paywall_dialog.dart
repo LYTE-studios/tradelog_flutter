@@ -16,7 +16,7 @@ class _PaywallDialogState extends State<PaywallDialog> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return BaseDialog(
-      showCloseButton: false,
+      showCloseButton: true,
       opacity: 0.5,
       enableBlur: true,
       child: Center(
