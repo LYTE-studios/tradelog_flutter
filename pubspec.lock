@@ -786,10 +786,10 @@ packages:
     dependency: transitive
     description:
       name: path_parsing
-      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      sha256: "45f7d6bba1128761de5540f39d5ca000ea8a1f22f06b76b61094a60a2997bd0e"
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.2"
   path_provider:
     dependency: transitive
     description:
@@ -890,10 +890,10 @@ packages:
     dependency: transitive
     description:
       name: quill_native_bridge_android
-      sha256: b2ada739061b3a05cd40954a3d99831762e387f224971a1b620cf3d05a5bb402
+      sha256: "4e787041ad4ab99421dfed0199cb5a6f136b5f6a9e68d20b199064d85d4161d8"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.3"
+    version: "0.0.1-dev.4"
   quill_native_bridge_ios:
     dependency: transitive
     description:
@@ -1183,10 +1183,10 @@ packages:
     dependency: "direct main"
     description:
       name: super_tooltip
-      sha256: ef1c009a719fccbe35730010b3c252dc81a0f2133e55a37f13446b76a813e3e2
+      sha256: "55c0764554c961846d489503b76a1fc33ec2120bd7407266b77a34abbf3ed471"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.8"
+    version: "2.0.9"
   syncfusion_flutter_charts:
     dependency: "direct main"
     description:
@@ -1400,10 +1400,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_android
-      sha256: "641fc7221cfb3f25dd761d30cbe733046a3a4932fee09962adb80fd7d11fc663"
+      sha256: "391e092ba4abe2f93b3e625bd6b6a6ec7d7414279462c1c0ee42b5ab8d0a0898"
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.15"
+    version: "2.7.16"
   video_player_avfoundation:
     dependency: transitive
     description:
@@ -1424,10 +1424,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_web
-      sha256: "6dcdd298136523eaf7dfc31abaf0dfba9aa8a8dbc96670e87e9d42b6f2caf774"
+      sha256: "881b375a934d8ebf868c7fb1423b2bfaa393a0a265fa3f733079a86536064a10"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.3.3"
   vm_service:
     dependency: transitive
     description:
@@ -1464,10 +1464,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: e1d0cc62e65dc2561f5071fcbccecf58ff20c344f8f3dc7d4922df372a11df1f
+      sha256: "10169d3934549017f0ae278ccb07f828f9d6ea21573bab0fb77b0e1ef0fce454"
       url: "https://pub.dev"
     source: hosted
-    version: "5.7.1"
+    version: "5.7.2"
   win32_registry:
     dependency: transitive
     description:
@@ -1504,10 +1504,10 @@ packages:
     dependency: transitive
     description:
       name: youtube_explode_dart
-      sha256: ea0a3ec53f752de42fffe75b929f30f24d02faa92207a00b9497cecd3faf40a4
+      sha256: "6d5f9a0a55d02743e59ca495887432814bddb6b11400b08ee0eeaf69c83d0089"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.4"
+    version: "2.3.5"
 sdks:
   dart: ">=3.5.0 <4.0.0"
   flutter: ">=3.24.0"

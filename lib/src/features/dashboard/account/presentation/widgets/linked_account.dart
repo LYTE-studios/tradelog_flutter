@@ -33,7 +33,7 @@ class _LinkedAccountState extends State<LinkedAccount> {
         onTap: () => widget.onTap?.call(),
         child: BaseContainer(
           padding: const EdgeInsets.symmetric(
-            horizontal: PaddingSizes.extraLarge,
+            horizontal: PaddingSizes.medium,
             vertical: PaddingSizes.medium,
           ),
           outsidePadding: const EdgeInsets.only(
@@ -56,34 +56,37 @@ class _LinkedAccountState extends State<LinkedAccount> {
               });
             },
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Available balance",
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
-                                    fontSize: 12,
-                                  ),
-                        ),
-                        const SizedBox(
-                          height: PaddingSizes.xxs,
-                        ),
-                        Text(
-                          "\$123.456",
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    fontSize: 19,
-                                  ),
-                        ),
-                      ],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Available balance",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontSize: 12,
+                                ),
+                          ),
+                          const SizedBox(
+                            height: PaddingSizes.xxs,
+                          ),
+                          Text(
+                            "\$123.456",
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      fontSize: 19,
+                                    ),
+                          ),
+                        ],
+                      ),
                     ),
                     // Add the custom popup menu here
                     CustomPopupMenu(

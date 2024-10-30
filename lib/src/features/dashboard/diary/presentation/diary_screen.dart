@@ -387,6 +387,11 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
               children: [
                 // Main content: Quill editor or Container
                 BaseContainer(
+                  padding: const EdgeInsets.only(
+                    top: PaddingSizes.xxl,
+                    left: PaddingSizes.xxl,
+                    right: PaddingSizes.xxl,
+                  ),
                   child: isAnnotationFieldVisible
                       ? Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -629,9 +634,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                       });
                     },
                     height: 38,
-                    text: isAnnotationFieldVisible
-                        ? 'Trading Stats'
-                        : 'Annotations',
+                    text: isAnnotationFieldVisible ? 'Trading Stats' : 'Notes',
                     textStyle: theme.textTheme.titleMedium?.copyWith(
                       fontSize: 16,
                       color: const Color(0xFF2D62FE),

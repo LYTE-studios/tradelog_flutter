@@ -73,7 +73,9 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
 
   // Method to open file picker
   Future<void> _pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowedExtensions: ['.csv'],
+    );
 
     if (result != null) {
       setState(() {

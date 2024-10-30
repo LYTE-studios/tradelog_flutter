@@ -1,151 +1,159 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
+import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class CustomPopupMenu extends StatefulWidget {
   final Function(String)? onSelected;
 
-  const CustomPopupMenu({Key? key, this.onSelected}) : super(key: key);
+  const CustomPopupMenu({super.key, this.onSelected});
 
   @override
-  _CustomPopupMenuState createState() => _CustomPopupMenuState();
+  State<CustomPopupMenu> createState() => _CustomPopupMenuState();
 }
 
 class _CustomPopupMenuState extends State<CustomPopupMenu> {
-  bool isMenuOpen = false;
-  OverlayEntry? _overlayEntry;
-  final GlobalKey _menuKey = GlobalKey();
+  OverlayEntry? entry;
 
-  String? _hoveredItem;
+  GlobalKey<OverlayState> overlayKey = GlobalKey();
 
-  OverlayEntry _buildOverlayEntry() {
-    RenderBox renderBox =
-        _menuKey.currentContext!.findRenderObject() as RenderBox;
-    var offset = renderBox.localToGlobal(Offset.zero);
-
+  /// Builds the entire overlay widget with menu items
+  OverlayEntry _buildOverlayEntry(BuildContext context, Offset position) {
     return OverlayEntry(
       builder: (context) {
-        return Stack(
-          children: [
-            GestureDetector(
-              onTap: _closeMenu,
-              child: Container(
-                color: Colors.transparent,
-              ),
-            ),
-            Positioned(
-              left: offset.dx + renderBox.size.width - 325,
-              top: offset.dy + renderBox.size.height + 1,
-              child: Material(
-                color: Colors.transparent,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: const Color(0xFF222222),
-                    borderRadius: BorderRadius.circular(15),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 10,
-                        spreadRadius: 1,
-                      ),
-                    ],
-                  ),
-                  padding: const EdgeInsets.all(7),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _buildMenuItem("Edit", Colors.white),
-                      _buildMenuItem("Clear all trades", Colors.white),
-                      _buildMenuItem("Disable", Colors.white),
-                      _buildMenuItem("Delete", Colors.red),
-                    ],
-                  ),
+        return Positioned(
+          top: position.dy,
+          left: position.dx - 256,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xFF222222),
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: const [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  spreadRadius: 1,
                 ),
-              ),
+              ],
             ),
-          ],
+            padding: const EdgeInsets.all(7),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                _buildMenuItem(context, "Edit", Colors.white),
+                _buildMenuItem(context, "Clear all trades", Colors.white),
+                _buildMenuItem(context, "Disable", Colors.white),
+                _buildMenuItem(context, "Delete", Colors.red),
+              ],
+            ),
+          ),
         );
       },
     );
   }
 
-  ValueNotifier<String?> _hoveredItemNotifier = ValueNotifier<String?>(null);
-
-  Widget _buildMenuItem(String text, Color textColor) {
+  /// Builds a single menu item in the list
+  Widget _buildMenuItem(BuildContext context, String text, Color textColor) {
     final ThemeData theme = Theme.of(context);
 
-    Color effectiveTextColor =
-        text == "Delete" ? const Color(0xFFE2474E) : textColor;
-
-    return GestureDetector(
-      onTap: () {
-        widget.onSelected?.call(text);
-        _closeMenu();
-      },
-      child: MouseRegion(
-        onEnter: (_) => _hoveredItemNotifier.value = text,
-        onExit: (_) => _hoveredItemNotifier.value = null,
-        child: ValueListenableBuilder<String?>(
-          valueListenable: _hoveredItemNotifier,
-          builder: (context, hoveredItem, child) {
-            return Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(BorderRadii.small),
-                color: hoveredItem == text
-                    ? (text == "Delete"
-                        ? const Color(0xFF2E2425)
-                        : const Color(0xFF2B2B2B))
-                    : Colors.transparent,
-              ),
-              width: 150,
-              height: 40,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Text(
-                    text,
-                    style: theme.textTheme.labelMedium?.copyWith(
-                      fontSize: 15,
-                      color: effectiveTextColor,
-                    ),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(BorderRadii.small),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          hoverColor: textColor.withOpacity(0.2),
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          // onTap: overlayPortalController.hide,
+          child: SizedBox(
+            width: 150,
+            height: 40,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  text,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    fontSize: 15,
+                    color: textColor,
                   ),
                 ),
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );
   }
 
-  void _openMenu() {
-    _overlayEntry = _buildOverlayEntry();
-    Overlay.of(context).insert(_overlayEntry!);
+  void _toggleOverlay(BuildContext context) {
+    if (entry != null) {
+      _closeOverlay(context);
+      return;
+    }
+
+    _showOverlay(context);
+  }
+
+  void _closeOverlay(BuildContext context) {
+    entry?.remove();
+
     setState(() {
-      isMenuOpen = true;
+      entry = null;
     });
   }
 
-  void _closeMenu() {
-    _overlayEntry?.remove();
+  void _showOverlay(BuildContext context) {
+    assert(overlayKey.currentState != null);
+
+    OverlayState overlayState = overlayKey.currentState!;
+
+    entry = _buildOverlayEntry(
+      context,
+      (context.findRenderObject() as RenderBox).localToGlobal(Offset.zero),
+    );
+
+    overlayState.insert(entry!);
+
     setState(() {
-      isMenuOpen = false;
-      _hoveredItem = null;
+      entry = entry;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      key: _menuKey,
-      onTap: () {
-        if (isMenuOpen) {
-          _closeMenu();
-        } else {
-          _openMenu();
-        }
-      },
-      child: Icon(Icons.more_vert, color: Colors.white),
+    return SizedBox(
+      height: 32,
+      width: 32,
+      child: Stack(
+        children: [
+          Center(
+            child: ClipOval(
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  onTap: () => _toggleOverlay(context),
+                  child: Padding(
+                    padding: const EdgeInsets.all(PaddingSizes.xxs),
+                    child: Center(
+                      child: Icon(
+                        Icons.more_vert,
+                        color: Theme.of(context).colorScheme.onSecondary,
+                        size: 21,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Overlay(
+            key: overlayKey,
+          ),
+        ],
+      ),
     );
   }
 }
