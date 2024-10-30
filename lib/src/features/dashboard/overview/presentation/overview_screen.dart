@@ -76,17 +76,20 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                     children: [
                       DataContainer(
                         title: 'Net Profit/Loss',
-                        toolTip: 'test',
+                        toolTip:
+                            'The total realized net profit and loss for all closed trades.',
                       ),
                       DataContainer(
                         title: 'Trade win rate',
-                        toolTip: 'test',
+                        toolTip:
+                            'Reflects the percentage of your winning trades out of total trades taken.',
                         data: "43%",
                         percentage: -2,
                       ),
                       DataContainer(
                         title: ' Avg realized R:R',
-                        toolTip: 'test',
+                        toolTip:
+                            'Average Win / Average Loss = Average Realize R:R',
                         data: "\$123,88",
                         percentage: 45,
                       ),
@@ -94,8 +97,9 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                   ),
                 ),
                 ChartContainer(
-                  titleText: 'Equity Line',
-                  toolTipText: 'This graph shows the equity line',
+                  titleText: 'Equity line',
+                  toolTipText:
+                      "Your equity line shows your account’s value over time, highlighting profits and losses.",
                   data: null,
                 ),
               ],

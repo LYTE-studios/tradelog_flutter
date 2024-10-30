@@ -385,7 +385,6 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
             flex: 2,
             child: Stack(
               children: [
-                // Main content: Quill editor or Container
                 BaseContainer(
                   padding: const EdgeInsets.only(
                     top: PaddingSizes.xxl,
