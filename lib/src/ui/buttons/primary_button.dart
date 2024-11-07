@@ -77,43 +77,43 @@ class _PrimaryButtonState extends State<PrimaryButton> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: kThemeAnimationDuration,
-      height: widget.height,
-      width: widget.width,
-      alignment: Alignment.center,
-      transformAlignment: Alignment.center,
-      transform: (shouldScaleDown
-          ? (Matrix4.identity()..scale(0.98, 0.98))
-          : Matrix4.identity()),
-      decoration: BoxDecoration(
-        color: widget.color ?? Theme.of(context).colorScheme.primary,
-        border: widget.outlined
-            ? Border.all(
-                color: widget.borderColor ?? const Color(0xFF2D62FE),
-              )
-            : null,
-        borderRadius: BorderRadius.circular(
-          widget.borderRadii ?? BorderRadii.small,
-        ),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(
-          widget.borderRadii ?? BorderRadii.small,
-        ),
-        child: ClearInkWell(
-          onTap: () async {
-            widget.onTap.call();
+    return ClearInkWell(
+      onTap: () async {
+        widget.onTap.call();
 
-            setState(() {
-              shouldScaleDown = true;
-            });
-            await Future.delayed(const Duration(milliseconds: 50));
+        setState(() {
+          shouldScaleDown = true;
+        });
+        await Future.delayed(const Duration(milliseconds: 50));
 
-            setState(() {
-              shouldScaleDown = false;
-            });
-          },
+        setState(() {
+          shouldScaleDown = false;
+        });
+      },
+      child: AnimatedContainer(
+        duration: kThemeAnimationDuration,
+        height: widget.height,
+        width: widget.width,
+        alignment: Alignment.center,
+        transformAlignment: Alignment.center,
+        transform: (shouldScaleDown
+            ? (Matrix4.identity()..scale(0.98, 0.98))
+            : Matrix4.identity()),
+        decoration: BoxDecoration(
+          color: widget.color ?? Theme.of(context).colorScheme.primary,
+          border: widget.outlined
+              ? Border.all(
+                  color: widget.borderColor ?? const Color(0xFF2D62FE),
+                )
+              : null,
+          borderRadius: BorderRadius.circular(
+            widget.borderRadii ?? BorderRadii.small,
+          ),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+            widget.borderRadii ?? BorderRadii.small,
+          ),
           child: Padding(
             padding: widget.padding ??
                 const EdgeInsets.symmetric(

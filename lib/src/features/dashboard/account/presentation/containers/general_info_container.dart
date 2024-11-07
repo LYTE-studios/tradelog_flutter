@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
-import 'package:tradelog_flutter/src/core/routing/router.dart';
-import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/containers/tradely_pro_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/general_info.dart';
-import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account.dart';
+import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account_list.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -17,8 +13,7 @@ class GeneralInfoContainer extends StatefulWidget {
   State<GeneralInfoContainer> createState() => _GeneralInfoContainerState();
 }
 
-class _GeneralInfoContainerState extends State<GeneralInfoContainer>
-    with ScreenStateMixin {
+class _GeneralInfoContainerState extends State<GeneralInfoContainer> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -58,7 +53,7 @@ class _GeneralInfoContainerState extends State<GeneralInfoContainer>
             const SizedBox(
               height: PaddingSizes.extraLarge,
             ),
-            const LinkedAccount(), // make this List of all accounts
+            LinkedAccountList(),
             const SizedBox(
               height: PaddingSizes.extraLarge,
             ),
@@ -103,11 +98,7 @@ class _GeneralInfoContainerState extends State<GeneralInfoContainer>
             ),
             PrimaryButton(
               color: colorScheme.errorContainer,
-              onTap: () async {
-                await sessionManager.signOut();
-
-                router.pushReplacement(LoginScreen.route);
-              },
+              onTap: () async {},
               height: 38,
               width: 255,
               text: "I want to delete my account",

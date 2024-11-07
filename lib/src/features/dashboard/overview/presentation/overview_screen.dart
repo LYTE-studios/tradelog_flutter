@@ -3,6 +3,7 @@ import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/paywall_dialog.dart';
+import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/activity_heatmap_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
@@ -58,7 +59,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
             "Good morning${(profile?.firstName.isEmpty ?? true) ? '' : ' ${profile?.firstName ?? ''}'}!",
         titleIconPath: 'assets/images/emojis/hand_emoji.png',
         buttons: PrimaryButton(
-          onTap: () {},
+          onTap: () => AddTradeDialog.show(context),
           height: 42,
           text: "Add new trade",
           prefixIcon: TradelyIcons.plusCircle,
@@ -132,10 +133,11 @@ Future<void> _showPaywallDialog(BuildContext context) async {
         false, // Prevent dismissing the dialog by tapping outside
     builder: (BuildContext context) {
       return WillPopScope(
-          onWillPop: () async {
-            return false;
-          },
-          child: PaywallDialog());
+        onWillPop: () async {
+          return false;
+        },
+        child: PaywallDialog(),
+      );
     },
   );
 }

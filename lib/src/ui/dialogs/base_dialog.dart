@@ -1,8 +1,10 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
+import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class BaseDialog extends StatelessWidget {
   final Widget child;
@@ -40,7 +42,6 @@ class BaseDialog extends StatelessWidget {
             ),
           Container(
             constraints: constraints,
-            padding: padding,
             decoration: BoxDecoration(
               color: theme.colorScheme.surface.withOpacity(opacity),
               borderRadius: BorderRadius.circular(
@@ -52,12 +53,15 @@ class BaseDialog extends StatelessWidget {
               height: double.infinity,
               child: Stack(
                 children: [
-                  child,
+                  Padding(
+                    padding: padding ?? EdgeInsets.zero,
+                    child: child,
+                  ),
                   // Conditionally show the close button
                   if (showCloseButton)
                     Positioned(
-                      top: 0,
-                      right: 0,
+                      top: PaddingSizes.xxl,
+                      right: PaddingSizes.xxl,
                       child: IconButton(
                         onPressed: () {
                           Navigator.of(context).pop();

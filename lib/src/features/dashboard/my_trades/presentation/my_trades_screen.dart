@@ -42,10 +42,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   @override
   Future<void> loadData() async {
-    trades = await client.tradeLocker.getTrades(
-      1,
-      957803,
-    );
+    trades = await client.global.fetchFromAPIs();
 
     setState(() {
       trades = trades;

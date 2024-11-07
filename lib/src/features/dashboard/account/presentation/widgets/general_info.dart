@@ -121,7 +121,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
                   router.pushReplacement(LoginScreen.route);
                 },
                 height: 38,
-                text: "Delete Account",
+                text: "Log out",
                 textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
                       color: colorScheme.error,
                       fontSize: 16,

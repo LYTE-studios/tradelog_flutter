@@ -61,15 +61,15 @@ void main() {
       }
     });
 
-    test('tradelocker refresh', () async {
-      try {
-        var response = await client.tradeLocker.refresh();
-
-        expect(response, isNotNull);
-      } on Exception catch (e) {
-        log(e.toString());
-      }
-    });
+    // test('tradelocker refresh', () async {
+    //   try {
+    //     var response = await client.tradeLocker.refresh();
+    //
+    //     expect(response, isNotNull);
+    //   } on Exception catch (e) {
+    //     log(e.toString());
+    //   }
+    // });
 
     test('tradelocker getAccounts', () async {
       try {

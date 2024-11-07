@@ -19,6 +19,8 @@ class BaseContainer extends StatelessWidget {
 
   final Color? borderColor;
 
+  final double? borderWidth;
+
   final EdgeInsets? outsidePadding;
 
   final BoxConstraints? boxConstraints;
@@ -35,6 +37,7 @@ class BaseContainer extends StatelessWidget {
     this.outsidePadding,
     this.boxConstraints,
     this.borderColor,
+    this.borderWidth,
   });
 
   @override
@@ -51,12 +54,12 @@ class BaseContainer extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: backgroundColor,
-          border: enableBorder
-              ? Border.all(
-                  width: 1,
-                  color: Theme.of(context).colorScheme.outline,
-                )
-              : null,
+          border: Border.all(
+            width: borderWidth ?? 1,
+            color: !enableBorder
+                ? Colors.transparent
+                : borderColor ?? Theme.of(context).colorScheme.outline,
+          ),
           borderRadius: BorderRadius.circular(
             borderRadius ?? BorderRadii.large,
           ),

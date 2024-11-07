@@ -69,6 +69,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
               tecUserName.text,
               tecPassword.text,
               tecServerName.text,
+              title: tecAccountName.text,
             );
           } catch (e) {
             setState(() {
@@ -136,9 +137,6 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
       ),
       child: BaseDialog(
         opacity: 1,
-        padding: const EdgeInsets.all(
-          PaddingSizes.xxl,
-        ),
         constraints: const BoxConstraints(
           maxWidth: 620,
           minHeight: 650,
@@ -148,194 +146,212 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
           controller: _pageController,
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: PaddingSizes.small,
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(
+                  PaddingSizes.xxl,
                 ),
-                Text(
-                  'Exchange Connection',
-                  style: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.copyWith(fontSize: 21),
-                ),
-                const SizedBox(
-                  height: PaddingSizes.medium,
-                ),
-                Text(
-                  'Experience effortless trade tracking with the Exchange connection \nfeature. Import your trades securely utilizing read-only APIs for \nmaximum security',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: const Color(0xFF898989),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: PaddingSizes.small,
+                    ),
+                    Text(
+                      'Exchange Connection',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.copyWith(fontSize: 21),
+                    ),
+                    const SizedBox(
+                      height: PaddingSizes.medium,
+                    ),
+                    Text(
+                      'Experience effortless trade tracking with the Exchange connection \nfeature. Import your trades securely utilizing read-only APIs for \nmaximum security',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: const Color(0xFF898989),
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                          ),
+                    ),
+                    const SizedBox(
+                      height: PaddingSizes.xxxl,
+                    ),
+                    Text(
+                      'Choose an exchange',
+                      style: TextStyles.titleMedium.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
                       ),
+                    ),
+                    const SizedBox(
+                      height: PaddingSizes.extraLarge,
+                    ),
+                    ...Platform.values.map(
+                      (Platform platform) {
+                        return _BaseBrokerRow(
+                          height: 70,
+                          onTap: () => _navigateToNextPage(platform),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: PaddingSizes.large,
+                          ),
+                          color: const Color(0xFF171717),
+                          icon: getIconForBroker(platform),
+                          title: platform.name,
+                          description: 'Automatic Sync of Completed Trades',
+                          isFirst: Platform.values.first == platform,
+                          isLast: Platform.values.last == platform,
+                        );
+                      },
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: PaddingSizes.xxxl,
-                ),
-                Text(
-                  'Choose an exchange',
-                  style: TextStyles.titleMedium.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(
-                  height: PaddingSizes.extraLarge,
-                ),
-                ...Platform.values.map(
-                  (Platform platform) {
-                    return _BaseBrokerRow(
-                      height: 70,
-                      onTap: () => _navigateToNextPage(platform),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: PaddingSizes.large,
-                      ),
-                      color: const Color(0xFF171717),
-                      icon: getIconForBroker(platform),
-                      title: platform.name,
-                      description: 'Automatic Sync of Completed Trades',
-                      isFirst: Platform.values.first == platform,
-                      isLast: Platform.values.last == platform,
-                    );
-                  },
-                ),
-              ],
+              ),
             ),
             if (_selectedPlatform != null)
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: PaddingSizes.small,
+              SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                    PaddingSizes.xxl,
                   ),
-                  _BaseBrokerRow(
-                    height: 35,
-                    color: Colors.transparent,
-                    padding: EdgeInsets.zero,
-                    icon: getIconForBroker(_selectedPlatform!),
-                    title: _selectedPlatform!.name,
-                  ),
-                  Text(
-                    'Automatically sync with MT5. Save time and effort by seamlessly  \nmanaging and tracking multiple accounts with just one click.',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: const Color(0xFF898989),
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14,
-                        ),
-                  ),
-                  const SizedBox(
-                    height: PaddingSizes.xxl,
-                  ),
-                  Column(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      const SizedBox(
+                        height: PaddingSizes.small,
+                      ),
+                      _BaseBrokerRow(
+                        height: 35,
+                        color: Colors.transparent,
+                        padding: EdgeInsets.zero,
+                        icon: getIconForBroker(_selectedPlatform!),
+                        title: _selectedPlatform!.name,
+                      ),
                       Text(
-                        'Account name',
-                        style: TextStyles.titleMedium.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
+                        'Automatically sync with MT5. Save time and effort by seamlessly  \nmanaging and tracking multiple accounts with just one click.',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: const Color(0xFF898989),
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                            ),
                       ),
-                      const SizedBox(height: PaddingSizes.medium),
-                      Material(
-                        child: PrimaryTextInput(
-                          tec: tecAccountName,
-                          isError: error != null && tecAccountName.text.isEmpty,
-                          height: 52,
-                          width: 420,
-                          hint: 'Account name',
-                        ),
+                      const SizedBox(
+                        height: PaddingSizes.xxl,
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: PaddingSizes.xxl),
-                  const Divider(
-                    height: 0.5,
-                    color: Color(0xFF323232),
-                  ),
-                  const SizedBox(height: PaddingSizes.extraLarge),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Your credentials',
-                        style: TextStyles.titleMedium.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: PaddingSizes.medium),
-                      Material(
-                        child: PrimaryTextInput(
-                          tec: tecServerName,
-                          isError: error != null && tecServerName.text.isEmpty,
-                          height: 52,
-                          width: 420,
-                          hint: 'Server',
-                        ),
-                      ),
-                      const SizedBox(height: PaddingSizes.medium),
-                      Material(
-                        child: PrimaryTextInput(
-                          tec: tecUserName,
-                          isError: error != null && tecUserName.text.isEmpty,
-                          height: 52,
-                          width: 420,
-                          hint: 'Login',
-                        ),
-                      ),
-                      const SizedBox(height: PaddingSizes.medium),
-                      Material(
-                        child: PrimaryTextInput(
-                          tec: tecPassword,
-                          isError: error != null && tecPassword.text.isEmpty,
-                          height: 52,
-                          width: 420,
-                          hint: 'Investor password',
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Account name',
+                            style: TextStyles.titleMedium.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(height: PaddingSizes.medium),
+                          Material(
+                            child: PrimaryTextInput(
+                              tec: tecAccountName,
+                              isError:
+                                  error != null && tecAccountName.text.isEmpty,
+                              height: 52,
+                              width: 420,
+                              hint: 'Account name',
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: PaddingSizes.xxl),
                       const Divider(
                         height: 0.5,
                         color: Color(0xFF323232),
                       ),
-                      const SizedBox(height: PaddingSizes.xxxl),
-                      Material(
-                        child: Row(
-                          children: [
-                            PrimaryButton(
-                              width: 180,
-                              loading: loading,
-                              onTap: linkAccount,
-                              height: 44,
-                              text: 'Add exchange',
-                              prefixIcon: TradelyIcons.plusCircle,
+                      const SizedBox(height: PaddingSizes.extraLarge),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Your credentials',
+                            style: TextStyles.titleMedium.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
                             ),
-                            const SizedBox(width: PaddingSizes.xxs),
-                            Visibility(
-                              // Can't go back when loading
-                              visible: loading == false,
-                              child: PrimaryButton(
-                                width: 110,
-                                color: Colors.transparent,
-                                onTap: _navigateToPreviousPage,
-                                height: 44,
-                                text: 'Go back',
-                              ),
+                          ),
+                          const SizedBox(height: PaddingSizes.medium),
+                          Material(
+                            child: PrimaryTextInput(
+                              tec: tecServerName,
+                              isError:
+                                  error != null && tecServerName.text.isEmpty,
+                              height: 52,
+                              width: 420,
+                              hint: 'Server',
                             ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(height: PaddingSizes.medium),
+                          Material(
+                            child: PrimaryTextInput(
+                              tec: tecUserName,
+                              isError:
+                                  error != null && tecUserName.text.isEmpty,
+                              height: 52,
+                              width: 420,
+                              hint: 'Login',
+                            ),
+                          ),
+                          const SizedBox(height: PaddingSizes.medium),
+                          Material(
+                            child: PrimaryTextInput(
+                              tec: tecPassword,
+                              isError:
+                                  error != null && tecPassword.text.isEmpty,
+                              height: 52,
+                              width: 420,
+                              hint: 'Investor password',
+                            ),
+                          ),
+                          const SizedBox(height: PaddingSizes.xxl),
+                          const Divider(
+                            height: 0.5,
+                            color: Color(0xFF323232),
+                          ),
+                          const SizedBox(height: PaddingSizes.xxxl),
+                          Material(
+                            child: Row(
+                              children: [
+                                PrimaryButton(
+                                  width: 180,
+                                  loading: loading,
+                                  onTap: linkAccount,
+                                  height: 44,
+                                  text: 'Add exchange',
+                                  prefixIcon: TradelyIcons.plusCircle,
+                                ),
+                                const SizedBox(width: PaddingSizes.xxs),
+                                Visibility(
+                                  // Can't go back when loading
+                                  visible: loading == false,
+                                  child: PrimaryButton(
+                                    width: 110,
+                                    color: Colors.transparent,
+                                    onTap: _navigateToPreviousPage,
+                                    height: 44,
+                                    text: 'Go back',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
+                ),
               ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,

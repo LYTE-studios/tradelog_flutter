@@ -1,35 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/custom_pop_menu.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
-class LinkedAccount extends StatefulWidget {
+class LinkedAccountBlock extends StatefulWidget {
+  final LinkedAccount linkedAccount;
+
+  final bool selectable;
+
   final bool selected;
+
   final Function()? onTap;
 
-  const LinkedAccount({
+  const LinkedAccountBlock({
     super.key,
+    required this.linkedAccount,
+    this.selectable = false,
     this.selected = false,
     this.onTap,
   });
 
   @override
-  State<LinkedAccount> createState() => _LinkedAccountState();
+  State<LinkedAccountBlock> createState() => _LinkedAccountBlockState();
 }
 
-class _LinkedAccountState extends State<LinkedAccount> {
+class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
   bool isHovering = false;
+
+  late bool selected = widget.selected;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.selected) {
+    if (widget.selected != selected) {
+      selected = widget.selected;
+    }
+
+    if (!widget.selectable) {
+      isHovering = false;
+      selected = false;
+    }
+
+    if (selected) {
       isHovering = true;
     }
 
     return Material(
       child: ClearInkWell(
+        enabled: widget.selectable,
         onTap: () => widget.onTap?.call(),
         child: BaseContainer(
           padding: const EdgeInsets.symmetric(
@@ -40,9 +60,9 @@ class _LinkedAccountState extends State<LinkedAccount> {
             bottom: PaddingSizes.medium,
           ),
           width: 210,
-          height: 135,
-          borderColor: widget.selected ? const Color(0xFF2D62FE) : null,
+          borderColor: selected ? const Color(0xFF2D62FE) : null,
           backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+          borderWidth: 2,
           enableBorder: isHovering,
           child: MouseRegion(
             onEnter: (details) {
@@ -110,6 +130,7 @@ class _LinkedAccountState extends State<LinkedAccount> {
                     ),
                   ],
                 ),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -118,7 +139,8 @@ class _LinkedAccountState extends State<LinkedAccount> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Cove account",
+                          widget.linkedAccount.title ??
+                              "${widget.linkedAccount.platform} account",
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     fontSize: 15,
