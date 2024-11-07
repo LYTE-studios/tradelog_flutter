@@ -66,9 +66,9 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
           prefixIconSize: 22,
         ),
       ),
-      child: Row(
+      child: const Row(
         children: [
-          const Expanded(
+          Expanded(
             flex: 2,
             child: Column(
               children: [
@@ -109,11 +109,11 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
           Expanded(
             child: Column(
               children: [
-                const LongShortContainer(),
-                const HoldingContainer(
+                LongShortContainer(),
+                HoldingContainer(
                   holdingTime: 20,
                 ),
-                const ProfitContainer(
+                ProfitContainer(
                   percentage: 45,
                 ),
                 Expanded(child: ActivityHeatmapContainer()),
@@ -136,7 +136,7 @@ Future<void> _showPaywallDialog(BuildContext context) async {
         onWillPop: () async {
           return false;
         },
-        child: PaywallDialog(),
+        child: const PaywallDialog(),
       );
     },
   );
