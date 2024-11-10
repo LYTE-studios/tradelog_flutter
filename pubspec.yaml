@@ -1,7 +1,7 @@
 name: tradelog_flutter
 description: Tradely - Your trading journal
 publish_to: 'none'
-version: 1.0.0+12
+version: 1.0.0+13
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -35,12 +35,14 @@ dependencies:
   # TRADELY
   tradelog_client:
     git:
-      url: https://lyte-manager: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@github.com/LYTE-studios/tradelog_client
+      url: https://github.com/LYTE-studios/tradelog_client
       ref: main
   lyte_studios_flutter_ui:
     git:
-      url: https://lyte-manager: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@github.com/LYTE-studios/lyte_studios_flutter_ui
-      ref: release/0.0.1
+      url: https://github.com/LYTE-studios/lyte_studios_flutter_ui
+      ref: main
+
+
   url_launcher: ^6.3.0
   flutter_quill: ^10.8.4
   flutter_quill_extensions: ^10.8.4
@@ -53,8 +55,8 @@ dependencies:
 dependency_overrides:
   image_cropper: ^8.0.2
   intl: ^0.19.0  # Ensure all packages use intl ^0.19.0
-  # tradelog_client:
-  #   path: ../tradelog_client
+  tradelog_client:
+    path: ../tradelog_client
 
 dev_dependencies:
   flutter_lints: '>=3.0.0 <5.0.0'

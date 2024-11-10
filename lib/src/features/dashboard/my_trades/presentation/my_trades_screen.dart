@@ -42,7 +42,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   @override
   Future<void> loadData() async {
-    trades = await client.global.fetchFromAPIs();
+    trades = await client.global.getCachedTrades();
 
     setState(() {
       trades = trades;
@@ -130,7 +130,8 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                         rowItems: [
                           TextRowItem(
                             text: TradelyDateTimeUtils.toReadableTime(
-                                trade.openTime),
+                              trade.openTime,
+                            ),
                             flex: 1,
                           ),
                           TextRowItem(

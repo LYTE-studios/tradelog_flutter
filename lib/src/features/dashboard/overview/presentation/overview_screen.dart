@@ -28,24 +28,24 @@ class OverviewScreen extends StatefulWidget {
 class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
   TradelyProfile? profile;
 
+  OverviewStatistics? statistics;
+
   @override
   Future<void> loadData() async {
+    // // Show the paywall dialog after the screen is built
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _showPaywallDialog(context);
+    // });
     profile = await client.profile.getProfile();
+
+    statistics = await client.statistics.getOverviewStatistics();
 
     setState(() {
       profile = profile;
+      statistics = statistics;
     });
 
     return super.loadData();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // Show the paywall dialog after the screen is built
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _showPaywallDialog(context);
-    });
   }
 
   @override
@@ -66,7 +66,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
           prefixIconSize: 22,
         ),
       ),
-      child: const Row(
+      child: Row(
         children: [
           Expanded(
             flex: 2,
@@ -79,24 +79,30 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                         title: 'Net Profit/Loss',
                         toolTip:
                             'The total realized net profit and loss for all closed trades.',
+                        // TODO
+                        valueFormatter: "\$",
+                        value: statistics?.netProfitLossThisMonth,
+                        percentage: statistics?.netProfitLossTrend,
                       ),
                       DataContainer(
                         title: 'Trade win rate',
                         toolTip:
                             'Reflects the percentage of your winning trades out of total trades taken.',
-                        data: "43%",
-                        percentage: -2,
+                        value: statistics?.tradeWinRateThisMonth,
+                        percentage: statistics?.tradeWinRateTrend,
                       ),
                       DataContainer(
                         title: ' Avg realized R:R',
                         toolTip:
                             'Average Win / Average Loss = Average Realize R:R',
-                        data: "\$123,88",
-                        percentage: 45,
+                        value: statistics?.realizedReturnThisMonth ?? 0,
+                        percentage: statistics?.realizedReturnTrend ?? 0,
+                        loading: loading,
                       ),
                     ],
                   ),
                 ),
+                // TODO
                 ChartContainer(
                   titleText: 'Equity line',
                   toolTipText:

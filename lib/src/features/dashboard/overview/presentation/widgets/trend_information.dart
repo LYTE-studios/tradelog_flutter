@@ -4,9 +4,12 @@ import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class TrendInformation extends StatelessWidget {
-  final int? percentage;
+  final double? percentage;
 
-  const TrendInformation({super.key, this.percentage});
+  const TrendInformation({
+    super.key,
+    this.percentage,
+  });
 
   @override
   Widget build(BuildContext context) {

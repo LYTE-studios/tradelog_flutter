@@ -9,16 +9,22 @@ class DataContainer extends StatelessWidget {
 
   final String toolTip;
 
-  final String? data;
+  final String? valueFormatter;
 
-  final int? percentage;
+  final double? value;
+
+  final double? percentage;
+
+  final bool loading;
 
   const DataContainer({
     super.key,
     required this.title,
     required this.toolTip,
-    this.data,
+    this.value,
+    this.valueFormatter,
     this.percentage,
+    this.loading = false,
   });
 
   @override
@@ -51,7 +57,7 @@ class DataContainer extends StatelessWidget {
                 child: FittedBox(
                   fit: BoxFit.contain,
                   child: Text(
-                    data ?? "-",
+                    (valueFormatter ?? "") + (value?.toStringAsFixed(2) ?? "-"),
                     style: textTheme.bodyLarge,
                   ),
                 ),
