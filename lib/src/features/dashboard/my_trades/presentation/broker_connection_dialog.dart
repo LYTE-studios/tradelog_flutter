@@ -191,6 +191,9 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                     ),
                     ...Platform.values.map(
                       (Platform platform) {
+                        if (platform != Platform.Tradelocker) {
+                          return SizedBox();
+                        }
                         return _BaseBrokerRow(
                           height: 70,
                           onTap: () => _navigateToNextPage(platform),

@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/ui/base/base_Row_Item.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class TrendRowItem extends StatelessWidget {
-  final bool short;
+  final Option option;
   final int flex;
 
-  const TrendRowItem({super.key, 
-    required this.short,
+  const TrendRowItem({
+    super.key,
+    required this.option,
     this.flex = 1,
   });
 
   @override
   Widget build(BuildContext context) {
+    bool short = option == Option.short;
+
     return BaseRowItem(
       flex: flex,
       child: Container(

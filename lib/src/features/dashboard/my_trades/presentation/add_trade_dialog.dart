@@ -1,5 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account_list.dart';
@@ -55,7 +56,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
   }
 
   AddTradeType selectedType = AddTradeType.manual;
-  BuySellType selectedBuySellType = BuySellType.buy;
+  Option selectedBuySellType = Option.long;
 
   bool isProfit = true;
 
@@ -101,7 +102,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
     });
   }
 
-  void _onBuySellToggle(BuySellType type) {
+  void _onBuySellToggle(Option type) {
     setState(() {
       selectedBuySellType = type;
     });
@@ -205,14 +206,12 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                       Color(0xFFF21111),
                                     ],
                                     selectedItem:
-                                        selectedBuySellType == BuySellType.buy
+                                        selectedBuySellType == Option.long
                                             ? 0
                                             : 1,
                                     onToggle: (int index) {
                                       _onBuySellToggle(
-                                        index == 0
-                                            ? BuySellType.buy
-                                            : BuySellType.sell,
+                                        index == 0 ? Option.long : Option.short,
                                       );
                                     },
                                     height: 45,

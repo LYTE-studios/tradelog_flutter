@@ -3,9 +3,12 @@ import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class ProfitContainer extends StatelessWidget {
-  final int percentage;
+  final double? factor;
 
-  const ProfitContainer({super.key, required this.percentage});
+  const ProfitContainer({
+    super.key,
+    this.factor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class ProfitContainer extends StatelessWidget {
                     ?.copyWith(fontSize: 14),
               ),
               Text(
-                "$percentage%",
+                factor?.toStringAsFixed(2) ?? "-",
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       fontSize: 30,
                     ),

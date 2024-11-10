@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/filter_trades_dialog.dart';
@@ -12,8 +12,8 @@ class FilterTradesButton extends StatefulWidget {
   final String? prefixIcon;
   final bool? leaveIconUnaltered;
   final TradeStatus tradeStatusFilter;
-  final TradeType tradeTypeFilter;
-  final Function(TradeType) onUpdateTradeTypeFilter;
+  final Option tradeTypeFilter;
+  final Function(Option) onUpdateTradeTypeFilter;
   final Function(TradeStatus) onUpdateTradeStatusFilter;
   final Function() onResetFilters;
   final Function() onShowTrades;
@@ -38,8 +38,8 @@ class FilterTradesButton extends StatefulWidget {
 }
 
 class _FilterTradesButtonState extends State<FilterTradesButton> {
-  TradeType tradeTypeFilter = TradeType.both;
-  TradeStatus tradeStatusFilter = TradeStatus.both;
+  Option tradeTypeFilter = Option.long;
+  TradeStatus tradeStatusFilter = TradeStatus.open;
 
   OverlayEntry? _overlayEntry;
 
@@ -82,7 +82,7 @@ class _FilterTradesButtonState extends State<FilterTradesButton> {
     });
   }
 
-  void onUpdateTradeType(TradeType type) {
+  void onUpdateTradeType(Option type) {
     setState(() {
       print("here zazaza");
       tradeTypeFilter = type;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_color_identifier.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_gauge.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
@@ -7,16 +7,35 @@ import 'package:tradelog_flutter/src/ui/data/small_data_list.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LongShortContainer extends StatefulWidget {
-  const LongShortContainer({super.key});
+  final int long;
+  final int short;
+
+  final double? averageWin;
+  final double? bestWin;
+  final double? bestLoss;
+
+  final int? averageWinStreak;
+  final int? maxWinStreak;
+
+  const LongShortContainer({
+    super.key,
+    required this.long,
+    required this.short,
+    this.averageWin,
+    this.bestWin,
+    this.bestLoss,
+    this.averageWinStreak,
+    this.maxWinStreak,
+  });
 
   @override
   State<LongShortContainer> createState() => _LongShortContainerState();
 }
 
 class _LongShortContainerState extends State<LongShortContainer> {
-  LongShortSelector selected = LongShortSelector.all;
+  Option selected = Option.long;
 
-  void setSelected(LongShortSelector value) {
+  void setSelected(Option value) {
     setState(() {
       selected = value;
     });
@@ -58,7 +77,10 @@ class _LongShortContainerState extends State<LongShortContainer> {
                           maxHeight: 200,
                           maxWidth: 256,
                         ),
-                        child: const LongShortGauge(),
+                        child: LongShortGauge(
+                          long: widget.long,
+                          short: widget.short,
+                        ),
                       ),
                     ),
                   ),
@@ -73,7 +95,7 @@ class _LongShortContainerState extends State<LongShortContainer> {
               ),
             ],
           ),
-          const SizedBox(
+          SizedBox(
             height: 64,
             child: SmallDataList(),
           ),

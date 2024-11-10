@@ -6,9 +6,12 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class HoldingContainer extends StatelessWidget {
-  final double holdingTime;
+  final double? holdingTime;
 
-  const HoldingContainer({super.key, required this.holdingTime});
+  const HoldingContainer({
+    super.key,
+    this.holdingTime,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,20 +42,31 @@ class HoldingContainer extends StatelessWidget {
                 width: PaddingSizes.extraSmall,
               ),
               RichText(
-                text: TextSpan(
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge
-                      ?.copyWith(fontSize: 18),
-                  children: const [
-                    TextSpan(text: '0 ', style: TextStyle(fontSize: 18)),
-                    TextSpan(text: 'Days  '),
-                    TextSpan(text: '7 ', style: TextStyle(fontSize: 18)),
-                    TextSpan(text: 'Hours  '),
-                    TextSpan(text: '12 ', style: TextStyle(fontSize: 18)),
-                    TextSpan(text: 'Minutes  '),
-                  ],
-                ),
+                text: holdingTime == null
+                    ? const TextSpan(text: "-")
+                    : TextSpan(
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontSize: 18),
+                        children: [
+                          TextSpan(
+                            text: '${(holdingTime! / 1440).toInt()}',
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          const TextSpan(text: 'Days  '),
+                          TextSpan(
+                            text: '${((holdingTime! / 60) % 24).toInt()}',
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          const TextSpan(text: 'Hours  '),
+                          TextSpan(
+                            text: '${((holdingTime! / 60) % 60).toInt()}',
+                            style: const TextStyle(fontSize: 18),
+                          ),
+                          const TextSpan(text: 'Minutes  '),
+                        ],
+                      ),
               ),
             ],
           ),

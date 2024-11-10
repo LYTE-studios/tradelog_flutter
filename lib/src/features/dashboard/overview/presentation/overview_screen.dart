@@ -115,14 +115,21 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
           Expanded(
             child: Column(
               children: [
-                LongShortContainer(),
+                // TODO container data
+                LongShortContainer(
+                  long: statistics?.longTradesAmount ?? 0,
+                  short: statistics?.shortTradesAmount ?? 0,
+                ),
                 HoldingContainer(
-                  holdingTime: 20,
+                  holdingTime: statistics?.averageHoldingTime,
                 ),
                 ProfitContainer(
-                  percentage: 45,
+                  factor: statistics?.profitFactor,
                 ),
-                Expanded(child: ActivityHeatmapContainer()),
+                // TODO activityHeatmap
+                Expanded(
+                  child: ActivityHeatmapContainer(),
+                ),
               ],
             ),
           ),

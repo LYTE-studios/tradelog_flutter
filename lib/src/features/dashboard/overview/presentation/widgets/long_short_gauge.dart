@@ -3,7 +3,15 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LongShortGauge extends StatelessWidget {
-  const LongShortGauge({super.key});
+  final int long;
+
+  final int short;
+
+  const LongShortGauge({
+    super.key,
+    required this.long,
+    required this.short,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +38,7 @@ class LongShortGauge extends StatelessWidget {
                         ),
                         FittedBox(
                           child: Text(
-                            "543",
+                            (long + short).toString(),
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       height: 1,
@@ -55,7 +63,7 @@ class LongShortGauge extends StatelessWidget {
               pointers: [
                 RangePointer(
                   pointerOffset: 0.05,
-                  value: 240,
+                  value: long.toDouble(),
                   width: 0.15,
                   sizeUnit: GaugeSizeUnit.factor,
                   cornerStyle: CornerStyle.bothCurve,
@@ -63,7 +71,7 @@ class LongShortGauge extends StatelessWidget {
                 ),
                 RangePointer(
                   pointerOffset: 0.05,
-                  value: 50,
+                  value: short.toDouble(),
                   width: 0.15,
                   sizeUnit: GaugeSizeUnit.factor,
                   cornerStyle: CornerStyle.bothCurve,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/data/client.dart';
-import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
@@ -30,11 +29,11 @@ class MyTradesScreen extends StatefulWidget {
 }
 
 class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
-  TradeType tradeTypeFilter = TradeType.short;
+  Option tradeTypeFilter = Option.short;
 
-  List<DisplayTrade> trades = [];
+  List<TradeDto> trades = [];
 
-  void onUpdateTradeType(TradeType type) {
+  void onUpdateTradeType(Option type) {
     setState(() {
       tradeTypeFilter = type;
     });
@@ -76,7 +75,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               height: 42,
               text: "Filter trades",
               prefixIcon: TradelyIcons.diary,
-              tradeStatusFilter: TradeStatus.both,
+              tradeStatusFilter: TradeStatus.open,
               tradeTypeFilter: tradeTypeFilter,
               onUpdateTradeTypeFilter: onUpdateTradeType,
               onUpdateTradeStatusFilter: (TradeStatus st) {
@@ -139,20 +138,20 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                             flex: 1,
                           ),
                           TrendRowItem(
-                            short: trade.direction == 'short',
+                            option: trade.option,
                             flex: 1,
                           ),
                           TextRowItem(
-                            text: trade.status,
+                            text: trade.status.name,
                             flex: 1,
                           ),
-                          TextProfitLoss(
-                            text: trade.netpl.toStringAsFixed(2),
+                          const TextProfitLoss(
+                            text: "",
                             short: true,
                             flex: 1,
                           ),
-                          TextRowItem(
-                            text: trade.netroi.toStringAsFixed(2),
+                          const TextRowItem(
+                            text: "",
                             flex: 1,
                           ),
                         ],

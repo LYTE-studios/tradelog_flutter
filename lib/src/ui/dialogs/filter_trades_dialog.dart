@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/date_selector.dart';
@@ -10,9 +10,9 @@ import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 class FilterTradesDialog extends StatelessWidget {
   final TradeStatus tradeStatusFilter;
 
-  final TradeType tradeTypeFilter;
+  final Option tradeTypeFilter;
 
-  final Function(TradeType) onUpdateTradeTypeFilter;
+  final Function(Option) onUpdateTradeTypeFilter;
 
   final Function(TradeStatus) onUpdateTradeStatusFilter;
 
@@ -48,13 +48,13 @@ class FilterTradesDialog extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: PaddingSizes.medium,
               ),
-              onTap: () => onUpdateTradeTypeFilter.call(TradeType.long),
+              onTap: () => onUpdateTradeTypeFilter.call(Option.long),
               height: 34,
               width: 95,
               text: "Long",
               prefixIcon: TradelyIcons.trendUp,
               prefixIconSize: 12,
-              color: tradeTypeFilter != TradeType.long ? unSelectedColor : null,
+              color: tradeTypeFilter != Option.long ? unSelectedColor : null,
             ),
             const SizedBox(
               width: PaddingSizes.medium,
@@ -63,24 +63,23 @@ class FilterTradesDialog extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: PaddingSizes.medium,
               ),
-              onTap: () => onUpdateTradeTypeFilter.call(TradeType.short),
+              onTap: () => onUpdateTradeTypeFilter.call(Option.short),
               height: 34,
               width: 100,
               text: "Short",
               prefixIcon: TradelyIcons.trendDown,
               prefixIconSize: 12,
-              color:
-                  tradeTypeFilter != TradeType.short ? unSelectedColor : null,
+              color: tradeTypeFilter != Option.short ? unSelectedColor : null,
             ),
             const SizedBox(
               width: PaddingSizes.medium,
             ),
             PrimaryButton(
-              onTap: () => onUpdateTradeTypeFilter.call(TradeType.both),
+              onTap: () => onUpdateTradeTypeFilter.call(Option.long),
               height: 34,
               width: 95,
               text: "- Both",
-              color: tradeTypeFilter != TradeType.both ? unSelectedColor : null,
+              color: tradeTypeFilter != Option.long ? unSelectedColor : null,
             ),
           ],
         ),
@@ -114,11 +113,11 @@ class FilterTradesDialog extends StatelessWidget {
               width: PaddingSizes.medium,
             ),
             PrimaryButton(
-              onTap: () => onUpdateTradeStatusFilter.call(TradeStatus.both),
+              onTap: () => onUpdateTradeStatusFilter.call(TradeStatus.open),
               height: 34,
               width: 95,
               text: "Both",
-              color: tradeStatusFilter != TradeStatus.both
+              color: tradeStatusFilter != TradeStatus.open
                   ? unSelectedColor
                   : null,
             ),

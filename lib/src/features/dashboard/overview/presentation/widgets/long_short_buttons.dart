@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/ui/selectable/clear_ink_well.dart';
+import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class LongShortButtons extends StatelessWidget {
-  final LongShortSelector selected;
-  final Function(LongShortSelector) onChanged;
+  final Option? selected;
+  final Function(Option?) onChanged;
 
   const LongShortButtons({
     super.key,
@@ -18,7 +19,7 @@ class LongShortButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    Widget buildButton(String label, LongShortSelector value) {
+    Widget buildButton(String label, Option? value) {
       return ClearInkWell(
         onTap: () => onChanged(value),
         child: Text(
@@ -33,15 +34,15 @@ class LongShortButtons extends StatelessWidget {
 
     return Row(
       children: [
-        buildButton("All", LongShortSelector.all),
+        buildButton("All", null),
         const SizedBox(
           width: PaddingSizes.medium,
         ),
-        buildButton("Long", LongShortSelector.long),
+        buildButton("Long", Option.long),
         const SizedBox(
           width: PaddingSizes.medium,
         ),
-        buildButton("Short", LongShortSelector.short),
+        buildButton("Short", Option.short),
       ],
     );
   }

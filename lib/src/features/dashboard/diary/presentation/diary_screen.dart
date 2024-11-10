@@ -31,96 +31,156 @@ import '../../../../ui/base/custom_header.dart';
 
 class DiaryScreen extends StatefulWidget {
   final allRows = [
-    const CustomRow(
-      horizontalPadding: 20,
-      rowItems: [
-        TextRowItem(
-          text: '14:23:05',
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'EURJPY',
-          flex: 1,
-        ),
-        TrendRowItem(
-          short: true,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'Closed',
-          flex: 1,
-        ),
-        TextProfitLoss(
-          text: '\$8,37',
-          short: true,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: '2.25%',
-          flex: 1,
-        ),
-      ],
-    ),
-    const CustomRow(
-      horizontalPadding: 20,
-      rowItems: [
-        TextRowItem(
-          text: '16:46:12',
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'EURJPY',
-          flex: 1,
-        ),
-        TrendRowItem(
-          short: false,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'Closed',
-          flex: 1,
-        ),
-        TextProfitLoss(
-          text: '\$234,23',
-          short: false,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: '24.02%',
-          flex: 1,
-        ),
-      ],
-    ),
-    const CustomRow(
-      horizontalPadding: 20,
-      rowItems: [
-        TextRowItem(
-          text: '16:58:02',
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'EURJPY',
-          flex: 1,
-        ),
-        TrendRowItem(
-          short: false,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'Closed',
-          flex: 1,
-        ),
-        TextProfitLoss(
-          text: '\$19,11',
-          short: false,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: '3.28%',
-          flex: 1,
-        ),
-      ],
-    ),
+    // const CustomRow(
+    //   horizontalPadding: 20,
+    //   rowItems: [
+    //     TextRowItem(
+    //       text: '14:23:05',
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'EURJPY',
+    //       flex: 1,
+    //     ),
+    //     TrendRowItem(
+    //       short: true,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'Closed',
+    //       flex: 1,
+    //     ),
+    //     TextProfitLoss(
+    //       text: '\$8,37',
+    //       short: true,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: '2.25%',
+    //       flex: 1,
+    //     ),
+    //   ],
+    // ),
+    // const CustomRow(
+    //   horizontalPadding: 20,
+    //   rowItems: [
+    //     TextRowItem(
+    //       text: '16:46:12',
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'EURJPY',
+    //       flex: 1,
+    //     ),
+    //     TrendRowItem(
+    //       short: false,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'Closed',
+    //       flex: 1,
+    //     ),
+    //     TextProfitLoss(
+    //       text: '\$234,23',
+    //       short: false,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: '24.02%',
+    //       flex: 1,
+    //     ),
+    //   ],
+    // ),
+    // const CustomRow(
+    //   horizontalPadding: 20,
+    //   rowItems: [
+    //     TextRowItem(
+    //       text: '16:58:02',
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'EURJPY',
+    //       flex: 1,
+    //     ),
+    //     TrendRowItem(
+    //       short: false,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'Closed',
+    //       flex: 1,
+    //     ),
+    //     TextProfitLoss(
+    //       text: '\$19,11',
+    //       short: false,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: '3.28%',
+    //       flex: 1,
+    //     ),
+    //   ],
+    // ),
+    // const CustomRow(
+    //   horizontalPadding: 20,
+    //   rowItems: [
+    //     TextRowItem(
+    //       text: '17:17:58',
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'EURJPY',
+    //       flex: 1,
+    //     ),
+    //     TrendRowItem(
+    //       short: true,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'Closed',
+    //       flex: 1,
+    //     ),
+    //     TextProfitLoss(
+    //       text: '\$8,37',
+    //       short: true,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: '25%',
+    //       flex: 1,
+    //     ),
+    //   ],
+    // ),
+    // const CustomRow(
+    //   horizontalPadding: 20,
+    //   rowItems: [
+    //     TextRowItem(
+    //       text: '17:17:58',
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'EURJPY',
+    //       flex: 1,
+    //     ),
+    //     TrendRowItem(
+    //       short: true,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: 'Closed',
+    //       flex: 1,
+    //     ),
+    //     TextProfitLoss(
+    //       text: '\$8,37',
+    //       short: true,
+    //       flex: 1,
+    //     ),
+    //     TextRowItem(
+    //       text: '25%',
+    //       flex: 1,
+    //     ),
+    //   ],
+    // ),
     const CustomRow(
       horizontalPadding: 20,
       rowItems: [
@@ -133,68 +193,8 @@ class DiaryScreen extends StatefulWidget {
           flex: 1,
         ),
         TrendRowItem(
-          short: true,
           flex: 1,
-        ),
-        TextRowItem(
-          text: 'Closed',
-          flex: 1,
-        ),
-        TextProfitLoss(
-          text: '\$8,37',
-          short: true,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: '25%',
-          flex: 1,
-        ),
-      ],
-    ),
-    const CustomRow(
-      horizontalPadding: 20,
-      rowItems: [
-        TextRowItem(
-          text: '17:17:58',
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'EURJPY',
-          flex: 1,
-        ),
-        TrendRowItem(
-          short: true,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'Closed',
-          flex: 1,
-        ),
-        TextProfitLoss(
-          text: '\$8,37',
-          short: true,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: '25%',
-          flex: 1,
-        ),
-      ],
-    ),
-    const CustomRow(
-      horizontalPadding: 20,
-      rowItems: [
-        TextRowItem(
-          text: '17:17:58',
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'EURJPY',
-          flex: 1,
-        ),
-        TrendRowItem(
-          short: true,
-          flex: 1,
+          option: Option.long,
         ),
         TextRowItem(
           text: 'Closed',

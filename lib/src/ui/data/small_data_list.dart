@@ -2,17 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class SmallDataList extends StatelessWidget {
-  const SmallDataList({super.key});
+  final int? totalTrades;
+  final double? averageWin;
+  final double? bestWin;
+  final double? bestLoss;
+  final int? averageWinStreak;
+  final int? maxWinStreak;
 
-  // Example data
-  final List<Map<String, String>> data = const [
-    {"label": "Total Trades", "value": "-"},
-    {"label": "Average Win", "value": "-"},
-    {"label": "Best Win", "value": "-"},
-    {"label": "Avg Win Streak", "value": "-"},
-    {"label": "Max Win Streak", "value": "-"},
-    {"label": "Best Loss", "value": "-"},
-  ];
+  const SmallDataList({
+    super.key,
+    this.totalTrades,
+    this.averageWin,
+    this.bestWin,
+    this.bestLoss,
+    this.averageWinStreak,
+    this.maxWinStreak,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +31,17 @@ class SmallDataList extends StatelessWidget {
               buildRow(
                 context,
                 title: 'Total trades',
-                value: '-',
+                value: totalTrades?.toString() ?? '-',
               ),
               buildRow(
                 context,
                 title: 'Average Win',
-                value: '-',
+                value: averageWin?.toString() ?? '-',
               ),
               buildRow(
                 context,
                 title: 'Best Win',
-                value: '-',
+                value: bestWin?.toString() ?? '-',
               ),
             ],
           ),
@@ -49,17 +54,17 @@ class SmallDataList extends StatelessWidget {
               buildRow(
                 context,
                 title: 'Avg Win Streak',
-                value: '-',
+                value: averageWinStreak?.toString() ?? '-',
               ),
               buildRow(
                 context,
                 title: 'Max Win Streak',
-                value: '-',
+                value: maxWinStreak?.toString() ?? '-',
               ),
               buildRow(
                 context,
                 title: 'Best Loss',
-                value: '-',
+                value: bestLoss?.toString() ?? '-',
               ),
             ],
           ),
