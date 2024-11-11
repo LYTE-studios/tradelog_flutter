@@ -19,6 +19,24 @@ import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/
 GoRouter router = GoRouter(
   initialLocation: FirstGlanceScreen.route,
   routes: <RouteBase>[
+    // https://app.tradely.io/forms/<Some_form_id>/
+    ShellRoute(
+      builder: (context, state, child) {
+        // TODO: Check for form id
+        return child;
+      },
+      routes: [
+        GoRoute(
+          path: '/forms',
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const CustomTransitionPage(
+            transitionsBuilder: PageBuilderUtils.buildUpSlideAnimation,
+            child: FirstGlanceScreen(),
+          ),
+        ),
+      ],
+    ),
+
     GoRoute(
       path: FirstGlanceScreen.route,
       pageBuilder: (BuildContext context, GoRouterState state) =>
