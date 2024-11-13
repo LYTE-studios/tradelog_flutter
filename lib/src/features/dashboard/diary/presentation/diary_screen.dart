@@ -149,6 +149,12 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    double totalRoi = 0;
+
+    for (double roi in trades.map((e) => e.netRoi ?? 0)) {
+      totalRoi += roi;
+    }
+
     final ThemeData theme = Theme.of(context);
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
@@ -385,7 +391,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                                 const SizedBox(width: PaddingSizes.medium),
                                 RichText(
                                   text: TextSpan(
-                                    text: "\$543,09",
+                                    text: "\$${totalRoi.toStringAsFixed(0)}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
@@ -395,7 +401,8 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                                         ),
                                     children: [
                                       TextSpan(
-                                        text: " .24",
+                                        text:
+                                            " .${totalRoi.toStringAsFixed(2).split(".")[1]}",
                                         style: Theme.of(context)
                                             .textTheme
                                             .titleMedium,

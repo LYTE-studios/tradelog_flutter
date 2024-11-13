@@ -33,10 +33,10 @@ class TrendInformation extends StatelessWidget {
               )
             : const SizedBox.shrink(),
         Text(
-          percentage != null ? "$percentage%" : "- %",
+          percentage != null && percentage != null ? "$percentage%" : "- %",
           style: textTheme.bodySmall?.copyWith(
             fontSize: 14,
-            color: percentage != null
+            color: percentage != null && percentage != 0
                 ? up
                     ? colorScheme.tertiary
                     : colorScheme.error
