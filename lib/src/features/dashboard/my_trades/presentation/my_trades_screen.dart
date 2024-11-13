@@ -41,7 +41,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   @override
   Future<void> loadData() async {
-    trades = await client.global.getCachedTrades();
+    trades = await client.global.getTrades();
 
     setState(() {
       trades = trades;
@@ -145,13 +145,13 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                             text: trade.status.name,
                             flex: 1,
                           ),
-                          const TextProfitLoss(
-                            text: "",
+                          TextProfitLoss(
+                            text: trade.realizedPl?.toStringAsFixed(2) ?? "-",
                             short: true,
                             flex: 1,
                           ),
-                          const TextRowItem(
-                            text: "",
+                          TextRowItem(
+                            text: trade.netRoi?.toStringAsFixed(2) ?? "-",
                             flex: 1,
                           ),
                         ],

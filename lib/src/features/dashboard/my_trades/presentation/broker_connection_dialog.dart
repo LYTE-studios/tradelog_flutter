@@ -62,6 +62,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         {
           // await client.metaApi.authenticate();
         }
+      case Platform.TradelockerDemo:
       case Platform.Tradelocker:
         {
           try {
@@ -70,6 +71,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
               tecPassword.text,
               tecServerName.text,
               title: tecAccountName.text,
+              isDemo: _selectedPlatform == Platform.TradelockerDemo,
             );
           } catch (e) {
             setState(() {
@@ -121,6 +123,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
     switch (platform) {
       case Platform.Metatrader:
         return TradelyIcons.metatrader;
+      case Platform.TradelockerDemo:
       case Platform.Tradelocker:
         return TradelyIcons.tradelocker;
       default:
@@ -191,9 +194,6 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                     ),
                     ...Platform.values.map(
                       (Platform platform) {
-                        if (platform != Platform.Tradelocker) {
-                          return SizedBox();
-                        }
                         return _BaseBrokerRow(
                           height: 70,
                           onTap: () => _navigateToNextPage(platform),
