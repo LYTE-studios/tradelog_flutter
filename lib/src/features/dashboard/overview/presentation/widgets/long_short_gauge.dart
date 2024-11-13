@@ -15,6 +15,12 @@ class LongShortGauge extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int total = long + short;
+
+    double longValue = total == 0 ? 0 : (long / total) * 240;
+
+    double shortValue = total == 0 ? 0 : (short / total) * 240;
+
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
         height: constraints.maxHeight,
@@ -62,16 +68,14 @@ class LongShortGauge extends StatelessWidget {
               ],
               pointers: [
                 RangePointer(
-                  pointerOffset: 0.05,
-                  value: long.toDouble(),
+                  value: longValue,
                   width: 0.15,
                   sizeUnit: GaugeSizeUnit.factor,
                   cornerStyle: CornerStyle.bothCurve,
                   color: Theme.of(context).colorScheme.secondary,
                 ),
                 RangePointer(
-                  pointerOffset: 0.05,
-                  value: short.toDouble(),
+                  value: shortValue,
                   width: 0.15,
                   sizeUnit: GaugeSizeUnit.factor,
                   cornerStyle: CornerStyle.bothCurve,
