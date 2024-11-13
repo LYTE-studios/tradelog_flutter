@@ -31,7 +31,7 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import '../../../../ui/base/custom_header.dart';
 
 class DiaryScreen extends StatefulWidget {
-  DiaryScreen({super.key});
+  const DiaryScreen({super.key});
 
   static const String route = '/$location';
   static const String location = 'diary';

@@ -1246,9 +1246,11 @@ packages:
   tradelog_client:
     dependency: "direct main"
     description:
-      path: "../tradelog_client"
-      relative: true
-    source: path
+      path: "."
+      ref: main
+      resolved-ref: dfa81e9398f30ee246034c3a51583c67ff85d34c
+      url: "https://github.com/LYTE-studios/tradelog_client"
+    source: git
     version: "0.0.0"
   typed_data:
     dependency: transitive

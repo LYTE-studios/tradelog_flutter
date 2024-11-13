@@ -9,11 +9,11 @@ class BaseInAppNotification extends StatelessWidget {
   final bool isSuccessful;
 
   const BaseInAppNotification({
-    Key? key,
+    super.key,
     required this.message,
     required this.isSuccessful,
     this.onDismiss,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
