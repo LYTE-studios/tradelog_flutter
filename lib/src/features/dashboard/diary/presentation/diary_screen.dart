@@ -9,6 +9,7 @@ import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/asset_util.dart';
+import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
@@ -30,189 +31,6 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import '../../../../ui/base/custom_header.dart';
 
 class DiaryScreen extends StatefulWidget {
-  final allRows = [
-    // const CustomRow(
-    //   horizontalPadding: 20,
-    //   rowItems: [
-    //     TextRowItem(
-    //       text: '14:23:05',
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'EURJPY',
-    //       flex: 1,
-    //     ),
-    //     TrendRowItem(
-    //       short: true,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'Closed',
-    //       flex: 1,
-    //     ),
-    //     TextProfitLoss(
-    //       text: '\$8,37',
-    //       short: true,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: '2.25%',
-    //       flex: 1,
-    //     ),
-    //   ],
-    // ),
-    // const CustomRow(
-    //   horizontalPadding: 20,
-    //   rowItems: [
-    //     TextRowItem(
-    //       text: '16:46:12',
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'EURJPY',
-    //       flex: 1,
-    //     ),
-    //     TrendRowItem(
-    //       short: false,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'Closed',
-    //       flex: 1,
-    //     ),
-    //     TextProfitLoss(
-    //       text: '\$234,23',
-    //       short: false,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: '24.02%',
-    //       flex: 1,
-    //     ),
-    //   ],
-    // ),
-    // const CustomRow(
-    //   horizontalPadding: 20,
-    //   rowItems: [
-    //     TextRowItem(
-    //       text: '16:58:02',
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'EURJPY',
-    //       flex: 1,
-    //     ),
-    //     TrendRowItem(
-    //       short: false,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'Closed',
-    //       flex: 1,
-    //     ),
-    //     TextProfitLoss(
-    //       text: '\$19,11',
-    //       short: false,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: '3.28%',
-    //       flex: 1,
-    //     ),
-    //   ],
-    // ),
-    // const CustomRow(
-    //   horizontalPadding: 20,
-    //   rowItems: [
-    //     TextRowItem(
-    //       text: '17:17:58',
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'EURJPY',
-    //       flex: 1,
-    //     ),
-    //     TrendRowItem(
-    //       short: true,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'Closed',
-    //       flex: 1,
-    //     ),
-    //     TextProfitLoss(
-    //       text: '\$8,37',
-    //       short: true,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: '25%',
-    //       flex: 1,
-    //     ),
-    //   ],
-    // ),
-    // const CustomRow(
-    //   horizontalPadding: 20,
-    //   rowItems: [
-    //     TextRowItem(
-    //       text: '17:17:58',
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'EURJPY',
-    //       flex: 1,
-    //     ),
-    //     TrendRowItem(
-    //       short: true,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: 'Closed',
-    //       flex: 1,
-    //     ),
-    //     TextProfitLoss(
-    //       text: '\$8,37',
-    //       short: true,
-    //       flex: 1,
-    //     ),
-    //     TextRowItem(
-    //       text: '25%',
-    //       flex: 1,
-    //     ),
-    //   ],
-    // ),
-    const CustomRow(
-      horizontalPadding: 20,
-      rowItems: [
-        TextRowItem(
-          text: '17:17:58',
-          flex: 1,
-        ),
-        TextRowItem(
-          text: 'EURJPY',
-          flex: 1,
-        ),
-        TrendRowItem(
-          flex: 1,
-          option: Option.long,
-        ),
-        TextRowItem(
-          text: 'Closed',
-          flex: 1,
-        ),
-        TextProfitLoss(
-          text: '\$8,37',
-          short: true,
-          flex: 1,
-        ),
-        TextRowItem(
-          text: '25%',
-          flex: 1,
-        ),
-      ],
-    ),
-  ];
-
   DiaryScreen({super.key});
 
   static const String route = '/$location';
@@ -235,6 +53,8 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   DateTime selectedDate = DateTime.now();
 
   Note? note;
+
+  List<TradeDto> trades = [];
 
   Future<String?> _saveImage(FilePickerResult result) async {
     return AssetUtil.uploadImage(result.files.first);
@@ -293,6 +113,19 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
     }
 
     note = await client.note.getNoteForDate(selectedDate);
+
+    trades = await client.global.getTrades(
+      from: DateTime.utc(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day,
+      ),
+      to: DateTime.utc(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day + 1,
+      ),
+    );
 
     Document document = Document();
 
@@ -616,7 +449,43 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                                     ),
                                   ],
                                 ),
-                                rows: widget.allRows,
+                                rows: trades
+                                    .map(
+                                      (trade) => CustomRow(
+                                        horizontalPadding: 20,
+                                        rowItems: [
+                                          TextRowItem(
+                                            text: TradelyDateTimeUtils
+                                                .toReadableTime(
+                                              trade.openTime,
+                                            ),
+                                            flex: 1,
+                                          ),
+                                          TextRowItem(
+                                            text: trade.symbol,
+                                            flex: 1,
+                                          ),
+                                          TrendRowItem(
+                                            option: trade.option,
+                                            flex: 1,
+                                          ),
+                                          TextRowItem(
+                                            text: trade.status.name,
+                                            flex: 1,
+                                          ),
+                                          const TextProfitLoss(
+                                            text: "",
+                                            short: true,
+                                            flex: 1,
+                                          ),
+                                          const TextRowItem(
+                                            text: "",
+                                            flex: 1,
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                    .toList(),
                               ),
                             ),
                           ],

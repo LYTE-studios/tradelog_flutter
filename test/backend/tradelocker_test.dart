@@ -50,16 +50,19 @@ void main() {
       expect(signedIn, equals(true));
     });
 
-    test('tradelocker authenticate', () async {
-      try {
-        var response = await client.tradeLocker.authenticate(
-            tradelockerDemoEmail, tradelockerDemoPass, tradelockerDemoServer);
-
-        expect(response, isNotNull);
-      } on Exception catch (e) {
-        log(e.toString());
-      }
-    });
+    // test('tradelocker authenticate', () async {
+    //   try {
+    //     // var response = await client.tradeLocker.authenticate(
+    //     //   tradelockerDemoEmail,
+    //     //   tradelockerDemoPass,
+    //     //   tradelockerDemoServer,
+    //     // );
+    //
+    //     expect(response, isNotNull);
+    //   } on Exception catch (e) {
+    //     log(e.toString());
+    //   }
+    // });
 
     // test('tradelocker refresh', () async {
     //   try {

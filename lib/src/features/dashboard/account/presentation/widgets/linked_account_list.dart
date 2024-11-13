@@ -42,7 +42,7 @@ class _LinkedAccountListState extends State<LinkedAccountList>
     return TradelyLoadingSwitcher(
       loading: loading,
       child: SizedBox(
-        height: 142,
+        height: 156,
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: accounts

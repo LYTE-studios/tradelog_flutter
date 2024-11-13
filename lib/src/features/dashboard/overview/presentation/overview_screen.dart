@@ -28,7 +28,7 @@ class OverviewScreen extends StatefulWidget {
 class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
   TradelyProfile? profile;
 
-  OverviewStatistics? statistics;
+  OverviewStatisticsDto? statistics;
 
   @override
   Future<void> loadData() async {
