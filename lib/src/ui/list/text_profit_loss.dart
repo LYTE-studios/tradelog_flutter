@@ -5,7 +5,7 @@ import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 class TextProfitLoss extends StatelessWidget {
   final String text;
   final int flex;
-  final bool short;
+  final bool? short;
 
   const TextProfitLoss({
     required this.text,
@@ -19,12 +19,14 @@ class TextProfitLoss extends StatelessWidget {
     return BaseRowItem(
       flex: flex,
       child: Text(
-        text,
+        short == null ? "-" : text,
         textAlign: TextAlign.left,
         style: TextStyles.titleSmall.copyWith(
           fontSize: 13,
           fontWeight: FontWeight.w500,
-          color: short ? const Color(0xFFDA484E) : const Color(0xFF14D39F),
+          color: short == null
+              ? TextStyles.bodyColor
+              : (short! ? const Color(0xFFDA484E) : const Color(0xFF14D39F)),
         ),
       ),
     );

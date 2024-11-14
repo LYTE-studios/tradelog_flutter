@@ -95,7 +95,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
             Expanded(
               child: GenericListView(
                 header: const CustomHeader(
-                  horizontalPadding: 20,
+                  horizontalPadding: 40,
                   children: [
                     HeaderRowItem(
                       flex: 1,
@@ -126,6 +126,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                 rows: trades
                     .map(
                       (trade) => CustomRow(
+                        horizontalPadding: 40,
                         rowItems: [
                           TextRowItem(
                             text: TradelyDateTimeUtils.toReadableTime(
@@ -147,7 +148,10 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                           ),
                           TextProfitLoss(
                             text: trade.realizedPl?.toStringAsFixed(2) ?? "-",
-                            short: true,
+                            short: (trade.realizedPl == null) ||
+                                    (trade.realizedPl == 0)
+                                ? null
+                                : (trade.realizedPl! > 0),
                             flex: 1,
                           ),
                           TextRowItem(

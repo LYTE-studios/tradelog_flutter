@@ -178,13 +178,14 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
               const SizedBox(
                 width: PaddingSizes.extraLarge,
               ),
-              PrimaryTextInput(
-                readOnly: true,
-                width: inputWidth,
-                label: "Date of birth",
-                tec: dateTec,
-                hint: "",
-              ),
+              const Spacer(),
+              // PrimaryTextInput(
+              //   readOnly: true,
+              //   width: inputWidth,
+              //   label: "Date of birth",
+              //   tec: dateTec,
+              //   hint: "",
+              // ),
             ],
           ),
           const SizedBox(

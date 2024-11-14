@@ -14,7 +14,10 @@ class BaseRowItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       flex: flex,
-      child: Align(alignment: Alignment.center, child: child),
+      child: Align(
+        alignment: Alignment.center,
+        child: child,
+      ),
     );
   }
 }
