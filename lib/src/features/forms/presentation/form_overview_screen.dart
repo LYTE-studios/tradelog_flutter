@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/forms/presentation/profit_loss_loop_row.dart';
@@ -159,7 +160,9 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                     height: 60,
                     child: Center(
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          HapticFeedback.heavyImpact();
+                        },
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 350),
                           alignment: Alignment.center,
