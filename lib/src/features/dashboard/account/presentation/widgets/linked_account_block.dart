@@ -3,11 +3,10 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/custom_pop_menu.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
-import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LinkedAccountBlock extends StatefulWidget {
-  final LinkedAccount linkedAccount;
+  final LinkedAccountDto linkedAccount;
 
   final bool selectable;
 
@@ -45,6 +44,12 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
 
     if (selected) {
       isHovering = true;
+    }
+
+    double totalBalance = 0;
+
+    for (double value in widget.linkedAccount.balance ?? []) {
+      totalBalance += value;
     }
 
     return Padding(
@@ -104,7 +109,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                               height: PaddingSizes.xxs,
                             ),
                             Text(
-                              "\$123.456",
+                              "\$${totalBalance.toStringAsFixed(2)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
@@ -157,7 +162,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                             height: PaddingSizes.xxs,
                           ),
                           Text(
-                            "Active",
+                            widget.linkedAccount.status?.first ?? "Active",
                             style: Theme.of(context)
                                 .textTheme
                                 .labelMedium
@@ -167,10 +172,6 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                           ),
                         ],
                       ),
-                      const SvgIcon(
-                        TradelyIcons.warning,
-                        leaveUnaltered: true,
-                      )
                     ],
                   )
                 ],

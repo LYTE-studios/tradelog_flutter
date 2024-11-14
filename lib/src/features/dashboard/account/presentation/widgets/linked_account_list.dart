@@ -8,7 +8,7 @@ import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
 class LinkedAccountList extends StatefulWidget {
   final bool selectable;
 
-  final Function(LinkedAccount?)? onUpdateSelectedAccount;
+  final Function(LinkedAccountDto?)? onUpdateSelectedAccount;
 
   const LinkedAccountList({
     super.key,
@@ -22,9 +22,9 @@ class LinkedAccountList extends StatefulWidget {
 
 class _LinkedAccountListState extends State<LinkedAccountList>
     with ScreenStateMixin {
-  List<LinkedAccount> accounts = [];
+  List<LinkedAccountDto> accounts = [];
 
-  LinkedAccount? selected;
+  LinkedAccountDto? selected;
 
   @override
   Future<void> loadData() async {
@@ -51,7 +51,7 @@ class _LinkedAccountListState extends State<LinkedAccountList>
                   selectable: widget.selectable,
                   selected: selected == linkedAccount,
                   onTap: () {
-                    LinkedAccount? newSelected =
+                    LinkedAccountDto? newSelected =
                         selected == linkedAccount ? null : linkedAccount;
 
                     setState(() {
