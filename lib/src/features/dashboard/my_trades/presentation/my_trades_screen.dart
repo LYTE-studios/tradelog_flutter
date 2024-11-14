@@ -154,8 +154,11 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                                 : (trade.realizedPl! > 0),
                             flex: 1,
                           ),
-                          TextRowItem(
+                          TextProfitLoss(
                             text: trade.netRoi?.toStringAsFixed(2) ?? "-",
+                            short: (trade.netRoi == null) || (trade.netRoi == 0)
+                                ? null
+                                : (trade.netRoi! > 0),
                             flex: 1,
                           ),
                         ],
