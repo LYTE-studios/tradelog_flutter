@@ -84,7 +84,6 @@ class _FilterTradesButtonState extends State<FilterTradesButton> {
 
   void onUpdateTradeType(Option type) {
     setState(() {
-      print("here zazaza");
       tradeTypeFilter = type;
       widget.onUpdateTradeTypeFilter(type);
       _hideOverlay();
