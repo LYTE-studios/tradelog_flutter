@@ -1,7 +1,7 @@
 name: tradelog_flutter
 description: Tradely - Your trading journal
 publish_to: 'none'
-version: 1.0.0+16
+version: 1.0.0+17
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -74,20 +74,20 @@ flutter:
     - assets/images/emojis/
 
   fonts:
-  - family: Phonk
-    fonts:
-      - asset: assets/fonts/phonk/Phonk-Contrast.otf
-        weight: 900
-#
-  - family: Inter
-    fonts:
-      - asset: assets/fonts/inter/Inter-Black.ttf
-      - asset: assets/fonts/inter/Inter-Bold.ttf
-      - asset: assets/fonts/inter/Inter-ExtraBold.ttf
-      - asset: assets/fonts/inter/Inter-ExtraLight.ttf
-      - asset: assets/fonts/inter/Inter-Light.ttf
-      - asset: assets/fonts/inter/Inter-Medium.ttf
-      - asset: assets/fonts/inter/Inter-Regular.ttf
-      - asset: assets/fonts/inter/Inter-SemiBold.ttf
-      - asset: assets/fonts/inter/Inter-Thin.ttf
+    - family: Phonk
+      fonts:
+        - asset: assets/fonts/phonk/Phonk-Contrast.otf
+          weight: 900
+    #
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Black.ttf
+        - asset: assets/fonts/inter/Inter-Bold.ttf
+        - asset: assets/fonts/inter/Inter-ExtraBold.ttf
+        - asset: assets/fonts/inter/Inter-ExtraLight.ttf
+        - asset: assets/fonts/inter/Inter-Light.ttf
+        - asset: assets/fonts/inter/Inter-Medium.ttf
+        - asset: assets/fonts/inter/Inter-Regular.ttf
+        - asset: assets/fonts/inter/Inter-SemiBold.ttf
+        - asset: assets/fonts/inter/Inter-Thin.ttf
 
