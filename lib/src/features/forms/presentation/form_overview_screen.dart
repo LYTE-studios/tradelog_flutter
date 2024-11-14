@@ -103,7 +103,7 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                     const SizedBox(height: 31),
                     ...testData.map((data) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 30),
                         child: Column(
                           children: [
                             ProfitLossLoopRow(
@@ -147,14 +147,6 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [Color(0xFF191A21), Color(0xFF000000)]),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.only(
-                        top: 0,
-                        bottom: 15,
-                        left: 15,
-                        right: 15,
-                      ),
                     ),
                   ),
                 ),
