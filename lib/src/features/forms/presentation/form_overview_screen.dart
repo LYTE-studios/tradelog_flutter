@@ -51,56 +51,60 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
+        fit: StackFit.expand,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 65),
-            child: Center(
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 395),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 126,
-                        height: 30,
-                        child: const SvgIcon(
-                          TradelyIcons.tradelyLogoText,
-                          color: Colors.white,
-                        ),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 395),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 40,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 126,
+                      height: 30,
+                      child: const SvgIcon(
+                        TradelyIcons.tradelyLogoText,
+                        color: Colors.white,
                       ),
-                      const SizedBox(height: 30),
-                      const CircleAvatar(radius: 31),
-                      const SizedBox(height: 18),
-                      Text(
-                        '\$YASSINE',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white,
-                        ),
+                    ),
+                    const SizedBox(height: 30),
+                    const CircleAvatar(radius: 31),
+                    const SizedBox(height: 18),
+                    Text(
+                      '\$YASSINE',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
                       ),
-                      const SizedBox(height: 15),
-                      Text(
-                        'Made this week',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFF858585),
-                        ),
+                    ),
+                    const SizedBox(height: 15),
+                    Text(
+                      'Made this week',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: const Color(0xFF858585),
                       ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        '\$1,403.02',
-                        style: TextStyle(
-                          fontFamily: 'Phonk',
-                          color: Colors.white,
-                          fontSize: 42,
-                        ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      '\$1,403.02',
+                      style: TextStyle(
+                        fontFamily: 'Phonk',
+                        color: Colors.white,
+                        fontSize: 42,
                       ),
-                      const SizedBox(height: 31),
-                      ...testData.map((data) {
-                        return Column(
+                    ),
+                    const SizedBox(height: 31),
+                    ...testData.map((data) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 50),
+                        child: Column(
                           children: [
                             ProfitLossLoopRow(
                               isPositive: data['isPositive'],
@@ -114,10 +118,13 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                             ),
                             const SizedBox(height: 16),
                           ],
-                        );
-                      }),
-                    ],
-                  ),
+                        ),
+                      );
+                    }),
+                    const SizedBox(
+                      height: 150,
+                    )
+                  ],
                 ),
               ),
             ),
@@ -130,7 +137,7 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
               children: [
                 Center(
                   child: Container(
-                    height: 150,
+                    height: 130,
                     width: 450,
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
@@ -145,8 +152,8 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                       padding: EdgeInsets.only(
                         top: 0,
                         bottom: 15,
-                        left: 35,
-                        right: 35,
+                        left: 50,
+                        right: 50,
                       ),
                     ),
                   ),
