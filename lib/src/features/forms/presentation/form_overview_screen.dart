@@ -152,8 +152,8 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                       padding: EdgeInsets.only(
                         top: 0,
                         bottom: 15,
-                        left: 40,
-                        right: 40,
+                        left: 15,
+                        right: 15,
                       ),
                     ),
                   ),
