@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/custom_pop_menu.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -109,7 +110,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                               height: PaddingSizes.xxs,
                             ),
                             Text(
-                              "\$${totalBalance.toStringAsFixed(2)}",
+                              "\$ ${TradelyNumberUtils.formatValuta(totalBalance)}",
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge
