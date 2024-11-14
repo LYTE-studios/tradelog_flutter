@@ -52,6 +52,7 @@ class TradelyIcons {
   static const String save30 = '$_basePath/save_30.svg';
   static const String check = '$_basePath/check.svg';
   static const String x = '$_basePath/x.svg';
+  static const String instagram = '$_basePath/instagram.svg';
 
   // logos
   static const String tradelyLogo = '$_baseLogosPath/tradely_logo.svg';
@@ -104,5 +105,6 @@ class TradelyIcons {
     save30,
     check,
     x,
+    instagram,
   ];
 }

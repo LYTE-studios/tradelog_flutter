@@ -1248,7 +1248,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: dfa81e9398f30ee246034c3a51583c67ff85d34c
+      resolved-ref: "0b038acb6460d2e1eead2e718e15be57d5c3bd27"
       url: "https://github.com/LYTE-studios/tradelog_client"
     source: git
     version: "0.0.0"

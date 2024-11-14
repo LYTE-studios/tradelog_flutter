@@ -10,6 +10,7 @@ import 'package:tradelog_flutter/src/features/authentication/widgets/auth_error.
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/extra_login_options.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
+import 'package:tradelog_flutter/src/features/forms/presentation/form_overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
 import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
@@ -115,6 +116,20 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
           onTap: signIn,
           height: 53,
           text: "Login",
+          textStyle: theme.textTheme.titleLarge?.copyWith(
+            fontSize: 19,
+          ),
+        ),
+        const SizedBox(height: PaddingSizes.medium),
+        PrimaryButton(
+          loading: loading,
+          onTap: () {
+            router.go(
+              FormOverviewScreen.route,
+            );
+          },
+          height: 53,
+          text: "loop",
           textStyle: theme.textTheme.titleLarge?.copyWith(
             fontSize: 19,
           ),
