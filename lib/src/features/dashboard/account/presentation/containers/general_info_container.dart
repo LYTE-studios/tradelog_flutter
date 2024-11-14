@@ -53,7 +53,7 @@ class _GeneralInfoContainerState extends State<GeneralInfoContainer> {
             const SizedBox(
               height: PaddingSizes.extraLarge,
             ),
-            LinkedAccountList(),
+            const LinkedAccountList(),
             const SizedBox(
               height: PaddingSizes.extraLarge,
             ),

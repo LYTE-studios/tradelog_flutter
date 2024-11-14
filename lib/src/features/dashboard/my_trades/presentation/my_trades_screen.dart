@@ -19,7 +19,7 @@ import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class MyTradesScreen extends StatefulWidget {
-  MyTradesScreen({super.key});
+  const MyTradesScreen({super.key});
 
   static const String route = '/$location';
   static const String location = 'my_trades';

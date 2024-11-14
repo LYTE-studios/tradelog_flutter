@@ -95,7 +95,7 @@ class _LongShortContainerState extends State<LongShortContainer> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 64,
             child: SmallDataList(),
           ),

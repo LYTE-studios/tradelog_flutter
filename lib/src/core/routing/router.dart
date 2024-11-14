@@ -15,10 +15,29 @@ import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/my_trades_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
+import 'package:tradelog_flutter/src/features/forms/presentation/form_overview_screen.dart';
 
 GoRouter router = GoRouter(
   initialLocation: FirstGlanceScreen.route,
   routes: <RouteBase>[
+    // https://app.tradely.io/forms/<Some_form_id>/
+    ShellRoute(
+      builder: (context, state, child) {
+        // TODO: Check for form id
+        return child;
+      },
+      routes: [
+        GoRoute(
+          path: FormOverviewScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const CustomTransitionPage(
+            transitionsBuilder: PageBuilderUtils.buildUpSlideAnimation,
+            child: FormOverviewScreen(),
+          ),
+        ),
+      ],
+    ),
+
     GoRoute(
       path: FirstGlanceScreen.route,
       pageBuilder: (BuildContext context, GoRouterState state) =>

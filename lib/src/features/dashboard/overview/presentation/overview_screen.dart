@@ -103,7 +103,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                   ),
                 ),
                 // TODO
-                ChartContainer(
+                const ChartContainer(
                   titleText: 'Equity line',
                   toolTipText:
                       "Your equity line shows your account’s value over time, highlighting profits and losses.",
@@ -127,7 +127,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                   factor: statistics?.profitFactor,
                 ),
                 // TODO activityHeatmap
-                Expanded(
+                const Expanded(
                   child: ActivityHeatmapContainer(),
                 ),
               ],
