@@ -74,7 +74,10 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                       ),
                     ),
                     const SizedBox(height: 30),
-                    const CircleAvatar(radius: 31),
+                    const CircleAvatar(
+                        backgroundImage:
+                            AssetImage('assets/images/profile_picture.png'),
+                        radius: 31),
                     const SizedBox(height: 18),
                     Text(
                       '\$YASSINE',
