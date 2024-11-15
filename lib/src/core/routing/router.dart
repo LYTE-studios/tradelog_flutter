@@ -16,6 +16,7 @@ import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/m
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
 import 'package:tradelog_flutter/src/features/forms/presentation/form_overview_screen.dart';
+import 'package:tradelog_flutter/src/features/forms/presentation/form_overview_screen_new_users.dart';
 
 GoRouter router = GoRouter(
   initialLocation: FirstGlanceScreen.route,
@@ -28,11 +29,11 @@ GoRouter router = GoRouter(
       },
       routes: [
         GoRoute(
-          path: FormOverviewScreen.route,
+          path: FormOverviewScreenNewUsers.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const CustomTransitionPage(
             transitionsBuilder: PageBuilderUtils.buildUpSlideAnimation,
-            child: FormOverviewScreen(),
+            child: FormOverviewScreenNewUsers(),
           ),
         ),
       ],

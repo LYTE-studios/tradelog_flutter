@@ -11,8 +11,10 @@ class BaseDialog extends StatelessWidget {
   final BoxConstraints? constraints;
   final EdgeInsets? padding;
   final double opacity;
-  final bool? enableBlur; // Optional blur control
-  final bool showCloseButton; // Optional close button control
+  final bool? enableBlur;
+  final Color? borderColor;
+  final bool showCloseButton;
+  final double borderRadius;
 
   const BaseDialog({
     super.key,
@@ -21,7 +23,9 @@ class BaseDialog extends StatelessWidget {
     this.padding,
     required this.opacity,
     this.enableBlur = false, // Default to false if not provided
+    this.borderColor,
     this.showCloseButton = true, // Default to true
+    this.borderRadius = BorderRadii.large,
   });
 
   @override
@@ -33,11 +37,13 @@ class BaseDialog extends StatelessWidget {
         children: [
           // Conditionally apply blur if enabled
           if (enableBlur == true)
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
-              child: Container(
-                color: Colors.black.withOpacity(
-                    0), // Transparent container for the blur effect
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4.0, sigmaY: 4.0),
+                child: Container(
+                  color: Colors.black.withOpacity(
+                      0), // Transparent container for the blur effect
+                ),
               ),
             ),
           Container(
@@ -45,8 +51,14 @@ class BaseDialog extends StatelessWidget {
             decoration: BoxDecoration(
               color: theme.colorScheme.surface.withOpacity(opacity),
               borderRadius: BorderRadius.circular(
-                BorderRadii.large,
+                borderRadius,
               ),
+              border: borderColor != null
+                  ? Border.all(
+                      color: borderColor!,
+                      width: 1,
+                    )
+                  : null,
             ),
             child: SizedBox(
               width: double.infinity,

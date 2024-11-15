@@ -37,6 +37,9 @@ class _CopyLinkDialogState extends State<CopyLinkDialog> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return BaseDialog(
+      borderColor: const Color(0xFF242424),
+      borderRadius: 24,
+      enableBlur: true,
       constraints: const BoxConstraints(
         maxWidth: 340,
         maxHeight: 220,
