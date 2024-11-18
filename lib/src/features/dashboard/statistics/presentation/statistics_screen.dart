@@ -63,13 +63,9 @@ class StatisticsScreen extends StatelessWidget {
               children: [
                 SmallDataContainer(
                   title: 'Best trading month',
-                  positive: true,
-                  data: "123",
                 ),
                 SmallDataContainer(
                   title: 'Worst trading month',
-                  positive: false,
-                  data: "1528,451",
                 ),
                 SmallDataContainer(
                   title: 'Average trading month',

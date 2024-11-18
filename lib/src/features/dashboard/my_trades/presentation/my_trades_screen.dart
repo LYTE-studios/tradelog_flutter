@@ -131,6 +131,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                           TextRowItem(
                             text: TradelyDateTimeUtils.toReadableTime(
                               trade.openTime,
+                              true,
                             ),
                             flex: 1,
                           ),
@@ -147,18 +148,20 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                             flex: 1,
                           ),
                           TextProfitLoss(
-                            text: trade.realizedPl?.toStringAsFixed(2) ?? "-",
+                            text:
+                                "\$${trade.realizedPl?.abs().toStringAsFixed(2) ?? "-"}",
                             short: (trade.realizedPl == null) ||
                                     (trade.realizedPl == 0)
                                 ? null
-                                : (trade.realizedPl! > 0),
+                                : (trade.realizedPl! < 0),
                             flex: 1,
                           ),
                           TextProfitLoss(
-                            text: trade.netRoi?.toStringAsFixed(2) ?? "-",
+                            text:
+                                "%${trade.netRoi?.abs().toStringAsFixed(2) ?? "-"}",
                             short: (trade.netRoi == null) || (trade.netRoi == 0)
                                 ? null
-                                : (trade.netRoi! > 0),
+                                : (trade.netRoi! < 0),
                             flex: 1,
                           ),
                         ],
