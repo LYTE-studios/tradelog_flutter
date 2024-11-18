@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/ui/selectable/clear_ink_well.dart';
+import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
+
+class LongShortButtons extends StatelessWidget {
+  final Option? selected;
+  final Function(Option?) onChanged;
+
+  const LongShortButtons({
+    super.key,
+    required this.selected,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    Widget buildButton(String label, Option? value) {
+      return ClearInkWell(
+        onTap: () => onChanged(value),
+        child: Text(
+          label,
+          style: theme.textTheme.titleMedium?.copyWith(
+            fontSize: 14,
+            color: selected == value ? TextStyles.titleColor : null,
+          ),
+        ),
+      );
+    }
+
+    return Row(
+      children: [
+        buildButton("All", null),
+        const SizedBox(
+          width: PaddingSizes.medium,
+        ),
+        buildButton("Long", Option.long),
+        const SizedBox(
+          width: PaddingSizes.medium,
+        ),
+        buildButton("Short", Option.short),
+      ],
+    );
+  }
+}
