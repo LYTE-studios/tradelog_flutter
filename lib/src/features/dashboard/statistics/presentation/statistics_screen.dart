@@ -19,7 +19,7 @@ class StatisticsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
-        subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
+        subTitle: "Track in-depth statistics, and export them as a csv.",
         icon: TradelyIcons.statistics,
         currentRoute: location,
         title: "Statistics",
@@ -63,13 +63,9 @@ class StatisticsScreen extends StatelessWidget {
               children: [
                 SmallDataContainer(
                   title: 'Best trading month',
-                  positive: true,
-                  data: "123",
                 ),
                 SmallDataContainer(
                   title: 'Worst trading month',
-                  positive: false,
-                  data: "1528,451",
                 ),
                 SmallDataContainer(
                   title: 'Average trading month',

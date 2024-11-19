@@ -40,40 +40,42 @@ class BaseDialog extends StatelessWidget {
                     0), // Transparent container for the blur effect
               ),
             ),
-          Container(
-            constraints: constraints,
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surface.withOpacity(opacity),
-              borderRadius: BorderRadius.circular(
-                BorderRadii.large,
+          Dialog(
+            child: Container(
+              constraints: constraints,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.surface.withOpacity(opacity),
+                borderRadius: BorderRadius.circular(
+                  BorderRadii.large,
+                ),
               ),
-            ),
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: padding ?? EdgeInsets.zero,
-                    child: child,
-                  ),
-                  // Conditionally show the close button
-                  if (showCloseButton)
-                    Positioned(
-                      top: PaddingSizes.xxl,
-                      right: PaddingSizes.xxl,
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        icon: const SvgIcon(
-                          TradelyIcons.x,
-                          color: Colors.white,
-                          size: 20,
+              child: SizedBox(
+                width: double.infinity,
+                height: double.infinity,
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding: padding ?? EdgeInsets.zero,
+                      child: child,
+                    ),
+                    // Conditionally show the close button
+                    if (showCloseButton)
+                      Positioned(
+                        top: PaddingSizes.xxl,
+                        right: PaddingSizes.xxl,
+                        child: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: const SvgIcon(
+                            TradelyIcons.x,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

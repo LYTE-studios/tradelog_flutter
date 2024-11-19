@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/secrets.dart';
+
 import 'data/test_data.dart';
 
 void main() {

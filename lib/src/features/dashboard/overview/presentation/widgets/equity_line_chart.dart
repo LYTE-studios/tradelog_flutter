@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
@@ -58,7 +59,7 @@ class _EquityLineChartState extends State<EquityLineChart> {
       plotAreaBorderWidth: 0,
       selectionType: SelectionType.point,
       // Removes the border around the chart plot area
-      primaryXAxis: NumericAxis(
+      primaryXAxis: DateTimeAxis(
         labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
               fontSize: 13,
               fontWeight: FontWeight.w500,
@@ -69,18 +70,23 @@ class _EquityLineChartState extends State<EquityLineChart> {
         majorTickLines: const MajorTickLines(width: 0),
       ),
       primaryYAxis: NumericAxis(
-        interval: 10,
+        interval: (maximum - minimum) / 8,
         decimalPlaces: 0,
         minimum: minimum,
         maximum: maximum,
         majorGridLines: const MajorGridLines(width: 0),
         majorTickLines: const MajorTickLines(width: 0),
         axisLabelFormatter: (details) {
-          String text = details.text;
+          String text = "\$${TradelyNumberUtils.formatValuta(
+                details.value.toDouble(),
+              ).split(".").firstOrNull ?? ""}";
 
-          if (details.value > (maximum * 0.9) ||
-              details.value < (minimum * 1.2)) {
-            text = '';
+          if (details.value < maximum - ((maximum - minimum) * 0.92)) {
+            text = "";
+          }
+
+          if (details.value > maximum - ((maximum - minimum) * 0.08)) {
+            text = "";
           }
 
           return ChartAxisLabel(
@@ -172,7 +178,7 @@ class _EquityLineChartState extends State<EquityLineChart> {
 class ChartData {
   ChartData(this.x, this.y);
 
-  final int x;
+  final DateTime x;
   final double y;
 }
 
@@ -208,7 +214,7 @@ Widget _buildEmptyState(BuildContext context) {
         series: <ChartSeries<ChartData, int>>[
           AreaSeries<ChartData, int>(
             dataSource: emptyChartData,
-            xValueMapper: (ChartData data, _) => data.x,
+            xValueMapper: (ChartData data, _) => data.x.millisecondsSinceEpoch,
             yValueMapper: (ChartData data, _) => data.y,
             markerSettings: const MarkerSettings(
               height: 14,
@@ -251,16 +257,16 @@ Widget _buildEmptyState(BuildContext context) {
 
 List<ChartData> _getEmptyChartData() {
   List<ChartData> emptyData = [
-    ChartData(0, 60),
-    ChartData(1, 72),
-    ChartData(2, 80),
-    ChartData(3, 70),
-    ChartData(4, 90),
-    ChartData(5, 85),
-    ChartData(6, 100),
-    ChartData(7, 110),
-    ChartData(8, 130),
-    ChartData(9, 120),
+    ChartData(DateTime.now(), 60),
+    ChartData(DateTime.now(), 72),
+    ChartData(DateTime.now(), 80),
+    ChartData(DateTime.now(), 70),
+    ChartData(DateTime.now(), 90),
+    ChartData(DateTime.now(), 85),
+    ChartData(DateTime.now(), 100),
+    ChartData(DateTime.now(), 110),
+    ChartData(DateTime.now(), 130),
+    ChartData(DateTime.now(), 120),
   ];
 
   return emptyData;

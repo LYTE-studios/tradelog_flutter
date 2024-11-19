@@ -1,9 +1,12 @@
 class TradelyDateTimeUtils {
-  static String toReadableTime(DateTime? dateTime) {
+  static String toReadableTime(
+    DateTime? dateTime,
+    bool passDate,
+  ) {
     if (dateTime == null) {
       return '';
     }
 
-    return '${dateTime.hour}:${dateTime.minute}:${dateTime.second}';
+    return '${passDate ? '${dateTime.day}/${dateTime.month}/${dateTime.year} ' : ''}${dateTime.hour}:${dateTime.minute}';
   }
 }

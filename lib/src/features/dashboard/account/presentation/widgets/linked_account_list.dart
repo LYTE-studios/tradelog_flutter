@@ -28,7 +28,7 @@ class _LinkedAccountListState extends State<LinkedAccountList>
 
   @override
   Future<void> loadData() async {
-    accounts = await client.account.fetchAccounts();
+    accounts = await apiManager.loadCachedAccounts();
 
     setState(() {
       accounts = accounts;
