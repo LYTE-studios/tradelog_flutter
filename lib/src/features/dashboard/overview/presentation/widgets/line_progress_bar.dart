@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
-import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
-import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class LineProgressBar extends StatelessWidget {
   final double progressRed; // Percentage of red (0.0 - 1.0)
