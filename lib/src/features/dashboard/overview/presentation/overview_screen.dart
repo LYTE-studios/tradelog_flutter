@@ -99,10 +99,6 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                             'Average Win / Average Loss = Average Realize R:R',
                         value: statistics?.realizedReturnThisMonth ?? 0,
                         percentage: statistics?.realizedReturnTrend ?? 0,
-                        toolTip:
-                            'Average Win / Average Loss = Average Realize R:R',
-                        value: statistics?.realizedReturnThisMonth,
-                        percentage: statistics?.realizedReturnTrend,
                         loading: loading,
                       ),
                     ],
