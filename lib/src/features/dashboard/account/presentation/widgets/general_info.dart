@@ -10,7 +10,6 @@ import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
 import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 
 class GeneralInfo extends StatefulWidget {
   const GeneralInfo({

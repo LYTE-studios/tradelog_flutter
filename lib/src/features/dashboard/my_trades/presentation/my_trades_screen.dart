@@ -41,7 +41,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   @override
   Future<void> loadData() async {
-    trades = await client.global.getTrades();
+    trades = await apiManager.loadCachedTrades();
 
     setState(() {
       trades = trades;
@@ -54,7 +54,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
   Widget build(BuildContext context) {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
-        subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
+        subTitle: "An overview of your trading history.",
         icon: TradelyIcons.myTrades,
         currentRoute: MyTradesScreen.location,
         title: "My trades",
@@ -94,6 +94,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
           children: [
             Expanded(
               child: GenericListView(
+                loading: loading,
                 header: const CustomHeader(
                   horizontalPadding: 40,
                   children: [
@@ -131,6 +132,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                           TextRowItem(
                             text: TradelyDateTimeUtils.toReadableTime(
                               trade.openTime,
+                              true,
                             ),
                             flex: 1,
                           ),
@@ -147,18 +149,20 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                             flex: 1,
                           ),
                           TextProfitLoss(
-                            text: trade.realizedPl?.toStringAsFixed(2) ?? "-",
+                            text:
+                                "\$${trade.realizedPl?.abs().toStringAsFixed(2) ?? "-"}",
                             short: (trade.realizedPl == null) ||
                                     (trade.realizedPl == 0)
                                 ? null
-                                : (trade.realizedPl! > 0),
+                                : (trade.realizedPl! < 0),
                             flex: 1,
                           ),
                           TextProfitLoss(
-                            text: trade.netRoi?.toStringAsFixed(2) ?? "-",
+                            text:
+                                "%${trade.netRoi?.abs().toStringAsFixed(2) ?? "-"}",
                             short: (trade.netRoi == null) || (trade.netRoi == 0)
                                 ? null
-                                : (trade.netRoi! > 0),
+                                : (trade.netRoi! < 0),
                             flex: 1,
                           ),
                         ],

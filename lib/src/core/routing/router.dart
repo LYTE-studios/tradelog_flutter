@@ -102,6 +102,10 @@ GoRouter router = GoRouter(
           router.pushReplacement(LoginScreen.route);
         }
 
+        if (!apiManager.isInitialized) {
+          apiManager.initialize();
+        }
+
         return DashboardScreen(child: child);
       },
       routes: [

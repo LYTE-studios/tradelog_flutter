@@ -151,7 +151,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   Widget build(BuildContext context) {
     double totalRoi = 0;
 
-    for (double roi in trades.map((e) => e.netRoi ?? 0)) {
+    for (double roi in trades.map((e) => e.realizedPl ?? 0)) {
       totalRoi += roi;
     }
 
@@ -384,14 +384,22 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                             ),
                             Row(
                               children: [
-                                const SvgIcon(
-                                  TradelyIcons.trendUp,
-                                  color: Color(0xFF14D39F),
+                                Visibility(
+                                  visible: totalRoi != 0,
+                                  child: SvgIcon(
+                                    (totalRoi < 0)
+                                        ? TradelyIcons.trendDown
+                                        : TradelyIcons.trendUp,
+                                    color: (totalRoi < 0)
+                                        ? Color(0xFFF21111)
+                                        : Color(0xFF14D39F),
+                                  ),
                                 ),
                                 const SizedBox(width: PaddingSizes.medium),
                                 RichText(
                                   text: TextSpan(
-                                    text: "\$${totalRoi.toStringAsFixed(0)}",
+                                    text:
+                                        "\$${totalRoi.abs().toStringAsFixed(0)}",
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
@@ -427,6 +435,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
 
                             Expanded(
                               child: GenericListView(
+                                loading: loading,
                                 header: const CustomHeader(
                                   horizontalPadding: 20,
                                   children: [
@@ -465,6 +474,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                                             text: TradelyDateTimeUtils
                                                 .toReadableTime(
                                               trade.openTime,
+                                              false,
                                             ),
                                             flex: 1,
                                           ),
@@ -480,13 +490,22 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                                             text: trade.status.name,
                                             flex: 1,
                                           ),
-                                          const TextProfitLoss(
-                                            text: "",
-                                            short: true,
+                                          TextProfitLoss(
+                                            text:
+                                                "\$${trade.realizedPl?.abs().toStringAsFixed(2) ?? "-"}",
+                                            short: (trade.realizedPl == null) ||
+                                                    (trade.realizedPl == 0)
+                                                ? null
+                                                : (trade.realizedPl! < 0),
                                             flex: 1,
                                           ),
-                                          const TextRowItem(
-                                            text: "",
+                                          TextProfitLoss(
+                                            text:
+                                                "%${trade.netRoi?.abs().toStringAsFixed(2) ?? "-"}",
+                                            short: (trade.netRoi == null) ||
+                                                    (trade.netRoi == 0)
+                                                ? null
+                                                : (trade.netRoi! < 0),
                                             flex: 1,
                                           ),
                                         ],

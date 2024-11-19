@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
 import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
-class ChartContainer extends StatelessWidget {
-  // Example data
-  final String? data;
+class ChartContainer extends StatefulWidget {
+  final double? balance;
+
+  final Map<DateTime, double> data;
   final String titleText;
   final String toolTipText;
 
   const ChartContainer({
     super.key,
+    required this.balance,
     required this.data,
     required this.titleText,
     required this.toolTipText,
   });
 
+  @override
+  State<ChartContainer> createState() => _ChartContainerState();
+}
+
+class _ChartContainerState extends State<ChartContainer> {
   @override
   Widget build(BuildContext context) {
     return BaseContainerExpanded(
@@ -24,20 +32,27 @@ class ChartContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ToolTipTitle(
-            titleText: titleText,
-            toolTipText: toolTipText,
+            titleText: widget.titleText,
+            toolTipText: widget.toolTipText,
           ),
           const SizedBox(
             height: PaddingSizes.large,
           ),
           RichText(
             text: TextSpan(
-              text: data != null ? "\$103,456" : "-",
-              style: Theme.of(context).textTheme.bodyLarge,
+              text: widget.balance == null
+                  ? "-"
+                  : "\$${TradelyNumberUtils.formatValuta(widget.balance ?? 0).split(".").firstOrNull ?? 0}",
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    fontSize: 35,
+                    fontWeight: FontWeight.w600,
+                  ),
               children: [
                 TextSpan(
-                  text: data != null ? ".24" : "",
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  text: widget.balance == null
+                      ? ""
+                      : " .${widget.balance!.toStringAsFixed(2).split(".")[1]}",
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
               ],
             ),
@@ -45,9 +60,12 @@ class ChartContainer extends StatelessWidget {
           const SizedBox(
             height: PaddingSizes.large,
           ),
-          const Expanded(
+          Expanded(
             child: EquityLineChart(
-              data: [],
+              data: widget.data
+                  .map((date, value) => MapEntry(date, ChartData(date, value)))
+                  .values
+                  .toList(),
             ),
           ),
         ],

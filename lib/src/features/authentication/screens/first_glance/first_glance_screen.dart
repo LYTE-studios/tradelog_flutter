@@ -64,7 +64,6 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen>
     } else {
       router.pushReplacement(OverviewScreen.route);
     }
-    router.pushReplacement(OverviewScreen.route);
 
     return super.loadData();
   }

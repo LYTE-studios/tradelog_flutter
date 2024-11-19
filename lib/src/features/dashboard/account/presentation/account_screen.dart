@@ -18,7 +18,8 @@ class AccountScreen extends StatelessWidget {
         left: PaddingSizes.large,
       ),
       header: BaseTradelyPageHeader(
-        subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
+        subTitle:
+            "Manage your personal details, along with other account settings.",
         icon: TradelyIcons.account,
         currentRoute: location,
         title: "Account details",
