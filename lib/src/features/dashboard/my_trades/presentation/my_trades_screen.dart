@@ -41,7 +41,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   @override
   Future<void> loadData() async {
-    trades = await client.global.getTrades();
+    trades = await apiManager.loadCachedTrades();
 
     setState(() {
       trades = trades;
@@ -54,7 +54,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
   Widget build(BuildContext context) {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
-        subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
+        subTitle: "An overview of your trading history.",
         icon: TradelyIcons.myTrades,
         currentRoute: MyTradesScreen.location,
         title: "My trades",
@@ -94,6 +94,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
           children: [
             Expanded(
               child: GenericListView(
+                loading: loading,
                 header: const CustomHeader(
                   horizontalPadding: 40,
                   children: [

@@ -19,7 +19,7 @@ class StatisticsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
-        subTitle: "Lorem ipsum dolor sit amet consectetur lorem.",
+        subTitle: "Track in-depth statistics, and export them as a csv.",
         icon: TradelyIcons.statistics,
         currentRoute: location,
         title: "Statistics",

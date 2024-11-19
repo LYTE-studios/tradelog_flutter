@@ -102,12 +102,12 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                     ],
                   ),
                 ),
-                // TODO
-                const ChartContainer(
+                ChartContainer(
                   titleText: 'Equity line',
                   toolTipText:
                       "Your equity line shows your account’s value over time, highlighting profits and losses.",
-                  data: null,
+                  data: statistics?.equityChartData ?? {},
+                  balance: statistics?.equityChartData?.values.firstOrNull,
                 ),
               ],
             ),

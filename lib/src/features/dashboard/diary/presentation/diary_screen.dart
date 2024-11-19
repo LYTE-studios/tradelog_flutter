@@ -435,6 +435,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
 
                             Expanded(
                               child: GenericListView(
+                                loading: loading,
                                 header: const CustomHeader(
                                   horizontalPadding: 20,
                                   children: [
