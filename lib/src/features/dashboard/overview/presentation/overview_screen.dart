@@ -10,6 +10,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/co
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/progress_data_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -91,17 +92,18 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                         value: statistics?.tradeWinRateThisMonth,
                         percentage: statistics?.tradeWinRateTrend,
                       ),
-                      DataContainer(
+                      ProgressDataContainer(
                         title: ' Avg realized R:R',
                         toolTip:
                             'Average Win / Average Loss = Average Realize R:R',
-                        value: statistics?.realizedReturnThisMonth,
-                        percentage: statistics?.realizedReturnTrend,
+                        value: statistics?.realizedReturnThisMonth ?? 0,
+                        percentage: statistics?.realizedReturnTrend ?? 0,
                         loading: loading,
-                      ),
+                      )
                     ],
                   ),
                 ),
+                // TODO
                 ChartContainer(
                   titleText: 'Equity line',
                   toolTipText:
