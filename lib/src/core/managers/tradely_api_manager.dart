@@ -4,10 +4,6 @@ import 'package:tradelog_flutter/src/core/data/client.dart';
 class TradelyApiManager {
   bool isInitialized = false;
 
-  bool loadingAccounts = false;
-
-  List<LinkedAccountDto> accounts = [];
-
   bool loadingTrades = false;
 
   List<TradeDto> trades = [];
@@ -50,26 +46,6 @@ class TradelyApiManager {
   }
 
   Future<List<LinkedAccountDto>> loadCachedAccounts() async {
-    Future<void> load() async {
-      loadingAccounts = true;
-
-      accounts = await client.account.fetchAccounts();
-
-      loadingAccounts = false;
-    }
-
-    if (loadingAccounts == true) {
-      return accounts;
-    }
-
-    if (accounts.isEmpty) {
-      await load();
-
-      return accounts;
-    }
-
-    load();
-
-    return accounts;
+    return await client.account.fetchAccounts();
   }
 }

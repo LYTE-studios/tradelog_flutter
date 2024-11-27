@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class BaseContainer extends StatelessWidget {
+  final bool loading;
+
   final Widget? child;
 
   final double? height;
@@ -27,6 +30,7 @@ class BaseContainer extends StatelessWidget {
 
   const BaseContainer({
     super.key,
+    this.loading = false,
     this.child,
     this.height,
     this.width,
@@ -68,12 +72,15 @@ class BaseContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(
             borderRadius ?? BorderRadii.large,
           ),
-          child: Padding(
-            padding: padding ??
-                const EdgeInsets.all(
-                  PaddingSizes.xxl,
-                ),
-            child: child,
+          child: TradelyLoadingSwitcher(
+            loading: loading,
+            child: Padding(
+              padding: padding ??
+                  const EdgeInsets.all(
+                    PaddingSizes.xxl,
+                  ),
+              child: child,
+            ),
           ),
         ),
       ),

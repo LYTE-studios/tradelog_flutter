@@ -4,7 +4,6 @@ import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/paywall_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/activity_heatmap_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
@@ -31,6 +30,8 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
 
   OverviewStatisticsDto? statistics;
 
+  StatisticsDto? generalStatistics;
+
   @override
   Future<void> loadData() async {
     // // Show the paywall dialog after the screen is built
@@ -40,6 +41,8 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
     profile = await client.profile.getProfile();
 
     statistics = await client.statistics.getOverviewStatistics();
+
+    generalStatistics = await client.statistics.getStatistics();
 
     setState(() {
       profile = profile;
@@ -73,17 +76,17 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
             flex: 2,
             child: Column(
               children: [
-                IntrinsicHeight(
+                SizedBox(
+                  height: 140,
                   child: Row(
                     children: [
                       DataContainer(
                         title: 'Net Profit/Loss',
                         toolTip:
                             'The total realized net profit and loss for all closed trades.',
-                        // TODO
-                        valueFormatter: "\$",
                         value: statistics?.netProfitLossThisMonth,
                         percentage: statistics?.netProfitLossTrend,
+                        loading: loading,
                       ),
                       DataContainer(
                         title: 'Trade win rate',
@@ -91,6 +94,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                             'Reflects the percentage of your winning trades out of total trades taken.',
                         value: statistics?.tradeWinRateThisMonth,
                         percentage: statistics?.tradeWinRateTrend,
+                        loading: loading,
                       ),
                       ProgressDataContainer(
                         title: ' Avg realized R:R',
@@ -103,13 +107,16 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                     ],
                   ),
                 ),
-                // TODO
-                ChartContainer(
-                  titleText: 'Equity line',
-                  toolTipText:
-                      "Your equity line shows your account’s value over time, highlighting profits and losses.",
-                  data: statistics?.equityChartData ?? {},
-                  balance: statistics?.equityChartData?.values.firstOrNull,
+                SizedBox(
+                  height: 460,
+                  child: ChartContainer(
+                    titleText: 'Equity line',
+                    toolTipText:
+                        "Your equity line shows your account’s value over time, highlighting profits and losses.",
+                    data: statistics?.equityChartData ?? {},
+                    balance: statistics?.equityChartData?.values.firstOrNull,
+                    loading: loading,
+                  ),
                 ),
               ],
             ),
@@ -117,21 +124,28 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
           Expanded(
             child: Column(
               children: [
-                // TODO container data
                 LongShortContainer(
                   long: statistics?.longTradesAmount ?? 0,
                   short: statistics?.shortTradesAmount ?? 0,
+                  averageWin: generalStatistics?.averageWinningTrade,
+                  bestWin: generalStatistics?.largestProfit,
+                  bestLoss: generalStatistics?.largestLoss,
+                  averageWinStreak:
+                      generalStatistics?.averageWinStreak?.toInt(),
+                  maxWinStreak: generalStatistics?.maxWinStreak?.toInt(),
+                  loading: loading,
                 ),
                 HoldingContainer(
-                  holdingTime: statistics?.averageHoldingTime,
+                  holdingTime: generalStatistics?.averageHoldingTime,
+                  loading: loading,
                 ),
                 ProfitContainer(
                   factor: statistics?.profitFactor,
                 ),
                 // TODO activityHeatmap
-                const Expanded(
-                  child: ActivityHeatmapContainer(),
-                ),
+                // const Expanded(
+                //   child: ActivityHeatmapContainer(),
+                // ),
               ],
             ),
           ),

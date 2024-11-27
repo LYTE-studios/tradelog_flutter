@@ -17,9 +17,9 @@ class LongShortGauge extends StatelessWidget {
   Widget build(BuildContext context) {
     int total = long + short;
 
-    double longValue = total == 0 ? 0 : (long / total) * 240;
+    double shortValue = total == 0 ? 0 : (long / total) * 240;
 
-    double shortValue = total == 0 ? 0 : (short / total) * 240;
+    double longValue = total == 0 ? 0 : 240;
 
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(

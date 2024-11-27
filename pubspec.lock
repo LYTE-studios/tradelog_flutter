@@ -205,10 +205,10 @@ packages:
     dependency: transitive
     description:
       name: equatable
-      sha256: c2b87cb7756efdf69892005af546c56c0b5037f54d2a88269b4f347a505e3ca2
+      sha256: "567c64b3cb4cf82397aac55f4f0cbd3ca20d77c6c03bedbc4ceaddc08904aef7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.5"
+    version: "2.0.7"
   fake_async:
     dependency: transitive
     description:
@@ -245,10 +245,10 @@ packages:
     dependency: transitive
     description:
       name: file_selector_linux
-      sha256: b2b91daf8a68ecfa4a01b778a6f52edef9b14ecd506e771488ea0f2e0784198b
+      sha256: "54cbbd957e1156d29548c7d9b9ec0c0ebb6de0a90452198683a7d23aed617a33"
       url: "https://pub.dev"
     source: hosted
-    version: "0.9.3+1"
+    version: "0.9.3+2"
   file_selector_macos:
     dependency: transitive
     description:
@@ -338,10 +338,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_keyboard_visibility_temp_fork
-      sha256: "2d94acecfc170d244157821cc67e784f60972677aac94a6672626a5d6b2dc537"
+      sha256: cecc44a350a8a369efbc960bb2126386af53cb0597ca6789607cbfb88081b9f4
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.3"
+    version: "0.1.4"
   flutter_keyboard_visibility_windows:
     dependency: transitive
     description:
@@ -407,10 +407,10 @@ packages:
     dependency: transitive
     description:
       name: flutter_svg
-      sha256: "578bd8c508144fdaffd4f77b8ef2d8c523602275cd697cc3db284dbd762ef4ce"
+      sha256: "936d9c1c010d3e234d1672574636f3352b4941ca3decaddd3cafaeb9ad49c471"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.14"
+    version: "2.0.15"
   flutter_svg_provider:
     dependency: "direct main"
     description:
@@ -457,10 +457,10 @@ packages:
     dependency: "direct main"
     description:
       name: go_router
-      sha256: "8ae664a70174163b9f65ea68dd8673e29db8f9095de7b5cd00e167c621f4fef5"
+      sha256: "8660b74171fafae4aa8202100fa2e55349e078281dadc73a241eb8e758534d9d"
       url: "https://pub.dev"
     source: hosted
-    version: "14.6.0"
+    version: "14.6.1"
   google_identity_services_web:
     dependency: transitive
     description:
@@ -802,10 +802,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: c464428172cb986b758c6d1724c603097febb8fb855aa265aeecc9280c294d4a
+      sha256: "8c4967f8b7cb46dc914e178daa29813d83ae502e0529d7b0478330616a691ef7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.12"
+    version: "2.2.14"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -882,66 +882,66 @@ packages:
     dependency: transitive
     description:
       name: quill_native_bridge
-      sha256: "5ccf1930fe52db91846754bd56391d251071524ec594eb4c8509b3095f7f9e28"
+      sha256: "0b3200c57bb4f1f12d6c764648d42482891f20f12024c75fe3479cafc1e132c9"
       url: "https://pub.dev"
     source: hosted
-    version: "10.7.9"
+    version: "10.7.11"
   quill_native_bridge_android:
     dependency: transitive
     description:
       name: quill_native_bridge_android
-      sha256: "4e787041ad4ab99421dfed0199cb5a6f136b5f6a9e68d20b199064d85d4161d8"
+      sha256: df94b59081dfded10052b61fd4bb80a013499029841d3f64b753b117c8db9dc3
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.4"
+    version: "0.0.1-dev.5"
   quill_native_bridge_ios:
     dependency: transitive
     description:
       name: quill_native_bridge_ios
-      sha256: "16dd18a56bdc60f396eb873a0786141d8e3281cc0cb6ad7af24c2286abec43d8"
+      sha256: "2bec0c95558eea85f422767c6ddab87ef774cf5fe4222e295a436a169d314ecc"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.4"
+    version: "0.0.1-dev.6"
   quill_native_bridge_linux:
     dependency: transitive
     description:
       name: quill_native_bridge_linux
-      sha256: a0d8aa775b36a7b8ac7ace5bd6ba05b21fed6c9b04a9f328f95489254ae0f7a3
+      sha256: d226004634b69119007dffb95c88e06698644c1b3adfe984b78024129e223426
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.3"
+    version: "0.0.1-dev.4"
   quill_native_bridge_macos:
     dependency: transitive
     description:
       name: quill_native_bridge_macos
-      sha256: "76d441a905181af04c51b9cf71a13e04c3dd51ed482dcb543a01e14d78ad3fc0"
+      sha256: "9bbe855cc2248f098732794a4861852fede97a384299b02646cb3dbfbc996a87"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.2"
+    version: "0.0.1-dev.5"
   quill_native_bridge_platform_interface:
     dependency: transitive
     description:
       name: quill_native_bridge_platform_interface
-      sha256: "5ad4a9cdb6fadd6575bca29c277f83daa324539c97f58cf45cff6195135defb9"
+      sha256: fdfc1001c9a152eb5789916f55da97a3de548ccd41fe3cdd0bfcc371bdf41d10
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.4"
+    version: "0.0.1-dev.5"
   quill_native_bridge_web:
     dependency: transitive
     description:
       name: quill_native_bridge_web
-      sha256: bb3ab017fdb9b60a29cac0bce3acfd48396d13c1bd0499c97af112c84937b4d1
+      sha256: ad8076ad740318b3cf6b9a043d3dc206bb2e1383e5371cbe09711b9c609b64a0
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.5"
+    version: "0.0.1-dev.6"
   quill_native_bridge_windows:
     dependency: transitive
     description:
       name: quill_native_bridge_windows
-      sha256: "78bc40cc4a23387ed79a309fc04f7a95a0b6da9ebce67f739dd08b0fd0523641"
+      sha256: "62583f68dd426aa9a98a0582631780db44d0c6708625d27f84cc87bf02e49ea3"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1-dev.3"
+    version: "0.0.1-dev.4"
   quiver:
     dependency: transitive
     description:
@@ -1119,10 +1119,10 @@ packages:
     dependency: transitive
     description:
       name: sqflite_common
-      sha256: "4468b24876d673418a7b7147e5a08a715b4998a7ae69227acafaab762e0e5490"
+      sha256: "761b9740ecbd4d3e66b8916d784e581861fd3c3553eda85e167bc49fdb68f709"
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.4+5"
+    version: "2.5.4+6"
   sqflite_darwin:
     dependency: transitive
     description:
@@ -1248,7 +1248,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: aac880e176d8ee39389544818c9b30f2dc2af267
+      resolved-ref: f5741f93b0c415d47f53b56cba63dbfef9576c00
       url: "https://github.com/LYTE-studios/tradelog_client"
     source: git
     version: "0.0.0"
@@ -1360,10 +1360,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics
-      sha256: "773c9522d66d523e1c7b25dfb95cc91c26a1e17b107039cfe147285e92de7878"
+      sha256: "27d5fefe86fb9aace4a9f8375b56b3c292b64d8c04510df230f849850d912cb7"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.14"
+    version: "1.1.15"
   vector_graphics_codec:
     dependency: transitive
     description:
@@ -1376,10 +1376,10 @@ packages:
     dependency: transitive
     description:
       name: vector_graphics_compiler
-      sha256: ab9ff38fc771e9ee1139320adbe3d18a60327370c218c60752068ebee4b49ab1
+      sha256: "1b4b9e706a10294258727674a340ae0d6e64a7231980f9f9a3d12e4b42407aad"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.15"
+    version: "1.1.16"
   vector_math:
     dependency: transitive
     description:
@@ -1408,10 +1408,10 @@ packages:
     dependency: transitive
     description:
       name: video_player_avfoundation
-      sha256: cd5ab8a8bc0eab65ab0cea40304097edc46da574c8c1ecdee96f28cd8ef3792f
+      sha256: "0b146e5d82e886ff43e5a46c6bcbe390761b802864a6e2503eb612d69a405dfa"
       url: "https://pub.dev"
     source: hosted
-    version: "2.6.2"
+    version: "2.6.3"
   video_player_platform_interface:
     dependency: transitive
     description:

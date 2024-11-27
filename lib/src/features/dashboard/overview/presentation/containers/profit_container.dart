@@ -5,14 +5,18 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 class ProfitContainer extends StatelessWidget {
   final double? factor;
 
+  final bool loading;
+
   const ProfitContainer({
     super.key,
     this.factor,
+    this.loading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
+      loading: loading,
       padding: const EdgeInsets.all(
         PaddingSizes.large,
       ),

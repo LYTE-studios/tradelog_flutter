@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class SmallDataList extends StatelessWidget {
@@ -36,12 +37,12 @@ class SmallDataList extends StatelessWidget {
               buildRow(
                 context,
                 title: 'Average Win',
-                value: averageWin?.toString() ?? '-',
+                value: TradelyNumberUtils.formatNullableValuta(averageWin),
               ),
               buildRow(
                 context,
                 title: 'Best Win',
-                value: bestWin?.toString() ?? '-',
+                value: TradelyNumberUtils.formatNullableValuta(bestWin),
               ),
             ],
           ),
@@ -63,8 +64,8 @@ class SmallDataList extends StatelessWidget {
               ),
               buildRow(
                 context,
-                title: 'Best Loss',
-                value: bestLoss?.toString() ?? '-',
+                title: 'Worst Loss',
+                value: TradelyNumberUtils.formatNullableValuta(bestLoss),
               ),
             ],
           ),
