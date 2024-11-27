@@ -4,10 +4,24 @@ import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
+ValueNotifier<List<Widget>> errorWidgets = ValueNotifier([]);
+
 class DashboardScreen extends StatefulWidget {
   final Widget child;
 
   const DashboardScreen({super.key, required this.child});
+
+  static Future<void> showError(Widget widget) async {
+    errorWidgets.value = [...errorWidgets.value, widget];
+
+    await Future.delayed(const Duration(seconds: 2));
+
+    List<Widget> newList = [...errorWidgets.value];
+
+    newList.remove(widget);
+
+    errorWidgets.value = newList;
+  }
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -94,7 +108,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
             ),
-          )
+          ),
+          Positioned(
+            top: 20,
+            right: 20,
+            child: AnimatedSize(
+              alignment: Alignment.centerRight,
+              duration: kThemeAnimationDuration,
+              reverseDuration: kThemeAnimationDuration,
+              curve: Curves.fastLinearToSlowEaseIn,
+              child: ValueListenableBuilder(
+                valueListenable: errorWidgets,
+                builder: (context, errors, child) {
+                  return SizedBox(
+                    height: 96,
+                    child: Row(
+                      children: errorWidgets.value,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );

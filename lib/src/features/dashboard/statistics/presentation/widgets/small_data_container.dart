@@ -13,12 +13,15 @@ class SmallDataContainer extends StatelessWidget {
 
   final bool blurred;
 
+  final bool loading;
+
   const SmallDataContainer({
     super.key,
     required this.title,
     this.data,
     this.positive,
     this.blurred = false,
+    this.loading = false,
   });
 
   @override
@@ -27,6 +30,7 @@ class SmallDataContainer extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return BaseContainerExpanded(
+      loading: loading,
       height: 100,
       padding: const EdgeInsets.all(
         PaddingSizes.large,
@@ -37,7 +41,9 @@ class SmallDataContainer extends StatelessWidget {
         children: [
           Text(
             title,
-            style: textTheme.titleMedium,
+            style: textTheme.titleMedium?.copyWith(
+              fontSize: 12,
+            ),
           ),
           if (blurred)
             ImageFiltered(
@@ -50,15 +56,15 @@ class SmallDataContainer extends StatelessWidget {
           if (!blurred)
             Expanded(
               child: Align(
-                alignment: Alignment.centerLeft,
+                alignment: Alignment.bottomLeft,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
-                    maxHeight: 56,
+                    maxHeight: 42,
                   ),
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: Text(
-                      data != null ? "\$ $data" : "-",
+                      data != null ? data! : "-",
                       style: textTheme.bodyLarge?.copyWith(
                         fontSize: 35,
                         color: positive != null

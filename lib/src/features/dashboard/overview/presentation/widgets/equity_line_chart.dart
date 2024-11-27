@@ -43,6 +43,8 @@ class _EquityLineChartState extends State<EquityLineChart> {
     minimum = ((minimum - ((maximum - minimum) * 2)) / 10).roundToDouble() * 10;
     maximum = maximum + (maximum - minimum);
 
+    double interval = (maximum - minimum) / 8;
+
     return SfCartesianChart(
       onTooltipRender: (TooltipArgs args) =>
           setHighlightedPointIndex(args.pointIndex),
@@ -70,7 +72,7 @@ class _EquityLineChartState extends State<EquityLineChart> {
         majorTickLines: const MajorTickLines(width: 0),
       ),
       primaryYAxis: NumericAxis(
-        interval: (maximum - minimum) / 8,
+        interval: interval <= 0 ? 1 : interval,
         decimalPlaces: 0,
         minimum: minimum,
         maximum: maximum,

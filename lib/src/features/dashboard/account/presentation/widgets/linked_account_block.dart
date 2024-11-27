@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/custom_pop_menu.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
@@ -15,12 +16,15 @@ class LinkedAccountBlock extends StatefulWidget {
 
   final Function()? onTap;
 
+  final Function()? refresh;
+
   const LinkedAccountBlock({
     super.key,
     required this.linkedAccount,
     this.selectable = false,
     this.selected = false,
     this.onTap,
+    this.refresh,
   });
 
   @override
@@ -31,6 +35,12 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
   bool isHovering = false;
 
   late bool selected = widget.selected;
+
+  Future<void> deleteAccount() async {
+    await client.account.removeAccount(widget.linkedAccount.linkedAccountId!);
+
+    widget.refresh?.call();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +143,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                             // Do something for Disable
                             break;
                           case 'Delete':
-                            // Do something for Delete
+                            deleteAccount();
                             break;
                         }
                       },
