@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
 import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -57,7 +58,7 @@ class BaseContainer extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          color: backgroundColor,
+          color: backgroundColor ?? HexColor.fromHex("#161616"),
           border: Border.all(
             width: borderWidth ?? 1,
             color: !enableBorder
