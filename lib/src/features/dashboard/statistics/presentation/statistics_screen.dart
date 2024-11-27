@@ -97,6 +97,9 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                     statistics?.bestTradingMonth,
                   ),
                 ),
+                const SizedBox(
+                  width: PaddingSizes.extraSmall,
+                ),
                 SmallDataContainer(
                   loading: loading,
                   title: 'Worst trading month',
@@ -104,6 +107,9 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                   data: TradelyNumberUtils.formatNullableValuta(
                     statistics?.worstTradingMonth,
                   ),
+                ),
+                const SizedBox(
+                  width: PaddingSizes.extraSmall,
                 ),
                 SmallDataContainer(
                   loading: loading,
@@ -113,13 +119,22 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                     statistics?.averageTradingMonth,
                   ),
                 ),
-                SmallDataContainer(
-                  title: 'Coming soon',
-                  blurred: true,
+                const SizedBox(
+                  width: PaddingSizes.extraSmall,
                 ),
                 SmallDataContainer(
                   title: 'Coming soon',
                   blurred: true,
+                ),
+                const SizedBox(
+                  width: PaddingSizes.extraSmall,
+                ),
+                SmallDataContainer(
+                  title: 'Coming soon',
+                  blurred: true,
+                ),
+                const SizedBox(
+                  width: PaddingSizes.extraSmall,
                 ),
                 SmallDataContainer(
                   title: 'Coming soon',
@@ -127,6 +142,9 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 ),
               ],
             ),
+          ),
+          const SizedBox(
+            width: PaddingSizes.extraSmall,
           ),
           Expanded(
             child: Row(
@@ -192,6 +210,9 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                         // TODO : Profit factor
                         "-",
                   },
+                ),
+                const SizedBox(
+                  width: PaddingSizes.extraSmall,
                 ),
                 DataList(
                   loading: loading,

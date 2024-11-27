@@ -212,6 +212,9 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                     },
                   ),
                 ),
+                const SizedBox(
+                  width: PaddingSizes.extraSmall,
+                ),
                 BaseContainer(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -249,6 +252,9 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                 ),
               ],
             ),
+          ),
+          const SizedBox(
+            width: PaddingSizes.extraSmall,
           ),
           Expanded(
             flex: 2,
@@ -459,7 +465,8 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                                     .map((date, value) =>
                                         MapEntry(date, ChartData(date, value)))
                                     .values
-                                    .toList(),
+                                    .toList()
+                                  ..sort((a, b) => a.x.compareTo(b.x)),
                               ),
                             ),
                             const SizedBox(height: PaddingSizes.extraSmall),

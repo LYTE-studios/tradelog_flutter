@@ -14,6 +14,7 @@ import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({super.key});
@@ -88,6 +89,9 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                         percentage: statistics?.netProfitLossTrend,
                         loading: loading,
                       ),
+                      SizedBox(
+                        width: PaddingSizes.small,
+                      ),
                       DataContainer(
                         title: 'Trade win rate',
                         toolTip:
@@ -95,6 +99,9 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                         value: statistics?.tradeWinRateThisMonth,
                         percentage: statistics?.tradeWinRateTrend,
                         loading: loading,
+                      ),
+                      SizedBox(
+                        width: PaddingSizes.small,
                       ),
                       ProgressDataContainer(
                         title: ' Avg realized R:R',
@@ -106,6 +113,9 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                       )
                     ],
                   ),
+                ),
+                const SizedBox(
+                  width: PaddingSizes.extraSmall,
                 ),
                 SizedBox(
                   height: 460,
@@ -120,6 +130,9 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                 ),
               ],
             ),
+          ),
+          const SizedBox(
+            width: PaddingSizes.extraSmall,
           ),
           Expanded(
             child: Column(

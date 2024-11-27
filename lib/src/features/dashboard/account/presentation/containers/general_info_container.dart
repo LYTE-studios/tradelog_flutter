@@ -19,6 +19,7 @@ class _GeneralInfoContainerState extends State<GeneralInfoContainer> {
     TextTheme textTheme = Theme.of(context).textTheme;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return BaseContainer(
+      backgroundColor: Colors.transparent,
       padding: EdgeInsets.zero,
       child: Padding(
         padding: const EdgeInsets.all(
