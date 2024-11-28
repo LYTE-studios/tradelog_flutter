@@ -8,10 +8,10 @@ class LineProgressBar extends StatelessWidget {
   final double progressGreen; // Percentage of green (0.0 - 1.0)
 
   const LineProgressBar({
-    Key? key,
+    super.key,
     required this.progressRed,
     required this.progressGreen,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

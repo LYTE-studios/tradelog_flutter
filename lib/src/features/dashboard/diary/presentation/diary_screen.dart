@@ -41,12 +41,6 @@ class DiaryScreen extends StatefulWidget {
 }
 
 class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
-  StatisticsDto? statistics;
-
-  Map<DateTime, double> chartData = {};
-
-  double totalRoi = 0;
-
   bool isAnnotationFieldVisible = false;
   late final QuillController _controller = QuillController.basic()
     ..addListener(() {
@@ -120,39 +114,18 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
 
     note = await client.note.getNoteForDate(selectedDate);
 
-    DateTime from = DateTime.utc(
-      selectedDate.year,
-      selectedDate.month,
-      selectedDate.day,
-    );
-
-    DateTime to = DateTime.utc(
-      selectedDate.year,
-      selectedDate.month,
-      selectedDate.day + 1,
-    );
-
     trades = await client.global.getTrades(
-      from: from,
-      to: to,
+      from: DateTime.utc(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day,
+      ),
+      to: DateTime.utc(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day + 1,
+      ),
     );
-
-    statistics = await client.statistics.getStatistics(
-      from: from,
-      to: to,
-    );
-
-    chartData = statistics?.equityChart ?? {};
-
-    totalRoi = 0;
-
-    chartData[from] = 0;
-
-    for (double roi in trades.map((e) => e.realizedPl ?? 0)) {
-      totalRoi += roi;
-    }
-
-    chartData[to] = totalRoi;
 
     Document document = Document();
 
@@ -161,8 +134,6 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
     }
 
     setState(() {
-      chartData = chartData;
-      statistics = statistics;
       note = note;
       _controller.document = document;
     });
@@ -178,6 +149,12 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    double totalRoi = 0;
+
+    for (double roi in trades.map((e) => e.realizedPl ?? 0)) {
+      totalRoi += roi;
+    }
+
     final ThemeData theme = Theme.of(context);
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
@@ -212,9 +189,6 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                     },
                   ),
                 ),
-                const SizedBox(
-                  width: PaddingSizes.extraSmall,
-                ),
                 BaseContainer(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -239,22 +213,12 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                         ],
                       ),
                       const SizedBox(height: PaddingSizes.large),
-                      SmallDataList(
-                        totalTrades: statistics?.totalNumberOfTrades,
-                        averageWin: statistics?.averageWinningTrade,
-                        averageWinStreak: statistics?.averageWinStreak?.toInt(),
-                        maxWinStreak: statistics?.maxWinStreak?.toInt(),
-                        bestWin: statistics?.largestProfit,
-                        bestLoss: statistics?.largestLoss,
-                      ),
+                      const SmallDataList(),
                     ],
                   ),
                 ),
               ],
             ),
-          ),
-          const SizedBox(
-            width: PaddingSizes.extraSmall,
           ),
           Expanded(
             flex: 2,
@@ -458,15 +422,10 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                             ),
                             const SizedBox(height: PaddingSizes.large),
                             // Use fixed height for chart and list
-                            SizedBox(
+                            const SizedBox(
                               height: 250, // Set a fixed height
                               child: EquityLineChart(
-                                data: chartData
-                                    .map((date, value) =>
-                                        MapEntry(date, ChartData(date, value)))
-                                    .values
-                                    .toList()
-                                  ..sort((a, b) => a.x.compareTo(b.x)),
+                                data: [],
                               ),
                             ),
                             const SizedBox(height: PaddingSizes.extraSmall),

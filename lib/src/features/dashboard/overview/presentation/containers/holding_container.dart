@@ -8,18 +8,14 @@ import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 class HoldingContainer extends StatelessWidget {
   final double? holdingTime;
 
-  final bool loading;
-
   const HoldingContainer({
     super.key,
     this.holdingTime,
-    this.loading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      loading: loading,
       padding: const EdgeInsets.all(
         PaddingSizes.large,
       ),

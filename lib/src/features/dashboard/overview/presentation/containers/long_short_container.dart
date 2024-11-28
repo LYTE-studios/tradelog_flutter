@@ -17,8 +17,6 @@ class LongShortContainer extends StatefulWidget {
   final int? averageWinStreak;
   final int? maxWinStreak;
 
-  final bool loading;
-
   const LongShortContainer({
     super.key,
     required this.long,
@@ -28,7 +26,6 @@ class LongShortContainer extends StatefulWidget {
     this.bestLoss,
     this.averageWinStreak,
     this.maxWinStreak,
-    this.loading = false,
   });
 
   @override
@@ -47,7 +44,6 @@ class _LongShortContainerState extends State<LongShortContainer> {
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      loading: widget.loading,
       padding: const EdgeInsets.all(
         PaddingSizes.large,
       ),
@@ -99,15 +95,9 @@ class _LongShortContainerState extends State<LongShortContainer> {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 64,
-            child: SmallDataList(
-              totalTrades: widget.long + widget.short,
-              maxWinStreak: widget.maxWinStreak,
-              averageWinStreak: widget.averageWinStreak,
-              bestWin: widget.bestWin,
-              bestLoss: widget.bestLoss,
-            ),
+            child: SmallDataList(),
           ),
         ],
       ),

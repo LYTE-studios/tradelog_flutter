@@ -97,7 +97,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
         alignment: Alignment.center,
         transformAlignment: Alignment.center,
         transform: (shouldScaleDown
-            ? (Matrix4.identity()..scale(0.96, 0.96))
+            ? (Matrix4.identity()..scale(0.98, 0.98))
             : Matrix4.identity()),
         decoration: BoxDecoration(
           color: widget.color ?? Theme.of(context).colorScheme.primary,

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 
 class BaseContainerExpanded extends StatelessWidget {
-  final bool loading;
-
   final Widget? child;
 
   final double? height;
@@ -20,7 +18,6 @@ class BaseContainerExpanded extends StatelessWidget {
 
   const BaseContainerExpanded({
     super.key,
-    this.loading = false,
     this.child,
     this.height,
     this.width,
@@ -35,7 +32,6 @@ class BaseContainerExpanded extends StatelessWidget {
     return Expanded(
       flex: flex,
       child: BaseContainer(
-        loading: loading,
         height: height ?? double.infinity,
         width: width ?? double.infinity,
         padding: padding,
