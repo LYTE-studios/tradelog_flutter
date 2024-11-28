@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
+import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+
+class BaseContainer extends StatelessWidget {
+  final Widget? child;
+
+  final double? height;
+
+  final double? width;
+
+  final EdgeInsets? padding;
+
+  final double? borderRadius;
+
+  final Color? backgroundColor;
+
+  final bool enableBorder;
+
+  final Color? borderColor;
+
+  final double? borderWidth;
+
+  final EdgeInsets? outsidePadding;
+
+  final BoxConstraints? boxConstraints;
+
+  const BaseContainer({
+    super.key,
+    this.child,
+    this.height,
+    this.width,
+    this.padding,
+    this.borderRadius,
+    this.backgroundColor,
+    this.enableBorder = true,
+    this.outsidePadding,
+    this.boxConstraints,
+    this.borderColor,
+    this.borderWidth,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: outsidePadding ??
+          const EdgeInsets.symmetric(
+            vertical: PaddingSizes.extraSmall,
+            horizontal: PaddingSizes.xxs,
+          ),
+      child: Container(
+        constraints: boxConstraints,
+        height: height,
+        width: width,
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          border: Border.all(
+            width: borderWidth ?? 1,
+            color: !enableBorder
+                ? Colors.transparent
+                : borderColor ?? Theme.of(context).colorScheme.outline,
+          ),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? BorderRadii.large,
+          ),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? BorderRadii.large,
+          ),
+          child: Padding(
+            padding: padding ??
+                const EdgeInsets.all(
+                  PaddingSizes.xxl,
+                ),
+            child: child,
+          ),
+        ),
+      ),
+    );
+  }
+}
