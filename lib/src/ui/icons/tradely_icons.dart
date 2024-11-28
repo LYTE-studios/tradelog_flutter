@@ -4,6 +4,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 class TradelyIcons {
   /// PRIVATE | Base path for the icons
   static const String _basePath = 'assets/icons';
+  static const String _baseNationPath = 'assets/icons/nation';
   static const String _baseLogosPath = 'assets/logos';
 
   /// Preloads the icon assets
@@ -34,6 +35,7 @@ class TradelyIcons {
   static const String reset = '$_basePath/reset.svg';
   static const String search = '$_basePath/search.svg';
   static const String arrowBack = '$_basePath/arrow_back.svg';
+  static const String arrowDown = '$_basePath/arrow_down.svg';
   static const String chevronLeft = '$_basePath/chevron_left.svg';
   static const String chevronRight = '$_basePath/chevron_right.svg';
   static const String ellipsis = '$_basePath/ellipsis.svg';
@@ -74,9 +76,18 @@ class TradelyIcons {
   static const String metatrader = '$_basePath/metatrader.png';
   static const String tradelocker = '$_basePath/tradelocker.png';
 
+  static const String usd = '$_baseNationPath/USD.png';
+  static const String aud = '$_baseNationPath/AUD.png';
+  static const String chf = '$_baseNationPath/CHF.png';
+  static const String eur = '$_baseNationPath/EUR.png';
+  static const String jpy = '$_baseNationPath/JPY.png';
+  static const String cad = '$_baseNationPath/CAD.png';
+  static const String gbp = '$_baseNationPath/GBP.png';
+
   static const List<String> icons = [
     account,
     arrowBack,
+    arrowDown,
     checkCircle,
     chevronLeft,
     chevronRight,
@@ -111,5 +122,12 @@ class TradelyIcons {
     instagram,
     link,
     backDialog,
+    usd,
+    gbp,
+    cad,
+    jpy,
+    aud,
+    chf,
+    eur,
   ];
 }

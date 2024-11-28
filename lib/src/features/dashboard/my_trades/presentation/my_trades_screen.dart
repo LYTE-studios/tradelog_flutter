@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:to_csv/to_csv.dart';
 import 'package:tradelog_client/tradelog_client.dart';
 import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
@@ -34,29 +33,6 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   List<TradeDto> trades = [];
 
-  Future<void> downloadCsv() async {
-    await myCSV(
-      ["Open Time", "Symbol", "Direction", "Status", "Net P&L", "Net ROI %"],
-      trades
-          .map(
-            (e) => <String>[
-              TradelyDateTimeUtils.toReadableTime(
-                e.openTime,
-                true,
-              ),
-              e.symbol,
-              e.option.toString(),
-              e.status.toString(),
-              e.realizedPl?.toStringAsFixed(2) ?? "",
-              e.netRoi?.toStringAsFixed(2) ?? "",
-            ],
-          )
-          .toList(),
-      fileName: "tradely_trade_export_${DateTime.now().millisecondsSinceEpoch}",
-      setHeadersInFirstRow: true,
-    );
-  }
-
   void onUpdateTradeType(Option type) {
     setState(() {
       tradeTypeFilter = type;
@@ -86,9 +62,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
         buttons: Row(
           children: [
             PrimaryButton(
-              onTap: () {
-                downloadCsv();
-              },
+              onTap: () {},
               height: 42,
               text: "Export list",
               color: Theme.of(context).colorScheme.primaryContainer,

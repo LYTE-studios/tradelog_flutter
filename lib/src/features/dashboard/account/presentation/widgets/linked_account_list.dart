@@ -26,12 +26,6 @@ class _LinkedAccountListState extends State<LinkedAccountList>
 
   LinkedAccountDto? selected;
 
-  void refresh() {
-    setLoading(true);
-
-    loadData().whenComplete(() => setLoading(false));
-  }
-
   @override
   Future<void> loadData() async {
     accounts = await apiManager.loadCachedAccounts();
@@ -54,7 +48,6 @@ class _LinkedAccountListState extends State<LinkedAccountList>
           children: accounts
               .map(
                 (linkedAccount) => LinkedAccountBlock(
-                  refresh: refresh,
                   selectable: widget.selectable,
                   selected: selected == linkedAccount,
                   onTap: () {

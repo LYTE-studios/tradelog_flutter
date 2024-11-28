@@ -7,6 +7,6 @@ class TradelyDateTimeUtils {
       return '';
     }
 
-    return '${passDate ? '${dateTime.day}/${dateTime.month}/${dateTime.year} ' : ''}${dateTime.hour < 10 ? "0" : ""}${dateTime.hour}:${dateTime.minute < 10 ? "0" : ""}${dateTime.minute}';
+    return '${passDate ? '${dateTime.day}/${dateTime.month}/${dateTime.year} ' : ''}${dateTime.hour}:${dateTime.minute}';
   }
 }

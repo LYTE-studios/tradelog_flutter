@@ -59,11 +59,13 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen>
 
     await TradelyIcons.preload(context);
 
-    if (!sessionManager.isSignedIn) {
-      router.pushReplacement(LoginScreen.route);
-    } else {
-      router.pushReplacement(OverviewScreen.route);
-    }
+    // if (!sessionManager.isSignedIn) {
+    //   router.pushReplacement(LoginScreen.route);
+    // }
+    // else {
+    //   router.pushReplacement(OverviewScreen.route);
+    // }
+    router.pushReplacement(OverviewScreen.route);
 
     return super.loadData();
   }
