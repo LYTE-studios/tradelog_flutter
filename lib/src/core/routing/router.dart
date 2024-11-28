@@ -13,6 +13,7 @@ import 'package:tradelog_flutter/src/features/dashboard/account/presentation/acc
 import 'package:tradelog_flutter/src/features/dashboard/dashboard_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/my_trades_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/leaderboard/presentation/leaderboard_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
 import 'package:tradelog_flutter/src/features/forms/presentation/form_overview_screen.dart';
@@ -98,13 +99,13 @@ GoRouter router = GoRouter(
     ),
     ShellRoute(
       builder: (context, state, child) {
-        if (!sessionManager.isSignedIn) {
-          router.pushReplacement(LoginScreen.route);
-        }
+        // if (!sessionManager.isSignedIn) {
+        //   router.pushReplacement(LoginScreen.route);
+        // }
 
-        if (!apiManager.isInitialized) {
-          apiManager.initialize();
-        }
+        // if (!apiManager.isInitialized) {
+        //   apiManager.initialize();
+        // }
 
         return DashboardScreen(child: child);
       },
@@ -119,14 +120,14 @@ GoRouter router = GoRouter(
         GoRoute(
           path: DiaryScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              NoTransitionPage(
+              const NoTransitionPage(
             child: DiaryScreen(),
           ),
         ),
         GoRoute(
           path: MyTradesScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              NoTransitionPage(
+              const NoTransitionPage(
             child: MyTradesScreen(),
           ),
         ),
@@ -142,6 +143,13 @@ GoRouter router = GoRouter(
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
             child: AccountScreen(),
+          ),
+        ),
+        GoRoute(
+          path: LeaderboardScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: LeaderboardScreen(),
           ),
         ),
       ],

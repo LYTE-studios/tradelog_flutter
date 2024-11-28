@@ -4,6 +4,7 @@ import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/my_trades_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/leaderboard/presentation/leaderboard_screen.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_footer.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_header.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_item.dart';
@@ -73,6 +74,10 @@ class Sidebar extends StatelessWidget {
                   SidebarItem(
                     extended: extended,
                     route: AccountScreen.route,
+                  ),
+                  SidebarItem(
+                    extended: extended,
+                    route: LeaderboardScreen.route,
                   ),
                   const Spacer(),
                   SidebarFooter(

@@ -4,6 +4,7 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/my_trades_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/leaderboard/presentation/leaderboard_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -27,6 +28,7 @@ class SidebarItem extends StatelessWidget {
     MyTradesScreen.route: TradelyIcons.myTrades,
     StatisticsScreen.route: TradelyIcons.statistics,
     AccountScreen.route: TradelyIcons.account,
+    LeaderboardScreen.route: TradelyIcons.statistics,
   };
 
   static const Map<String, String> routeToTitle = {
@@ -35,6 +37,7 @@ class SidebarItem extends StatelessWidget {
     MyTradesScreen.route: "My Trades",
     StatisticsScreen.route: "Statistics",
     AccountScreen.route: "Account",
+    LeaderboardScreen.route: "leaderboard",
   };
 
   @override
@@ -67,7 +70,22 @@ class SidebarItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                 BorderRadii.small,
               ),
-              color: selected ? theme.colorScheme.primaryContainer : null,
+              gradient: selected
+                  ? LinearGradient(
+                      colors: [
+                        const Color.fromARGB(255, 252, 106, 88),
+                        const Color.fromARGB(255, 105, 108, 250)
+                      ], // Gradient colors
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    )
+                  : LinearGradient(
+                      colors: [
+                        Colors.transparent,
+                        Colors.transparent
+                      ], // Use a transparent gradient
+                    ),
+              // color: selected ? theme.colorScheme.primaryContainer : null,
             ),
             child: Row(
               mainAxisAlignment:
