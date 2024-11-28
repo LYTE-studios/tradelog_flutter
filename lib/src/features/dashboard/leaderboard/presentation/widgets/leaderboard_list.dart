@@ -108,15 +108,6 @@ class LeaderboardList extends StatelessWidget {
                                                       TradelyIcons.arrowDown,
                                                       color: colorScheme.error,
                                                     ),
-                                              // Transform(
-                                              //     transform: Matrix4.rotationZ(
-                                              //         3.14), // 180 degrees in radians
-                                              //     child: SvgIcon(
-                                              //       TradelyIcons.arrowDown,
-                                              //       color:
-                                              //           colorScheme.error,
-                                              //     ),
-                                              //   ),
                                               Text(
                                                 '${entry.points.abs()}',
                                                 style: TextStyle(
@@ -237,15 +228,6 @@ class LeaderboardList extends StatelessWidget {
                                                       TradelyIcons.arrowDown,
                                                       color: colorScheme.error,
                                                     ),
-                                              // Transform(
-                                              //     transform: Matrix4.rotationZ(
-                                              //         3.14), // 180 degrees in radians
-                                              //     child: SvgIcon(
-                                              //       TradelyIcons.arrowDown,
-                                              //       color:
-                                              //           colorScheme.error,
-                                              //     ),
-                                              //   ),
                                               Text(
                                                 '${entry.points.abs()}',
                                                 style: TextStyle(
@@ -301,74 +283,6 @@ class LeaderboardList extends StatelessWidget {
               ),
             ),
           ],
-        )
-        // child: GridView.builder(
-        //   itemCount: entries.length + 1, // Extra count for the special card
-        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        //     crossAxisCount: 2, // Two columns
-        //     crossAxisSpacing: 12.0,
-        //     childAspectRatio: 8, // Adjust as needed
-        //   ),
-        //   itemBuilder: (context, index) {
-        //     if (index == 0) {
-        //       return Container(
-        //           height: 80, child: LeaderboardItem(entry: entries[2]));
-        //     } else {
-        //       // Normal leaderboard entries
-        //       final entry = entries[index - 1]; // Adjust index for the card
-        //       return GestureDetector(
-        //         onTap: () => onEntrySelected(entry),
-        //         child: Container(
-        //           padding: const EdgeInsets.symmetric(vertical: 10.0),
-        //           child: Row(
-        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //             children: [
-        //               Row(
-        //                 mainAxisAlignment: MainAxisAlignment.start,
-        //                 children: [
-        //                   CircleAvatar(
-        //                     // Example avatar
-        //                     backgroundColor: Colors.grey.shade300,
-        //                   ),
-        //                   const SizedBox(width: 8.0),
-        //                   Text(
-        //                     entry.name,
-        //                     style: const TextStyle(
-        //                       color: Colors.white,
-        //                       fontSize: 18.0,
-        //                     ),
-        //                   ),
-        //                   const SizedBox(width: 8.0),
-        //                   Text(
-        //                     '+${entry.points}',
-        //                     style: const TextStyle(
-        //                       color: Colors.green,
-        //                       fontSize: 12.0,
-        //                     ),
-        //                   ),
-        //                 ],
-        //               ),
-        //               Padding(
-        //                 padding: const EdgeInsets.only(right: 10.0),
-        //                 child: Container(
-        //                   width: 80,
-        //                   alignment: Alignment.centerRight,
-        //                   child: Text(
-        //                     '#${entry.rank}',
-        //                     style: const TextStyle(
-        //                       color: Colors.grey,
-        //                       fontSize: 12.0,
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //             ],
-        //           ),
-        //         ),
-        //       );
-        //     }
-        //   },
-        // ),
-        );
+        ));
   }
 }

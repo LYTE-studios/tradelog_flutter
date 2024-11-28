@@ -1,31 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:tradelog_flutter/src/features/dashboard/leaderboard/models/leaderboard_entry.dart';
-// import 'package:tradelog_flutter/src/features/dashboard/leaderboard/presentation/leaderboard_service.dart';
-// import 'package:tradelog_flutter/src/features/dashboard/leaderboard/presentation/widgets/currency_pair_display.dart';
-
-// class LeaderboardHeader extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     final currencyData = LeaderboardCurrencyItems.fetchLeaderboardCurrency();
-
-//     return Container(
-//       // width: 300,
-//       child: SingleChildScrollView(
-//           scrollDirection: Axis.horizontal,
-//           child: Row(
-//             children: currencyData.map((item) {
-//               return Padding(
-//                 padding: EdgeInsets.symmetric(horizontal: 4.0),
-//                 child: CurrencyPairDisplay(
-//                     currencyPair: item.currencyPair,
-//                     exchangeRate: item.exchangeRate),
-//               );
-//             }).toList(),
-//           )),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/features/dashboard/leaderboard/models/leaderboard_entry.dart';
 import 'package:tradelog_flutter/src/features/dashboard/leaderboard/presentation/leaderboard_service.dart';

@@ -57,16 +57,6 @@ class _LeaderboardScreen extends State<LeaderboardScreen>
         currentRoute: LeaderboardScreen.location,
         title: "Leaderboard",
         titleIconPath: 'assets/images/emojis/chart_emoji.png',
-        // buttons: Row(
-        //   children: [
-        //     PrimaryButton(
-        //       onTap: () {},
-        //       height: 42,
-        //       text: "Export list",
-        //       color: Theme.of(context).colorScheme.primaryContainer,
-        //     ),
-        //   ],
-        // ),
       ),
       child: Row(
         children: [
@@ -106,11 +96,6 @@ class _LeaderboardScreen extends State<LeaderboardScreen>
             child: Column(
               children: [
                 Expanded(
-                  // decoration: BoxDecoration(
-                  //   border: Border.all(width: 1.0, color: Colors.white54),
-                  //   borderRadius:
-                  //       const BorderRadius.all(Radius.circular(12.0)),
-                  // ),
                   child: TradeActivityList(entries: tradeActivityData),
                 )
               ],

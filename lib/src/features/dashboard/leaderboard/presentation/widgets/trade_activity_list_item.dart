@@ -59,12 +59,6 @@ class TradeActivityListItem extends StatelessWidget {
                       style:
                           const TextStyle(fontSize: 16.0, color: Colors.white),
                     ),
-                    // Container(
-                    //   alignment: Alignment.centerRight,
-                    //   child: Text("$moment ago",
-                    //       style: const TextStyle(
-                    //           fontSize: 10.0, color: Colors.white24)),
-                    // )
                   ],
                 ),
                 const SizedBox(height: 8.0),
@@ -124,8 +118,6 @@ class TradeActivityListItem extends StatelessWidget {
                 ),
               ],
             ),
-            // Text("$moment ago",
-            //     style: const TextStyle(fontSize: 10.0, color: Colors.white24))
           ],
         ),
       ),
