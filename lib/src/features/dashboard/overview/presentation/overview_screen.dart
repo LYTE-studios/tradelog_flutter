@@ -10,6 +10,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/co
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/progress_data_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/net-daily.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -71,98 +72,118 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
           prefixIconSize: 22,
         ),
       ),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 140,
-                  child: Row(
-                    children: [
-                      DataContainer(
-                        title: 'Net Profit/Loss',
-                        toolTip:
-                            'The total realized net profit and loss for all closed trades.',
-                        value: statistics?.netProfitLossThisMonth,
-                        percentage: statistics?.netProfitLossTrend,
-                        loading: loading,
-                      ),
-                      SizedBox(
-                        width: PaddingSizes.small,
-                      ),
-                      DataContainer(
-                        title: 'Trade win rate',
-                        toolTip:
-                            'Reflects the percentage of your winning trades out of total trades taken.',
-                        value: statistics?.tradeWinRateThisMonth,
-                        percentage: statistics?.tradeWinRateTrend,
-                        loading: loading,
-                      ),
-                      SizedBox(
-                        width: PaddingSizes.small,
-                      ),
-                      ProgressDataContainer(
-                        title: ' Avg realized R:R',
-                        toolTip:
-                            'Average Win / Average Loss = Average Realize R:R',
-                        value: statistics?.realizedReturnThisMonth ?? 0,
-                        percentage: statistics?.realizedReturnTrend ?? 0,
-                        loading: loading,
-                      )
-                    ],
+      child: SingleChildScrollView(
+        child: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 140,
+                    child: Row(
+                      children: [
+                        DataContainer(
+                          title: 'Net Profit/Loss',
+                          toolTip:
+                              'The total realized net profit and loss for all closed trades.',
+                          value: statistics?.netProfitLossThisMonth,
+                          percentage: statistics?.netProfitLossTrend,
+                          loading: loading,
+                        ),
+                        const SizedBox(
+                          width: PaddingSizes.small,
+                        ),
+                        DataContainer(
+                          title: 'Trade win rate',
+                          toolTip:
+                              'Reflects the percentage of your winning trades out of total trades taken.',
+                          value: statistics?.tradeWinRateThisMonth,
+                          percentage: statistics?.tradeWinRateTrend,
+                          loading: loading,
+                        ),
+                        const SizedBox(
+                          width: PaddingSizes.small,
+                        ),
+                        ProgressDataContainer(
+                          title: ' Avg realized R:R',
+                          toolTip:
+                              'Average Win / Average Loss = Average Realize R:R',
+                          value: statistics?.realizedReturnThisMonth ?? 0,
+                          percentage: statistics?.realizedReturnTrend ?? 0,
+                          loading: loading,
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: PaddingSizes.extraSmall,
-                ),
-                SizedBox(
-                  height: 460,
-                  child: ChartContainer(
-                    titleText: 'Equity line',
-                    toolTipText:
-                        "Your equity line shows your account’s value over time, highlighting profits and losses.",
-                    data: statistics?.equityChartData ?? {},
-                    balance: statistics?.equityChartData?.values.firstOrNull,
+                  const SizedBox(
+                    width: PaddingSizes.extraSmall,
+                  ),
+                  SizedBox(
+                    height: 460,
+                    child: ChartContainer(
+                      titleText: 'Equity line',
+                      toolTipText:
+                          "Your equity line shows your account’s value over time, highlighting profits and losses.",
+                      data: statistics?.equityChartData ?? {},
+                      balance: statistics?.equityChartData?.values.firstOrNull,
+                      loading: loading,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 380,
+                        height: 350,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF1B1B1B), // Dark background
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                      ),
+                      NetDailyPLChart(),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(
+              width: PaddingSizes.extraSmall,
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  LongShortContainer(
+                    long: statistics?.longTradesAmount ?? 0,
+                    short: statistics?.shortTradesAmount ?? 0,
+                    averageWin: generalStatistics?.averageWinningTrade,
+                    bestWin: generalStatistics?.largestProfit,
+                    bestLoss: generalStatistics?.largestLoss,
+                    averageWinStreak:
+                        generalStatistics?.averageWinStreak?.toInt(),
+                    maxWinStreak: generalStatistics?.maxWinStreak?.toInt(),
                     loading: loading,
                   ),
-                ),
-              ],
+                  HoldingContainer(
+                    holdingTime: generalStatistics?.averageHoldingTime,
+                    loading: loading,
+                  ),
+                  ProfitContainer(
+                    factor: statistics?.profitFactor,
+                  ),
+                  // TODO activityHeatmap
+                  // const Expanded(
+                  //   child: ActivityHeatmapContainer(),
+                  // ),
+
+                ],
+              ),
             ),
-          ),
-          const SizedBox(
-            width: PaddingSizes.extraSmall,
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                LongShortContainer(
-                  long: statistics?.longTradesAmount ?? 0,
-                  short: statistics?.shortTradesAmount ?? 0,
-                  averageWin: generalStatistics?.averageWinningTrade,
-                  bestWin: generalStatistics?.largestProfit,
-                  bestLoss: generalStatistics?.largestLoss,
-                  averageWinStreak:
-                      generalStatistics?.averageWinStreak?.toInt(),
-                  maxWinStreak: generalStatistics?.maxWinStreak?.toInt(),
-                  loading: loading,
-                ),
-                HoldingContainer(
-                  holdingTime: generalStatistics?.averageHoldingTime,
-                  loading: loading,
-                ),
-                ProfitContainer(
-                  factor: statistics?.profitFactor,
-                ),
-                // TODO activityHeatmap
-                // const Expanded(
-                //   child: ActivityHeatmapContainer(),
-                // ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
