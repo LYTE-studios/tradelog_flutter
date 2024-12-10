@@ -6,6 +6,12 @@ import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LinkedAccountBlock extends StatefulWidget {
+  final String name;
+
+  final String currency;
+
+  final double balance;
+
   final bool selectable;
 
   final bool selected;
@@ -16,6 +22,9 @@ class LinkedAccountBlock extends StatefulWidget {
 
   const LinkedAccountBlock({
     super.key,
+    required this.name,
+    required this.currency,
+    required this.balance,
     this.selectable = false,
     this.selected = false,
     this.onTap,
@@ -51,8 +60,6 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
     if (selected) {
       isHovering = true;
     }
-
-    double totalBalance = 0;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -110,7 +117,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                             height: PaddingSizes.xxs,
                           ),
                           Text(
-                            "\$ ${TradelyNumberUtils.formatValuta(totalBalance)}",
+                            "${TradelyNumberUtils.currencyCodeTranslation(widget.currency)} ${TradelyNumberUtils.formatValuta(widget.balance)}",
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       fontSize: 19,
@@ -150,7 +157,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "",
+                          widget.name,
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     fontSize: 15,
@@ -160,7 +167,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                           height: PaddingSizes.xxs,
                         ),
                         Text(
-                          "",
+                          "Active",
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium

@@ -41,14 +41,10 @@ class AuthenticationService extends ApiService {
     );
 
     if (response.statusCode == 201) {
-      RegisterAccountDto accountDto = RegisterAccountDto.fromJson(
-        response.data,
-      );
-
       return await login(
         LoginAccountDto(
-          email: accountDto.email,
-          password: accountDto.password,
+          email: dto.email,
+          password: dto.password,
         ),
       );
     }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/trading_account_list_dto.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account_block.dart';
 import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
@@ -17,6 +19,19 @@ class LinkedAccountList extends StatefulWidget {
 
 class _LinkedAccountListState extends State<LinkedAccountList>
     with ScreenStateMixin {
+  TradingAccountListDto? accountListDto;
+
+  @override
+  Future<void> loadData() async {
+    accountListDto = await UsersService().fetchAllAccounts();
+
+    setState(() {
+      accountListDto = accountListDto;
+    });
+
+    return super.loadData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TradelyLoadingSwitcher(
@@ -25,15 +40,19 @@ class _LinkedAccountListState extends State<LinkedAccountList>
         height: 156,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: []
-              .map(
-                (linkedAccount) => LinkedAccountBlock(
-                  refresh: () {},
-                  selectable: widget.selectable,
-                  selected: false,
-                ),
-              )
-              .toList(),
+          children: accountListDto?.tradelockerAccounts
+                  .map(
+                    (linkedAccount) => LinkedAccountBlock(
+                      name: linkedAccount.accountName,
+                      currency: linkedAccount.currency,
+                      balance: linkedAccount.accountBalance,
+                      refresh: () {},
+                      selectable: widget.selectable,
+                      selected: false,
+                    ),
+                  )
+                  .toList() ??
+              [],
         ),
       ),
     );

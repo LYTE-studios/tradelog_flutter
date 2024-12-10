@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_csv/to_csv.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
@@ -58,6 +59,13 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
     setState(() {
       tradeTypeFilter = type;
     });
+  }
+
+  @override
+  Future<void> loadData() async {
+    await UsersService().fetchTrades();
+
+    return super.loadData();
   }
 
   @override

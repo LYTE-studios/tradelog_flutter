@@ -73,6 +73,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                 server: tecServerName.text,
                 demoStatus:
                     _selectedPlatform == TradingPlatform.tradelockerDemo,
+                accountName: tecAccountName.text,
               ),
             );
           } catch (e) {
@@ -121,18 +122,19 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         curve: Curves.fastEaseInToSlowEaseOut);
   }
 
-  // String getIconForBroker(Platform platform) {
-  //   switch (platform) {
-  //     case Platform.Metatrader:
-  //       return TradelyIcons.metatrader;
-  //     case Platform.TradelockerDemo:
-  //     case Platform.Tradelocker:
-  //       return TradelyIcons.tradelocker;
-  //     default:
-  //   }
-  //
-  //   return TradelyIcons.tradelyLogoSmall;
-  // }
+  String getIconForBroker(TradingPlatform platform) {
+    switch (platform) {
+      case TradingPlatform.metaTrader4:
+      case TradingPlatform.metaTrader5:
+        return TradelyIcons.metatrader;
+      case TradingPlatform.tradelockerDemo:
+      case TradingPlatform.tradelockerLive:
+        return TradelyIcons.tradelocker;
+      default:
+    }
+
+    return TradelyIcons.tradelyLogoSmall;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -203,8 +205,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                             horizontal: PaddingSizes.large,
                           ),
                           color: const Color(0xFF171717),
-                          icon: '',
-                          title: platform.name,
+                          icon: getIconForBroker(platform),
+                          title: platform.getName(),
                           description: 'Automatic Sync of Completed Trades',
                           isFirst: TradingPlatform.values.first == platform,
                           isLast: TradingPlatform.values.last == platform,
@@ -232,8 +234,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                         height: 35,
                         color: Colors.transparent,
                         padding: EdgeInsets.zero,
-                        icon: '',
-                        // icon: getIconForBroker(_selectedPlatform!),
+                        icon: getIconForBroker(_selectedPlatform!),
                         title: _selectedPlatform!.name,
                       ),
                       Text(
@@ -333,7 +334,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                                 PrimaryButton(
                                   width: 180,
                                   loading: loading,
-                                  onTap: () {},
+                                  onTap: linkAccount,
                                   height: 44,
                                   text: 'Add exchange',
                                   prefixIcon: TradelyIcons.plusCircle,
