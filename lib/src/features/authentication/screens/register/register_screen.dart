@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/authentication/account_credentials_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/authentication/register_account_dto.dart';
+import 'package:tradelog_flutter/src/core/data/services/authentication_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/screens/register/verification_code_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/extra_login_options.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
 import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
@@ -28,8 +30,6 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
 
   String? errorText;
 
-  void handleFailure(AuthenticationResult result) {}
-
   Future<void> registerUser() async {
     setLoading(true);
     if (pwTec.text != confirmPwTec.text) {
@@ -38,19 +38,25 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
       });
     }
 
-    AuthenticationResult result = await AuthenticationManager.createAccount(
-      email: emailTec.text,
-      password: emailTec.text,
+    AccountCredentialsDto? credentialsDto =
+        await AuthenticationService().register(
+      RegisterAccountDto(
+        email: emailTec.text,
+        password: pwTec.text,
+      ),
     );
 
-    if (result == AuthenticationResult.verificationCodeSent) {
-      router.go(VerificationCodeScreen.route, extra: emailTec.text);
-
-      setLoading(false);
+    if (credentialsDto != null) {
+      router.pushReplacement(OverviewScreen.route);
       return;
     }
 
-    handleFailure(result);
+    setLoading(false);
+
+    setState(() {
+      errorText =
+          'Account could not be created. Perhaps this email address is already in use?';
+    });
   }
 
   @override

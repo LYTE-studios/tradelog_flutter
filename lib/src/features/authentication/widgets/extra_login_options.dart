@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/auth_divider.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
@@ -22,12 +21,12 @@ class ExtraLoginOptions extends StatelessWidget {
         ),
         PrimaryButton(
           onTap: () async {
-            AuthenticationResult result =
-                await AuthenticationManager.googleSignIn();
-
-            if (result == AuthenticationResult.success) {
-              router.go(OverviewScreen.route);
-            }
+            // AuthenticationResult result =
+            //     await AuthenticationManager.googleSignIn();
+            //
+            // if (result == AuthenticationResult.success) {
+            //   router.go(OverviewScreen.route);
+            // }
           },
           height: 53,
           color: theme.colorScheme.primaryContainer,

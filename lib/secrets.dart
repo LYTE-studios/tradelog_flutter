@@ -1,4 +1,4 @@
-const String apiUrl = 'https://api.tradely.lytestudios.be/';
+const String apiUrl = 'https://api.tradely.lytestudios.be/api/';
 
 const String googleClientIdWeb =
     '717022771490-1ufeahl94qklesm84ift7vk7fs4mcj4i.apps.googleusercontent.com';

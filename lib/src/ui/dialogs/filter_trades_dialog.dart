@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/date_selector.dart';
@@ -10,9 +10,9 @@ import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 class FilterTradesDialog extends StatelessWidget {
   final TradeStatus tradeStatusFilter;
 
-  final Option tradeTypeFilter;
+  final TradeOption tradeTypeFilter;
 
-  final Function(Option) onUpdateTradeTypeFilter;
+  final Function(TradeOption) onUpdateTradeTypeFilter;
 
   final Function(TradeStatus) onUpdateTradeStatusFilter;
 
@@ -48,13 +48,14 @@ class FilterTradesDialog extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: PaddingSizes.medium,
               ),
-              onTap: () => onUpdateTradeTypeFilter.call(Option.long),
+              onTap: () => onUpdateTradeTypeFilter.call(TradeOption.long),
               height: 34,
               width: 95,
               text: "Long",
               prefixIcon: TradelyIcons.trendUp,
               prefixIconSize: 12,
-              color: tradeTypeFilter != Option.long ? unSelectedColor : null,
+              color:
+                  tradeTypeFilter != TradeOption.long ? unSelectedColor : null,
             ),
             const SizedBox(
               width: PaddingSizes.medium,
@@ -63,23 +64,25 @@ class FilterTradesDialog extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: PaddingSizes.medium,
               ),
-              onTap: () => onUpdateTradeTypeFilter.call(Option.short),
+              onTap: () => onUpdateTradeTypeFilter.call(TradeOption.short),
               height: 34,
               width: 100,
               text: "Short",
               prefixIcon: TradelyIcons.trendDown,
               prefixIconSize: 12,
-              color: tradeTypeFilter != Option.short ? unSelectedColor : null,
+              color:
+                  tradeTypeFilter != TradeOption.short ? unSelectedColor : null,
             ),
             const SizedBox(
               width: PaddingSizes.medium,
             ),
             PrimaryButton(
-              onTap: () => onUpdateTradeTypeFilter.call(Option.long),
+              onTap: () => onUpdateTradeTypeFilter.call(TradeOption.long),
               height: 34,
               width: 95,
               text: "- Both",
-              color: tradeTypeFilter != Option.long ? unSelectedColor : null,
+              color:
+                  tradeTypeFilter != TradeOption.long ? unSelectedColor : null,
             ),
           ],
         ),

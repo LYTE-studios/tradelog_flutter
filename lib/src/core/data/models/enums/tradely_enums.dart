@@ -13,3 +13,10 @@ enum PlanType {
   proMonthly,
   proYearly,
 }
+
+enum TradingPlatform {
+  metaTrader4,
+  metaTrader5,
+  tradelockerDemo,
+  tradelockerLive,
+}

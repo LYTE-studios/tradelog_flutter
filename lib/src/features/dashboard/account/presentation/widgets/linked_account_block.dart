@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/custom_pop_menu.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LinkedAccountBlock extends StatefulWidget {
-  final LinkedAccountDto linkedAccount;
-
   final bool selectable;
 
   final bool selected;
@@ -20,7 +16,6 @@ class LinkedAccountBlock extends StatefulWidget {
 
   const LinkedAccountBlock({
     super.key,
-    required this.linkedAccount,
     this.selectable = false,
     this.selected = false,
     this.onTap,
@@ -37,7 +32,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
   late bool selected = widget.selected;
 
   Future<void> deleteAccount() async {
-    await client.account.removeAccount(widget.linkedAccount.linkedAccountId!);
+    // await client.account.removeAccount(widget.linkedAccount.linkedAccountId!);
 
     widget.refresh?.call();
   }
@@ -58,10 +53,6 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
     }
 
     double totalBalance = 0;
-
-    for (double value in widget.linkedAccount.balance ?? []) {
-      totalBalance += value;
-    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -159,8 +150,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.linkedAccount.title ??
-                              "${widget.linkedAccount.platform} account",
+                          "",
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     fontSize: 15,
@@ -170,7 +160,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                           height: PaddingSizes.xxs,
                         ),
                         Text(
-                          widget.linkedAccount.status?.first ?? "Active",
+                          "",
                           style: Theme.of(context)
                               .textTheme
                               .labelMedium

@@ -1,8 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/services/authentication_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
@@ -28,22 +27,22 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
 
   bool isEditing = false;
 
-  TradelyProfile? profile;
+  // TradelyProfile? profile;
 
-  Future<void> updateInfo() async {
-    assert(profile != null);
-
-    setLoading(true);
-
-    profile!.firstName = firstNameTec.text;
-    profile!.lastName = lastNameTec.text;
-
-    await client.profile.updateProfile(profile!);
-
-    await loadData();
-
-    toggleEditing();
-  }
+  // Future<void> updateInfo() async {
+  //   assert(profile != null);
+  //
+  //   setLoading(true);
+  //
+  //   profile!.firstName = firstNameTec.text;
+  //   profile!.lastName = lastNameTec.text;
+  //
+  //   // await client.profile.updateProfile(profile!);
+  //
+  //   await loadData();
+  //
+  //   toggleEditing();
+  // }
 
   void toggleEditing() {
     setState(() {
@@ -53,24 +52,9 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
   }
 
   @override
-  Future<void> loadData() async {
-    profile = await client.profile.getProfile();
-
-    setState(() {
-      profile = profile;
-    });
-
-    return super.loadData();
-  }
-
-  @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
-
-    firstNameTec.text = profile?.firstName ?? '';
-    lastNameTec.text = profile?.lastName ?? '';
-    emailTec.text = sessionManager.signedInUser?.email ?? '';
 
     return LayoutBuilder(builder: (context, constraints) {
       double columnWidth = constraints.maxWidth;
@@ -116,7 +100,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
               PrimaryButton(
                 color: colorScheme.errorContainer,
                 onTap: () async {
-                  await sessionManager.signOut();
+                  await AuthenticationService().logout();
 
                   router.pushReplacement(LoginScreen.route);
                 },
@@ -196,7 +180,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
               children: [
                 PrimaryButton(
                   loading: loading,
-                  onTap: updateInfo,
+                  onTap: () {},
                   width: 150,
                   height: 42,
                   text: "Save changes",

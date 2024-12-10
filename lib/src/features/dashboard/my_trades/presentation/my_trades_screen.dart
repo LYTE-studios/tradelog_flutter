@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:to_csv/to_csv.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
@@ -30,14 +29,12 @@ class MyTradesScreen extends StatefulWidget {
 }
 
 class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
-  Option tradeTypeFilter = Option.short;
-
-  List<TradeDto> trades = [];
+  TradeOption tradeTypeFilter = TradeOption.short;
 
   Future<void> downloadCsv() async {
     await myCSV(
       ["Open Time", "Symbol", "Direction", "Status", "Net P&L", "Net ROI %"],
-      trades
+      []
           .map(
             (e) => <String>[
               TradelyDateTimeUtils.toReadableTime(
@@ -57,21 +54,10 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
     );
   }
 
-  void onUpdateTradeType(Option type) {
+  void onUpdateTradeType(TradeOption type) {
     setState(() {
       tradeTypeFilter = type;
     });
-  }
-
-  @override
-  Future<void> loadData() async {
-    trades = await apiManager.loadCachedTrades();
-
-    setState(() {
-      trades = trades;
-    });
-
-    return super.loadData();
   }
 
   @override
@@ -150,7 +136,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                     ),
                   ],
                 ),
-                rows: trades
+                rows: []
                     .map(
                       (trade) => CustomRow(
                         horizontalPadding: 40,

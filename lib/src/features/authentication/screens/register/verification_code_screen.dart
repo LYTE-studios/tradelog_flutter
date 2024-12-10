@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
-import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/input/primary_text_input.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -28,21 +25,21 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen>
     with ScreenStateMixin {
   final TextEditingController codeTec = TextEditingController();
 
-  Future<void> verifyAccount() async {
-    if (codeTec.text.isEmpty) {
-      return;
-    }
-
-    AuthenticationResult result = await AuthenticationManager.verifyAccount(
-      email: widget.email,
-      code: codeTec.text,
-    );
-
-    if (result == AuthenticationResult.success) {
-      router.go(OverviewScreen.route);
-      return;
-    }
-  }
+  // Future<void> verifyAccount() async {
+  //   if (codeTec.text.isEmpty) {
+  //     return;
+  //   }
+  //
+  //   AuthenticationResult result = await AuthenticationManager.verifyAccount(
+  //     email: widget.email,
+  //     code: codeTec.text,
+  //   );
+  //
+  //   if (result == AuthenticationResult.success) {
+  //     router.go(OverviewScreen.route);
+  //     return;
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +70,7 @@ class _VerificationCodeScreenState extends State<VerificationCodeScreen>
           height: PaddingSizes.xxl,
         ),
         PrimaryButton(
-          onTap: verifyAccount,
+          onTap: () {},
           height: 53,
           text: "Verify Code",
           textStyle: theme.textTheme.titleLarge?.copyWith(

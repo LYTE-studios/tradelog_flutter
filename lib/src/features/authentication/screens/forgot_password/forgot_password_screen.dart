@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
-import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/screens/new_password/new_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/auth_error.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -24,24 +21,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   String? error;
 
-  Future<void> resetPassword() async {
-    AuthenticationResult result =
-        await AuthenticationManager.startPasswordReset(
-      emailTec.text,
-    );
-
-    if (result == AuthenticationResult.success) {
-      router.go(NewPasswordScreen.route);
-    } else if (result == AuthenticationResult.failure) {
-      setState(() {
-        error = 'No Account could be found for this email address';
-      });
-    } else if (result == AuthenticationResult.error) {
-      setState(() {
-        error = 'An unexpected error occurred.';
-      });
-    }
-  }
+  // Future<void> resetPassword() async {
+  //   AuthenticationResult result =
+  //       await AuthenticationManager.startPasswordReset(
+  //     emailTec.text,
+  //   );
+  //
+  //   if (result == AuthenticationResult.success) {
+  //     router.go(NewPasswordScreen.route);
+  //   } else if (result == AuthenticationResult.failure) {
+  //     setState(() {
+  //       error = 'No Account could be found for this email address';
+  //     });
+  //   } else if (result == AuthenticationResult.error) {
+  //     setState(() {
+  //       error = 'An unexpected error occurred.';
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +71,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           height: PaddingSizes.xxl,
         ),
         PrimaryButton(
-          onTap: resetPassword,
+          onTap: () {},
           height: 53,
           text: "Send reset link",
           textStyle: theme.textTheme.titleLarge?.copyWith(

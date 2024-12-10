@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account_block.dart';
 import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
@@ -8,12 +6,9 @@ import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
 class LinkedAccountList extends StatefulWidget {
   final bool selectable;
 
-  final Function(LinkedAccountDto?)? onUpdateSelectedAccount;
-
   const LinkedAccountList({
     super.key,
     this.selectable = false,
-    this.onUpdateSelectedAccount,
   });
 
   @override
@@ -22,27 +17,6 @@ class LinkedAccountList extends StatefulWidget {
 
 class _LinkedAccountListState extends State<LinkedAccountList>
     with ScreenStateMixin {
-  List<LinkedAccountDto> accounts = [];
-
-  LinkedAccountDto? selected;
-
-  void refresh() {
-    setLoading(true);
-
-    loadData().whenComplete(() => setLoading(false));
-  }
-
-  @override
-  Future<void> loadData() async {
-    accounts = await apiManager.loadCachedAccounts();
-
-    setState(() {
-      accounts = accounts;
-    });
-
-    return super.loadData();
-  }
-
   @override
   Widget build(BuildContext context) {
     return TradelyLoadingSwitcher(
@@ -51,23 +25,12 @@ class _LinkedAccountListState extends State<LinkedAccountList>
         height: 156,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: accounts
+          children: []
               .map(
                 (linkedAccount) => LinkedAccountBlock(
-                  refresh: refresh,
+                  refresh: () {},
                   selectable: widget.selectable,
-                  selected: selected == linkedAccount,
-                  onTap: () {
-                    LinkedAccountDto? newSelected =
-                        selected == linkedAccount ? null : linkedAccount;
-
-                    setState(() {
-                      selected = newSelected;
-                    });
-
-                    widget.onUpdateSelectedAccount?.call(selected);
-                  },
-                  linkedAccount: linkedAccount,
+                  selected: false,
                 ),
               )
               .toList(),

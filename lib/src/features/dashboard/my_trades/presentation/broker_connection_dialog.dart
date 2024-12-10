@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/tradelocker/tradelocker_credentials_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/tradely_enums.dart';
+import 'package:tradelog_flutter/src/core/data/services/tradelocker_api_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
@@ -58,20 +59,21 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
     }
 
     switch (_selectedPlatform) {
-      case Platform.Metatrader:
-        {
-          // await client.metaApi.authenticate();
-        }
-      case Platform.TradelockerDemo:
-      case Platform.Tradelocker:
+      case TradingPlatform.metaTrader4:
+      case TradingPlatform.metaTrader5:
+        return;
+      case TradingPlatform.tradelockerDemo:
+      case TradingPlatform.tradelockerLive:
         {
           try {
-            await client.tradeLocker.authenticate(
-              tecUserName.text,
-              tecPassword.text,
-              tecServerName.text,
-              title: tecAccountName.text,
-              isDemo: _selectedPlatform == Platform.TradelockerDemo,
+            await TradelockerApiService().authenticate(
+              TradelockerCredentialsDto(
+                email: tecUserName.text,
+                password: tecPassword.text,
+                server: tecServerName.text,
+                demoStatus:
+                    _selectedPlatform == TradingPlatform.tradelockerDemo,
+              ),
             );
           } catch (e) {
             setState(() {
@@ -101,9 +103,9 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
   }
 
   final PageController _pageController = PageController();
-  Platform? _selectedPlatform;
+  TradingPlatform? _selectedPlatform;
 
-  void _navigateToNextPage(Platform platform) {
+  void _navigateToNextPage(TradingPlatform platform) {
     setState(() {
       _selectedPlatform = platform; // Store the selected broker
     });
@@ -119,18 +121,18 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         curve: Curves.fastEaseInToSlowEaseOut);
   }
 
-  String getIconForBroker(Platform platform) {
-    switch (platform) {
-      case Platform.Metatrader:
-        return TradelyIcons.metatrader;
-      case Platform.TradelockerDemo:
-      case Platform.Tradelocker:
-        return TradelyIcons.tradelocker;
-      default:
-    }
-
-    return TradelyIcons.tradelyLogoSmall;
-  }
+  // String getIconForBroker(Platform platform) {
+  //   switch (platform) {
+  //     case Platform.Metatrader:
+  //       return TradelyIcons.metatrader;
+  //     case Platform.TradelockerDemo:
+  //     case Platform.Tradelocker:
+  //       return TradelyIcons.tradelocker;
+  //     default:
+  //   }
+  //
+  //   return TradelyIcons.tradelyLogoSmall;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -192,8 +194,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                     const SizedBox(
                       height: PaddingSizes.extraLarge,
                     ),
-                    ...Platform.values.map(
-                      (Platform platform) {
+                    ...TradingPlatform.values.map(
+                      (TradingPlatform platform) {
                         return _BaseBrokerRow(
                           height: 70,
                           onTap: () => _navigateToNextPage(platform),
@@ -201,11 +203,11 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                             horizontal: PaddingSizes.large,
                           ),
                           color: const Color(0xFF171717),
-                          icon: getIconForBroker(platform),
+                          icon: '',
                           title: platform.name,
                           description: 'Automatic Sync of Completed Trades',
-                          isFirst: Platform.values.first == platform,
-                          isLast: Platform.values.last == platform,
+                          isFirst: TradingPlatform.values.first == platform,
+                          isLast: TradingPlatform.values.last == platform,
                         );
                       },
                     ),
@@ -230,7 +232,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                         height: 35,
                         color: Colors.transparent,
                         padding: EdgeInsets.zero,
-                        icon: getIconForBroker(_selectedPlatform!),
+                        icon: '',
+                        // icon: getIconForBroker(_selectedPlatform!),
                         title: _selectedPlatform!.name,
                       ),
                       Text(
@@ -330,7 +333,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                                 PrimaryButton(
                                   width: 180,
                                   loading: loading,
-                                  onTap: linkAccount,
+                                  onTap: () {},
                                   height: 44,
                                   text: 'Add exchange',
                                   prefixIcon: TradelyIcons.plusCircle,

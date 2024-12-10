@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_color_identifier.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_gauge.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
@@ -36,9 +36,9 @@ class LongShortContainer extends StatefulWidget {
 }
 
 class _LongShortContainerState extends State<LongShortContainer> {
-  Option selected = Option.long;
+  TradeOption selected = TradeOption.long;
 
-  void setSelected(Option value) {
+  void setSelected(TradeOption value) {
     setState(() {
       selected = value;
     });

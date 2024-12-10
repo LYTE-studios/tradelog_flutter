@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/widgets/small_data_container.dart';
@@ -24,17 +23,6 @@ class StatisticsScreen extends StatefulWidget {
 
 class _StatisticsScreenState extends State<StatisticsScreen>
     with ScreenStateMixin {
-  StatisticsDto? statistics;
-
-  @override
-  Future<void> loadData() async {
-    statistics = await client.statistics.getStatistics();
-
-    setState(() {
-      statistics = statistics;
-    });
-  }
-
   bool? isPositive(double? value) {
     if (value == null || value == 0) {
       return null;
@@ -69,8 +57,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
               text: "Filter trades",
               prefixIcon: TradelyIcons.diary,
               tradeStatusFilter: TradeStatus.open,
-              tradeTypeFilter: Option.long,
-              onUpdateTradeTypeFilter: (Option ty) {
+              tradeTypeFilter: TradeOption.long,
+              onUpdateTradeTypeFilter: (TradeOption ty) {
                 print(ty);
               },
               onUpdateTradeStatusFilter: (TradeStatus st) {
@@ -92,10 +80,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 SmallDataContainer(
                   loading: loading,
                   title: 'Best trading month',
-                  positive: isPositive(statistics?.bestTradingMonth),
-                  data: TradelyNumberUtils.formatNullableValuta(
-                    statistics?.bestTradingMonth,
-                  ),
+                  positive: false,
+                  data: '',
                 ),
                 const SizedBox(
                   width: PaddingSizes.extraSmall,
@@ -103,10 +89,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 SmallDataContainer(
                   loading: loading,
                   title: 'Worst trading month',
-                  positive: isPositive(statistics?.worstTradingMonth),
-                  data: TradelyNumberUtils.formatNullableValuta(
-                    statistics?.worstTradingMonth,
-                  ),
+                  positive: false,
+                  data: '',
                 ),
                 const SizedBox(
                   width: PaddingSizes.extraSmall,
@@ -114,10 +98,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 SmallDataContainer(
                   loading: loading,
                   title: 'Average trading month',
-                  positive: isPositive(statistics?.averageTradingMonth),
-                  data: TradelyNumberUtils.formatNullableValuta(
-                    statistics?.averageTradingMonth,
-                  ),
+                  positive: false,
+                  data: '',
                 ),
                 const SizedBox(
                   width: PaddingSizes.extraSmall,
@@ -152,16 +134,11 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 DataList(
                   loading: loading,
                   values: {
-                    "Total P&L": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.totalPL,
-                    ),
+                    "Total P&L": '',
 
                     // TODO : Average Daily Volume
 
-                    "Average Winning Trade":
-                        TradelyNumberUtils.formatNullableValuta(
-                      statistics?.averageWinningTrade,
-                    ),
+                    "Average Winning Trade": '',
 
                     "Average Losing Trade":
                         TradelyNumberUtils.formatNullableValuta(
@@ -169,9 +146,7 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                       0,
                     ),
 
-                    "Total Number of Trades":
-                        statistics?.totalNumberOfTrades?.toStringAsFixed(0) ??
-                            "-",
+                    "Total Number of Trades": "-",
 
                     "Number of Winning Trades":
                         // TODO: Number of winning trades
@@ -180,29 +155,18 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                         // TODO: Number of losing trades
                         "-",
 
-                    "Number of Break Even Trades": statistics
-                            ?.numberOfBreakEvenTrades
-                            ?.toStringAsFixed(0) ??
-                        "-",
+                    "Number of Break Even Trades": "-",
                     "Max Consecutive Wins":
                         // TODO : Max consecutive wins
                         "-",
-                    "Max Consecutive Losses":
-                        statistics?.maxConsecutiveLosses?.toStringAsFixed(0) ??
-                            "-",
+                    "Max Consecutive Losses": "-",
 
                     // TODO : Commissions
                     // TODO : Swap
 
-                    "Total Fees": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.totalFees,
-                    ),
-                    "Largest Profit": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.largestProfit,
-                    ),
-                    "Largest Loss": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.largestLoss,
-                    ),
+                    "Total Fees": "",
+                    "Largest Profit": '',
+                    "Largest Loss": '',
                     "Average Trade P&L":
                         // TODO: Average trade P&L
                         "-",

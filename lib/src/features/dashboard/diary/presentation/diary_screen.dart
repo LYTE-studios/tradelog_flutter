@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
-import 'package:tradelog_flutter/src/core/utils/asset_util.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
@@ -41,8 +38,6 @@ class DiaryScreen extends StatefulWidget {
 }
 
 class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
-  StatisticsDto? statistics;
-
   Map<DateTime, double> chartData = {};
 
   double totalRoi = 0;
@@ -58,12 +53,8 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
 
   DateTime selectedDate = DateTime.now();
 
-  Note? note;
-
-  List<TradeDto> trades = [];
-
   Future<String?> _saveImage(FilePickerResult result) async {
-    return AssetUtil.uploadImage(result.files.first);
+    // return AssetUtil.uploadImage(result.files.first);
   }
 
   // Custom function to pick an image from the file system
@@ -84,18 +75,17 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   }
 
   Future<void> update() async {
-    note!.content = toBeUpdatedValue;
     lastUpdatedValue = toBeUpdatedValue;
 
-    await client.note.updateNote(note!);
+    // await client.note.updateNote(note!);
   }
 
   Future<void> startTicker() async {
     while (mounted) {
       if (toBeUpdatedValue != lastUpdatedValue) {
-        if (note != null) {
-          await update();
-        }
+        // if (note != null) {
+        //   await update();
+        // }
       }
 
       await Future.delayed(
@@ -110,64 +100,6 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   void initState() {
     startTicker();
     super.initState();
-  }
-
-  @override
-  Future<void> loadData() async {
-    if (toBeUpdatedValue != lastUpdatedValue) {
-      await update();
-    }
-
-    note = await client.note.getNoteForDate(selectedDate);
-
-    DateTime from = DateTime.utc(
-      selectedDate.year,
-      selectedDate.month,
-      selectedDate.day,
-    );
-
-    DateTime to = DateTime.utc(
-      selectedDate.year,
-      selectedDate.month,
-      selectedDate.day + 1,
-    );
-
-    trades = await client.global.getTrades(
-      from: from,
-      to: to,
-    );
-
-    statistics = await client.statistics.getStatistics(
-      from: from,
-      to: to,
-    );
-
-    chartData = statistics?.equityChart ?? {};
-
-    totalRoi = 0;
-
-    chartData[from] = 0;
-
-    for (double roi in trades.map((e) => e.realizedPl ?? 0)) {
-      totalRoi += roi;
-    }
-
-    chartData[to] = totalRoi;
-
-    Document document = Document();
-
-    if (note!.content.isNotEmpty) {
-      document = Document.fromJson(jsonDecode(note!.content));
-    }
-
-    setState(() {
-      chartData = chartData;
-      statistics = statistics;
-      note = note;
-      _controller.document = document;
-    });
-
-    return super.loadData();
   }
 
   @override
@@ -240,13 +172,13 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                       ),
                       const SizedBox(height: PaddingSizes.large),
                       SmallDataList(
-                        totalTrades: statistics?.totalNumberOfTrades,
-                        averageWin: statistics?.averageWinningTrade,
-                        averageWinStreak: statistics?.averageWinStreak?.toInt(),
-                        maxWinStreak: statistics?.maxWinStreak?.toInt(),
-                        bestWin: statistics?.largestProfit,
-                        bestLoss: statistics?.largestLoss,
-                      ),
+                          // totalTrades: statistics?.totalNumberOfTrades,
+                          // averageWin: statistics?.averageWinningTrade,
+                          // averageWinStreak: statistics?.averageWinStreak?.toInt(),
+                          // maxWinStreak: statistics?.maxWinStreak?.toInt(),
+                          // bestWin: statistics?.largestProfit,
+                          // bestLoss: statistics?.largestLoss,
+                          ),
                     ],
                   ),
                 ),
@@ -506,7 +438,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                                     ),
                                   ],
                                 ),
-                                rows: trades
+                                rows: []
                                     .map(
                                       (trade) => CustomRow(
                                         horizontalPadding: 20,
