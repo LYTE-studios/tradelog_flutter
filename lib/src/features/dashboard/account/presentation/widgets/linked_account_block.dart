@@ -6,6 +6,8 @@ import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class LinkedAccountBlock extends StatefulWidget {
+  final Function()? delete;
+
   final String name;
 
   final String currency;
@@ -18,17 +20,15 @@ class LinkedAccountBlock extends StatefulWidget {
 
   final Function()? onTap;
 
-  final Function()? refresh;
-
   const LinkedAccountBlock({
     super.key,
+    this.delete,
     required this.name,
     required this.currency,
     required this.balance,
     this.selectable = false,
     this.selected = false,
     this.onTap,
-    this.refresh,
   });
 
   @override
@@ -39,12 +39,6 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
   bool isHovering = false;
 
   late bool selected = widget.selected;
-
-  Future<void> deleteAccount() async {
-    // await client.account.removeAccount(widget.linkedAccount.linkedAccountId!);
-
-    widget.refresh?.call();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +135,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                             // Do something for Disable
                             break;
                           case 'Delete':
-                            deleteAccount();
+                            widget.delete?.call();
                             break;
                         }
                       },

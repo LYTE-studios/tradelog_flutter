@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/meta_api/meta_api_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/tradelocker/tradelocker_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/tradely_enums.dart';
+import 'package:tradelog_flutter/src/core/data/services/meta_api_service.dart';
 import 'package:tradelog_flutter/src/core/data/services/tradelocker_api_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -61,7 +63,26 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
     switch (_selectedPlatform) {
       case TradingPlatform.metaTrader4:
       case TradingPlatform.metaTrader5:
-        return;
+        {
+          try {
+            await MetaApiService().authenticate(
+              MetaApiCredentialsDto(
+                username: tecUserName.text,
+                password: tecPassword.text,
+                server: tecServerName.text,
+                platform: _selectedPlatform!,
+                accountName: tecAccountName.text,
+              ),
+            );
+          } catch (e) {
+            setState(() {
+              loading = false;
+              error =
+                  'Incorrect login data. Please check all fields and try again.';
+            });
+            return;
+          }
+        }
       case TradingPlatform.tradelockerDemo:
       case TradingPlatform.tradelockerLive:
         {
@@ -71,8 +92,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                 email: tecUserName.text,
                 password: tecPassword.text,
                 server: tecServerName.text,
-                demoStatus:
-                    _selectedPlatform == TradingPlatform.tradelockerDemo,
+                platform: _selectedPlatform!,
                 accountName: tecAccountName.text,
               ),
             );

@@ -114,6 +114,14 @@ class ApiService {
     );
   }
 
+  Future<Response> delete(
+    String endpoint,
+  ) async {
+    return await dio.delete(
+      endpoint,
+    );
+  }
+
   Future<Response> post(
     String endpoint, {
     Map<String, dynamic>? body,

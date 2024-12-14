@@ -40,6 +40,7 @@ mixin ScreenStateMixin<T extends StatefulWidget> on State<T> {
           await loadData();
           setLoading(false);
         } catch (e) {
+          print(e);
           await showError();
         }
       },
