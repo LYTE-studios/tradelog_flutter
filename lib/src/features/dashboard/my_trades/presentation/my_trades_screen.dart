@@ -80,6 +80,27 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
         buttons: Row(
           children: [
             PrimaryButton(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              padding: EdgeInsets.zero,
+              prefixIconPadding: EdgeInsets.zero,
+              align: MainAxisAlignment.center,
+              prefixIcon: TradelyIcons.refresh,
+              onTap: () async {
+                setLoading(true);
+
+                await UsersService().refreshAccount();
+
+                await loadData();
+
+                setLoading(false);
+              },
+              height: 42,
+              width: 42,
+            ),
+            const SizedBox(
+              width: PaddingSizes.medium,
+            ),
+            PrimaryButton(
               onTap: () {
                 downloadCsv();
               },
@@ -88,7 +109,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               color: Theme.of(context).colorScheme.primaryContainer,
             ),
             const SizedBox(
-              width: PaddingSizes.large,
+              width: PaddingSizes.medium,
             ),
             FilterTradesButton(
               onTap: () {},

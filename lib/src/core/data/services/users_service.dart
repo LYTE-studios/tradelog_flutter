@@ -36,4 +36,8 @@ class UsersService extends ApiService {
   Future<void> fetchTrades() async {
     Response response = await get('get_all_trades/');
   }
+
+  Future<void> refreshAccount() async {
+    Response response = await post('refresh-account/');
+  }
 }

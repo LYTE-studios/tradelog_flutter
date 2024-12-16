@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:tradelog_flutter/secrets.dart';
 
 class ApiService {
   final String baseUrl;
@@ -82,9 +83,15 @@ class ApiService {
       final refreshToken = await storage.read(key: 'refresh_token');
       if (refreshToken == null) return false;
 
-      final response = await dio.post('token/refresh/', data: {
+      String url = dio.options.baseUrl;
+
+      dio.options.baseUrl = apiUrl;
+
+      final response = await dio.post('users/token/refresh/', data: {
         'refresh': refreshToken,
       });
+
+      dio.options.baseUrl = url;
 
       if (response.statusCode == 200) {
         await setTokens(response.data['access'], response.data['refresh']);
