@@ -10,12 +10,16 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/co
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/progress_data_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/daily-net-cummulative.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/drawdown.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/net-daily.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+
+import 'containers/activity_heatmap_container.dart';
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({super.key});
@@ -136,17 +140,11 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Container(
-                        width: 380,
-                        height: 350,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF1B1B1B), // Dark background
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                      ),
                       NetDailyPLChart(),
+                      DailyNetCumulativePLChart(),
                     ],
-                  )
+                  ),
+
                 ],
               ),
             ),
@@ -155,6 +153,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
             ),
             Expanded(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   LongShortContainer(
                     long: statistics?.longTradesAmount ?? 0,
@@ -174,6 +173,10 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                   ProfitContainer(
                     factor: statistics?.profitFactor,
                   ),
+                  SizedBox(
+                    height: 410,
+                  ),
+                  DrawdownChart(),
                   // TODO activityHeatmap
                   // const Expanded(
                   //   child: ActivityHeatmapContainer(),
