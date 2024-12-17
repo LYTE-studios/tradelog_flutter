@@ -47,7 +47,6 @@ class _LongShortContainerState extends State<LongShortContainer> {
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      loading: widget.loading,
       padding: const EdgeInsets.all(
         PaddingSizes.large,
       ),

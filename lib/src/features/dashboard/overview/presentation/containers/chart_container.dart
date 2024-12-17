@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/base_data_container.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class ChartContainer extends StatelessWidget {
@@ -28,6 +27,7 @@ class ChartContainer extends StatelessWidget {
       title: title,
       toolTip: toolTip,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(
             height: PaddingSizes.large,
@@ -54,14 +54,14 @@ class ChartContainer extends StatelessWidget {
           const SizedBox(
             height: PaddingSizes.large,
           ),
-          Expanded(
-            child: EquityLineChart(
-              data: data
-                  .map((date, value) => MapEntry(date, ChartData(date, value)))
-                  .values
-                  .toList(),
-            ),
-          ),
+          // Expanded(
+          //   child: EquityLineChart(
+          //     data: data
+          //         .map((date, value) => MapEntry(date, ChartData(date, value)))
+          //         .values
+          //         .toList(),
+          //   ),
+          // ),
         ],
       ),
     );

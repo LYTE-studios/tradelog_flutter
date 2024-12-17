@@ -18,8 +18,8 @@ class ApiService {
         dio = Dio(
           BaseOptions(
             baseUrl: baseUrl,
-            connectTimeout: const Duration(seconds: 10),
-            receiveTimeout: const Duration(seconds: 10),
+            connectTimeout: const Duration(seconds: 120),
+            receiveTimeout: const Duration(seconds: 120),
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
@@ -39,6 +39,12 @@ class ApiService {
     if (authenticated) {
       _setupInterceptors();
     }
+  }
+
+  Future<bool> isAuthenticated() async {
+    final refreshToken = await storage.read(key: 'refresh_token');
+
+    return refreshToken != null;
   }
 
   void _setupInterceptors() {

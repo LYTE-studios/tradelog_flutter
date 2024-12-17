@@ -10,8 +10,6 @@ class DataContainer extends StatelessWidget {
 
   final double? value;
 
-  final double? percentage;
-
   final bool loading;
 
   const DataContainer({
@@ -19,7 +17,6 @@ class DataContainer extends StatelessWidget {
     required this.title,
     required this.toolTip,
     this.value,
-    this.percentage,
     this.loading = false,
   });
 

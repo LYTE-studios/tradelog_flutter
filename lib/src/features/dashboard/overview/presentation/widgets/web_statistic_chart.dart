@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class WebStatisticChart extends StatelessWidget {
   final Map<String, double> data;
@@ -17,7 +18,7 @@ class WebStatisticChart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(
-        PaddingSizes.medium,
+        PaddingSizes.xxl,
       ),
       child: RadarChart(
         RadarChartData(
@@ -27,7 +28,10 @@ class WebStatisticChart extends StatelessWidget {
           tickBorderData:
               BorderSide(color: Colors.grey.withOpacity(1), width: 1),
           ticksTextStyle: const TextStyle(color: Colors.transparent),
-          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 14),
+          titleTextStyle: TextStyle(
+            color: TextStyles.bodyColor,
+            fontSize: 10,
+          ),
           borderData: FlBorderData(show: false),
           radarShape: RadarShape.polygon,
           tickCount: 4,
@@ -35,6 +39,7 @@ class WebStatisticChart extends StatelessWidget {
             return RadarChartTitle(
               text: data.keys.toList()[index],
               angle: 0,
+              positionPercentageOffset: .28,
             );
           },
           dataSets: [

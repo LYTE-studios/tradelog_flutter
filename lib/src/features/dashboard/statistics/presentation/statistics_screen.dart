@@ -71,8 +71,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
         ),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          // should this Row be a fixed height?
           SizedBox(
             height: 114,
             child: Row(
@@ -128,7 +128,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
           const SizedBox(
             width: PaddingSizes.extraSmall,
           ),
-          Expanded(
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.61,
             child: Row(
               children: [
                 DataList(

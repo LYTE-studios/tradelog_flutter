@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
+import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:tradelog_flutter/src/core/routing/router.dart';
+import 'package:tradelog_flutter/src/features/authentication/screens/first_glance/first_glance_screen.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -27,8 +31,22 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen>
+    with ScreenStateMixin {
   bool extended = true;
+
+  @override
+  Future<void> loadData() async {
+    bool isAuthenticated = await UsersService().isAuthenticated();
+
+    if (!isAuthenticated) {
+      router.pushReplacement(FirstGlanceScreen.route);
+    }
+
+    await UsersService().refreshAccount(forceRefresh: false);
+
+    return super.loadData();
+  }
 
   @override
   Widget build(BuildContext context) {

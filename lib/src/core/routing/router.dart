@@ -97,14 +97,6 @@ GoRouter router = GoRouter(
     ),
     ShellRoute(
       builder: (context, state, child) {
-        // if (!sessionManager.isSignedIn) {
-        //   router.pushReplacement(LoginScreen.route);
-        // }
-        //
-        // if (!apiManager.isInitialized) {
-        //   apiManager.initialize();
-        // }
-
         return DashboardScreen(child: child);
       },
       routes: [

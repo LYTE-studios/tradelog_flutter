@@ -51,7 +51,7 @@ class BaseContainer extends StatelessWidget {
       padding: outsidePadding ??
           const EdgeInsets.symmetric(
             vertical: PaddingSizes.extraSmall,
-            horizontal: PaddingSizes.xxs,
+            horizontal: PaddingSizes.extraSmall,
           ),
       child: Container(
         constraints: boxConstraints,

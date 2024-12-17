@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:to_csv/to_csv.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_item_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
+import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -32,10 +34,17 @@ class MyTradesScreen extends StatefulWidget {
 class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
   TradeOption tradeTypeFilter = TradeOption.short;
 
+  List<TradeListItemDto> trades = [];
+
   Future<void> downloadCsv() async {
     await myCSV(
-      ["Open Time", "Symbol", "Direction", "Status", "Net P&L", "Net ROI %"],
-      []
+      [
+        "Open Time",
+        "Symbol",
+        "Direction",
+        "Profit",
+      ],
+      trades
           .map(
             (e) => <String>[
               TradelyDateTimeUtils.toReadableTime(
@@ -44,9 +53,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               ),
               e.symbol,
               e.option.toString(),
-              e.status.toString(),
-              e.realizedPl?.toStringAsFixed(2) ?? "",
-              e.netRoi?.toStringAsFixed(2) ?? "",
+              e.profit?.toStringAsFixed(2) ?? "",
             ],
           )
           .toList(),
@@ -63,7 +70,11 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   @override
   Future<void> loadData() async {
-    await UsersService().fetchTrades();
+    trades = (await UsersService().fetchTrades()).trades;
+
+    setState(() {
+      trades = trades;
+    });
 
     return super.loadData();
   }
@@ -88,7 +99,9 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               onTap: () async {
                 setLoading(true);
 
-                await UsersService().refreshAccount();
+                try {
+                  await UsersService().refreshAccount();
+                } catch (e) {}
 
                 await loadData();
 
@@ -129,8 +142,10 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
         ),
       ),
       child: BaseContainer(
+        height: MediaQuery.of(context).size.height * .73,
         padding: const EdgeInsets.only(top: 10),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
@@ -153,7 +168,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                     ),
                     HeaderRowItem(
                       flex: 1,
-                      text: 'Status',
+                      text: 'Lot Size',
                     ),
                     HeaderRowItem(
                       flex: 1,
@@ -165,7 +180,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                     ),
                   ],
                 ),
-                rows: []
+                rows: trades
                     .map(
                       (trade) => CustomRow(
                         horizontalPadding: 40,
@@ -186,24 +201,23 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                             flex: 1,
                           ),
                           TextRowItem(
-                            text: trade.status.name,
+                            text: trade.quantity?.toStringAsFixed(2) ?? "",
+                            flex: 1,
+                          ),
+                          TextProfitLoss(
+                            text: TradelyNumberUtils.formatNullableValuta(
+                                trade.profit),
+                            short: (trade.profit == null) || (trade.profit == 0)
+                                ? null
+                                : (trade.profit! < 0),
                             flex: 1,
                           ),
                           TextProfitLoss(
                             text:
-                                "\$${trade.realizedPl?.abs().toStringAsFixed(2) ?? "-"}",
-                            short: (trade.realizedPl == null) ||
-                                    (trade.realizedPl == 0)
+                                "%${trade.profit?.abs().toStringAsFixed(2) ?? "-"}",
+                            short: (trade.profit == null) || (trade.profit == 0)
                                 ? null
-                                : (trade.realizedPl! < 0),
-                            flex: 1,
-                          ),
-                          TextProfitLoss(
-                            text:
-                                "%${trade.netRoi?.abs().toStringAsFixed(2) ?? "-"}",
-                            short: (trade.netRoi == null) || (trade.netRoi == 0)
-                                ? null
-                                : (trade.netRoi! < 0),
+                                : (trade.profit! < 0),
                             flex: 1,
                           ),
                         ],

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:tradelog_flutter/secrets.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trading_account_list_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/api_service.dart';
 
@@ -33,11 +35,31 @@ class UsersService extends ApiService {
     throw Exception('Could not fetch Accounts');
   }
 
-  Future<void> fetchTrades() async {
+  Future<TradeListDto> fetchTrades() async {
     Response response = await get('get_all_trades/');
+
+    if (response.statusCode == 200) {
+      return TradeListDto.fromJson(response.data);
+    }
+
+    throw Exception('Could not fetch Trades');
   }
 
-  Future<void> refreshAccount() async {
-    Response response = await post('refresh-account/');
+  Future<void> refreshAccount({
+    bool forceRefresh = true,
+  }) async {
+    await post('refresh-account/', body: {
+      'force_refresh': forceRefresh,
+    });
+  }
+
+  Future<OverviewStatisticsDto> getAccountStatistics() async {
+    Response response = await get('statistics/');
+
+    if (response.statusCode == 200) {
+      return OverviewStatisticsDto.fromJson(response.data);
+    }
+
+    throw Exception('Could not fetch Statistics');
   }
 }
