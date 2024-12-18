@@ -74,6 +74,7 @@ class TradelyIcons {
   // PNG Logos
   static const String metatrader = '$_basePath/metatrader.png';
   static const String tradelocker = '$_basePath/tradelocker.png';
+  static const String cTrader = '$_basePath/c_trader.png';
 
   static const List<String> icons = [
     account,

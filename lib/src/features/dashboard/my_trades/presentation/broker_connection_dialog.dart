@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/c_trader/c_trader_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/meta_api/meta_api_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/tradelocker/tradelocker_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/tradely_enums.dart';
+import 'package:tradelog_flutter/src/core/data/services/c_trader_api_service.dart';
 import 'package:tradelog_flutter/src/core/data/services/meta_api_service.dart';
 import 'package:tradelog_flutter/src/core/data/services/tradelocker_api_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
@@ -105,6 +107,26 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
             return;
           }
         }
+      case TradingPlatform.cTrader:
+        {
+          try {
+            await CTraderApiService().authenticate(
+              CTraderCredentialsDto(
+                username: tecUserName.text,
+                password: tecPassword.text,
+                server: tecServerName.text,
+                accountName: tecAccountName.text,
+              ),
+            );
+          } catch (e) {
+            setState(() {
+              loading = false;
+              error =
+                  'Incorrect login data. Please check all fields and try again.';
+            });
+            return;
+          }
+        }
       default:
     }
 
@@ -150,6 +172,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
       case TradingPlatform.tradelockerDemo:
       case TradingPlatform.tradelockerLive:
         return TradelyIcons.tradelocker;
+      case TradingPlatform.cTrader:
+        return TradelyIcons.cTrader;
       default:
     }
 

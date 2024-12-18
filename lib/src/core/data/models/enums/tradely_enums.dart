@@ -19,6 +19,7 @@ enum TradingPlatform {
   metaTrader5,
   tradelockerDemo,
   tradelockerLive,
+  cTrader,
 }
 
 extension TradingPlatformExtension on TradingPlatform {
@@ -32,6 +33,8 @@ extension TradingPlatformExtension on TradingPlatform {
         return 'Tradelocker Demo';
       case TradingPlatform.tradelockerLive:
         return 'Tradelocker Live';
+      case TradingPlatform.cTrader:
+        return 'CTrader';
       default:
         return '';
     }
