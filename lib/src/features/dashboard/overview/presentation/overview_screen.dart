@@ -141,9 +141,12 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       NetDailyPLChart(),
-                      DailyNetCumulativePLChart(),
+                      DrawdownChart(),
+
                     ],
                   ),
+
+
 
                 ],
               ),
@@ -173,10 +176,11 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                   ProfitContainer(
                     factor: statistics?.profitFactor,
                   ),
+
                   SizedBox(
                     height: 410,
                   ),
-                  DrawdownChart(),
+                  DailyNetCumulativePLChart(),
                   // TODO activityHeatmap
                   // const Expanded(
                   //   child: ActivityHeatmapContainer(),

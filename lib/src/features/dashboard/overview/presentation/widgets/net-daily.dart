@@ -28,7 +28,7 @@ class NetDailyPLChart extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 30),
                 Expanded(
                   child: BarChart(
                     BarChartData(
@@ -53,6 +53,8 @@ class NetDailyPLChart extends StatelessWidget {
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
+                            reservedSize: 22,
+                            interval: 1,
                             getTitlesWidget: (value, meta) {
                               final labels = ["03/09/24", "04/09/24", "05/09/24", "06/09/24"];
                               if (value.toInt() < 0 || value.toInt() >= labels.length) return const SizedBox();
@@ -64,7 +66,6 @@ class NetDailyPLChart extends StatelessWidget {
                                 ),
                               );
                             },
-                            reservedSize: 22,
                           ),
                         ),
                         rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -95,35 +96,18 @@ class NetDailyPLChart extends StatelessWidget {
             top: 8,
             right: 8,
             child: PopupMenuButton<String>(
-              onSelected: (value) {
-                // Handle selection
-              },
+              onSelected: (value) {},
               itemBuilder: (context) => [
-                const PopupMenuItem<String>(
-                  value: "change_report",
-                  child: Text("Change Report"),
-                ),
-                const PopupMenuItem<String>(
-                  value: "remove_widget",
-                  child: Text("Remove Widget"),
-                ),
-                const PopupMenuItem<String>(
-                  value: "refresh_data",
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Refresh Data"),
-                      SizedBox(height: 4),
-                      Text(
-                        "Data from < 1 min ago",
-                        style: TextStyle(color: Colors.grey, fontSize: 10),
-                      ),
-                    ],
-                  ),
+                _buildPopupMenuItem("change_report", "Change Report"),
+                _buildPopupMenuItem("remove_widget", "Remove Widget"),
+                _buildPopupMenuItemWithSubtitle(
+                  "refresh_data",
+                  "Refresh Data",
+                  "Data from < 1 min ago",
                 ),
               ],
-            )
-            ,
+              icon: const Icon(Icons.more_vert, color: Colors.white54),
+            ),
           ),
         ],
       ),
@@ -134,6 +118,24 @@ class NetDailyPLChart extends StatelessWidget {
     return PopupMenuItem<String>(
       value: value,
       child: Text(label),
+    );
+  }
+
+  PopupMenuItem<String> _buildPopupMenuItemWithSubtitle(
+      String value, String label, String subtitle) {
+    return PopupMenuItem<String>(
+      value: value,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label),
+          const SizedBox(height: 4),
+          Text(
+            subtitle,
+            style: const TextStyle(color: Colors.grey, fontSize: 10),
+          ),
+        ],
+      ),
     );
   }
 

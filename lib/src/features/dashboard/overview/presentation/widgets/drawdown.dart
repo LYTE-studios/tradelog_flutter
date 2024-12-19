@@ -10,18 +10,16 @@ class DrawdownChart extends StatelessWidget {
       width: 380,
       height: 350,
       decoration: BoxDecoration(
-        color: const Color(0xFF1B1B1B), // Dark background
+        color: const Color(0xFF1B1B1B),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Stack(
         children: [
-          // Chart and Header
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header Section
                 const Row(
                   children: [
                     Icon(Icons.info_outline, color: Colors.white54, size: 14),
@@ -36,22 +34,21 @@ class DrawdownChart extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                // Chart Section
+                const SizedBox(height: 30),
                 Expanded(
                   child: LineChart(
                     LineChartData(
-                      minY: -400, // Minimum Y value
-                      maxY: 0, // Maximum Y value
+                      minY: -400,
+                      maxY: 0,
                       gridData: FlGridData(
                         show: true,
                         drawVerticalLine: false,
-                        horizontalInterval: 50, // Ensures all lines are drawn
+                        horizontalInterval: 50,
                         getDrawingHorizontalLine: (value) {
                           return const FlLine(
-                            color: Colors.white24, // Dotted line color
+                            color: Colors.white24,
                             strokeWidth: 0.8,
-                            dashArray: [2, 2], // Dotted line effect
+                            dashArray: [2, 2],
                           );
                         },
                       ),
@@ -59,14 +56,14 @@ class DrawdownChart extends StatelessWidget {
                         leftTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            interval: 50, // Interval for left labels
-                            reservedSize: 36,
+                            interval: 50,
+                            reservedSize: 60,
                             getTitlesWidget: (value, meta) {
                               return Text(
-                                value.toInt().toString(),
+                                '\$${value.toInt().toString()}.0',
                                 style: const TextStyle(
                                   color: Colors.white60,
-                                  fontSize: 10,
+                                  fontSize: 12,
                                 ),
                               );
                             },
@@ -75,22 +72,23 @@ class DrawdownChart extends StatelessWidget {
                         bottomTitles: AxisTitles(
                           sideTitles: SideTitles(
                             showTitles: true,
-                            reservedSize: 20,
-                            interval: 1, // Ensures alignment with FlSpots
+                            reservedSize: 25,
+                            interval: 1,
                             getTitlesWidget: (value, meta) {
                               final labels = [
                                 "03/09/24",
                                 "04/09/24",
                                 "05/09/24",
-                                "06/09/24"
+                                "06/09/24",
                               ];
-                              if (value.toInt() >= 0 && value.toInt() < labels.length) {
-                                return Center(
-                                  child: Text(
-                                    labels[value.toInt()],
-                                    style: const TextStyle(
-                                      color: Colors.white60,
-                                      fontSize: 10,
+                              if (value >= 0 && value < labels.length) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Transform.translate(
+                                    offset: Offset(40 + (value * 25), 0), // Adds spacing dynamically
+                                    child: Text(
+                                        labels[value.toInt()],
+                                        style: const TextStyle(color: Color(0xff898989), fontSize: 12, fontWeight: FontWeight.w500)
                                     ),
                                   ),
                                 );
@@ -103,27 +101,34 @@ class DrawdownChart extends StatelessWidget {
                         topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
                       ),
                       borderData: FlBorderData(
-                        show: true,
-                        border: Border.all(
-                          color: const Color(0xFF444444),
-                        ),
+                        show: false,
                       ),
                       lineBarsData: [
                         LineChartBarData(
                           spots: const [
                             FlSpot(0, 0),
                             FlSpot(1, 0),
-                            FlSpot(2, -250),
-                            FlSpot(3, -300),
+                            FlSpot(2, 0),
+                            FlSpot(3, 0),
+                            FlSpot(4, -250),
+                            FlSpot(5, -300),
+                            FlSpot(6, -350),
                           ],
                           isCurved: false,
                           color: Colors.redAccent,
                           barWidth: 2,
                           isStrokeCapRound: true,
-                          dotData: const FlDotData(show: false), // No dots on the line
-                          belowBarData: BarAreaData(
+                          dotData: const FlDotData(show: false),
+                          aboveBarData: BarAreaData(
                             show: true,
-                            color: Colors.redAccent.withOpacity(0.3),
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.redAccent.withOpacity(0.3),
+                                Colors.redAccent.withOpacity(0.0),
+                              ],
+                            ),
                           ),
                         ),
                       ],
@@ -133,7 +138,6 @@ class DrawdownChart extends StatelessWidget {
               ],
             ),
           ),
-          // Burger Menu Icon at the Top Right
           Positioned(
             top: 8,
             right: 8,

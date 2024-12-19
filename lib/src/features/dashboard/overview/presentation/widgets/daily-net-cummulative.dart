@@ -28,7 +28,7 @@ class DailyNetCumulativePLChart extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 30),
                 Expanded(
                   child: LineChart(
                     _mainData(),
@@ -133,14 +133,13 @@ class DailyNetCumulativePLChart extends StatelessWidget {
             getTitlesWidget: (value, meta) {
               final labels = ["03/09/24", "05/09/24", "07/09/24", "09/09/24"];
               if (value >= 0 && value < labels.length) {
-                return Transform.translate(
-                  offset: Offset(40 + (value * 25), 0), // Adds spacing dynamically
-                  child: Text(
-                    labels[value.toInt()],
-                    style: const TextStyle(
-                      color: Colors.white60,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+                return Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Transform.translate(
+                    offset: Offset(40 + (value * 25), 0), // Adds spacing dynamically
+                    child: Text(
+                      labels[value.toInt()],
+                        style: const TextStyle(color: Color(0xff898989), fontSize: 12, fontWeight: FontWeight.w500)
                     ),
                   ),
                 );
@@ -162,20 +161,36 @@ class DailyNetCumulativePLChart extends StatelessWidget {
           isStrokeCapRound: true,
           gradient: const LinearGradient(
             colors: [Colors.green, Colors.red],
-            stops: [0.5, 1.0],
+            stops: [0.5, 0.6],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
+          aboveBarData: BarAreaData(
+            show: true,
+            applyCutOffY: true,
+            cutOffY: 0.0,
+            gradient: LinearGradient(
+              colors: [
+                Colors.redAccent.withOpacity(0.3),
+                Colors.redAccent.withOpacity(0.3),
+              ],
+              stops: const [1.0, 1.0],
+              begin: Alignment.topCenter,
+              end: Alignment.topCenter,
+            ),
+          ),
           belowBarData: BarAreaData(
             show: true,
+            applyCutOffY: true,
+            cutOffY: 0.0,
             gradient: LinearGradient(
               colors: [
                 Colors.greenAccent.withOpacity(0.3),
-                Colors.redAccent.withOpacity(0.3),
+                Colors.greenAccent.withOpacity(0.3),
               ],
-              stops: [0.5, 1.0],
+              stops: const [1.0, 1.0],
               begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+              end: Alignment.topCenter,
             ),
           ),
           dotData: const FlDotData(show: false),
