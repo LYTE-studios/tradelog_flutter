@@ -25,6 +25,5 @@ class TradeListItemDto {
         quantity = json['quantity'] as double?,
         price = json['price'] as double?,
         profit = json['profit'] as double?,
-        // For now
-        openTime = null;
+        openTime = DateTime.parse(json['trade_date'] as String);
 }

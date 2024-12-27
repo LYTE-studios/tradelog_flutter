@@ -18,6 +18,7 @@ import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/list/header_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/text_profit_loss.dart';
 import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
+import 'package:tradelog_flutter/src/ui/list/trade_list.dart';
 import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
@@ -149,81 +150,9 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: GenericListView(
+              child: TradeList(
                 loading: loading,
-                header: const CustomHeader(
-                  horizontalPadding: 40,
-                  children: [
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Open Time',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Symbol',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Direction',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Lot Size',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Net P/L',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Net ROI %',
-                    ),
-                  ],
-                ),
-                rows: trades
-                    .map(
-                      (trade) => CustomRow(
-                        horizontalPadding: 40,
-                        rowItems: [
-                          TextRowItem(
-                            text: TradelyDateTimeUtils.toReadableTime(
-                              trade.openTime,
-                              true,
-                            ),
-                            flex: 1,
-                          ),
-                          TextRowItem(
-                            text: trade.symbol,
-                            flex: 1,
-                          ),
-                          TrendRowItem(
-                            option: trade.option,
-                            flex: 1,
-                          ),
-                          TextRowItem(
-                            text: trade.quantity?.toStringAsFixed(2) ?? "",
-                            flex: 1,
-                          ),
-                          TextProfitLoss(
-                            text: TradelyNumberUtils.formatNullableValuta(
-                                trade.profit),
-                            short: (trade.profit == null) || (trade.profit == 0)
-                                ? null
-                                : (trade.profit! < 0),
-                            flex: 1,
-                          ),
-                          TextProfitLoss(
-                            text:
-                                "%${trade.profit?.abs().toStringAsFixed(2) ?? "-"}",
-                            short: (trade.profit == null) || (trade.profit == 0)
-                                ? null
-                                : (trade.profit! < 0),
-                            flex: 1,
-                          ),
-                        ],
-                      ),
-                    )
-                    .toList(),
+                trades: trades,
               ),
             ),
           ],

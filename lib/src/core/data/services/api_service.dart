@@ -20,6 +20,7 @@ class ApiService {
             baseUrl: baseUrl,
             connectTimeout: const Duration(seconds: 120),
             receiveTimeout: const Duration(seconds: 120),
+            sendTimeout: const Duration(seconds: 120),
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',
@@ -120,10 +121,12 @@ class ApiService {
   }
 
   Future<Response> get(
-    String endpoint,
-  ) async {
+    String endpoint, {
+    Map<String, dynamic>? queryParameters,
+  }) async {
     return await dio.get(
       endpoint,
+      queryParameters: queryParameters,
     );
   }
 
