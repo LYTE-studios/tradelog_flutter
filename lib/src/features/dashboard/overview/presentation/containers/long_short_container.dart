@@ -14,9 +14,6 @@ class LongShortContainer extends StatefulWidget {
   final double? bestWin;
   final double? bestLoss;
 
-  final int? averageWinStreak;
-  final int? maxWinStreak;
-
   final bool loading;
 
   const LongShortContainer({
@@ -26,8 +23,6 @@ class LongShortContainer extends StatefulWidget {
     this.averageWin,
     this.bestWin,
     this.bestLoss,
-    this.averageWinStreak,
-    this.maxWinStreak,
     this.loading = false,
   });
 
@@ -102,8 +97,9 @@ class _LongShortContainerState extends State<LongShortContainer> {
             height: 64,
             child: SmallDataList(
               totalTrades: widget.long + widget.short,
-              maxWinStreak: widget.maxWinStreak,
-              averageWinStreak: widget.averageWinStreak,
+              long: widget.long,
+              short: widget.short,
+              averageWin: widget.averageWin,
               bestWin: widget.bestWin,
               bestLoss: widget.bestLoss,
             ),

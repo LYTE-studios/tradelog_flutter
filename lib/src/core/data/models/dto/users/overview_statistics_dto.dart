@@ -4,13 +4,15 @@ class OverviewStatisticsDto {
   final OverallStatisticsDto overallStatistics;
   final List<SymbolPerformanceDto> symbolPerformances;
   final List<MonthlySummaryDto> monthlySummaries;
-  final Map<String, double> weekDistribution;
+  final WeekDistributionDto weekDistribution;
+  final SessionDistributionDto sessionDistribution;
 
   const OverviewStatisticsDto({
     required this.overallStatistics,
     required this.symbolPerformances,
     required this.monthlySummaries,
     required this.weekDistribution,
+    required this.sessionDistribution,
   });
 
   static Map<String, double> getDefaultSymbolChartMap() {
@@ -22,6 +24,9 @@ class OverviewStatisticsDto {
   }
 
   Map<String, double> toSymbolChartMap() {
+    if (symbolPerformances.isEmpty) {
+      return OverviewStatisticsDto.getDefaultSymbolChartMap();
+    }
     double highestValue =
         symbolPerformances.map((e) => e.totalTrades).reduce(max).toDouble();
 
@@ -33,25 +38,19 @@ class OverviewStatisticsDto {
       symbolPerformances.map(
         (SymbolPerformanceDto symbol) => MapEntry(
           symbol.symbol,
-          symbol.totalTrades.toDouble() / highestValue,
+          symbol.totalTrades.toDouble(),
         ),
       ),
     );
 
-    void removeSmallest() {
-      MapEntry<String, double>? minEntry;
+    if (map.length > 7) {
+      List<String> keys = map.keys.toList();
 
-      for (MapEntry<String, double> entry in map.entries) {
-        if (minEntry == null || minEntry.value > entry.value) {
-          minEntry = entry;
-        }
+      keys.sort((a, b) => map[b]!.compareTo(map[a]!));
+
+      for (int i = 1; i < map.length - 6; i++) {
+        map.remove(keys[map.length - i]);
       }
-
-      map.remove(minEntry?.key);
-    }
-
-    while (map.length > 7) {
-      removeSmallest();
     }
 
     if (map.length < 5) {
@@ -70,11 +69,87 @@ class OverviewStatisticsDto {
         monthlySummaries = (json['monthly_summary'] as List)
             .map((summary) => MonthlySummaryDto.fromJson(summary))
             .toList(),
-        weekDistribution = (json['day_of_week_analysis']['distribution'] as Map)
-            .map((key, value) => MapEntry(key as String, value as double));
+        weekDistribution = WeekDistributionDto.fromJson(
+          json['day_of_week_analysis']['distribution'],
+        ),
+        sessionDistribution = SessionDistributionDto.fromJson(
+          json['session_analysis']['distribution'],
+        );
+}
+
+class WeekDistributionDto {
+  final double? monday;
+  final double? tuesday;
+  final double? wednesday;
+  final double? thursday;
+  final double? friday;
+  final double? saturday;
+  final double? sunday;
+
+  const WeekDistributionDto({
+    required this.monday,
+    required this.tuesday,
+    required this.wednesday,
+    required this.thursday,
+    required this.friday,
+    required this.saturday,
+    required this.sunday,
+  });
+
+  Map<String, double> toJson() {
+    return {
+      'Monday': monday ?? 0,
+      'Tuesday': tuesday ?? 0,
+      'Wednesday': wednesday ?? 0,
+      'Thursday': thursday ?? 0,
+      'Friday': friday ?? 0,
+      'Saturday': saturday ?? 0,
+      'Sunday': sunday ?? 0,
+    };
+  }
+
+  WeekDistributionDto.fromJson(Map<String, dynamic> json)
+      : monday = json['Monday'] as double?,
+        tuesday = json['Tuesday'] as double?,
+        wednesday = json['Wednesday'] as double?,
+        thursday = json['Thursday'] as double?,
+        friday = json['Friday'] as double?,
+        saturday = json['Saturday'] as double?,
+        sunday = json['Sunday'] as double?;
+}
+
+class SessionDistributionDto {
+  final double? london;
+  final double? asia;
+  final double? pacific;
+  final double? newYork;
+
+  const SessionDistributionDto({
+    required this.london,
+    required this.asia,
+    required this.pacific,
+    required this.newYork,
+  });
+
+  Map<String, double> toJson() {
+    return {
+      'London': london ?? 0,
+      'New York': newYork ?? 0,
+      'Asia': asia ?? 0,
+      'Pacific': pacific ?? 0,
+    };
+  }
+
+  SessionDistributionDto.fromJson(Map<String, dynamic> json)
+      : london = json['london'] as double?,
+        asia = json['asia'] as double?,
+        pacific = json['pacific'] as double?,
+        newYork = json['new-york'] as double?;
 }
 
 class OverallStatisticsDto {
+  final double balance;
+
   final int totalTrades;
 
   final double totalProfit;
@@ -83,18 +158,59 @@ class OverallStatisticsDto {
 
   final double winRate;
 
+  final int long;
+
+  final int short;
+
+  final double bestWin;
+
+  final double worstLoss;
+
+  final double averageWin;
+
+  final double averageLoss;
+
+  final double profitFactor;
+
+  final double totalWon;
+  final double totalLost;
+
+  final double holdingTimeMinutes;
+
   const OverallStatisticsDto({
+    required this.balance,
     required this.totalTrades,
     required this.totalProfit,
     required this.totalInvested,
     required this.winRate,
+    required this.long,
+    required this.short,
+    required this.bestWin,
+    required this.worstLoss,
+    required this.averageWin,
+    required this.averageLoss,
+    required this.profitFactor,
+    required this.totalWon,
+    required this.totalLost,
+    required this.holdingTimeMinutes,
   });
 
   OverallStatisticsDto.fromJson(Map<String, dynamic> json)
-      : totalTrades = json['total_trades'],
+      : balance = json['balance'],
+        totalTrades = json['total_trades'],
         totalProfit = json['total_profit'],
         totalInvested = json['total_invested'],
-        winRate = json['win_rate'];
+        winRate = json['win_rate'],
+        long = json['long'],
+        short = json['short'],
+        bestWin = json['best_win'],
+        worstLoss = json['worst_loss'],
+        averageWin = json['average_win'],
+        averageLoss = json['average_loss'],
+        profitFactor = json['profit_factor'],
+        totalWon = json['total_won'],
+        totalLost = json['total_lost'],
+        holdingTimeMinutes = json['average_holding_time_minutes'];
 }
 
 class MonthlySummaryDto {

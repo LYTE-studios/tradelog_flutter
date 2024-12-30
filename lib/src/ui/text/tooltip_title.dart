@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:super_tooltip/super_tooltip.dart'; // Import the package
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -70,39 +71,35 @@ class _TooltipIconState extends State<TooltipIcon> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) {
-        if (controller.isVisible) {
-          return;
-        }
-        controller.showTooltip();
+      onExit: (event) {
+        setState(() {
+          controller.hideTooltip();
+        });
       },
-      onExit: (_) {
-        if (!controller.isVisible) {
-          return;
-        }
-        controller.hideTooltip();
+      onHover: (PointerHoverEvent event) {
+        setState(() {
+          controller.showTooltip();
+        });
       },
-      child: IgnorePointer(
-        child: SuperTooltip(
-          showBarrier: false,
-          hasShadow: false,
-          controller: controller,
-          borderColor: Theme.of(context).colorScheme.primaryContainer,
-          popupDirection: TooltipDirection.up,
-          content: SizedBox(
-            width: 164,
-            child: Text(
-              widget.tooltipText,
-              softWrap: true,
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
+      child: SuperTooltip(
+        showOnTap: false,
+        showBarrier: false,
+        hasShadow: false,
+        controller: controller,
+        borderColor: Theme.of(context).colorScheme.primaryContainer,
+        popupDirection: TooltipDirection.up,
+        content: SizedBox(
+          width: 164,
+          child: Text(
+            widget.tooltipText,
+            softWrap: true,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          child: SvgIcon(
-            TradelyIcons.infoCircle,
-            color: TextStyles.mediumTitleColor,
-          ),
+        ),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        child: SvgIcon(
+          TradelyIcons.infoCircle,
+          color: TextStyles.mediumTitleColor,
         ),
       ),
     );

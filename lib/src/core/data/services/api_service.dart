@@ -20,7 +20,6 @@ class ApiService {
             baseUrl: baseUrl,
             connectTimeout: const Duration(seconds: 120),
             receiveTimeout: const Duration(seconds: 120),
-            sendTimeout: const Duration(seconds: 120),
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json',

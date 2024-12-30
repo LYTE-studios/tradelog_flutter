@@ -30,7 +30,9 @@ class BaseDataContainer extends StatelessWidget {
             titleText: title,
             toolTipText: toolTip,
           ),
-          child,
+          Expanded(
+            child: child,
+          ),
         ],
       ),
     );

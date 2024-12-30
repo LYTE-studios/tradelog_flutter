@@ -12,6 +12,27 @@ class UsersService extends ApiService {
     super.baseUrl = '${apiUrl}users/',
   });
 
+  Future<Map<DateTime, double>> getAccountBalanceChart(
+      {DateTime? from, DateTime? to}) async {
+    dynamic response = await get('account-balance/', // Use dynamic temporarily
+        queryParameters: from != null && to != null
+            ? {
+                'from': DateFormat('yyyy-MM-dd').format(from),
+                'to': DateFormat('yyyy-MM-dd').format(to),
+              }
+            : {});
+
+    if (response.statusCode == 200) {
+      return (response.data as Map)
+          .map((key, value) => MapEntry<DateTime, double>(
+                DateTime.parse(key),
+                value,
+              ));
+    }
+
+    throw Exception('Could not fetch account chart');
+  }
+
   Future<TradeNoteDto> getTradeNote(DateTime date) async {
     Response response = await get('trade-notes/', queryParameters: {
       'date': DateFormat('yyyy-MM-dd').format(date),
@@ -78,7 +99,9 @@ class UsersService extends ApiService {
   }
 
   Future<OverviewStatisticsDto> getAccountStatistics() async {
-    Response response = await get('statistics/');
+    Response response = await get(
+      'statistics/',
+    );
 
     if (response.statusCode == 200) {
       return OverviewStatisticsDto.fromJson(response.data);

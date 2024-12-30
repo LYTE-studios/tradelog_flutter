@@ -4,20 +4,20 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class SmallDataList extends StatelessWidget {
   final int? totalTrades;
+  final int? long;
+  final int? short;
   final double? averageWin;
   final double? bestWin;
   final double? bestLoss;
-  final int? averageWinStreak;
-  final int? maxWinStreak;
 
   const SmallDataList({
     super.key,
     this.totalTrades,
     this.averageWin,
+    this.long,
+    this.short,
     this.bestWin,
     this.bestLoss,
-    this.averageWinStreak,
-    this.maxWinStreak,
   });
 
   @override
@@ -36,13 +36,13 @@ class SmallDataList extends StatelessWidget {
               ),
               buildRow(
                 context,
-                title: 'Average Win',
-                value: TradelyNumberUtils.formatNullableValuta(averageWin),
+                title: 'Long trades',
+                value: long?.toString() ?? '-',
               ),
               buildRow(
                 context,
-                title: 'Best Win',
-                value: TradelyNumberUtils.formatNullableValuta(bestWin),
+                title: 'Short trades',
+                value: short?.toString() ?? '-',
               ),
             ],
           ),
@@ -54,13 +54,13 @@ class SmallDataList extends StatelessWidget {
             children: [
               buildRow(
                 context,
-                title: 'Avg Win Streak',
-                value: averageWinStreak?.toString() ?? '-',
+                title: 'Average Win',
+                value: TradelyNumberUtils.formatNullableValuta(averageWin),
               ),
               buildRow(
                 context,
-                title: 'Max Win Streak',
-                value: maxWinStreak?.toString() ?? '-',
+                title: 'Best Win',
+                value: TradelyNumberUtils.formatNullableValuta(bestWin),
               ),
               buildRow(
                 context,

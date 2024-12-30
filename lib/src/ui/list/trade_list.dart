@@ -34,6 +34,10 @@ class TradeList extends StatelessWidget {
           ),
           HeaderRowItem(
             flex: 1,
+            text: 'Close Time',
+          ),
+          HeaderRowItem(
+            flex: 1,
             text: 'Symbol',
           ),
           HeaderRowItem(
@@ -67,6 +71,13 @@ class TradeList extends StatelessWidget {
                   flex: 1,
                 ),
                 TextRowItem(
+                  text: TradelyDateTimeUtils.toReadableTime(
+                    trade.closeTime,
+                    true,
+                  ),
+                  flex: 1,
+                ),
+                TextRowItem(
                   text: trade.symbol,
                   flex: 1,
                 ),
@@ -86,7 +97,7 @@ class TradeList extends StatelessWidget {
                   flex: 1,
                 ),
                 TextProfitLoss(
-                  text: "%${trade.profit?.abs().toStringAsFixed(2) ?? "-"}",
+                  text: "%${trade.gain?.abs().toStringAsFixed(2) ?? "-"}",
                   short: (trade.profit == null) || (trade.profit == 0)
                       ? null
                       : (trade.profit! < 0),

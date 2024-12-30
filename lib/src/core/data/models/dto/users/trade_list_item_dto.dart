@@ -7,15 +7,18 @@ class TradeListItemDto {
   final double? price;
   final double? profit;
   final DateTime? openTime;
+  final DateTime? closeTime;
+  final double? gain;
 
-  const TradeListItemDto({
-    required this.option,
-    required this.symbol,
-    this.quantity,
-    this.price,
-    this.profit,
-    this.openTime,
-  });
+  const TradeListItemDto(
+      {required this.option,
+      required this.symbol,
+      this.quantity,
+      this.price,
+      this.profit,
+      this.openTime,
+      this.closeTime,
+      this.gain});
 
   TradeListItemDto.fromJson(Map<String, dynamic> json)
       : option = (json['trade_type'] as String).toLowerCase() == 'buy'
@@ -25,5 +28,7 @@ class TradeListItemDto {
         quantity = json['quantity'] as double?,
         price = json['price'] as double?,
         profit = json['profit'] as double?,
-        openTime = DateTime.parse(json['trade_date'] as String);
+        openTime = DateTime.parse(json['trade_date'] as String),
+        closeTime = DateTime.parse(json['close_date'] as String),
+        gain = json['gain'] as double?;
 }

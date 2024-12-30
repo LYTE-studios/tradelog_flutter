@@ -10,6 +10,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/co
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/progress_data_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/web_statistic_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
@@ -63,7 +64,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: 480,
+            height: 600,
             child: Row(
               children: [
                 Expanded(
@@ -82,6 +83,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                               loading: loading,
                             ),
                             DataContainer(
+                              isPercentage: true,
                               title: 'Trade win rate',
                               toolTip:
                                   'Reflects the percentage of your winning trades out of total trades taken.',
@@ -92,12 +94,11 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                               title: ' Avg realized R:R',
                               toolTip:
                                   'Average Win / Average Loss = Average Realize R:R',
-                              value:
-                                  (statistics?.overallStatistics.totalProfit ??
-                                          0) /
-                                      (statistics?.overallStatistics
-                                              .totalInvested ??
-                                          1),
+                              value: (statistics
+                                          ?.overallStatistics.averageWin ??
+                                      0) /
+                                  (statistics?.overallStatistics.averageLoss ??
+                                      1),
                               loading: loading,
                             )
                           ],
@@ -107,8 +108,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                         title: 'Equity line',
                         toolTip:
                             "Your equity line shows your account’s value over time, highlighting profits and losses.",
-                        data: {},
-                        balance: null,
+                        balance: statistics?.overallStatistics.balance,
                         loading: loading,
                       ),
                     ],
@@ -118,17 +118,21 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                   child: Column(
                     children: [
                       LongShortContainer(
-                        long: 0,
-                        short: 0,
-                        averageWin: 0,
-                        bestWin: 0,
-                        bestLoss: 0,
-                        averageWinStreak: 0,
-                        maxWinStreak: 0,
+                        long: statistics?.overallStatistics.long ?? 0,
+                        short: statistics?.overallStatistics.short ?? 0,
+                        averageWin: statistics?.overallStatistics.averageWin,
+                        bestWin: statistics?.overallStatistics.bestWin,
+                        bestLoss: statistics?.overallStatistics.worstLoss,
                         loading: loading,
                       ),
+                      ProfitContainer(
+                        profit: statistics?.overallStatistics.totalWon,
+                        loss: statistics?.overallStatistics.totalLost,
+                        factor: statistics?.overallStatistics.profitFactor,
+                      ),
                       HoldingContainer(
-                        holdingTime: 0,
+                        holdingTime:
+                            statistics?.overallStatistics.holdingTimeMinutes,
                         loading: loading,
                       ),
                     ],
@@ -144,43 +148,38 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                 BaseDataContainer(
                   title: 'Weekday',
                   toolTip: '',
-                  child: Expanded(
-                    child: WebStatisticChart(
-                      data: statistics?.weekDistribution ??
-                          {
-                            'Monday': 0,
-                            'Tuesday': 0,
-                            'Wednesday': 0,
-                            'Thursday': 0,
-                            'Friday': 0,
-                            'Saturday': 0,
-                          },
-                    ),
+                  child: WebStatisticChart(
+                    data: statistics?.weekDistribution.toJson() ??
+                        {
+                          'Monday': 0,
+                          'Tuesday': 0,
+                          'Wednesday': 0,
+                          'Thursday': 0,
+                          'Friday': 0,
+                          'Saturday': 0,
+                        },
                   ),
                 ),
                 BaseDataContainer(
                   title: 'Sessions',
                   toolTip: '',
-                  child: Expanded(
-                    child: WebStatisticChart(
-                      color: HexColor.fromHex('#FFCC00'),
-                      data: const {
-                        'London': 4,
-                        'New York': 2,
-                        'Asia': 2,
-                        'Pacific': 5,
-                      },
-                    ),
+                  child: WebStatisticChart(
+                    color: HexColor.fromHex('#FFCC00'),
+                    data: statistics?.sessionDistribution.toJson() ??
+                        {
+                          'London': 0,
+                          'New York': 0,
+                          'Asia': 0,
+                          'Pacific': 0,
+                        },
                   ),
                 ),
                 BaseDataContainer(
                   title: 'Pairs',
                   toolTip: '',
-                  child: Expanded(
-                    child: WebStatisticChart(
-                      data: statistics?.toSymbolChartMap() ??
-                          OverviewStatisticsDto.getDefaultSymbolChartMap(),
-                    ),
+                  child: WebStatisticChart(
+                    data: statistics?.toSymbolChartMap() ??
+                        OverviewStatisticsDto.getDefaultSymbolChartMap(),
                   ),
                 ),
               ],

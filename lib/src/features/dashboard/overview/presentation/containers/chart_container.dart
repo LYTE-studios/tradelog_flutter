@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/base_data_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class ChartContainer extends StatelessWidget {
   final double? balance;
 
-  final Map<DateTime, double> data;
   final String title;
   final String toolTip;
 
@@ -15,7 +15,6 @@ class ChartContainer extends StatelessWidget {
   const ChartContainer({
     super.key,
     required this.balance,
-    required this.data,
     required this.title,
     required this.toolTip,
     this.loading = false,
@@ -54,14 +53,9 @@ class ChartContainer extends StatelessWidget {
           const SizedBox(
             height: PaddingSizes.large,
           ),
-          // Expanded(
-          //   child: EquityLineChart(
-          //     data: data
-          //         .map((date, value) => MapEntry(date, ChartData(date, value)))
-          //         .values
-          //         .toList(),
-          //   ),
-          // ),
+          const Expanded(
+            child: EquityLineChart(),
+          ),
         ],
       ),
     );

@@ -12,12 +12,15 @@ class DataContainer extends StatelessWidget {
 
   final bool loading;
 
+  final bool isPercentage;
+
   const DataContainer({
     super.key,
     required this.title,
     required this.toolTip,
     this.value,
     this.loading = false,
+    this.isPercentage = false,
   });
 
   @override
@@ -27,30 +30,30 @@ class DataContainer extends StatelessWidget {
     return BaseDataContainer(
       title: title,
       toolTip: toolTip,
-      child: Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: PaddingSizes.extraSmall,
-          ),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(
-                maxHeight: 42,
-              ),
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: Row(
-                  children: [
-                    Text(
-                      TradelyNumberUtils.formatNullableValuta(value),
-                      style: textTheme.bodyLarge,
-                    ),
-                    const SizedBox(
-                      width: 30,
-                    ),
-                  ],
-                ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: PaddingSizes.extraSmall,
+        ),
+        child: Align(
+          alignment: Alignment.bottomLeft,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxHeight: 42,
+            ),
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Row(
+                children: [
+                  Text(
+                    isPercentage
+                        ? '${value?.toStringAsFixed(1) ?? '0'} %'
+                        : TradelyNumberUtils.formatNullableValuta(value),
+                    style: textTheme.bodyLarge,
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                ],
               ),
             ),
           ),

@@ -19,17 +19,7 @@ class TradelyLoadingSwitcher extends StatelessWidget {
       duration: const Duration(milliseconds: 300),
       switchOutCurve: Curves.decelerate,
       switchInCurve: Curves.decelerate,
-      child: loading
-          ? const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: PaddingSizes.small,
-                  horizontal: PaddingSizes.extraSmall,
-                ),
-                child: TradelyLoadingSpinner(),
-              ),
-            )
-          : child,
+      child: loading ? const TradelyLoadingSpinner() : child,
     );
   }
 }

@@ -173,8 +173,8 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
         height: MediaQuery.of(context).size.height * 0.75,
         child: Row(
           children: [
-            Expanded(
-              flex: 1,
+            SizedBox(
+              width: 400,
               child: Column(
                 children: [
                   Expanded(
@@ -439,12 +439,9 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                               SizedBox(
                                 height: 250, // Set a fixed height
                                 child: EquityLineChart(
-                                  data: chartData
-                                      .map((date, value) => MapEntry(
-                                          date, ChartData(date, value)))
-                                      .values
-                                      .toList()
-                                    ..sort((a, b) => a.x.compareTo(b.x)),
+                                  noDataMessage: 'No Trades',
+                                  from: selectedDate,
+                                  to: selectedDate.add(const Duration(days: 1)),
                                 ),
                               ),
                               const SizedBox(height: PaddingSizes.extraSmall),
