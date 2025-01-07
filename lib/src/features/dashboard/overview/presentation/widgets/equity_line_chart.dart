@@ -94,26 +94,28 @@ class _EquityLineChartState extends State<EquityLineChart>
                   )
                 : ImageFilter.blur(),
             child: SfCartesianChart(
-              plotAreaBorderWidth: 0,
               selectionType: SelectionType.point,
-              // Removes the border around the chart plot area
               primaryXAxis: DateTimeAxis(
+                name: 'Date',
+                axisLine: AxisLine(color: TextStyles.labelTextColor),
+                majorGridLines: MajorGridLines(width: 0),
+                majorTickLines: MajorTickLines(width: 0),
                 labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                       color: const Color(0xFFA2A2AA),
                       letterSpacing: 0,
                     ),
-                majorGridLines: const MajorGridLines(width: 0),
-                majorTickLines: const MajorTickLines(width: 0),
               ),
               primaryYAxis: NumericAxis(
-                interval: interval <= 0 ? 1 : interval,
+                name: 'Equity',
+                majorGridLines: MajorGridLines(width: 0),
+                majorTickLines: MajorTickLines(width: 0),
                 decimalPlaces: 0,
+                axisLine: AxisLine(color: TextStyles.labelTextColor),
                 minimum: minimum,
                 maximum: maximum,
-                majorGridLines: const MajorGridLines(width: 0),
-                majorTickLines: const MajorTickLines(width: 0),
+                interval: interval <= 0 ? 1 : interval,
                 axisLabelFormatter: (details) {
                   String text = "\$${TradelyNumberUtils.formatValuta(
                         details.value.toDouble(),
@@ -139,6 +141,7 @@ class _EquityLineChartState extends State<EquityLineChart>
                 },
               ),
               tooltipBehavior: TooltipBehavior(
+                duration: 1000,
                 color: Theme.of(context).colorScheme.primary,
                 elevation: 0,
                 shadowColor: Theme.of(context).colorScheme.primary,
@@ -147,7 +150,6 @@ class _EquityLineChartState extends State<EquityLineChart>
                 canShowMarker: false,
                 header: '',
                 format: '\$point.y',
-                duration: 0,
                 tooltipPosition: TooltipPosition.auto,
                 builder: (data, _, __, pointIndex, index) {
                   ChartData c = data as ChartData;
@@ -206,8 +208,10 @@ class _EquityLineChartState extends State<EquityLineChart>
                     end: Alignment.bottomCenter,
                   ),
                   dataSource: data,
-                  xValueMapper: (ChartData data, _) => data.x,
-                  yValueMapper: (ChartData data, _) => data.y,
+                  xAxisName: 'Date',
+                  yAxisName: 'Equity',
+                  xValueMapper: (data, result) => data.x,
+                  yValueMapper: (data, _) => data.y,
                 )
               ],
             ),

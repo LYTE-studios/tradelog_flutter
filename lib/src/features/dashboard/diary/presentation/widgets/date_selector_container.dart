@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
+import 'package:tradelog_flutter/src/ui/input/charted_date_selector.dart';
 import 'package:tradelog_flutter/src/ui/input/date_selector.dart';
 
 class DateSelectorContainer extends StatelessWidget {
@@ -19,7 +20,7 @@ class DateSelectorContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      child: DateSelector(
+      child: ChartedDateSelector(
         onDateChanged: onDateChanged,
         chartData: chartData,
       ),

@@ -141,11 +141,11 @@ class DayPerformanceDto {
   });
 
   DayPerformanceDto.fromJson(Map<String, dynamic> json)
-      : totalLoss = json['long'] as double?,
-        totalWon = json['short'] as double?,
-        totalProfit = json['average_win'] as double?,
-        totalTrades = json['average_loss'] as int?,
-        totalInvested = json['best_win'] as double?;
+      : totalLoss = json['total_loss'] as double?,
+        totalWon = json['total_won'] as double?,
+        totalProfit = json['total_profit'] as double?,
+        totalTrades = json['total_trades'] as int?,
+        totalInvested = json['total_invested'] as double?;
 }
 
 class WeekDistributionDto {

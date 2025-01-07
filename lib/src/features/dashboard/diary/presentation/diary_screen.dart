@@ -183,343 +183,351 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
           prefixIconSize: 22,
         ),
       ),
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.75,
-        child: Row(
-          children: [
-            SizedBox(
-              width: 400,
-              child: Column(
-                children: [
-                  Expanded(
-                    child: DateSelectorContainer(
-                      chartData: overallStatistics?.dayPerformances.map(
-                        (date, performance) {
-                          DateTime dateTime = DateTime.parse(date);
+      child: SingleChildScrollView(
+        child: SizedBox(
+          height: 640,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 400,
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: DateSelectorContainer(
+                        chartData: overallStatistics?.dayPerformances.map(
+                          (date, performance) {
+                            DateTime dateTime = DateTime.parse(date);
 
-                          return MapEntry(
-                            DateTime(
-                              dateTime.year,
-                              dateTime.month,
-                              dateTime.day,
-                            ),
-                            performance,
-                          );
+                            return MapEntry(
+                              DateTime(
+                                dateTime.year,
+                                dateTime.month,
+                                dateTime.day,
+                              ),
+                              performance,
+                            );
+                          },
+                        ),
+                        onDateChanged: (date) {
+                          date = DateTime.utc(date.year, date.month, date.day);
+
+                          setState(() {
+                            selectedDate = date;
+                          });
+
+                          refresh();
                         },
                       ),
-                      onDateChanged: (date) {
-                        date = DateTime.utc(date.year, date.month, date.day);
-
-                        setState(() {
-                          selectedDate = date;
-                        });
-
-                        refresh();
-                      },
                     ),
-                  ),
-                  const SizedBox(
-                    width: PaddingSizes.extraSmall,
-                  ),
-                  BaseContainer(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            const SvgIcon(
-                              TradelyIcons.trendUp,
-                              color: Colors.white,
-                              size: 10,
-                            ),
-                            const SizedBox(width: PaddingSizes.extraSmall),
-                            Text(
-                              'Statistics',
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontSize: 19,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: PaddingSizes.large),
-                        SmallDataList(
-                          totalTrades:
-                              statistics?.overallStatistics.totalTrades,
-                          long: statistics?.overallStatistics.long ?? 0,
-                          short: statistics?.overallStatistics.short ?? 0,
-                          averageWin: statistics?.overallStatistics.averageWin,
-                          averageLoss:
-                              statistics?.overallStatistics.averageLoss,
-                          bestWin: statistics?.overallStatistics.bestWin,
-                          bestLoss: statistics?.overallStatistics.worstLoss,
-                        ),
-                      ],
+                    const SizedBox(
+                      width: PaddingSizes.extraSmall,
                     ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              width: PaddingSizes.extraSmall,
-            ),
-            Expanded(
-              flex: 2,
-              child: Stack(
-                children: [
-                  BaseContainer(
-                    padding: const EdgeInsets.only(
-                      top: PaddingSizes.xxl,
-                      left: PaddingSizes.xxl,
-                      right: PaddingSizes.xxl,
-                    ),
-                    child: isAnnotationFieldVisible
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    BaseContainer(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 150),
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: PaddingSizes.extraSmall,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xFF161616),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: QuillToolbar.simple(
-                                    controller: _controller,
-                                    configurations:
-                                        QuillSimpleToolbarConfigurations(
-                                      sectionDividerColor:
-                                          const Color(0xFF5C5C5C),
-                                      toolbarIconAlignment: WrapAlignment.start,
-                                      embedButtons:
-                                          FlutterQuillEmbeds.toolbarButtons(
-                                        videoButtonOptions: null,
-                                        imageButtonOptions:
-                                            QuillToolbarImageButtonOptions(
-                                          imageButtonConfigurations:
-                                              QuillToolbarImageConfigurations(
-                                            onRequestPickImage: (_, __) async {
-                                              await _pickImageFromFile();
-
-                                              return null;
-                                            },
-                                          ),
-                                        ),
-                                      ),
-                                      showListNumbers: false,
-                                      showListBullets: false,
-                                      showFontFamily: false,
-                                      showCodeBlock: false,
-                                      showInlineCode: false,
-                                      showSubscript: false,
-                                      showSuperscript: false,
-                                      showColorButton: false,
-                                      showBackgroundColorButton: false,
-                                      showQuote: false,
-                                      showIndent: false,
-                                      showLink: false,
-                                      showSearchButton: false,
-                                      showClipboardCut: false,
-                                      showClipboardCopy: false,
-                                      showClipboardPaste: false,
-                                      showClearFormat: false,
-                                      showListCheck: false,
-                                      showFontSize: false,
-                                      showAlignmentButtons: true,
-                                    ),
-                                  ),
-                                ),
+                              const SvgIcon(
+                                TradelyIcons.trendUp,
+                                color: Colors.white,
+                                size: 10,
                               ),
-                              const SizedBox(height: PaddingSizes.extraLarge),
-                              Expanded(
-                                child: QuillEditor.basic(
-                                  controller: _controller,
-                                  configurations: QuillEditorConfigurations(
-                                    embedBuilders:
-                                        FlutterQuillEmbeds.editorWebBuilders(),
-                                    placeholder: 'Add a note',
-                                    customStyles: const DefaultStyles(
-                                      lists: DefaultListBlockStyle(
-                                        TextStyle(
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white,
-                                          letterSpacing: 0,
-                                          fontSize: 15,
-                                        ),
-                                        HorizontalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        VerticalSpacing.zero,
-                                        null,
-                                        null,
-                                      ),
-                                      h1: DefaultTextBlockStyle(
-                                        TextStyle(
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                          letterSpacing: 0,
-                                          fontSize: 30,
-                                        ),
-                                        HorizontalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        null,
-                                      ),
-                                      h2: DefaultTextBlockStyle(
-                                        TextStyle(
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                          letterSpacing: 0,
-                                          fontSize: 25,
-                                        ),
-                                        HorizontalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        null,
-                                      ),
-                                      h3: DefaultTextBlockStyle(
-                                        TextStyle(
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.white,
-                                          letterSpacing: 0,
-                                          fontSize: 20,
-                                        ),
-                                        HorizontalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        null,
-                                      ),
-                                      paragraph: DefaultTextBlockStyle(
-                                        TextStyle(
-                                          fontFamily: 'Inter',
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.white,
-                                          letterSpacing: 0,
-                                          fontSize: 15,
-                                        ),
-                                        HorizontalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        VerticalSpacing(2, 2),
-                                        null,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )
-                        : Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const ToolTipTitle(
-                                titleText: 'Running Profit/Loss',
-                                toolTipText:
-                                    'This graph shows your Running Profit/Loss',
-                              ),
-                              const SizedBox(
-                                height: PaddingSizes.small,
-                              ),
-                              Row(
-                                children: [
-                                  Visibility(
-                                    visible: totalRoi != 0,
-                                    child: SvgIcon(
-                                      (totalRoi < 0)
-                                          ? TradelyIcons.trendDown
-                                          : TradelyIcons.trendUp,
-                                      color: (totalRoi < 0)
-                                          ? Color(0xFFF21111)
-                                          : Color(0xFF14D39F),
-                                    ),
-                                  ),
-                                  const SizedBox(width: PaddingSizes.medium),
-                                  RichText(
-                                    text: TextSpan(
-                                      text:
-                                          "\$${totalRoi.abs().toStringAsFixed(0)}",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyLarge
-                                          ?.copyWith(
-                                            fontSize: 35,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                      children: [
-                                        TextSpan(
-                                          text:
-                                              " .${totalRoi.toStringAsFixed(2).split(".")[1]}",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleMedium,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: PaddingSizes.large),
-                              // Use fixed height for chart and list
-                              SizedBox(
-                                height: 250, // Set a fixed height
-                                child: EquityLineChart(
-                                  noDataMessage: 'No Trades',
-                                  from: selectedDate,
-                                  to: selectedDate.add(const Duration(days: 1)),
-                                ),
-                              ),
-                              const SizedBox(height: PaddingSizes.extraSmall),
-                              const Divider(
-                                color: Color(0xFF1F1F1F),
-                              ),
-
-                              Expanded(
-                                child: TradeList(
-                                  loading: loading,
-                                  trades: trades?.trades ?? [],
+                              const SizedBox(width: PaddingSizes.extraSmall),
+                              Text(
+                                'Statistics',
+                                style: theme.textTheme.titleLarge?.copyWith(
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                             ],
                           ),
-                  ),
-                  // Positioned button in the top right
-                  Positioned(
-                    top: 37,
-                    right: 30,
-                    child: PrimaryButton(
-                      onTap: () {
-                        setState(() {
-                          isAnnotationFieldVisible = !isAnnotationFieldVisible;
-                        });
-                      },
-                      height: 38,
-                      text:
-                          isAnnotationFieldVisible ? 'Trading Stats' : 'Notes',
-                      textStyle: theme.textTheme.titleMedium?.copyWith(
-                        fontSize: 16,
-                        color: const Color(0xFF2D62FE),
+                          const SizedBox(height: PaddingSizes.large),
+                          SmallDataList(
+                            totalTrades:
+                                statistics?.overallStatistics.totalTrades,
+                            long: statistics?.overallStatistics.long ?? 0,
+                            short: statistics?.overallStatistics.short ?? 0,
+                            averageWin:
+                                statistics?.overallStatistics.averageWin,
+                            averageLoss:
+                                statistics?.overallStatistics.averageLoss,
+                            bestWin: statistics?.overallStatistics.bestWin,
+                            bestLoss: statistics?.overallStatistics.worstLoss,
+                          ),
+                        ],
                       ),
-                      color: const Color(0xFF111111),
-                      outlined: true,
-                      prefixIcon: isAnnotationFieldVisible
-                          ? TradelyIcons.trendUp
-                          : TradelyIcons.diary,
-                      prefixIconSize: isAnnotationFieldVisible ? 13 : 17,
-                      prefixIconColor: const Color(0xFF2D62FE),
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+              const SizedBox(
+                width: PaddingSizes.extraSmall,
+              ),
+              Expanded(
+                flex: 2,
+                child: Stack(
+                  children: [
+                    BaseContainer(
+                      padding: const EdgeInsets.only(
+                        top: PaddingSizes.xxl,
+                        left: PaddingSizes.xxl,
+                        right: PaddingSizes.xxl,
+                      ),
+                      child: isAnnotationFieldVisible
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 150),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: PaddingSizes.extraSmall,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF161616),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    child: QuillToolbar.simple(
+                                      controller: _controller,
+                                      configurations:
+                                          QuillSimpleToolbarConfigurations(
+                                        sectionDividerColor:
+                                            const Color(0xFF5C5C5C),
+                                        toolbarIconAlignment:
+                                            WrapAlignment.start,
+                                        embedButtons:
+                                            FlutterQuillEmbeds.toolbarButtons(
+                                          videoButtonOptions: null,
+                                          imageButtonOptions:
+                                              QuillToolbarImageButtonOptions(
+                                            imageButtonConfigurations:
+                                                QuillToolbarImageConfigurations(
+                                              onRequestPickImage:
+                                                  (_, __) async {
+                                                await _pickImageFromFile();
+
+                                                return null;
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        showListNumbers: false,
+                                        showListBullets: false,
+                                        showFontFamily: false,
+                                        showCodeBlock: false,
+                                        showInlineCode: false,
+                                        showSubscript: false,
+                                        showSuperscript: false,
+                                        showColorButton: false,
+                                        showBackgroundColorButton: false,
+                                        showQuote: false,
+                                        showIndent: false,
+                                        showLink: false,
+                                        showSearchButton: false,
+                                        showClipboardCut: false,
+                                        showClipboardCopy: false,
+                                        showClipboardPaste: false,
+                                        showClearFormat: false,
+                                        showListCheck: false,
+                                        showFontSize: false,
+                                        showAlignmentButtons: true,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: PaddingSizes.extraLarge),
+                                Expanded(
+                                  child: QuillEditor.basic(
+                                    controller: _controller,
+                                    configurations: QuillEditorConfigurations(
+                                      embedBuilders: FlutterQuillEmbeds
+                                          .editorWebBuilders(),
+                                      placeholder: 'Add a note',
+                                      customStyles: const DefaultStyles(
+                                        lists: DefaultListBlockStyle(
+                                          TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white,
+                                            letterSpacing: 0,
+                                            fontSize: 15,
+                                          ),
+                                          HorizontalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          VerticalSpacing.zero,
+                                          null,
+                                          null,
+                                        ),
+                                        h1: DefaultTextBlockStyle(
+                                          TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            letterSpacing: 0,
+                                            fontSize: 30,
+                                          ),
+                                          HorizontalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          null,
+                                        ),
+                                        h2: DefaultTextBlockStyle(
+                                          TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            letterSpacing: 0,
+                                            fontSize: 25,
+                                          ),
+                                          HorizontalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          null,
+                                        ),
+                                        h3: DefaultTextBlockStyle(
+                                          TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.white,
+                                            letterSpacing: 0,
+                                            fontSize: 20,
+                                          ),
+                                          HorizontalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          null,
+                                        ),
+                                        paragraph: DefaultTextBlockStyle(
+                                          TextStyle(
+                                            fontFamily: 'Inter',
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.white,
+                                            letterSpacing: 0,
+                                            fontSize: 15,
+                                          ),
+                                          HorizontalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          VerticalSpacing(2, 2),
+                                          null,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const ToolTipTitle(
+                                  titleText: 'Running Profit/Loss',
+                                  toolTipText:
+                                      'This graph shows your Running Profit/Loss',
+                                ),
+                                const SizedBox(
+                                  height: PaddingSizes.small,
+                                ),
+                                Row(
+                                  children: [
+                                    Visibility(
+                                      visible: totalRoi != 0,
+                                      child: SvgIcon(
+                                        (totalRoi < 0)
+                                            ? TradelyIcons.trendDown
+                                            : TradelyIcons.trendUp,
+                                        color: (totalRoi < 0)
+                                            ? Color(0xFFF21111)
+                                            : Color(0xFF14D39F),
+                                      ),
+                                    ),
+                                    const SizedBox(width: PaddingSizes.medium),
+                                    RichText(
+                                      text: TextSpan(
+                                        text:
+                                            "\$${totalRoi.abs().toStringAsFixed(0)}",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                " .${totalRoi.toStringAsFixed(2).split(".")[1]}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .titleMedium,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: PaddingSizes.large),
+                                // Use fixed height for chart and list
+                                SizedBox(
+                                  height: 250, // Set a fixed height
+                                  child: EquityLineChart(
+                                    noDataMessage: 'No Trades',
+                                    from: selectedDate,
+                                    to: selectedDate
+                                        .add(const Duration(days: 1)),
+                                  ),
+                                ),
+                                const SizedBox(height: PaddingSizes.extraSmall),
+                                const Divider(
+                                  color: Color(0xFF1F1F1F),
+                                ),
+
+                                Expanded(
+                                  child: TradeList(
+                                    loading: loading,
+                                    trades: trades?.trades ?? [],
+                                  ),
+                                ),
+                              ],
+                            ),
+                    ),
+                    // Positioned button in the top right
+                    Positioned(
+                      top: 37,
+                      right: 30,
+                      child: PrimaryButton(
+                        onTap: () {
+                          setState(() {
+                            isAnnotationFieldVisible =
+                                !isAnnotationFieldVisible;
+                          });
+                        },
+                        height: 38,
+                        text: isAnnotationFieldVisible
+                            ? 'Trading Stats'
+                            : 'Notes',
+                        textStyle: theme.textTheme.titleMedium?.copyWith(
+                          fontSize: 16,
+                          color: const Color(0xFF2D62FE),
+                        ),
+                        color: const Color(0xFF111111),
+                        outlined: true,
+                        prefixIcon: isAnnotationFieldVisible
+                            ? TradelyIcons.trendUp
+                            : TradelyIcons.diary,
+                        prefixIconSize: isAnnotationFieldVisible ? 13 : 17,
+                        prefixIconColor: const Color(0xFF2D62FE),
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

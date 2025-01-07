@@ -123,6 +123,7 @@ class _DateSelectorState extends State<DateSelector> {
           ),
           Expanded(
             child: SfDateRangePicker(
+              backgroundColor: Colors.transparent,
               initialDisplayDate: widget.from,
               initialSelectedRange: PickerDateRange(widget.from, widget.to),
               onSelectionChanged: (args) {
