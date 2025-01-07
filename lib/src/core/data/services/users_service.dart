@@ -5,6 +5,7 @@ import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statist
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_note_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trading_account_list_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/user_profile_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/api_service.dart';
 
 class UsersService extends ApiService {
@@ -98,9 +99,41 @@ class UsersService extends ApiService {
     });
   }
 
-  Future<OverviewStatisticsDto> getAccountStatistics() async {
+  Future<UserProfileDto> getUserProfile() async {
+    Response response = await get('profile/');
+
+    if (response.statusCode == 200) {
+      return UserProfileDto.fromJson(response.data);
+    }
+
+    throw Exception('Could not fetch User Profile');
+  }
+
+  Future<void> updateUserProfile(UserProfileDto profile) async {
+    Response response = await put(
+      'profile/',
+      body: profile.toJson(),
+    );
+
+    if (response.statusCode == 200) {
+      return;
+    }
+
+    throw Exception('Could not update User Profile');
+  }
+
+  Future<OverviewStatisticsDto> getAccountStatistics({
+    DateTime? from,
+    DateTime? to,
+  }) async {
     Response response = await get(
       'statistics/',
+      queryParameters: from != null && to != null
+          ? {
+              'from': DateFormat('yyyy-MM-dd').format(from),
+              'to': DateFormat('yyyy-MM-dd').format(to),
+            }
+          : {},
     );
 
     if (response.statusCode == 200) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/widgets/small_data_container.dart';
@@ -23,6 +25,24 @@ class StatisticsScreen extends StatefulWidget {
 
 class _StatisticsScreenState extends State<StatisticsScreen>
     with ScreenStateMixin {
+  OverviewStatisticsDto? statistics;
+
+  DateTime? from;
+  DateTime? to;
+
+  @override
+  Future<void> loadData() async {
+    statistics = await UsersService().getAccountStatistics(
+      from: from,
+      to: to,
+    );
+
+    setState(() {
+      statistics = statistics;
+    });
+    return super.loadData();
+  }
+
   bool? isPositive(double? value) {
     if (value == null || value == 0) {
       return null;
@@ -33,6 +53,18 @@ class _StatisticsScreenState extends State<StatisticsScreen>
 
   @override
   Widget build(BuildContext context) {
+    double? bestProfit = statistics?.getBestMonthProfit();
+    double? worstLoss = statistics?.getWorstMonthProfit();
+    double? averageMonth = statistics?.getAverageMonthProfit();
+
+    int tradesWon = ((statistics?.overallStatistics.winRate ?? 0) *
+            (statistics?.overallStatistics.totalTrades ?? 0) /
+            100)
+        .toInt();
+
+    int tradesLost =
+        (statistics?.overallStatistics.totalTrades ?? 0) - tradesWon;
+
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Track in-depth statistics, and export them as a csv.",
@@ -54,18 +86,28 @@ class _StatisticsScreenState extends State<StatisticsScreen>
             FilterTradesButton(
               onTap: () {},
               height: 42,
-              text: "Filter trades",
+              text: "Filter",
               prefixIcon: TradelyIcons.diary,
-              tradeStatusFilter: TradeStatus.open,
-              tradeTypeFilter: TradeOption.long,
-              onUpdateTradeTypeFilter: (TradeOption ty) {
-                print(ty);
+              from: from,
+              to: to,
+              onUpdateDateFilter: (from, to) {
+                this.from = from;
+                this.to = to;
               },
-              onUpdateTradeStatusFilter: (TradeStatus st) {
-                print(st);
+              onResetFilters: () async {
+                setState(() {
+                  from = null;
+                  to = null;
+                  loading = true;
+                });
+                await loadData();
+                setLoading(false);
               },
-              onResetFilters: () {},
-              onShowTrades: () {},
+              onShowTrades: () async {
+                setLoading(true);
+                await loadData();
+                setLoading(false);
+              },
             ),
           ],
         ),
@@ -80,8 +122,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 SmallDataContainer(
                   loading: loading,
                   title: 'Best trading month',
-                  positive: false,
-                  data: '',
+                  positive: isPositive(bestProfit),
+                  data: TradelyNumberUtils.formatNullableValuta(bestProfit),
                 ),
                 const SizedBox(
                   width: PaddingSizes.extraSmall,
@@ -89,8 +131,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 SmallDataContainer(
                   loading: loading,
                   title: 'Worst trading month',
-                  positive: false,
-                  data: '',
+                  positive: isPositive(worstLoss),
+                  data: TradelyNumberUtils.formatNullableValuta(worstLoss),
                 ),
                 const SizedBox(
                   width: PaddingSizes.extraSmall,
@@ -98,8 +140,8 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 SmallDataContainer(
                   loading: loading,
                   title: 'Average trading month',
-                  positive: false,
-                  data: '',
+                  positive: isPositive(averageMonth),
+                  data: TradelyNumberUtils.formatNullableValuta(averageMonth),
                 ),
                 const SizedBox(
                   width: PaddingSizes.extraSmall,
@@ -135,45 +177,28 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 DataList(
                   loading: loading,
                   values: {
-                    "Total P&L": '',
+                    "Total P&L": TradelyNumberUtils.formatNullableValuta(
+                      statistics?.overallStatistics.totalProfit,
+                    ),
 
                     // TODO : Average Daily Volume
 
-                    "Average Winning Trade": '',
+                    "Average Winning Trade":
+                        TradelyNumberUtils.formatNullableValuta(
+                      statistics?.overallStatistics.averageWin,
+                    ),
 
                     "Average Losing Trade":
                         TradelyNumberUtils.formatNullableValuta(
-                      // TODO : Average losing trade
-                      0,
+                      statistics?.overallStatistics.averageLoss,
                     ),
 
-                    "Total Number of Trades": "-",
+                    "Total Number of Trades":
+                        statistics?.overallStatistics.totalTrades.toString() ??
+                            '',
 
-                    "Number of Winning Trades":
-                        // TODO: Number of winning trades
-                        "-",
-                    "Number of Losing Trades":
-                        // TODO: Number of losing trades
-                        "-",
-
-                    "Number of Break Even Trades": "-",
-                    "Max Consecutive Wins":
-                        // TODO : Max consecutive wins
-                        "-",
-                    "Max Consecutive Losses": "-",
-
-                    // TODO : Commissions
-                    // TODO : Swap
-
-                    "Total Fees": "",
-                    "Largest Profit": '',
-                    "Largest Loss": '',
-                    "Average Trade P&L":
-                        // TODO: Average trade P&L
-                        "-",
-                    "Profit Factor":
-                        // TODO : Profit factor
-                        "-",
+                    "Number of Winning Trades": tradesWon.toString(),
+                    "Number of Losing Trades": tradesLost.toString(),
                   },
                 ),
                 const SizedBox(
@@ -181,7 +206,27 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                 ),
                 DataList(
                   loading: loading,
-                  values: {},
+                  values: {
+                    "Largest Profit": TradelyNumberUtils.formatNullableValuta(
+                      statistics?.overallStatistics.bestWin,
+                    ),
+                    "Largest Loss": TradelyNumberUtils.formatNullableValuta(
+                      statistics?.overallStatistics.worstLoss,
+                    ),
+                    "Average Win P&L": TradelyNumberUtils.formatNullableValuta(
+                      statistics?.overallStatistics.averageWin,
+                    ),
+                    "Average Loss P&L": TradelyNumberUtils.formatNullableValuta(
+                      statistics?.overallStatistics.averageLoss,
+                    ),
+                    "Profit Factor":
+                        statistics?.overallStatistics.profitFactor == null ||
+                                statistics?.overallStatistics.profitFactor == 0
+                            ? ''
+                            : statistics?.overallStatistics.profitFactor
+                                    .toStringAsFixed(1) ??
+                                '',
+                  },
                 ),
               ],
             ),

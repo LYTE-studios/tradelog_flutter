@@ -37,13 +37,18 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   List<TradeListItemDto> trades = [];
 
+  DateTime? from;
+  DateTime? to;
+
   Future<void> downloadCsv() async {
     await myCSV(
       [
         "Open Time",
+        "Close Time",
         "Symbol",
         "Direction",
         "Profit",
+        "ROI",
       ],
       trades
           .map(
@@ -52,9 +57,14 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                 e.openTime,
                 true,
               ),
-              e.symbol,
-              e.option.toString(),
-              e.profit?.toStringAsFixed(2) ?? "",
+              TradelyDateTimeUtils.toReadableTime(
+                e.closeTime,
+                true,
+              ),
+              e.symbol ?? '-',
+              e.option.name,
+              TradelyNumberUtils.formatNullableValuta(e.profit),
+              e.gain?.toStringAsFixed(2) ?? "",
             ],
           )
           .toList(),
@@ -71,7 +81,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   @override
   Future<void> loadData() async {
-    trades = (await UsersService().fetchTrades()).trades;
+    trades = (await UsersService().fetchTrades(from: from, to: to)).trades;
 
     setState(() {
       trades = trades;
@@ -100,9 +110,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               onTap: () async {
                 setLoading(true);
 
-                try {
-                  await UsersService().refreshAccount();
-                } catch (e) {}
+                await UsersService().refreshAccount();
 
                 await loadData();
 
@@ -126,19 +134,32 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               width: PaddingSizes.medium,
             ),
             FilterTradesButton(
-              onTap: () {},
-              height: 42,
-              text: "Filter trades",
-              prefixIcon: TradelyIcons.diary,
-              tradeStatusFilter: TradeStatus.open,
-              tradeTypeFilter: tradeTypeFilter,
-              onUpdateTradeTypeFilter: onUpdateTradeType,
-              onUpdateTradeStatusFilter: (TradeStatus st) {
-                print(st);
-              },
-              onResetFilters: () {},
-              onShowTrades: () {},
-            ),
+                onTap: () {},
+                height: 42,
+                text: "Filter trades",
+                prefixIcon: TradelyIcons.diary,
+                from: from,
+                to: to,
+                onUpdateDateFilter: (DateTime from, DateTime to) {
+                  setState(() {
+                    this.from = from;
+                    this.to = to;
+                  });
+                },
+                onResetFilters: () async {
+                  setState(() {
+                    from = null;
+                    to = null;
+                    loading = true;
+                  });
+                  await loadData();
+                  setLoading(false);
+                },
+                onShowTrades: () async {
+                  setLoading(true);
+                  await loadData();
+                  setLoading(false);
+                }),
           ],
         ),
       ),

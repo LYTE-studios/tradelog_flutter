@@ -78,7 +78,7 @@ class TradeList extends StatelessWidget {
                   flex: 1,
                 ),
                 TextRowItem(
-                  text: trade.symbol,
+                  text: trade.symbol ?? '-',
                   flex: 1,
                 ),
                 TrendRowItem(

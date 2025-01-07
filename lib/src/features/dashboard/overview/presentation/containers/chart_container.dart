@@ -12,12 +12,17 @@ class ChartContainer extends StatelessWidget {
 
   final bool loading;
 
+  final DateTime? from;
+  final DateTime? to;
+
   const ChartContainer({
     super.key,
     required this.balance,
     required this.title,
     required this.toolTip,
     this.loading = false,
+    this.from,
+    this.to,
   });
 
   @override
@@ -53,8 +58,11 @@ class ChartContainer extends StatelessWidget {
           const SizedBox(
             height: PaddingSizes.large,
           ),
-          const Expanded(
-            child: EquityLineChart(),
+          Expanded(
+            child: EquityLineChart(
+              from: from,
+              to: to,
+            ),
           ),
         ],
       ),

@@ -11,6 +11,8 @@ class LongShortContainer extends StatefulWidget {
   final int short;
 
   final double? averageWin;
+  final double? averageLoss;
+
   final double? bestWin;
   final double? bestLoss;
 
@@ -21,6 +23,7 @@ class LongShortContainer extends StatefulWidget {
     required this.long,
     required this.short,
     this.averageWin,
+    this.averageLoss,
     this.bestWin,
     this.bestLoss,
     this.loading = false,
@@ -100,6 +103,7 @@ class _LongShortContainerState extends State<LongShortContainer> {
               long: widget.long,
               short: widget.short,
               averageWin: widget.averageWin,
+              averageLoss: widget.averageLoss,
               bestWin: widget.bestWin,
               bestLoss: widget.bestLoss,
             ),

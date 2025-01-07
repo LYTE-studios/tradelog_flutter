@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/user_profile_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/paywall_dialog.dart';
-import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/base_data_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
@@ -15,7 +15,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/co
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/web_statistic_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
-import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
+import 'package:tradelog_flutter/src/ui/buttons/filter_trades_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 
 class OverviewScreen extends StatefulWidget {
@@ -31,9 +31,31 @@ class OverviewScreen extends StatefulWidget {
 class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
   OverviewStatisticsDto? statistics;
 
+  UserProfileDto? profile;
+
+  DateTime? from;
+  DateTime? to;
+
+  Future<void> loadProfile() async {
+    profile = await UsersService().getUserProfile();
+
+    setState(() {
+      profile = profile;
+    });
+  }
+
+  @override
+  void initState() {
+    Future(() {
+      loadProfile();
+    });
+
+    super.initState();
+  }
+
   @override
   Future<void> loadData() async {
-    statistics = await UsersService().getAccountStatistics();
+    statistics = await UsersService().getAccountStatistics(from: from, to: to);
 
     setState(() {
       statistics = statistics;
@@ -41,23 +63,54 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
     return super.loadData();
   }
 
+  String getDisplayText() {
+    DateTime now = DateTime.now();
+    if (now.hour < 4) {
+      return "Good night";
+    } else if (now.hour < 12) {
+      return "Good morning";
+    } else if (now.hour < 18) {
+      return "Good afternoon";
+    } else {
+      return "Good evening";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    loading = true;
-
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Discover all your performance metrics & progress.",
         icon: TradelyIcons.overview,
         currentRoute: OverviewScreen.location,
-        title: "Good morning${(true) ? '' : ' ${'Tanguy' ?? ''}'}!",
+        title:
+            "${getDisplayText()} ${(profile?.firstName.isNotEmpty ?? false) ? profile!.firstName : ''}!",
         titleIconPath: 'assets/images/emojis/hand_emoji.png',
-        buttons: PrimaryButton(
-          onTap: () => AddTradeDialog.show(context),
+        buttons: FilterTradesButton(
+          from: from,
+          to: to,
+          onUpdateDateFilter: (from, to) {
+            this.from = from;
+            this.to = to;
+          },
+          onResetFilters: () async {
+            setState(() {
+              from = null;
+              to = null;
+              loading = true;
+            });
+            await loadData();
+            setLoading(false);
+          },
+          onShowTrades: () async {
+            setLoading(true);
+            await loadData();
+            setLoading(false);
+          },
+          onTap: () {},
           height: 42,
-          text: "Add new trade",
-          prefixIcon: TradelyIcons.plusCircle,
-          prefixIconSize: 22,
+          text: "Filter",
+          prefixIcon: TradelyIcons.diary,
         ),
       ),
       child: Column(
@@ -92,13 +145,22 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                             ),
                             ProgressDataContainer(
                               title: ' Avg realized R:R',
+                              profit: statistics?.overallStatistics.averageWin,
+                              loss: statistics?.overallStatistics.averageLoss,
                               toolTip:
                                   'Average Win / Average Loss = Average Realize R:R',
-                              value: (statistics
-                                          ?.overallStatistics.averageWin ??
-                                      0) /
-                                  (statistics?.overallStatistics.averageLoss ??
-                                      1),
+                              value: statistics?.overallStatistics.averageWin ==
+                                          null ||
+                                      statistics
+                                              ?.overallStatistics.averageLoss ==
+                                          null
+                                  ? null
+                                  : (statistics?.overallStatistics.averageWin ??
+                                          0) /
+                                      (statistics?.overallStatistics
+                                                  .averageLoss ??
+                                              1)
+                                          .abs(),
                               loading: loading,
                             )
                           ],
@@ -110,6 +172,8 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                             "Your equity line shows your account’s value over time, highlighting profits and losses.",
                         balance: statistics?.overallStatistics.balance,
                         loading: loading,
+                        from: from,
+                        to: to,
                       ),
                     ],
                   ),
@@ -121,6 +185,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                         long: statistics?.overallStatistics.long ?? 0,
                         short: statistics?.overallStatistics.short ?? 0,
                         averageWin: statistics?.overallStatistics.averageWin,
+                        averageLoss: statistics?.overallStatistics.averageLoss,
                         bestWin: statistics?.overallStatistics.bestWin,
                         bestLoss: statistics?.overallStatistics.worstLoss,
                         loading: loading,
@@ -147,7 +212,8 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
               children: [
                 BaseDataContainer(
                   title: 'Weekday',
-                  toolTip: '',
+                  toolTip:
+                      'Displays the weekday with the highest trading activity',
                   child: WebStatisticChart(
                     data: statistics?.weekDistribution.toJson() ??
                         {
@@ -162,7 +228,8 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                 ),
                 BaseDataContainer(
                   title: 'Sessions',
-                  toolTip: '',
+                  toolTip:
+                      'Displays the session with the highest trading activity',
                   child: WebStatisticChart(
                     color: HexColor.fromHex('#FFCC00'),
                     data: statistics?.sessionDistribution.toJson() ??
@@ -176,7 +243,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                 ),
                 BaseDataContainer(
                   title: 'Pairs',
-                  toolTip: '',
+                  toolTip: 'Highlights the asset you traded most frequently.',
                   child: WebStatisticChart(
                     data: statistics?.toSymbolChartMap() ??
                         OverviewStatisticsDto.getDefaultSymbolChartMap(),

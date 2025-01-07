@@ -52,8 +52,9 @@ class SidebarFooter extends StatelessWidget {
               padding: EdgeInsets.only(right: extended ? 3 : 0),
               child: const _RotatingIcons(
                 icons: [
-                  TradelyIcons.tradelocker,
                   TradelyIcons.metatrader,
+                  TradelyIcons.cTrader,
+                  TradelyIcons.tradelocker,
                 ],
               ),
             ),

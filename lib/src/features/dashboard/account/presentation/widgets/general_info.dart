@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/user_profile_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/authentication_service.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
@@ -25,24 +27,39 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
   TextEditingController emailTec = TextEditingController();
   TextEditingController dateTec = TextEditingController();
 
+  UserProfileDto? profile;
+
   bool isEditing = false;
 
-  // TradelyProfile? profile;
+  @override
+  Future<void> loadData() async {
+    profile = await UsersService().getUserProfile();
 
-  // Future<void> updateInfo() async {
-  //   assert(profile != null);
-  //
-  //   setLoading(true);
-  //
-  //   profile!.firstName = firstNameTec.text;
-  //   profile!.lastName = lastNameTec.text;
-  //
-  //   // await client.profile.updateProfile(profile!);
-  //
-  //   await loadData();
-  //
-  //   toggleEditing();
-  // }
+    setState(() {
+      firstNameTec.text = profile?.firstName ?? '';
+      lastNameTec.text = profile?.lastName ?? '';
+      emailTec.text = profile?.email ?? '';
+      profile = profile;
+    });
+
+    return super.loadData();
+  }
+
+  Future<void> updateInfo() async {
+    setLoading(true);
+
+    await UsersService().updateUserProfile(
+      UserProfileDto(
+        email: profile!.email,
+        firstName: firstNameTec.text,
+        lastName: lastNameTec.text,
+      ),
+    );
+
+    await loadData();
+
+    toggleEditing();
+  }
 
   void toggleEditing() {
     setState(() {
@@ -180,7 +197,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
               children: [
                 PrimaryButton(
                   loading: loading,
-                  onTap: () {},
+                  onTap: updateInfo,
                   width: 150,
                   height: 42,
                   text: "Save changes",

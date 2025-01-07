@@ -13,6 +13,10 @@ class ProgressDataContainer extends StatelessWidget {
 
   final double? value;
 
+  final double? profit;
+
+  final double? loss;
+
   final bool loading;
 
   const ProgressDataContainer({
@@ -22,6 +26,8 @@ class ProgressDataContainer extends StatelessWidget {
     this.value,
     this.valueFormatter,
     this.loading = false,
+    this.profit,
+    this.loss,
   });
 
   @override
@@ -47,40 +53,41 @@ class ProgressDataContainer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 vertical: PaddingSizes.extraSmall,
               ),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxHeight: 42,
-                ),
-                child: FittedBox(
-                  fit: BoxFit.contain,
-                  child: Row(
-                    children: [
-                      Text(
-                        (valueFormatter ?? "") +
-                            (value?.toStringAsFixed(2) ?? "-"),
-                        style: textTheme.bodyLarge,
-                      ),
-                    ],
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    maxHeight: 36,
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: Row(
+                      children: [
+                        Text(
+                          (valueFormatter ?? "") +
+                              (value?.toStringAsFixed(2) ?? "-"),
+                          style: textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
           Container(
-            height: 30, // Fixed height for the container
+            height: 16, // Fixed height for the container
             alignment: Alignment.center, // Center the child vertically
             child: Transform.translate(
               offset: const Offset(0, 4),
-              child: const SizedBox(
-                height: 8, // Space between the "Hello" box and the progress bar
-                child: LineProgressBar(
-                  progressRed:
-                      0.4, // Ensure the percentage is between 0.0 and 1.0
-                  progressGreen:
-                      0.6, // Ensure the percentage is between 0.0 and 1.0
-                ),
+              child: LineProgressBar(
+                progressRed: loss ?? .01,
+                progressGreen: profit ?? .01,
               ),
             ),
+          ),
+          const SizedBox(
+            width: PaddingSizes.medium,
           ),
         ],
       ),

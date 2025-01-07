@@ -1,7 +1,7 @@
 name: tradelog_flutter
 description: Tradely - Your trading journal
 publish_to: 'none'
-version: 1.0.0+30
+version: 1.0.0+38
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -27,7 +27,7 @@ dependencies:
   flutter_heatmap_calendar: 1.0.5
   image: ^4.2.0
   to_csv: ^4.0.4
-  fl_chart: ^0.69.2
+  fl_chart: ^0.70.0
 
   # NAVIGATION
   go_router: ^14.2.3

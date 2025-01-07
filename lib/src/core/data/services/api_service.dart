@@ -146,4 +146,14 @@ class ApiService {
       data: body,
     );
   }
+
+  Future<Response> put(
+    String endpoint, {
+    Map<String, dynamic>? body,
+  }) async {
+    return await dio.put(
+      endpoint,
+      data: body,
+    );
+  }
 }

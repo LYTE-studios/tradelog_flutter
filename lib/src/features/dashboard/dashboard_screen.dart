@@ -75,14 +75,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                     }
 
                     return SingleChildScrollView(
-                      scrollDirection: Axis.vertical,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: SizedBox(
-                          height: height,
-                          width: width,
-                          child: widget.child,
-                        ),
+                      scrollDirection: Axis.horizontal,
+                      child: SizedBox(
+                        height: height,
+                        width: width,
+                        child: widget.child,
                       ),
                     );
                   },
@@ -97,24 +94,24 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ? Sidebar.extendedLength - 11
                 : Sidebar.closedLength - 11,
             top: PaddingSizes.xxxl,
-            child: ClearInkWell(
-              onTap: () {
-                setState(() {
-                  extended = !extended;
-                });
-              },
-              child: Container(
-                height: 22,
-                width: 22,
-                decoration: ShapeDecoration(
-                  color: Theme.of(context).colorScheme.surface,
-                  shape: CircleBorder(
-                    side: BorderSide(
-                      width: 2,
-                      color: Theme.of(context).colorScheme.outline,
-                    ),
+            child: Container(
+              height: 22,
+              width: 22,
+              decoration: ShapeDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                shape: CircleBorder(
+                  side: BorderSide(
+                    width: 2,
+                    color: Theme.of(context).colorScheme.outline,
                   ),
                 ),
+              ),
+              child: ClearInkWell(
+                onTap: () {
+                  setState(() {
+                    extended = !extended;
+                  });
+                },
                 child: Center(
                   child: SvgIcon(
                     size: 14,

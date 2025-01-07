@@ -7,6 +7,7 @@ class SmallDataList extends StatelessWidget {
   final int? long;
   final int? short;
   final double? averageWin;
+  final double? averageLoss;
   final double? bestWin;
   final double? bestLoss;
 
@@ -14,6 +15,7 @@ class SmallDataList extends StatelessWidget {
     super.key,
     this.totalTrades,
     this.averageWin,
+    this.averageLoss,
     this.long,
     this.short,
     this.bestWin,
@@ -31,18 +33,18 @@ class SmallDataList extends StatelessWidget {
             children: [
               buildRow(
                 context,
-                title: 'Total trades',
-                value: totalTrades?.toString() ?? '-',
-              ),
-              buildRow(
-                context,
                 title: 'Long trades',
                 value: long?.toString() ?? '-',
               ),
               buildRow(
                 context,
-                title: 'Short trades',
-                value: short?.toString() ?? '-',
+                title: 'Avg Win',
+                value: TradelyNumberUtils.formatNullableValuta(averageWin),
+              ),
+              buildRow(
+                context,
+                title: 'Avg Loss',
+                value: TradelyNumberUtils.formatNullableValuta(averageLoss),
               ),
             ],
           ),
@@ -54,8 +56,8 @@ class SmallDataList extends StatelessWidget {
             children: [
               buildRow(
                 context,
-                title: 'Average Win',
-                value: TradelyNumberUtils.formatNullableValuta(averageWin),
+                title: 'Short trades',
+                value: short?.toString() ?? '-',
               ),
               buildRow(
                 context,

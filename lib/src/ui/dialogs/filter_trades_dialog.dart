@@ -8,13 +8,10 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class FilterTradesDialog extends StatelessWidget {
-  final TradeStatus tradeStatusFilter;
+  final DateTime? from;
+  final DateTime? to;
 
-  final TradeOption tradeTypeFilter;
-
-  final Function(TradeOption) onUpdateTradeTypeFilter;
-
-  final Function(TradeStatus) onUpdateTradeStatusFilter;
+  final Function(DateTime, DateTime)? onUpdateDateFilter;
 
   final Function() onResetFilters;
 
@@ -22,12 +19,11 @@ class FilterTradesDialog extends StatelessWidget {
 
   const FilterTradesDialog({
     super.key,
-    required this.tradeStatusFilter,
-    required this.tradeTypeFilter,
-    required this.onUpdateTradeTypeFilter,
+    this.onUpdateDateFilter,
     required this.onResetFilters,
-    required this.onUpdateTradeStatusFilter,
     required this.onShowTrades,
+    this.from,
+    this.to,
   });
 
   @override
@@ -36,121 +32,124 @@ class FilterTradesDialog extends StatelessWidget {
 
     return Column(
       children: [
-        const DateSelector(
+        DateSelector(
+          from: from,
+          to: to,
+          onDatesChanged: onUpdateDateFilter,
           pickerSelectionMode: DateRangePickerSelectionMode.range,
         ),
         const SizedBox(
           height: PaddingSizes.xxxl,
         ),
+        // Row(
+        //   children: [
+        //     PrimaryButton(
+        //       padding: const EdgeInsets.symmetric(
+        //         horizontal: PaddingSizes.medium,
+        //       ),
+        //       onTap: () => onUpdateTradeTypeFilter.call(TradeOption.long),
+        //       height: 34,
+        //       width: 95,
+        //       text: "Long",
+        //       prefixIcon: TradelyIcons.trendUp,
+        //       prefixIconSize: 12,
+        //       color:
+        //           tradeTypeFilter != TradeOption.long ? unSelectedColor : null,
+        //     ),
+        //     const SizedBox(
+        //       width: PaddingSizes.medium,
+        //     ),
+        //     PrimaryButton(
+        //       padding: const EdgeInsets.symmetric(
+        //         horizontal: PaddingSizes.medium,
+        //       ),
+        //       onTap: () => onUpdateTradeTypeFilter.call(TradeOption.short),
+        //       height: 34,
+        //       width: 100,
+        //       text: "Short",
+        //       prefixIcon: TradelyIcons.trendDown,
+        //       prefixIconSize: 12,
+        //       color:
+        //           tradeTypeFilter != TradeOption.short ? unSelectedColor : null,
+        //     ),
+        //     const SizedBox(
+        //       width: PaddingSizes.medium,
+        //     ),
+        //     PrimaryButton(
+        //       onTap: () => onUpdateTradeTypeFilter.call(TradeOption.long),
+        //       height: 34,
+        //       width: 95,
+        //       text: "- Both",
+        //       color:
+        //           tradeTypeFilter != TradeOption.long ? unSelectedColor : null,
+        //     ),
+        //   ],
+        // ),
+        // const SizedBox(
+        //   height: PaddingSizes.extraLarge,
+        // ),
+        // Row(
+        //   children: [
+        //     PrimaryButton(
+        //       onTap: () => onUpdateTradeStatusFilter.call(TradeStatus.closed),
+        //       height: 34,
+        //       width: 95,
+        //       text: "Closed",
+        //       color: tradeStatusFilter != TradeStatus.closed
+        //           ? unSelectedColor
+        //           : null,
+        //     ),
+        //     const SizedBox(
+        //       width: PaddingSizes.medium,
+        //     ),
+        //     PrimaryButton(
+        //       onTap: () => onUpdateTradeStatusFilter.call(TradeStatus.open),
+        //       height: 34,
+        //       width: 95,
+        //       text: "Open",
+        //       color: tradeStatusFilter != TradeStatus.open
+        //           ? unSelectedColor
+        //           : null,
+        //     ),
+        //     const SizedBox(
+        //       width: PaddingSizes.medium,
+        //     ),
+        //     PrimaryButton(
+        //       onTap: () => onUpdateTradeStatusFilter.call(TradeStatus.open),
+        //       height: 34,
+        //       width: 95,
+        //       text: "Both",
+        //       color: tradeStatusFilter != TradeStatus.open
+        //           ? unSelectedColor
+        //           : null,
+        //     ),
+        //   ],
+        // ),
+        // const Spacer(),
         Row(
           children: [
             PrimaryButton(
-              padding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.medium,
-              ),
-              onTap: () => onUpdateTradeTypeFilter.call(TradeOption.long),
-              height: 34,
-              width: 95,
-              text: "Long",
-              prefixIcon: TradelyIcons.trendUp,
-              prefixIconSize: 12,
-              color:
-                  tradeTypeFilter != TradeOption.long ? unSelectedColor : null,
-            ),
-            const SizedBox(
-              width: PaddingSizes.medium,
-            ),
-            PrimaryButton(
-              padding: const EdgeInsets.symmetric(
-                horizontal: PaddingSizes.medium,
-              ),
-              onTap: () => onUpdateTradeTypeFilter.call(TradeOption.short),
-              height: 34,
-              width: 100,
-              text: "Short",
-              prefixIcon: TradelyIcons.trendDown,
-              prefixIconSize: 12,
-              color:
-                  tradeTypeFilter != TradeOption.short ? unSelectedColor : null,
-            ),
-            const SizedBox(
-              width: PaddingSizes.medium,
-            ),
-            PrimaryButton(
-              onTap: () => onUpdateTradeTypeFilter.call(TradeOption.long),
-              height: 34,
-              width: 95,
-              text: "- Both",
-              color:
-                  tradeTypeFilter != TradeOption.long ? unSelectedColor : null,
-            ),
-          ],
-        ),
-        const SizedBox(
-          height: PaddingSizes.extraLarge,
-        ),
-        Row(
-          children: [
-            PrimaryButton(
-              onTap: () => onUpdateTradeStatusFilter.call(TradeStatus.closed),
-              height: 34,
-              width: 95,
-              text: "Closed",
-              color: tradeStatusFilter != TradeStatus.closed
-                  ? unSelectedColor
-                  : null,
-            ),
-            const SizedBox(
-              width: PaddingSizes.medium,
-            ),
-            PrimaryButton(
-              onTap: () => onUpdateTradeStatusFilter.call(TradeStatus.open),
-              height: 34,
-              width: 95,
-              text: "Open",
-              color: tradeStatusFilter != TradeStatus.open
-                  ? unSelectedColor
-                  : null,
-            ),
-            const SizedBox(
-              width: PaddingSizes.medium,
-            ),
-            PrimaryButton(
-              onTap: () => onUpdateTradeStatusFilter.call(TradeStatus.open),
-              height: 34,
-              width: 95,
-              text: "Both",
-              color: tradeStatusFilter != TradeStatus.open
-                  ? unSelectedColor
-                  : null,
-            ),
-          ],
-        ),
-        const Spacer(),
-        Row(
-          children: [
-            PrimaryButton(
-              onTap: () {},
+              onTap: onShowTrades,
               height: 46,
               width: 195,
               prefixIcon: TradelyIcons.search,
-              text: "Show 23 trades",
+              text: "Show results",
             ),
             const SizedBox(
               width: PaddingSizes.medium,
             ),
-            PrimaryButton(
-              onTap: () {},
-              height: 46,
-              width: 195,
-              prefixIcon: TradelyIcons.reset,
-              text: "Reset filters",
-              textStyle: Theme.of(context).textTheme.titleMedium,
-              color: Theme.of(context).scaffoldBackgroundColor,
-              prefixIconColor: TextStyles.mediumTitleColor,
-              outlined: true,
-              borderColor: Theme.of(context).colorScheme.outline,
-            ),
+            // PrimaryButton(
+            //   onTap: () {},
+            //   height: 46,
+            //   width: 195,
+            //   prefixIcon: TradelyIcons.reset,
+            //   text: "Reset filters",
+            //   textStyle: Theme.of(context).textTheme.titleMedium,
+            //   color: Theme.of(context).scaffoldBackgroundColor,
+            //   prefixIconColor: TextStyles.mediumTitleColor,
+            //   outlined: true,
+            //   borderColor: Theme.of(context).colorScheme.outline,
+            // ),
           ],
         )
       ],

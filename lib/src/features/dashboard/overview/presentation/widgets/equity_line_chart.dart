@@ -23,7 +23,7 @@ class EquityLineChart extends StatefulWidget {
     super.key,
     this.from,
     this.to,
-    this.noDataMessage = 'Add exchange \nfirst to start',
+    this.noDataMessage = 'No data',
   });
 
   @override
@@ -32,6 +32,9 @@ class EquityLineChart extends StatefulWidget {
 
 class _EquityLineChartState extends State<EquityLineChart>
     with ScreenStateMixin {
+  late DateTime? from = widget.from;
+  late DateTime? to = widget.to;
+
   List<ChartData> chartData = [];
 
   @override
@@ -52,6 +55,16 @@ class _EquityLineChartState extends State<EquityLineChart>
 
   @override
   Widget build(BuildContext context) {
+    if (from != widget.from || to != widget.to) {
+      from = widget.from;
+      to = widget.to;
+      Future(() async {
+        setLoading(true);
+        await loadData();
+        setLoading(false);
+      });
+    }
+
     List<ChartData> data = chartData.isEmpty ? _getEmptyChartData() : chartData;
 
     bool useEmptyState = chartData.isEmpty;

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:super_tooltip/super_tooltip.dart'; // Import the package
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
@@ -71,32 +72,32 @@ class _TooltipIconState extends State<TooltipIcon> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      onExit: (event) {
-        setState(() {
-          controller.hideTooltip();
-        });
-      },
-      onHover: (PointerHoverEvent event) {
-        setState(() {
-          controller.showTooltip();
-        });
-      },
-      child: SuperTooltip(
-        showOnTap: false,
-        showBarrier: false,
-        hasShadow: false,
-        controller: controller,
-        borderColor: Theme.of(context).colorScheme.primaryContainer,
-        popupDirection: TooltipDirection.up,
-        content: SizedBox(
-          width: 164,
-          child: Text(
-            widget.tooltipText,
-            softWrap: true,
-            style: Theme.of(context).textTheme.labelMedium,
+      hitTestBehavior: HitTestBehavior.translucent,
+      cursor: SystemMouseCursors.click,
+      child: Tooltip(
+        verticalOffset: 12,
+        preferBelow: false,
+        padding: const EdgeInsets.symmetric(
+          horizontal: PaddingSizes.medium,
+          vertical: PaddingSizes.small,
+        ),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          borderRadius: BorderRadius.circular(BorderRadii.small),
+        ),
+        richMessage: WidgetSpan(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 156),
+            child: Text(
+              widget.tooltipText,
+              style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w400,
+                  ),
+              softWrap: true,
+            ),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         child: SvgIcon(
           TradelyIcons.infoCircle,
           color: TextStyles.mediumTitleColor,

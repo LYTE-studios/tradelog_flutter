@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_quill_extensions/flutter_quill_extensions.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_note_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
@@ -36,6 +37,10 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   TradeNoteDto? note;
 
   TradeListDto? trades;
+
+  OverviewStatisticsDto? statistics;
+
+  OverviewStatisticsDto? overallStatistics;
 
   Map<DateTime, double> chartData = {};
 
@@ -111,6 +116,13 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
       to: date.add(const Duration(days: 1)),
     );
 
+    statistics = await UsersService().getAccountStatistics(
+      from: date,
+      to: date.add(const Duration(days: 1)),
+    );
+
+    overallStatistics = await UsersService().getAccountStatistics();
+
     note = await UsersService().getTradeNote(selectedDate);
 
     lastUpdatedValue = note!.note;
@@ -118,6 +130,8 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
     setState(() {
       note = note;
       trades = trades;
+
+      totalRoi = statistics?.overallStatistics.totalProfit ?? 0;
 
       if (note!.note.isNotEmpty) {
         _controller.document = Document.fromJson(jsonDecode(note!.note));
@@ -179,6 +193,20 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                 children: [
                   Expanded(
                     child: DateSelectorContainer(
+                      chartData: overallStatistics?.dayPerformances.map(
+                        (date, performance) {
+                          DateTime dateTime = DateTime.parse(date);
+
+                          return MapEntry(
+                            DateTime(
+                              dateTime.year,
+                              dateTime.month,
+                              dateTime.day,
+                            ),
+                            performance,
+                          );
+                        },
+                      ),
                       onDateChanged: (date) {
                         date = DateTime.utc(date.year, date.month, date.day);
 
@@ -218,13 +246,16 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
                         ),
                         const SizedBox(height: PaddingSizes.large),
                         SmallDataList(
-                            // totalTrades: statistics?.totalNumberOfTrades,
-                            // averageWin: statistics?.averageWinningTrade,
-                            // averageWinStreak: statistics?.averageWinStreak?.toInt(),
-                            // maxWinStreak: statistics?.maxWinStreak?.toInt(),
-                            // bestWin: statistics?.largestProfit,
-                            // bestLoss: statistics?.largestLoss,
-                            ),
+                          totalTrades:
+                              statistics?.overallStatistics.totalTrades,
+                          long: statistics?.overallStatistics.long ?? 0,
+                          short: statistics?.overallStatistics.short ?? 0,
+                          averageWin: statistics?.overallStatistics.averageWin,
+                          averageLoss:
+                              statistics?.overallStatistics.averageLoss,
+                          bestWin: statistics?.overallStatistics.bestWin,
+                          bestLoss: statistics?.overallStatistics.worstLoss,
+                        ),
                       ],
                     ),
                   ),
