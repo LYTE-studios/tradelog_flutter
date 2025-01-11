@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,14 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   DateTime selectedDate = DateTime.now();
 
   Future<String?> _saveImage(FilePickerResult result) async {
-    // return AssetUtil.uploadImage(result.files.first);
+    try {
+      return await UsersService().uploadFile(
+        file: result.files.single.bytes!.toList(),
+        name: result.files.single.name,
+      );
+    } catch (e) {
+      return null;
+    }
   }
 
   // Custom function to pick an image from the file system
@@ -111,6 +119,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   Future<void> loadData() async {
     DateTime date =
         DateTime(selectedDate.year, selectedDate.month, selectedDate.day);
+
     trades = await UsersService().fetchTrades(
       from: date,
       to: date.add(const Duration(days: 1)),

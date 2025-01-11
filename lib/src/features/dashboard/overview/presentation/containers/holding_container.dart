@@ -20,7 +20,7 @@ class HoldingContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseDataContainer(
       title: 'Average Holding Time',
-      toolTip: 'The average duration trades are held.',
+      toolTip: 'The average duration trades are held',
       child: Expanded(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,

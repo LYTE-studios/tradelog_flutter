@@ -72,11 +72,10 @@ class _LongShortContainerState extends State<LongShortContainer> {
                       vertical: PaddingSizes.large,
                     ),
                     child: Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
                           maxHeight: 200,
-                          maxWidth: 256,
                         ),
                         child: LongShortGauge(
                           long: widget.long,

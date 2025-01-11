@@ -36,7 +36,7 @@ class _ProfitContainerState extends State<ProfitContainer> {
     return BaseDataContainer(
       title: 'Profit Factor',
       toolTip:
-          'The profit factor is calculated by dividing total profits by total losses. \nA value greater than 1.0 signifies a profitable trading system.',
+          'The profit factor is calculated by dividing total profits by total losses. \nA value greater than 1.0 signifies a profitable trading system',
       child: MouseRegion(
         onExit: (_) {
           setState(() {

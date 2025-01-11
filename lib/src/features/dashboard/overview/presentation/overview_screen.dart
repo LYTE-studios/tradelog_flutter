@@ -131,7 +131,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                             DataContainer(
                               title: 'Net Profit/Loss',
                               toolTip:
-                                  'The total realized net profit and loss for all closed trades.',
+                                  'The total realized net profit and loss for all closed trades',
                               value: statistics?.overallStatistics.totalProfit,
                               loading: loading,
                             ),
@@ -139,7 +139,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                               isPercentage: true,
                               title: 'Trade win rate',
                               toolTip:
-                                  'Reflects the percentage of your winning trades out of total trades taken.',
+                                  'Reflects the percentage of your winning trades out of total trades taken',
                               value: statistics?.overallStatistics.winRate,
                               loading: loading,
                             ),
@@ -169,7 +169,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                       ChartContainer(
                         title: 'Equity line',
                         toolTip:
-                            "Your equity line shows your account’s value over time, highlighting profits and losses.",
+                            "Your equity line shows your account’s value over time, highlighting profits and losses",
                         balance: statistics?.overallStatistics.balance,
                         loading: loading,
                         from: from,
@@ -243,7 +243,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                 ),
                 BaseDataContainer(
                   title: 'Pairs',
-                  toolTip: 'Highlights the asset you traded most frequently.',
+                  toolTip: 'Highlights the asset you traded most frequently',
                   child: WebStatisticChart(
                     data: statistics?.toSymbolChartMap() ??
                         OverviewStatisticsDto.getDefaultSymbolChartMap(),

@@ -139,11 +139,19 @@ class ApiService {
 
   Future<Response> post(
     String endpoint, {
-    Map<String, dynamic>? body,
+    dynamic body,
+    bool isMultiform = false,
   }) async {
     return await dio.post(
       endpoint,
       data: body,
+      options: isMultiform
+          ? Options(
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            )
+          : null,
     );
   }
 

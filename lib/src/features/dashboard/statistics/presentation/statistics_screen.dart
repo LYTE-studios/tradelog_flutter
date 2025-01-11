@@ -147,22 +147,23 @@ class _StatisticsScreenState extends State<StatisticsScreen>
                   width: PaddingSizes.extraSmall,
                 ),
                 SmallDataContainer(
-                  title: 'Coming soon',
-                  blurred: true,
+                  loading: loading,
+                  title: 'Largest Profit',
+                  positive: isPositive(statistics?.overallStatistics.bestWin),
+                  data: TradelyNumberUtils.formatNullableValuta(
+                    statistics?.overallStatistics.bestWin,
+                  ),
                 ),
                 const SizedBox(
                   width: PaddingSizes.extraSmall,
                 ),
                 SmallDataContainer(
-                  title: 'Coming soon',
-                  blurred: true,
-                ),
-                const SizedBox(
-                  width: PaddingSizes.extraSmall,
-                ),
-                SmallDataContainer(
-                  title: 'Coming soon',
-                  blurred: true,
+                  loading: loading,
+                  title: 'Largest Loss',
+                  positive: isPositive(statistics?.overallStatistics.worstLoss),
+                  data: TradelyNumberUtils.formatNullableValuta(
+                    statistics?.overallStatistics.worstLoss,
+                  ),
                 ),
               ],
             ),

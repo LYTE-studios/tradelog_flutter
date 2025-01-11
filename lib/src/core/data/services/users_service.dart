@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:tradelog_flutter/secrets.dart';
@@ -141,5 +143,29 @@ class UsersService extends ApiService {
     }
 
     throw Exception('Could not fetch Statistics');
+  }
+
+  Future<String> uploadFile({
+    required List<int> file,
+    required String name,
+  }) async {
+    FormData formData = FormData.fromMap({
+      'file': await MultipartFile.fromBytes(
+        file,
+        filename: name,
+      ),
+    });
+
+    Response response = await post(
+      'upload-file/',
+      isMultiform: true,
+      body: formData,
+    );
+
+    if (response.statusCode == 201) {
+      return response.data['url'];
+    }
+
+    throw Exception('Could not upload file');
   }
 }
