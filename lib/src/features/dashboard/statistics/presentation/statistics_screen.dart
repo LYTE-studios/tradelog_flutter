@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_csv/to_csv.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
@@ -25,10 +26,48 @@ class StatisticsScreen extends StatefulWidget {
 
 class _StatisticsScreenState extends State<StatisticsScreen>
     with ScreenStateMixin {
+  double? bestProfit;
+  double? worstLoss;
+  double? averageMonth;
+
+  int tradesWon = 0;
+
+  int tradesLost = 0;
+
   OverviewStatisticsDto? statistics;
 
   DateTime? from;
   DateTime? to;
+
+  Map<String, String> statMap1 = {};
+
+  Map<String, String> statMap2 = {};
+
+  Future<void> downloadCsv() async {
+    List<List<String>> toData(Map<String, String> map) {
+      List<List<String>> values = [];
+
+      for (String key in map.keys.toList()) {
+        values.add([key, map[key] ?? '']);
+      }
+
+      return values;
+    }
+
+    await myCSV(
+      [
+        "Stat",
+        "Value",
+      ],
+      [
+        ...toData(statMap1),
+        ...toData(statMap2),
+      ],
+      fileName:
+          "tradely_statistics_export_${DateTime.now().millisecondsSinceEpoch}",
+      setHeadersInFirstRow: true,
+    );
+  }
 
   @override
   Future<void> loadData() async {
@@ -38,7 +77,58 @@ class _StatisticsScreenState extends State<StatisticsScreen>
     );
 
     setState(() {
+      bestProfit = statistics?.getBestMonthProfit();
+      worstLoss = statistics?.getWorstMonthProfit();
+      averageMonth = statistics?.getAverageMonthProfit();
+
+      tradesWon = ((statistics?.overallStatistics.winRate ?? 0) *
+              (statistics?.overallStatistics.totalTrades ?? 0) /
+              100)
+          .toInt();
+
+      tradesLost = (statistics?.overallStatistics.totalTrades ?? 0) - tradesWon;
+
       statistics = statistics;
+      statMap1 = {
+        "Total P&L": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.totalProfit,
+        ),
+
+        // TODO : Average Daily Volume
+
+        "Average Winning Trade": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.averageWin,
+        ),
+
+        "Average Losing Trade": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.averageLoss,
+        ),
+
+        "Total Number of Trades":
+            statistics?.overallStatistics.totalTrades.toString() ?? '',
+
+        "Number of Winning Trades": tradesWon.toString(),
+        "Number of Losing Trades": tradesLost.toString(),
+      };
+      statMap2 = {
+        "Largest Profit": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.bestWin,
+        ),
+        "Largest Loss": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.worstLoss,
+        ),
+        "Average Win P&L": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.averageWin,
+        ),
+        "Average Loss P&L": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.averageLoss,
+        ),
+        "Profit Factor": statistics?.overallStatistics.profitFactor == null ||
+                statistics?.overallStatistics.profitFactor == 0
+            ? ''
+            : statistics?.overallStatistics.profitFactor.toStringAsFixed(1) ??
+                '',
+      };
     });
     return super.loadData();
   }
@@ -53,18 +143,6 @@ class _StatisticsScreenState extends State<StatisticsScreen>
 
   @override
   Widget build(BuildContext context) {
-    double? bestProfit = statistics?.getBestMonthProfit();
-    double? worstLoss = statistics?.getWorstMonthProfit();
-    double? averageMonth = statistics?.getAverageMonthProfit();
-
-    int tradesWon = ((statistics?.overallStatistics.winRate ?? 0) *
-            (statistics?.overallStatistics.totalTrades ?? 0) /
-            100)
-        .toInt();
-
-    int tradesLost =
-        (statistics?.overallStatistics.totalTrades ?? 0) - tradesWon;
-
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Track in-depth statistics, and export them as a csv.",
@@ -75,7 +153,7 @@ class _StatisticsScreenState extends State<StatisticsScreen>
         buttons: Row(
           children: [
             PrimaryButton(
-              onTap: () {},
+              onTap: downloadCsv,
               height: 42,
               text: "Export list",
               color: Theme.of(context).colorScheme.primaryContainer,
@@ -177,57 +255,14 @@ class _StatisticsScreenState extends State<StatisticsScreen>
               children: [
                 DataList(
                   loading: loading,
-                  values: {
-                    "Total P&L": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.overallStatistics.totalProfit,
-                    ),
-
-                    // TODO : Average Daily Volume
-
-                    "Average Winning Trade":
-                        TradelyNumberUtils.formatNullableValuta(
-                      statistics?.overallStatistics.averageWin,
-                    ),
-
-                    "Average Losing Trade":
-                        TradelyNumberUtils.formatNullableValuta(
-                      statistics?.overallStatistics.averageLoss,
-                    ),
-
-                    "Total Number of Trades":
-                        statistics?.overallStatistics.totalTrades.toString() ??
-                            '',
-
-                    "Number of Winning Trades": tradesWon.toString(),
-                    "Number of Losing Trades": tradesLost.toString(),
-                  },
+                  values: statMap1,
                 ),
                 const SizedBox(
                   width: PaddingSizes.extraSmall,
                 ),
                 DataList(
                   loading: loading,
-                  values: {
-                    "Largest Profit": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.overallStatistics.bestWin,
-                    ),
-                    "Largest Loss": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.overallStatistics.worstLoss,
-                    ),
-                    "Average Win P&L": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.overallStatistics.averageWin,
-                    ),
-                    "Average Loss P&L": TradelyNumberUtils.formatNullableValuta(
-                      statistics?.overallStatistics.averageLoss,
-                    ),
-                    "Profit Factor":
-                        statistics?.overallStatistics.profitFactor == null ||
-                                statistics?.overallStatistics.profitFactor == 0
-                            ? ''
-                            : statistics?.overallStatistics.profitFactor
-                                    .toStringAsFixed(1) ??
-                                '',
-                  },
+                  values: statMap2,
                 ),
               ],
             ),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
 import 'package:tradelog_flutter/secrets.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/account_login_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_note_dto.dart';
@@ -14,6 +15,19 @@ class UsersService extends ApiService {
   UsersService({
     super.baseUrl = '${apiUrl}users/',
   });
+
+  Future<bool> authenticateAccount(AccountLoginCredentialsDto dto) async {
+    Response response = await post(
+      'add-account/',
+      body: dto.toJson(),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+
+    return false;
+  }
 
   Future<Map<DateTime, double>> getAccountBalanceChart(
       {DateTime? from, DateTime? to}) async {

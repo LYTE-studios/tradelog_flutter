@@ -1,17 +1,17 @@
-class MetaApiAccountDto {
+class TradingAccountDto {
   final int id;
   final int userId;
   final String accountName;
   final double accountBalance;
 
-  const MetaApiAccountDto({
+  const TradingAccountDto({
     required this.id,
     required this.userId,
     required this.accountName,
     required this.accountBalance,
   });
 
-  MetaApiAccountDto.fromJson(Map<String, dynamic> json)
+  TradingAccountDto.fromJson(Map<String, dynamic> json)
       : id = json['id'] as int,
         userId = json['user_id'] as int,
         accountName = json['account_name'] as String,

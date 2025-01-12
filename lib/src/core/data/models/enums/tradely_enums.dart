@@ -23,6 +23,21 @@ enum TradingPlatform {
 }
 
 extension TradingPlatformExtension on TradingPlatform {
+  String toApi() {
+    switch (this) {
+      case TradingPlatform.metaTrader4:
+        return 'MetaTrader4';
+      case TradingPlatform.metaTrader5:
+        return 'MetaTrader5';
+      case TradingPlatform.tradelockerDemo:
+        return 'TradelockerDemo';
+      case TradingPlatform.tradelockerLive:
+        return 'TradelockerLive';
+      case TradingPlatform.cTrader:
+        return 'CTrader';
+    }
+  }
+
   String getName() {
     switch (this) {
       case TradingPlatform.metaTrader4:

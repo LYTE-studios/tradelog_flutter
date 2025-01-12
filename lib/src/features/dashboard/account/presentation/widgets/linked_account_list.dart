@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trading_account_list_dto.dart';
-import 'package:tradelog_flutter/src/core/data/services/meta_api_service.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account_block.dart';
@@ -42,34 +41,13 @@ class _LinkedAccountListState extends State<LinkedAccountList>
         child: ListView(
           scrollDirection: Axis.horizontal,
           children: [
-            ...accountListDto?.tradelockerAccounts
+            ...accountListDto?.accounts
                     .map(
                       (linkedAccount) => LinkedAccountBlock(
                         name: linkedAccount.accountName,
-                        currency: linkedAccount.currency,
+                        currency: '\$',
                         balance: linkedAccount.accountBalance,
                         delete: () async {},
-                        selectable: widget.selectable,
-                        selected: false,
-                      ),
-                    )
-                    .toList() ??
-                [],
-            ...accountListDto?.metaApiAccounts
-                    .map(
-                      (linkedAccount) => LinkedAccountBlock(
-                        name: linkedAccount.accountName,
-                        currency: "\$",
-                        balance: linkedAccount.accountBalance,
-                        delete: () async {
-                          await MetaApiService().disconnect(linkedAccount.id);
-
-                          setLoading(true);
-
-                          await loadData();
-
-                          setLoading(false);
-                        },
                         selectable: widget.selectable,
                         selected: false,
                       ),

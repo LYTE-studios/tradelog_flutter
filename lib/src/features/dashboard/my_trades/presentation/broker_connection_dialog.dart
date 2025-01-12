@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/core/data/models/dto/c_trader/c_trader_credentials_dto.dart';
-import 'package:tradelog_flutter/src/core/data/models/dto/meta_api/meta_api_credentials_dto.dart';
-import 'package:tradelog_flutter/src/core/data/models/dto/tradelocker/tradelocker_credentials_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/account_login_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/tradely_enums.dart';
-import 'package:tradelog_flutter/src/core/data/services/c_trader_api_service.dart';
-import 'package:tradelog_flutter/src/core/data/services/meta_api_service.dart';
-import 'package:tradelog_flutter/src/core/data/services/tradelocker_api_service.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
@@ -61,73 +57,22 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         error = null;
       });
     }
-
-    switch (_selectedPlatform) {
-      case TradingPlatform.metaTrader4:
-      case TradingPlatform.metaTrader5:
-        {
-          try {
-            await MetaApiService().authenticate(
-              MetaApiCredentialsDto(
-                username: tecUserName.text,
-                password: tecPassword.text,
-                server: tecServerName.text,
-                platform: _selectedPlatform!,
-                accountName: tecAccountName.text,
-              ),
-            );
-          } catch (e) {
-            setState(() {
-              loading = false;
-              error =
-                  'Incorrect login data. Please check all fields and try again.';
-            });
-            return;
-          }
-        }
-      case TradingPlatform.tradelockerDemo:
-      case TradingPlatform.tradelockerLive:
-        {
-          try {
-            await TradelockerApiService().authenticate(
-              TradelockerCredentialsDto(
-                email: tecUserName.text,
-                password: tecPassword.text,
-                server: tecServerName.text,
-                platform: _selectedPlatform!,
-                accountName: tecAccountName.text,
-              ),
-            );
-          } catch (e) {
-            setState(() {
-              loading = false;
-              error =
-                  'Incorrect login data. Please check all fields and try again.';
-            });
-            return;
-          }
-        }
-      case TradingPlatform.cTrader:
-        {
-          try {
-            await CTraderApiService().authenticate(
-              CTraderCredentialsDto(
-                username: tecUserName.text,
-                password: tecPassword.text,
-                server: tecServerName.text,
-                accountName: tecAccountName.text,
-              ),
-            );
-          } catch (e) {
-            setState(() {
-              loading = false;
-              error =
-                  'Incorrect login data. Please check all fields and try again.';
-            });
-            return;
-          }
-        }
-      default:
+    try {
+      await UsersService().authenticateAccount(
+        AccountLoginCredentialsDto(
+          username: tecUserName.text,
+          password: tecPassword.text,
+          server: tecServerName.text,
+          accountName: tecAccountName.text,
+          platform: _selectedPlatform!,
+        ),
+      );
+    } catch (e) {
+      setState(() {
+        loading = false;
+        error = 'Incorrect login data. Please check all fields and try again.';
+      });
+      return;
     }
 
     setLoading(false);

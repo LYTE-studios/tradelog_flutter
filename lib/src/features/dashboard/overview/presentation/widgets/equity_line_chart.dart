@@ -67,6 +67,8 @@ class _EquityLineChartState extends State<EquityLineChart>
 
     List<ChartData> data = chartData.isEmpty ? _getEmptyChartData() : chartData;
 
+    data.sort((a, b) => a.x.compareTo(b.x));
+
     bool useEmptyState = chartData.isEmpty;
 
     double minimum = data.map((e) => e.y).reduce(min);
