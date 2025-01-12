@@ -114,9 +114,9 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
       case TradingPlatform.metaTrader4:
       case TradingPlatform.metaTrader5:
         return TradelyIcons.metatrader;
-      case TradingPlatform.tradelockerDemo:
-      case TradingPlatform.tradelockerLive:
-        return TradelyIcons.tradelocker;
+      // case TradingPlatform.tradelockerDemo:
+      // case TradingPlatform.tradelockerLive:
+      //   return TradelyIcons.tradelocker;
       case TradingPlatform.cTrader:
         return TradelyIcons.cTrader;
       default:

@@ -54,7 +54,7 @@ class SidebarFooter extends StatelessWidget {
                 icons: [
                   TradelyIcons.metatrader,
                   TradelyIcons.cTrader,
-                  TradelyIcons.tradelocker,
+                  // TradelyIcons.tradelocker,
                 ],
               ),
             ),

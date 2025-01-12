@@ -17,8 +17,8 @@ enum PlanType {
 enum TradingPlatform {
   metaTrader4,
   metaTrader5,
-  tradelockerDemo,
-  tradelockerLive,
+  // tradelockerDemo,
+  // tradelockerLive,
   cTrader,
 }
 
@@ -29,10 +29,10 @@ extension TradingPlatformExtension on TradingPlatform {
         return 'MetaTrader4';
       case TradingPlatform.metaTrader5:
         return 'MetaTrader5';
-      case TradingPlatform.tradelockerDemo:
-        return 'TradelockerDemo';
-      case TradingPlatform.tradelockerLive:
-        return 'TradelockerLive';
+      // case TradingPlatform.tradelockerDemo:
+      //   return 'TradelockerDemo';
+      // case TradingPlatform.tradelockerLive:
+      //   return 'TradelockerLive';
       case TradingPlatform.cTrader:
         return 'CTrader';
     }
@@ -44,10 +44,10 @@ extension TradingPlatformExtension on TradingPlatform {
         return 'MetaTrader 4';
       case TradingPlatform.metaTrader5:
         return 'MetaTrader 5';
-      case TradingPlatform.tradelockerDemo:
-        return 'Tradelocker Demo';
-      case TradingPlatform.tradelockerLive:
-        return 'Tradelocker Live';
+      // case TradingPlatform.tradelockerDemo:
+      //   return 'Tradelocker Demo';
+      // case TradingPlatform.tradelockerLive:
+      //   return 'Tradelocker Live';
       case TradingPlatform.cTrader:
         return 'CTrader';
       default:
