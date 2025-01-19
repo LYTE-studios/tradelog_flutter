@@ -37,26 +37,26 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
         errorText = 'Please make sure your passwords match';
       });
     }
+    try {
+      AccountCredentialsDto? credentialsDto =
+          await AuthenticationService().register(
+        RegisterAccountDto(
+          email: emailTec.text,
+          password: pwTec.text,
+        ),
+      );
+      setLoading(false);
+      if (credentialsDto != null) {
+        router.pushReplacement(OverviewScreen.route);
+        return;
+      }
+    } catch (e) {
+      setLoading(false);
 
-    AccountCredentialsDto? credentialsDto =
-        await AuthenticationService().register(
-      RegisterAccountDto(
-        email: emailTec.text,
-        password: pwTec.text,
-      ),
-    );
-
-    if (credentialsDto != null) {
-      router.pushReplacement(OverviewScreen.route);
-      return;
+      setState(() {
+        errorText = 'Account could not be created. You may not be whitelisted';
+      });
     }
-
-    setLoading(false);
-
-    setState(() {
-      errorText =
-          'Account could not be created. Perhaps this email address is already in use?';
-    });
   }
 
   @override
@@ -149,7 +149,7 @@ class _RegisterScreenState extends State<RegisterScreen> with ScreenStateMixin {
         const SizedBox(
           height: PaddingSizes.extraLarge,
         ),
-        const ExtraLoginOptions(),
+        // const ExtraLoginOptions(),
       ],
     );
   }

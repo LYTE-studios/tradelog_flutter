@@ -19,7 +19,7 @@ enum TradingPlatform {
   metaTrader5,
   // tradelockerDemo,
   // tradelockerLive,
-  cTrader,
+  // cTrader,
 }
 
 extension TradingPlatformExtension on TradingPlatform {
@@ -33,8 +33,8 @@ extension TradingPlatformExtension on TradingPlatform {
       //   return 'TradelockerDemo';
       // case TradingPlatform.tradelockerLive:
       //   return 'TradelockerLive';
-      case TradingPlatform.cTrader:
-        return 'CTrader';
+      // case TradingPlatform.cTrader:
+      //   return 'CTrader';
     }
   }
 
@@ -48,8 +48,8 @@ extension TradingPlatformExtension on TradingPlatform {
       //   return 'Tradelocker Demo';
       // case TradingPlatform.tradelockerLive:
       //   return 'Tradelocker Live';
-      case TradingPlatform.cTrader:
-        return 'CTrader';
+      // case TradingPlatform.cTrader:
+      //   return 'CTrader';
       default:
         return '';
     }

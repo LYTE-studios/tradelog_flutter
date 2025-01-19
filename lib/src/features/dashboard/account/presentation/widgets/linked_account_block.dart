@@ -5,6 +5,36 @@ import 'package:tradelog_flutter/src/features/dashboard/account/presentation/wid
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
+enum AccountStatus { pending, active, failed, disabled }
+
+extension AccountStatusExtension on AccountStatus {
+  Color getColor() {
+    switch (this) {
+      case AccountStatus.pending:
+        return const Color.fromARGB(255, 242, 232, 89);
+      case AccountStatus.active:
+        return const Color.fromARGB(255, 64, 231, 116);
+      case AccountStatus.failed:
+        return const Color(0xFFD32F2F);
+      case AccountStatus.disabled:
+        return const Color(0xFFD32F2F);
+    }
+  }
+
+  String toReadable() {
+    switch (this) {
+      case AccountStatus.pending:
+        return 'Pending';
+      case AccountStatus.active:
+        return 'Active';
+      case AccountStatus.failed:
+        return 'Failed';
+      case AccountStatus.disabled:
+        return 'Disabled';
+    }
+  }
+}
+
 class LinkedAccountBlock extends StatefulWidget {
   final Function()? delete;
 
@@ -20,6 +50,8 @@ class LinkedAccountBlock extends StatefulWidget {
 
   final Function()? onTap;
 
+  final AccountStatus status;
+
   const LinkedAccountBlock({
     super.key,
     this.delete,
@@ -28,6 +60,7 @@ class LinkedAccountBlock extends StatefulWidget {
     required this.balance,
     this.selectable = false,
     this.selected = false,
+    required this.status,
     this.onTap,
   });
 
@@ -161,13 +194,11 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                           height: PaddingSizes.xxs,
                         ),
                         Text(
-                          "Active",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.tertiary,
-                              ),
+                          widget.status.toReadable(),
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: widget.status.getColor(),
+                                  ),
                         ),
                       ],
                     ),

@@ -36,14 +36,26 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
   Future<void> signIn() async {
     setLoading(true);
 
-    AccountCredentialsDto? credentialsDto = await AuthenticationService().login(
-      LoginAccountDto(
-        email: emailTec.text,
-        password: pwTec.text,
-      ),
-    );
+    try {
+      AccountCredentialsDto? credentialsDto =
+          await AuthenticationService().login(
+        LoginAccountDto(
+          email: emailTec.text,
+          password: pwTec.text,
+        ),
+      );
 
-    if (credentialsDto == null) {
+      if (credentialsDto == null) {
+        setState(() {
+          error = 'Email or/and password are not correct';
+          loading = false;
+        });
+
+        return;
+      }
+
+      router.pushReplacement(OverviewScreen.route);
+    } catch (e) {
       setState(() {
         error = 'Email or/and password are not correct';
         loading = false;
@@ -51,7 +63,6 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
 
       return;
     }
-    router.pushReplacement(OverviewScreen.route);
   }
 
   @override
@@ -138,9 +149,9 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
         AuthError(
           error: error,
         ),
-        const ExtraLoginOptions(),
+        // const ExtraLoginOptions(),
         const SizedBox(
-          height: PaddingSizes.xxxxl,
+          height: PaddingSizes.xxl,
         ),
         Center(
           child: RichText(

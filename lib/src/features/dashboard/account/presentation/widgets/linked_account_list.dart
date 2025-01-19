@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/trading_account_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trading_account_list_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
@@ -32,6 +33,16 @@ class _LinkedAccountListState extends State<LinkedAccountList>
     return super.loadData();
   }
 
+  AccountStatus getAccountStatus(TradingAccountDto linkedAccount) {
+    if (linkedAccount.cachedUntil == null) {
+      return AccountStatus.pending;
+    }
+    if (linkedAccount.accountBalance == 0) {
+      return AccountStatus.failed;
+    }
+    return AccountStatus.active;
+  }
+
   @override
   Widget build(BuildContext context) {
     return TradelyLoadingSwitcher(
@@ -46,8 +57,19 @@ class _LinkedAccountListState extends State<LinkedAccountList>
                       (linkedAccount) => LinkedAccountBlock(
                         name: linkedAccount.accountName,
                         currency: '\$',
+                        status: getAccountStatus(linkedAccount),
                         balance: linkedAccount.accountBalance,
-                        delete: () async {},
+                        delete: () async {
+                          setLoading(true);
+                          try {
+                            await UsersService().unlinkAccount(
+                              linkedAccount.id,
+                            );
+                            await loadData();
+                          } finally {
+                            setLoading(false);
+                          }
+                        },
                         selectable: widget.selectable,
                         selected: false,
                       ),

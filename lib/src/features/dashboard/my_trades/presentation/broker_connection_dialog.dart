@@ -58,26 +58,25 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
       });
     }
     try {
-      await UsersService().authenticateAccount(
-        AccountLoginCredentialsDto(
-          username: tecUserName.text,
-          password: tecPassword.text,
-          server: tecServerName.text,
-          accountName: tecAccountName.text,
-          platform: _selectedPlatform!,
-        ),
-      );
-    } catch (e) {
-      setState(() {
-        loading = false;
-        error = 'Incorrect login data. Please check all fields and try again.';
+      Future(() async {
+        await UsersService().authenticateAccount(
+          AccountLoginCredentialsDto(
+            username: tecUserName.text,
+            password: tecPassword.text,
+            server: tecServerName.text,
+            accountName: tecAccountName.text,
+            platform: _selectedPlatform!,
+          ),
+        );
+        await UsersService().refreshAccount(forceRefresh: false);
       });
-      return;
+      await Future.delayed(
+        const Duration(seconds: 2),
+      );
+      _navigateToNextPage(_selectedPlatform!);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
-
-    _navigateToNextPage(_selectedPlatform!);
   }
 
   @override
@@ -117,8 +116,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
       // case TradingPlatform.tradelockerDemo:
       // case TradingPlatform.tradelockerLive:
       //   return TradelyIcons.tradelocker;
-      case TradingPlatform.cTrader:
-        return TradelyIcons.cTrader;
+      // case TradingPlatform.cTrader:
+      //   return TradelyIcons.cTrader;
       default:
     }
 
@@ -372,7 +371,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                     ),
                     const SizedBox(width: PaddingSizes.small),
                     Text(
-                      '${_selectedPlatform?.name ?? ''} succesfully connected',
+                      '${_selectedPlatform?.name ?? ''} connection pending',
                       style: TextStyles.titleMedium.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -383,7 +382,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                 ),
                 const SizedBox(height: PaddingSizes.medium),
                 Text(
-                  'Your exchange is now succesfully \nconnected to your Tradely account.',
+                  'Your exchange is now connecting. \nPlease check your account page for the status of the connection.',
                   style: TextStyles.bodyLarge.copyWith(
                     color: const Color(0XFF4A4A4A),
                     fontWeight: FontWeight.w400,

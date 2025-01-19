@@ -16,6 +16,18 @@ class UsersService extends ApiService {
     super.baseUrl = '${apiUrl}users/',
   });
 
+  Future<void> unlinkAccount(int id) async {
+    Response response = await delete(
+      'delete/$id',
+    );
+
+    if (response.statusCode == 200) {
+      return;
+    }
+
+    throw Exception('Could not unlink account');
+  }
+
   Future<bool> authenticateAccount(AccountLoginCredentialsDto dto) async {
     Response response = await post(
       'add-account/',

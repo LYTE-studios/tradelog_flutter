@@ -4,9 +4,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/co
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
-class ChartContainer extends StatelessWidget {
-  final double? balance;
-
+class ChartContainer extends StatefulWidget {
   final String title;
   final String toolTip;
 
@@ -17,7 +15,6 @@ class ChartContainer extends StatelessWidget {
 
   const ChartContainer({
     super.key,
-    required this.balance,
     required this.title,
     required this.toolTip,
     this.loading = false,
@@ -26,10 +23,17 @@ class ChartContainer extends StatelessWidget {
   });
 
   @override
+  State<ChartContainer> createState() => _ChartContainerState();
+}
+
+class _ChartContainerState extends State<ChartContainer> {
+  double? balance;
+
+  @override
   Widget build(BuildContext context) {
     return BaseDataContainer(
-      title: title,
-      toolTip: toolTip,
+      title: widget.title,
+      toolTip: widget.toolTip,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -60,8 +64,13 @@ class ChartContainer extends StatelessWidget {
           ),
           Expanded(
             child: EquityLineChart(
-              from: from,
-              to: to,
+              onUpdateBalance: (balance) {
+                setState(() {
+                  this.balance = balance;
+                });
+              },
+              from: widget.from,
+              to: widget.to,
             ),
           ),
         ],

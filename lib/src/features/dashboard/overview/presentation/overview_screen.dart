@@ -170,7 +170,6 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                         title: 'Equity line',
                         toolTip:
                             "Your equity line shows your account’s value over time, highlighting profits and losses",
-                        balance: statistics?.overallStatistics.balance,
                         loading: loading,
                         from: from,
                         to: to,

@@ -19,11 +19,14 @@ class EquityLineChart extends StatefulWidget {
 
   final String noDataMessage;
 
+  final Function(double?)? onUpdateBalance;
+
   const EquityLineChart({
     super.key,
     this.from,
     this.to,
     this.noDataMessage = 'No data',
+    this.onUpdateBalance,
   });
 
   @override
@@ -45,6 +48,16 @@ class _EquityLineChartState extends State<EquityLineChart>
     );
 
     chartData = map.entries.map((e) => ChartData(e.key, e.value)).toList();
+
+    if (chartData.isNotEmpty) {
+      List<DateTime> dates = map.keys.toList();
+
+      dates.sort((a, b) => a.compareTo(b));
+
+      widget.onUpdateBalance?.call(map[dates.last]);
+    } else {
+      widget.onUpdateBalance?.call(null);
+    }
 
     setState(() {
       chartData = chartData;

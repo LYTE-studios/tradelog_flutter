@@ -15,19 +15,22 @@ class TradeList extends StatelessWidget {
 
   final List<TradeListItemDto> trades;
 
+  final double sidePadding;
+
   const TradeList({
     super.key,
     required this.loading,
     required this.trades,
+    this.sidePadding = 24,
   });
 
   @override
   Widget build(BuildContext context) {
     return GenericListView(
       loading: loading,
-      header: const CustomHeader(
-        horizontalPadding: 40,
-        children: [
+      header: CustomHeader(
+        horizontalPadding: sidePadding,
+        children: const [
           HeaderRowItem(
             flex: 1,
             text: 'Open Time',
@@ -61,7 +64,7 @@ class TradeList extends StatelessWidget {
       rows: trades
           .map(
             (trade) => CustomRow(
-              horizontalPadding: 40,
+              horizontalPadding: sidePadding,
               rowItems: [
                 TextRowItem(
                   text: TradelyDateTimeUtils.toReadableTime(
