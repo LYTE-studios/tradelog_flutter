@@ -13,8 +13,10 @@ class CustomRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: 14),
+      padding: EdgeInsets.symmetric(
+        horizontal: horizontalPadding,
+        vertical: 14,
+      ),
       child: Row(
         children: rowItems,
       ),

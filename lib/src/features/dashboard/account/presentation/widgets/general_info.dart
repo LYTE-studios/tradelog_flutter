@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/user_profile_dto.dart';
+import 'package:tradelog_flutter/src/core/data/services/authentication_service.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
@@ -26,19 +27,34 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
   TextEditingController emailTec = TextEditingController();
   TextEditingController dateTec = TextEditingController();
 
+  UserProfileDto? profile;
+
   bool isEditing = false;
 
-  TradelyProfile? profile;
+  @override
+  Future<void> loadData() async {
+    profile = await UsersService().getUserProfile();
+
+    setState(() {
+      firstNameTec.text = profile?.firstName ?? '';
+      lastNameTec.text = profile?.lastName ?? '';
+      emailTec.text = profile?.email ?? '';
+      profile = profile;
+    });
+
+    return super.loadData();
+  }
 
   Future<void> updateInfo() async {
-    assert(profile != null);
-
     setLoading(true);
 
-    profile!.firstName = firstNameTec.text;
-    profile!.lastName = lastNameTec.text;
-
-    await client.profile.updateProfile(profile!);
+    await UsersService().updateUserProfile(
+      UserProfileDto(
+        email: profile!.email,
+        firstName: firstNameTec.text,
+        lastName: lastNameTec.text,
+      ),
+    );
 
     await loadData();
 
@@ -53,24 +69,9 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
   }
 
   @override
-  Future<void> loadData() async {
-    profile = await client.profile.getProfile();
-
-    setState(() {
-      profile = profile;
-    });
-
-    return super.loadData();
-  }
-
-  @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     TextTheme textTheme = Theme.of(context).textTheme;
-
-    firstNameTec.text = profile?.firstName ?? '';
-    lastNameTec.text = profile?.lastName ?? '';
-    emailTec.text = sessionManager.signedInUser?.email ?? '';
 
     return LayoutBuilder(builder: (context, constraints) {
       double columnWidth = constraints.maxWidth;
@@ -116,7 +117,7 @@ class _GeneralInfoState extends State<GeneralInfo> with ScreenStateMixin {
               PrimaryButton(
                 color: colorScheme.errorContainer,
                 onTap: () async {
-                  await sessionManager.signOut();
+                  await AuthenticationService().logout();
 
                   router.pushReplacement(LoginScreen.route);
                 },

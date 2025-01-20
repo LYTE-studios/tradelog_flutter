@@ -2,8 +2,8 @@ import 'dart:ui';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/enums/tradely_enums.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/tradely_enums.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account_list.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -58,7 +58,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
   }
 
   AddTradeType selectedType = AddTradeType.manual;
-  Option selectedBuySellType = Option.long;
+  TradeOption selectedBuySellType = TradeOption.long;
 
   bool isProfit = true;
 
@@ -104,7 +104,7 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
     });
   }
 
-  void _onBuySellToggle(Option type) {
+  void _onBuySellToggle(TradeOption type) {
     setState(() {
       selectedBuySellType = type;
     });
@@ -220,15 +220,15 @@ class _BrokerConnectionDialogState extends State<AddTradeDialog>
                                           Color(0xFF14D39F),
                                           Color(0xFFF21111),
                                         ],
-                                        selectedItem:
-                                            selectedBuySellType == Option.long
-                                                ? 0
-                                                : 1,
+                                        selectedItem: selectedBuySellType ==
+                                                TradeOption.long
+                                            ? 0
+                                            : 1,
                                         onToggle: (int index) {
                                           _onBuySellToggle(
                                             index == 0
-                                                ? Option.long
-                                                : Option.short,
+                                                ? TradeOption.long
+                                                : TradeOption.short,
                                           );
                                         },
                                         height: 45,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/trading_account_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/trading_account_list_dto.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account_block.dart';
 import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
@@ -8,12 +9,9 @@ import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
 class LinkedAccountList extends StatefulWidget {
   final bool selectable;
 
-  final Function(LinkedAccountDto?)? onUpdateSelectedAccount;
-
   const LinkedAccountList({
     super.key,
     this.selectable = false,
-    this.onUpdateSelectedAccount,
   });
 
   @override
@@ -22,25 +20,27 @@ class LinkedAccountList extends StatefulWidget {
 
 class _LinkedAccountListState extends State<LinkedAccountList>
     with ScreenStateMixin {
-  List<LinkedAccountDto> accounts = [];
-
-  LinkedAccountDto? selected;
-
-  void refresh() {
-    setLoading(true);
-
-    loadData().whenComplete(() => setLoading(false));
-  }
+  TradingAccountListDto? accountListDto;
 
   @override
   Future<void> loadData() async {
-    accounts = await apiManager.loadCachedAccounts();
+    accountListDto = await UsersService().fetchAllAccounts();
 
     setState(() {
-      accounts = accounts;
+      accountListDto = accountListDto;
     });
 
     return super.loadData();
+  }
+
+  AccountStatus getAccountStatus(TradingAccountDto linkedAccount) {
+    if (linkedAccount.cachedUntil == null) {
+      return AccountStatus.pending;
+    }
+    if (linkedAccount.accountBalance == 0) {
+      return AccountStatus.failed;
+    }
+    return AccountStatus.active;
   }
 
   @override
@@ -51,26 +51,32 @@ class _LinkedAccountListState extends State<LinkedAccountList>
         height: 156,
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: accounts
-              .map(
-                (linkedAccount) => LinkedAccountBlock(
-                  refresh: refresh,
-                  selectable: widget.selectable,
-                  selected: selected == linkedAccount,
-                  onTap: () {
-                    LinkedAccountDto? newSelected =
-                        selected == linkedAccount ? null : linkedAccount;
-
-                    setState(() {
-                      selected = newSelected;
-                    });
-
-                    widget.onUpdateSelectedAccount?.call(selected);
-                  },
-                  linkedAccount: linkedAccount,
-                ),
-              )
-              .toList(),
+          children: [
+            ...accountListDto?.accounts
+                    .map(
+                      (linkedAccount) => LinkedAccountBlock(
+                        name: linkedAccount.accountName,
+                        currency: '\$',
+                        status: getAccountStatus(linkedAccount),
+                        balance: linkedAccount.accountBalance,
+                        delete: () async {
+                          setLoading(true);
+                          try {
+                            await UsersService().unlinkAccount(
+                              linkedAccount.id,
+                            );
+                            await loadData();
+                          } finally {
+                            setLoading(false);
+                          }
+                        },
+                        selectable: widget.selectable,
+                        selected: false,
+                      ),
+                    )
+                    .toList() ??
+                [],
+          ],
         ),
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_color_identifier.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/long_short_gauge.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
@@ -11,11 +11,10 @@ class LongShortContainer extends StatefulWidget {
   final int short;
 
   final double? averageWin;
+  final double? averageLoss;
+
   final double? bestWin;
   final double? bestLoss;
-
-  final int? averageWinStreak;
-  final int? maxWinStreak;
 
   final bool loading;
 
@@ -24,10 +23,9 @@ class LongShortContainer extends StatefulWidget {
     required this.long,
     required this.short,
     this.averageWin,
+    this.averageLoss,
     this.bestWin,
     this.bestLoss,
-    this.averageWinStreak,
-    this.maxWinStreak,
     this.loading = false,
   });
 
@@ -36,9 +34,9 @@ class LongShortContainer extends StatefulWidget {
 }
 
 class _LongShortContainerState extends State<LongShortContainer> {
-  Option selected = Option.long;
+  TradeOption selected = TradeOption.long;
 
-  void setSelected(Option value) {
+  void setSelected(TradeOption value) {
     setState(() {
       selected = value;
     });
@@ -47,7 +45,6 @@ class _LongShortContainerState extends State<LongShortContainer> {
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      loading: widget.loading,
       padding: const EdgeInsets.all(
         PaddingSizes.large,
       ),
@@ -75,11 +72,10 @@ class _LongShortContainerState extends State<LongShortContainer> {
                       vertical: PaddingSizes.large,
                     ),
                     child: Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: Alignment.center,
                       child: ConstrainedBox(
                         constraints: const BoxConstraints(
                           maxHeight: 200,
-                          maxWidth: 256,
                         ),
                         child: LongShortGauge(
                           long: widget.long,
@@ -103,8 +99,10 @@ class _LongShortContainerState extends State<LongShortContainer> {
             height: 64,
             child: SmallDataList(
               totalTrades: widget.long + widget.short,
-              maxWinStreak: widget.maxWinStreak,
-              averageWinStreak: widget.averageWinStreak,
+              long: widget.long,
+              short: widget.short,
+              averageWin: widget.averageWin,
+              averageLoss: widget.averageLoss,
               bestWin: widget.bestWin,
               bestLoss: widget.bestLoss,
             ),

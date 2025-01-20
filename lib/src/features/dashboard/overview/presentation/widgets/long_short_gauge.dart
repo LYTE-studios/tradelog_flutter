@@ -23,14 +23,13 @@ class LongShortGauge extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) => SizedBox(
-        height: constraints.maxHeight,
-        width: constraints.maxHeight,
+        height: 256,
+        width: 180,
         child: SfRadialGauge(
           axes: <RadialAxis>[
             RadialAxis(
               annotations: [
                 GaugeAnnotation(
-                  positionFactor: 0.1,
                   widget: Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 27,
@@ -45,6 +44,7 @@ class LongShortGauge extends StatelessWidget {
                         FittedBox(
                           child: Text(
                             (long + short).toString(),
+                            textAlign: TextAlign.center,
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       height: 1,

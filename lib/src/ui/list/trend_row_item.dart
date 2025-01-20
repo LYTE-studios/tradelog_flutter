@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/ui/base/base_Row_Item.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class TrendRowItem extends StatelessWidget {
-  final Option option;
+  final TradeOption option;
   final int flex;
 
   const TrendRowItem({
@@ -18,7 +18,7 @@ class TrendRowItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool short = option == Option.short;
+    bool short = option == TradeOption.short;
 
     return BaseRowItem(
       flex: flex,

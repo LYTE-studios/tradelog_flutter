@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -11,11 +13,22 @@ class DateSelector extends StatefulWidget {
 
   final Function(DateTime)? onDateChanged;
 
+  final Function(DateTime, DateTime)? onDatesChanged;
+
+  final Map<DateTime, DayPerformanceDto>? chartData;
+
+  final DateTime? from;
+  final DateTime? to;
+
   /// has a fixed height of 380
   const DateSelector({
     super.key,
     this.pickerSelectionMode = DateRangePickerSelectionMode.single,
     this.onDateChanged,
+    this.chartData,
+    this.onDatesChanged,
+    this.from,
+    this.to,
   });
 
   @override
@@ -110,23 +123,68 @@ class _DateSelectorState extends State<DateSelector> {
           ),
           Expanded(
             child: SfDateRangePicker(
-              initialSelectedDate: DateTime.now(),
+              backgroundColor: Colors.transparent,
+              initialDisplayDate: widget.from,
+              initialSelectedRange: PickerDateRange(widget.from, widget.to),
               onSelectionChanged: (args) {
-                widget.onDateChanged?.call(args.value);
+                if (widget.pickerSelectionMode ==
+                    DateRangePickerSelectionMode.range) {
+                  widget.onDatesChanged?.call(
+                    args.value.startDate,
+                    args.value.endDate,
+                  );
+                } else {
+                  widget.onDateChanged?.call(args.value);
+                }
               },
               selectionMode: widget.pickerSelectionMode,
               onViewChanged: onSwipe,
               rangeTextStyle: textTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.w400,
               ),
+              // cellBuilder: (context, details) {
+              //   DayPerformanceDto? dayPerformance = widget.chartData?[DateTime(
+              //     details.date.year,
+              //     details.date.month,
+              //     details.date.day,
+              //   )];
+
+              //   double? profit = dayPerformance?.totalProfit;
+              //   double? loss = dayPerformance?.totalLoss?.abs();
+
+              //   if (profit != null) {
+              //     print([profit, loss]);
+              //   }
+
+              //   return Container(
+              //     decoration: BoxDecoration(
+              //       shape: BoxShape.circle,
+              //     ),
+              //     child: Stack(
+              //       clipBehavior: Clip.none,
+              //       children: [
+              //         if (profit != null && loss != null && profit + loss != 0)
+              //           CircularProgressIndicator(
+              //             value: profit / (profit + loss),
+              //             color: HexColor.fromHex('#14D39F'),
+              //             backgroundColor: HexColor.fromHex('#E13232'),
+              //           ),
+              //         Center(
+              //           child: Text(
+              //             details.date.day.toString(),
+              //             style: textTheme.titleSmall?.copyWith(
+              //               fontWeight: FontWeight.w400,
+              //             ),
+              //           ),
+              //         ),
+              //       ],
+              //     ),
+              //   );
+              // },
               monthCellStyle: DateRangePickerMonthCellStyle(
                 todayTextStyle: TextStyle(
                   color: colorScheme.onPrimary,
                 ),
-                // @ Robin
-                // sorry, I couldn't be bothered with writing a custom cell builder
-                // just to make the today date a smaller circle...
-                // yes, it's a fake border that matches the size of the select circle
                 todayCellDecoration: BoxDecoration(
                   border: Border.all(
                     width: 9,
@@ -160,6 +218,7 @@ class _DateSelectorState extends State<DateSelector> {
                 ),
               ),
               selectionRadius: 17,
+              selectionShape: DateRangePickerSelectionShape.circle,
               todayHighlightColor: TextStyles.titleColor,
               rangeSelectionColor: colorScheme.secondaryContainer,
               enablePastDates: true,

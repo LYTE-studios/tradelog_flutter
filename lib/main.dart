@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/ui/theme/tradely_theme.dart';
 
 Future<void> main() async {
-  await initializeServerpodClient();
-
   runApp(const TradelyApp());
 }
 
