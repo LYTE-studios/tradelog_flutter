@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
@@ -59,7 +59,9 @@ class _FirstGlanceScreenState extends State<FirstGlanceScreen>
 
     await TradelyIcons.preload(context);
 
-    if (!sessionManager.isSignedIn) {
+    bool isAuthenticated = await UsersService().isAuthenticated();
+
+    if (!isAuthenticated) {
       router.pushReplacement(LoginScreen.route);
     } else {
       router.pushReplacement(OverviewScreen.route);

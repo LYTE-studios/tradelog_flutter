@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:to_csv/to_csv.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_item_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
+import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -16,6 +18,7 @@ import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/list/header_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/text_profit_loss.dart';
 import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
+import 'package:tradelog_flutter/src/ui/list/trade_list.dart';
 import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
@@ -30,13 +33,23 @@ class MyTradesScreen extends StatefulWidget {
 }
 
 class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
-  Option tradeTypeFilter = Option.short;
+  TradeOption tradeTypeFilter = TradeOption.short;
 
-  List<TradeDto> trades = [];
+  List<TradeListItemDto> trades = [];
+
+  DateTime? from;
+  DateTime? to;
 
   Future<void> downloadCsv() async {
     await myCSV(
-      ["Open Time", "Symbol", "Direction", "Status", "Net P&L", "Net ROI %"],
+      [
+        "Open Time",
+        "Close Time",
+        "Symbol",
+        "Direction",
+        "Profit",
+        "ROI",
+      ],
       trades
           .map(
             (e) => <String>[
@@ -44,11 +57,14 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                 e.openTime,
                 true,
               ),
-              e.symbol,
-              e.option.toString(),
-              e.status.toString(),
-              e.realizedPl?.toStringAsFixed(2) ?? "",
-              e.netRoi?.toStringAsFixed(2) ?? "",
+              TradelyDateTimeUtils.toReadableTime(
+                e.closeTime,
+                true,
+              ),
+              e.symbol ?? '-',
+              e.option.name,
+              TradelyNumberUtils.formatNullableValuta(e.profit),
+              e.gain?.toStringAsFixed(2) ?? "",
             ],
           )
           .toList(),
@@ -57,7 +73,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
     );
   }
 
-  void onUpdateTradeType(Option type) {
+  void onUpdateTradeType(TradeOption type) {
     setState(() {
       tradeTypeFilter = type;
     });
@@ -65,7 +81,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
 
   @override
   Future<void> loadData() async {
-    trades = await apiManager.loadCachedTrades();
+    trades = (await UsersService().fetchTrades(from: from, to: to)).trades;
 
     setState(() {
       trades = trades;
@@ -86,6 +102,27 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
         buttons: Row(
           children: [
             PrimaryButton(
+              color: Theme.of(context).colorScheme.primaryContainer,
+              padding: EdgeInsets.zero,
+              prefixIconPadding: EdgeInsets.zero,
+              align: MainAxisAlignment.center,
+              prefixIcon: TradelyIcons.refresh,
+              onTap: () async {
+                setLoading(true);
+
+                await UsersService().refreshAccount();
+
+                await loadData();
+
+                setLoading(false);
+              },
+              height: 42,
+              width: 42,
+            ),
+            const SizedBox(
+              width: PaddingSizes.medium,
+            ),
+            PrimaryButton(
               onTap: () {
                 downloadCsv();
               },
@@ -94,107 +131,49 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               color: Theme.of(context).colorScheme.primaryContainer,
             ),
             const SizedBox(
-              width: PaddingSizes.large,
+              width: PaddingSizes.medium,
             ),
             FilterTradesButton(
-              onTap: () {},
-              height: 42,
-              text: "Filter trades",
-              prefixIcon: TradelyIcons.diary,
-              tradeStatusFilter: TradeStatus.open,
-              tradeTypeFilter: tradeTypeFilter,
-              onUpdateTradeTypeFilter: onUpdateTradeType,
-              onUpdateTradeStatusFilter: (TradeStatus st) {
-                print(st);
-              },
-              onResetFilters: () {},
-              onShowTrades: () {},
-            ),
+                onTap: () {},
+                height: 42,
+                text: "Filter trades",
+                prefixIcon: TradelyIcons.diary,
+                from: from,
+                to: to,
+                onUpdateDateFilter: (DateTime from, DateTime to) {
+                  setState(() {
+                    this.from = from;
+                    this.to = to;
+                  });
+                },
+                onResetFilters: () async {
+                  setState(() {
+                    from = null;
+                    to = null;
+                    loading = true;
+                  });
+                  await loadData();
+                  setLoading(false);
+                },
+                onShowTrades: () async {
+                  setLoading(true);
+                  await loadData();
+                  setLoading(false);
+                }),
           ],
         ),
       ),
       child: BaseContainer(
+        height: MediaQuery.of(context).size.height * .73,
         padding: const EdgeInsets.only(top: 10),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: GenericListView(
+              child: TradeList(
                 loading: loading,
-                header: const CustomHeader(
-                  horizontalPadding: 40,
-                  children: [
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Open Time',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Symbol',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Direction',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Status',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Net P/L',
-                    ),
-                    HeaderRowItem(
-                      flex: 1,
-                      text: 'Net ROI %',
-                    ),
-                  ],
-                ),
-                rows: trades
-                    .map(
-                      (trade) => CustomRow(
-                        horizontalPadding: 40,
-                        rowItems: [
-                          TextRowItem(
-                            text: TradelyDateTimeUtils.toReadableTime(
-                              trade.openTime,
-                              true,
-                            ),
-                            flex: 1,
-                          ),
-                          TextRowItem(
-                            text: trade.symbol,
-                            flex: 1,
-                          ),
-                          TrendRowItem(
-                            option: trade.option,
-                            flex: 1,
-                          ),
-                          TextRowItem(
-                            text: trade.status.name,
-                            flex: 1,
-                          ),
-                          TextProfitLoss(
-                            text:
-                                "\$${trade.realizedPl?.abs().toStringAsFixed(2) ?? "-"}",
-                            short: (trade.realizedPl == null) ||
-                                    (trade.realizedPl == 0)
-                                ? null
-                                : (trade.realizedPl! < 0),
-                            flex: 1,
-                          ),
-                          TextProfitLoss(
-                            text:
-                                "%${trade.netRoi?.abs().toStringAsFixed(2) ?? "-"}",
-                            short: (trade.netRoi == null) || (trade.netRoi == 0)
-                                ? null
-                                : (trade.netRoi! < 0),
-                            flex: 1,
-                          ),
-                        ],
-                      ),
-                    )
-                    .toList(),
+                trades: trades,
               ),
             ),
           ],

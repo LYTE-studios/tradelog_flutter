@@ -4,20 +4,22 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class SmallDataList extends StatelessWidget {
   final int? totalTrades;
+  final int? long;
+  final int? short;
   final double? averageWin;
+  final double? averageLoss;
   final double? bestWin;
   final double? bestLoss;
-  final int? averageWinStreak;
-  final int? maxWinStreak;
 
   const SmallDataList({
     super.key,
     this.totalTrades,
     this.averageWin,
+    this.averageLoss,
+    this.long,
+    this.short,
     this.bestWin,
     this.bestLoss,
-    this.averageWinStreak,
-    this.maxWinStreak,
   });
 
   @override
@@ -31,18 +33,18 @@ class SmallDataList extends StatelessWidget {
             children: [
               buildRow(
                 context,
-                title: 'Total trades',
-                value: totalTrades?.toString() ?? '-',
+                title: 'Long trades',
+                value: long?.toString() ?? '-',
               ),
               buildRow(
                 context,
-                title: 'Average Win',
+                title: 'Avg Win',
                 value: TradelyNumberUtils.formatNullableValuta(averageWin),
               ),
               buildRow(
                 context,
-                title: 'Best Win',
-                value: TradelyNumberUtils.formatNullableValuta(bestWin),
+                title: 'Avg Loss',
+                value: TradelyNumberUtils.formatNullableValuta(averageLoss),
               ),
             ],
           ),
@@ -54,13 +56,13 @@ class SmallDataList extends StatelessWidget {
             children: [
               buildRow(
                 context,
-                title: 'Avg Win Streak',
-                value: averageWinStreak?.toString() ?? '-',
+                title: 'Short trades',
+                value: short?.toString() ?? '-',
               ),
               buildRow(
                 context,
-                title: 'Max Win Streak',
-                value: maxWinStreak?.toString() ?? '-',
+                title: 'Best Win',
+                value: TradelyNumberUtils.formatNullableValuta(bestWin),
               ),
               buildRow(
                 context,

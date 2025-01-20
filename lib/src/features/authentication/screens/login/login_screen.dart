@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/core/managers/authentication_manager.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/authentication/account_credentials_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/authentication/login_account_dto.dart';
+import 'package:tradelog_flutter/src/core/data/services/authentication_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/forgot_password/forgot_password_screen.dart';
@@ -34,24 +36,32 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
   Future<void> signIn() async {
     setLoading(true);
 
-    AuthenticationResult result = await AuthenticationManager.signIn(
-      email: emailTec.text,
-      password: pwTec.text,
-    );
+    try {
+      AccountCredentialsDto? credentialsDto =
+          await AuthenticationService().login(
+        LoginAccountDto(
+          email: emailTec.text,
+          password: pwTec.text,
+        ),
+      );
 
-    if (result == AuthenticationResult.authenticated) {
-      router.go(OverviewScreen.route);
-      setLoading(false);
-    } else if (result == AuthenticationResult.failure) {
+      if (credentialsDto == null) {
+        setState(() {
+          error = 'Email or/and password are not correct';
+          loading = false;
+        });
+
+        return;
+      }
+
+      router.pushReplacement(OverviewScreen.route);
+    } catch (e) {
       setState(() {
         error = 'Email or/and password are not correct';
         loading = false;
       });
-    } else if (result == AuthenticationResult.error) {
-      setState(() {
-        error = 'An unexpected error occurred.';
-        loading = false;
-      });
+
+      return;
     }
   }
 
@@ -139,9 +149,9 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
         AuthError(
           error: error,
         ),
-        const ExtraLoginOptions(),
+        // const ExtraLoginOptions(),
         const SizedBox(
-          height: PaddingSizes.xxxxl,
+          height: PaddingSizes.xxl,
         ),
         Center(
           child: RichText(

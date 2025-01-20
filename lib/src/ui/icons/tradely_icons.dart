@@ -56,6 +56,7 @@ class TradelyIcons {
   static const String link = '$_basePath/link.svg';
   static const String copied = '$_basePath/copied.svg';
   static const String backDialog = '$_basePath/back_dialog.svg';
+  static const String refresh = '$_basePath/refresh.svg';
 
   // logos
   static const String tradelyLogo = '$_baseLogosPath/tradely_logo.svg';
@@ -73,6 +74,7 @@ class TradelyIcons {
   // PNG Logos
   static const String metatrader = '$_basePath/metatrader.png';
   static const String tradelocker = '$_basePath/tradelocker.png';
+  static const String cTrader = '$_basePath/c_trader.png';
 
   static const List<String> icons = [
     account,
@@ -111,5 +113,6 @@ class TradelyIcons {
     instagram,
     link,
     backDialog,
+    refresh,
   ];
 }

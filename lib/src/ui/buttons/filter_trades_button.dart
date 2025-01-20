@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/filter_trades_dialog.dart';
@@ -11,10 +11,13 @@ class FilterTradesButton extends StatefulWidget {
   final String? text;
   final String? prefixIcon;
   final bool? leaveIconUnaltered;
-  final TradeStatus tradeStatusFilter;
-  final Option tradeTypeFilter;
-  final Function(Option) onUpdateTradeTypeFilter;
-  final Function(TradeStatus) onUpdateTradeStatusFilter;
+  // final TradeStatus tradeStatusFilter;
+  // final TradeOption tradeTypeFilter;
+  // final Function(TradeOption) onUpdateTradeTypeFilter;
+  // final Function(TradeStatus) onUpdateTradeStatusFilter;
+  final DateTime? from;
+  final DateTime? to;
+  final Function(DateTime, DateTime)? onUpdateDateFilter;
   final Function() onResetFilters;
   final Function() onShowTrades;
 
@@ -25,12 +28,11 @@ class FilterTradesButton extends StatefulWidget {
     this.text,
     this.prefixIcon,
     this.leaveIconUnaltered,
-    required this.tradeStatusFilter,
-    required this.tradeTypeFilter,
-    required this.onUpdateTradeTypeFilter,
-    required this.onUpdateTradeStatusFilter,
+    this.from,
+    this.to,
     required this.onResetFilters,
     required this.onShowTrades,
+    this.onUpdateDateFilter,
   });
 
   @override
@@ -38,7 +40,7 @@ class FilterTradesButton extends StatefulWidget {
 }
 
 class _FilterTradesButtonState extends State<FilterTradesButton> {
-  Option tradeTypeFilter = Option.long;
+  TradeOption tradeTypeFilter = TradeOption.long;
   TradeStatus tradeStatusFilter = TradeStatus.open;
 
   OverlayEntry? _overlayEntry;
@@ -56,40 +58,40 @@ class _FilterTradesButtonState extends State<FilterTradesButton> {
         right: width - offset.dx - size.width,
         top: offset.dy + widget.height + PaddingSizes.large,
         child: BaseContainer(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          height: 640,
+          height: 520,
           width: 520,
           child: FilterTradesDialog(
-            tradeTypeFilter: tradeTypeFilter,
-            tradeStatusFilter: tradeStatusFilter,
+            from: widget.from,
+            to: widget.to,
             onResetFilters: widget.onResetFilters,
-            onUpdateTradeTypeFilter: onUpdateTradeType,
-            onUpdateTradeStatusFilter: onUpdateTradeStatus,
-            onShowTrades: widget.onShowTrades,
+            onUpdateDateFilter: widget.onUpdateDateFilter,
+            onShowTrades: () {
+              _hideOverlay();
+              widget.onShowTrades.call();
+            },
           ),
         ),
       ),
     );
   }
 
-  void onUpdateTradeStatus(TradeStatus type) {
-    setState(() {
-      print("here zazaza");
-      tradeStatusFilter = type;
-      widget.onUpdateTradeStatusFilter(type);
-      _hideOverlay();
-      _showOverlay();
-    });
-  }
+  // void onUpdateTradeStatus(TradeStatus type) {
+  //   setState(() {
+  //     tradeStatusFilter = type;
+  //     widget.onUpdateTradeStatusFilter(type);
+  //     _hideOverlay();
+  //     _showOverlay();
+  //   });
+  // }
 
-  void onUpdateTradeType(Option type) {
-    setState(() {
-      tradeTypeFilter = type;
-      widget.onUpdateTradeTypeFilter(type);
-      _hideOverlay();
-      _showOverlay();
-    });
-  }
+  // void onUpdateTradeType(TradeOption type) {
+  //   setState(() {
+  //     tradeTypeFilter = type;
+  //     widget.onUpdateTradeTypeFilter(type);
+  //     _hideOverlay();
+  //     _showOverlay();
+  //   });
+  // }
 
   void _showOverlay() {
     _overlayEntry = _createOverlayEntry();
@@ -107,12 +109,6 @@ class _FilterTradesButtonState extends State<FilterTradesButton> {
     } else {
       _hideOverlay();
     }
-  }
-
-  @override
-  void initState() {
-    tradeTypeFilter = widget.tradeTypeFilter;
-    super.initState();
   }
 
   @override

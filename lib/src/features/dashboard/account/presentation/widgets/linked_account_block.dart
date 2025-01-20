@@ -1,14 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/custom_pop_menu.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
+enum AccountStatus { pending, active, failed, disabled }
+
+extension AccountStatusExtension on AccountStatus {
+  Color getColor() {
+    switch (this) {
+      case AccountStatus.pending:
+        return const Color.fromARGB(255, 242, 232, 89);
+      case AccountStatus.active:
+        return const Color.fromARGB(255, 64, 231, 116);
+      case AccountStatus.failed:
+        return const Color(0xFFD32F2F);
+      case AccountStatus.disabled:
+        return const Color(0xFFD32F2F);
+    }
+  }
+
+  String toReadable() {
+    switch (this) {
+      case AccountStatus.pending:
+        return 'Pending';
+      case AccountStatus.active:
+        return 'Active';
+      case AccountStatus.failed:
+        return 'Failed';
+      case AccountStatus.disabled:
+        return 'Disabled';
+    }
+  }
+}
+
 class LinkedAccountBlock extends StatefulWidget {
-  final LinkedAccountDto linkedAccount;
+  final Function()? delete;
+
+  final String name;
+
+  final String currency;
+
+  final double balance;
 
   final bool selectable;
 
@@ -16,15 +50,18 @@ class LinkedAccountBlock extends StatefulWidget {
 
   final Function()? onTap;
 
-  final Function()? refresh;
+  final AccountStatus status;
 
   const LinkedAccountBlock({
     super.key,
-    required this.linkedAccount,
+    this.delete,
+    required this.name,
+    required this.currency,
+    required this.balance,
     this.selectable = false,
     this.selected = false,
+    required this.status,
     this.onTap,
-    this.refresh,
   });
 
   @override
@@ -35,12 +72,6 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
   bool isHovering = false;
 
   late bool selected = widget.selected;
-
-  Future<void> deleteAccount() async {
-    await client.account.removeAccount(widget.linkedAccount.linkedAccountId!);
-
-    widget.refresh?.call();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +86,6 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
 
     if (selected) {
       isHovering = true;
-    }
-
-    double totalBalance = 0;
-
-    for (double value in widget.linkedAccount.balance ?? []) {
-      totalBalance += value;
     }
 
     return Padding(
@@ -119,7 +144,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                             height: PaddingSizes.xxs,
                           ),
                           Text(
-                            "\$ ${TradelyNumberUtils.formatValuta(totalBalance)}",
+                            "${TradelyNumberUtils.currencyCodeTranslation(widget.currency)} ${TradelyNumberUtils.formatValuta(widget.balance)}",
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
                                       fontSize: 19,
@@ -143,7 +168,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                             // Do something for Disable
                             break;
                           case 'Delete':
-                            deleteAccount();
+                            widget.delete?.call();
                             break;
                         }
                       },
@@ -159,8 +184,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.linkedAccount.title ??
-                              "${widget.linkedAccount.platform} account",
+                          widget.name,
                           style:
                               Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     fontSize: 15,
@@ -170,13 +194,11 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                           height: PaddingSizes.xxs,
                         ),
                         Text(
-                          widget.linkedAccount.status?.first ?? "Active",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(
-                                color: Theme.of(context).colorScheme.tertiary,
-                              ),
+                          widget.status.toReadable(),
+                          style:
+                              Theme.of(context).textTheme.labelMedium?.copyWith(
+                                    color: widget.status.getColor(),
+                                  ),
                         ),
                       ],
                     ),

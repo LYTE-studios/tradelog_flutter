@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_client/tradelog_client.dart';
-import 'package:tradelog_flutter/src/core/data/client.dart';
+import 'package:tradelog_flutter/src/core/data/models/dto/users/account_login_credentials_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/tradely_enums.dart';
+import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/base_dialog.dart';
@@ -56,38 +57,26 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         error = null;
       });
     }
-
-    switch (_selectedPlatform) {
-      case Platform.Metatrader:
-        {
-          // await client.metaApi.authenticate();
-        }
-      case Platform.TradelockerDemo:
-      case Platform.Tradelocker:
-        {
-          try {
-            await client.tradeLocker.authenticate(
-              tecUserName.text,
-              tecPassword.text,
-              tecServerName.text,
-              title: tecAccountName.text,
-              isDemo: _selectedPlatform == Platform.TradelockerDemo,
-            );
-          } catch (e) {
-            setState(() {
-              loading = false;
-              error =
-                  'Incorrect login data. Please check all fields and try again.';
-            });
-            return;
-          }
-        }
-      default:
+    try {
+      Future(() async {
+        await UsersService().authenticateAccount(
+          AccountLoginCredentialsDto(
+            username: tecUserName.text,
+            password: tecPassword.text,
+            server: tecServerName.text,
+            accountName: tecAccountName.text,
+            platform: _selectedPlatform!,
+          ),
+        );
+        await UsersService().refreshAccount(forceRefresh: false);
+      });
+      await Future.delayed(
+        const Duration(seconds: 2),
+      );
+      _navigateToNextPage(_selectedPlatform!);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
-
-    _navigateToNextPage(_selectedPlatform!);
   }
 
   @override
@@ -101,9 +90,9 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
   }
 
   final PageController _pageController = PageController();
-  Platform? _selectedPlatform;
+  TradingPlatform? _selectedPlatform;
 
-  void _navigateToNextPage(Platform platform) {
+  void _navigateToNextPage(TradingPlatform platform) {
     setState(() {
       _selectedPlatform = platform; // Store the selected broker
     });
@@ -119,13 +108,16 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
         curve: Curves.fastEaseInToSlowEaseOut);
   }
 
-  String getIconForBroker(Platform platform) {
+  String getIconForBroker(TradingPlatform platform) {
     switch (platform) {
-      case Platform.Metatrader:
+      case TradingPlatform.metaTrader4:
+      case TradingPlatform.metaTrader5:
         return TradelyIcons.metatrader;
-      case Platform.TradelockerDemo:
-      case Platform.Tradelocker:
-        return TradelyIcons.tradelocker;
+      // case TradingPlatform.tradelockerDemo:
+      // case TradingPlatform.tradelockerLive:
+      //   return TradelyIcons.tradelocker;
+      // case TradingPlatform.cTrader:
+      //   return TradelyIcons.cTrader;
       default:
     }
 
@@ -192,8 +184,8 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                     const SizedBox(
                       height: PaddingSizes.extraLarge,
                     ),
-                    ...Platform.values.map(
-                      (Platform platform) {
+                    ...TradingPlatform.values.map(
+                      (TradingPlatform platform) {
                         return _BaseBrokerRow(
                           height: 70,
                           onTap: () => _navigateToNextPage(platform),
@@ -202,10 +194,10 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                           ),
                           color: const Color(0xFF171717),
                           icon: getIconForBroker(platform),
-                          title: platform.name,
+                          title: platform.getName(),
                           description: 'Automatic Sync of Completed Trades',
-                          isFirst: Platform.values.first == platform,
-                          isLast: Platform.values.last == platform,
+                          isFirst: TradingPlatform.values.first == platform,
+                          isLast: TradingPlatform.values.last == platform,
                         );
                       },
                     ),
@@ -379,7 +371,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                     ),
                     const SizedBox(width: PaddingSizes.small),
                     Text(
-                      '${_selectedPlatform?.name ?? ''} succesfully connected',
+                      '${_selectedPlatform?.name ?? ''} connection pending',
                       style: TextStyles.titleMedium.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
@@ -390,7 +382,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                 ),
                 const SizedBox(height: PaddingSizes.medium),
                 Text(
-                  'Your exchange is now succesfully \nconnected to your Tradely account.',
+                  'Your exchange is now connecting. \nPlease check your account page for the status of the connection.',
                   style: TextStyles.bodyLarge.copyWith(
                     color: const Color(0XFF4A4A4A),
                     fontWeight: FontWeight.w400,

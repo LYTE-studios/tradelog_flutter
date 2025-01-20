@@ -33,93 +33,85 @@ class BaseTradelyPageHeader extends StatelessWidget {
       padding: const EdgeInsets.only(
         bottom: PaddingSizes.xxl,
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    if (icon != null)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          right: PaddingSizes.extraSmall,
-                        ),
-                        child: SvgIcon(
-                          icon!,
-                          color:
-                              Theme.of(context).colorScheme.onPrimaryContainer,
-                        ),
-                      ),
-                    Text(
-                      currentRoute,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: TextStyles.bodyColor,
-                          ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: PaddingSizes.medium,
-                      ),
-                      child: SvgIcon(
-                        TradelyIcons.slash,
-                        color: Theme.of(context).colorScheme.outline,
-                      ),
-                    ),
-                    Text(
-                      "General",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                  width: 570,
-                  child: Divider(
-                    thickness: 2,
-                    color: Theme.of(context).colorScheme.outline,
+          Row(
+            children: [
+              if (icon != null)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    right: PaddingSizes.extraSmall,
+                  ),
+                  child: SvgIcon(
+                    icon!,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              title,
-                              style: Theme.of(context).textTheme.titleLarge,
-                            ),
-                            const SizedBox(
-                              width: PaddingSizes.extraSmall,
-                            ),
-                            Image.asset(
-                              titleIconPath,
-                              width: 25,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: PaddingSizes.small,
-                        ),
-                        if (subTitle != null)
-                          Text(
-                            subTitle!,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          )
-                      ],
+              Text(
+                currentRoute,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: TextStyles.bodyColor,
                     ),
-                    // const Spacer(),
-                    if (buttons != null) buttons!,
-                  ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: PaddingSizes.medium,
                 ),
-              ],
+                child: SvgIcon(
+                  TradelyIcons.slash,
+                  color: Theme.of(context).colorScheme.outline,
+                ),
+              ),
+              Text(
+                "General",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 30,
+            width: 570,
+            child: Divider(
+              thickness: 2,
+              color: Theme.of(context).colorScheme.outline,
             ),
-          )
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(
+                        width: PaddingSizes.extraSmall,
+                      ),
+                      Image.asset(
+                        titleIconPath,
+                        width: 25,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: PaddingSizes.small,
+                  ),
+                  if (subTitle != null)
+                    Text(
+                      subTitle!,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    )
+                ],
+              ),
+              if (buttons != null) buttons!,
+            ],
+          ),
         ],
       ),
     );

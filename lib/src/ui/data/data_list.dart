@@ -19,6 +19,7 @@ class DataList extends StatelessWidget {
       loading: loading,
       padding: EdgeInsets.zero,
       child: ListView.builder(
+        primary: false,
         itemCount: values.length,
         itemExtent: 40,
         itemBuilder: (BuildContext context, int index) {

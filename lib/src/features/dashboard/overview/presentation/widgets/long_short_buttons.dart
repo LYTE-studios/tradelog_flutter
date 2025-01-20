@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/ui/selectable/clear_ink_well.dart';
-import 'package:tradelog_client/tradelog_client.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class LongShortButtons extends StatelessWidget {
-  final Option? selected;
-  final Function(Option?) onChanged;
+  final TradeOption? selected;
+  final Function(TradeOption?) onChanged;
 
   const LongShortButtons({
     super.key,
@@ -18,7 +18,7 @@ class LongShortButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    Widget buildButton(String label, Option? value) {
+    Widget buildButton(String label, TradeOption? value) {
       return ClearInkWell(
         onTap: () => onChanged(value),
         child: Text(
@@ -37,11 +37,11 @@ class LongShortButtons extends StatelessWidget {
         const SizedBox(
           width: PaddingSizes.medium,
         ),
-        buildButton("Long", Option.long),
+        buildButton("Long", TradeOption.long),
         const SizedBox(
           width: PaddingSizes.medium,
         ),
-        buildButton("Short", Option.short),
+        buildButton("Short", TradeOption.short),
       ],
     );
   }
