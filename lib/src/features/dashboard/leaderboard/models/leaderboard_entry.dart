@@ -6,13 +6,11 @@ class LeaderboardEntry {
   final String name;
   final int rank;
   final int points;
-  final String avatarUrl;
 
   LeaderboardEntry({
     required this.name,
     required this.rank,
     required this.points,
-    required this.avatarUrl,
   });
 
   @override
@@ -21,11 +19,10 @@ class LeaderboardEntry {
       other is LeaderboardEntry &&
           runtimeType == other.runtimeType &&
           name == other.name &&
-          rank == other.rank &&
-          avatarUrl == other.avatarUrl;
+          rank == other.rank;
 
   @override
-  int get hashCode => name.hashCode ^ rank.hashCode ^ avatarUrl.hashCode;
+  int get hashCode => name.hashCode ^ rank.hashCode;
 }
 
 class LeaderboardCurrency {
@@ -43,12 +40,11 @@ class LeaderboardTradeActivity {
   final String currencyPair;
   final double exchangeRate;
   final int moment;
-  final String avatarUrl;
 
-  LeaderboardTradeActivity(
-      {required this.name,
-      required this.currencyPair,
-      required this.exchangeRate,
-      required this.moment,
-      required this.avatarUrl});
+  LeaderboardTradeActivity({
+    required this.name,
+    required this.currencyPair,
+    required this.exchangeRate,
+    required this.moment,
+  });
 }

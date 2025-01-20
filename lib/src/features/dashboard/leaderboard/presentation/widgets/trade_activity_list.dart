@@ -91,7 +91,6 @@ class TradeActivityList extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: TradeActivityListItem(
-                        avatar: entry.avatarUrl,
                         name: entry.name,
                         currencyPair: entry.currencyPair,
                         exchangeRate: entry.exchangeRate,

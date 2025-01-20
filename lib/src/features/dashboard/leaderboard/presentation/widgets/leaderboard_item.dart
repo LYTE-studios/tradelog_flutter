@@ -26,14 +26,14 @@ class LeaderboardItem extends StatelessWidget {
         ),
         Stack(
           children: [
-            Padding(
-              child: CircleAvatar(
-                radius: 36.0,
-                backgroundImage: NetworkImage(// Replace with your image URL
-                    entry.avatarUrl),
-              ),
-              padding: EdgeInsets.all(12.0),
-            ),
+            // Padding(
+            //   child: CircleAvatar(
+            //     radius: 36.0,
+            //     backgroundImage: NetworkImage(// Replace with your image URL
+            //         entry.avatarUrl),
+            //   ),
+            //   padding: EdgeInsets.all(12.0),
+            // ),
             Positioned(
                 top: 67,
                 left: 29,
@@ -67,15 +67,15 @@ class LeaderboardItem extends StatelessWidget {
               Container(
                 child: Row(
                   children: [
-                    (entry.points > 0)
-                        ? SvgIcon(
-                            TradelyIcons.arrowDown,
-                            color: colorScheme.tertiary,
-                          )
-                        : SvgIcon(
-                            TradelyIcons.arrowDown,
-                            color: colorScheme.error,
-                          ),
+                    // (entry.points > 0)
+                    //     ? SvgIcon(
+                    //         TradelyIcons.arrowDown,
+                    //         color: colorScheme.tertiary,
+                    //       )
+                    //     : SvgIcon(
+                    //         TradelyIcons.arrowDown,
+                    //         color: colorScheme.error,
+                    //       ),
                     Text("${entry.points.abs()}",
                         style: TextStyle(
                             fontSize: 14.0,

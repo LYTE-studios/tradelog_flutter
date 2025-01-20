@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/features/dashboard/leaderboard/models/leaderboard_entry.dart';
-import 'package:tradelog_flutter/src/features/dashboard/leaderboard/presentation/widgets/trade_activity_list_item.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
-import 'package:flutter/material.dart';
 
 class TradeActivityListItem extends StatelessWidget {
-  final String avatar;
+  // final String avatar;
   final String name;
   final String currencyPair;
   final double exchangeRate;
@@ -14,7 +11,7 @@ class TradeActivityListItem extends StatelessWidget {
 
   const TradeActivityListItem({
     Key? key,
-    required this.avatar,
+    // required this.avatar,
     required this.name,
     required this.currencyPair,
     required this.exchangeRate,
@@ -43,8 +40,10 @@ class TradeActivityListItem extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 4.0),
               child: CircleAvatar(
-                backgroundImage: NetworkImage(// Replace with your image URL
-                    avatar),
+                // backgroundImage: NetworkImage(
+                //   // Replace with your image URL
+                //   avatar,
+                // ),
                 radius: 24,
               ),
             ),

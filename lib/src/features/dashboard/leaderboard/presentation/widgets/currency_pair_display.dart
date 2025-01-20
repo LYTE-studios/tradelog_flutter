@@ -147,12 +147,12 @@ class CurrencyPairDisplay extends StatelessWidget {
                   // const SizedBox(height: 4.0),
                   Row(
                     children: [
-                      SvgIcon(
-                        TradelyIcons.arrowDown,
-                        color: (exchangeRate > 0)
-                            ? colorScheme.tertiary
-                            : colorScheme.error,
-                      ),
+                      // SvgIcon(
+                      //   TradelyIcons.arrowDown,
+                      //   color: (exchangeRate > 0)
+                      //       ? colorScheme.tertiary
+                      //       : colorScheme.error,
+                      // ),
                       Text(
                         '\$${exchangeRate.abs().toStringAsFixed(2)}',
                         style: TextStyle(

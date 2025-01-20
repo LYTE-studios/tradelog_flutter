@@ -82,8 +82,8 @@ class LeaderboardList extends StatelessWidget {
                                         CircleAvatar(
                                           // Example avatar
                                           // backgroundColor: Colors.grey.shade300,
-                                          backgroundImage:
-                                              NetworkImage(entry.avatarUrl),
+                                          // backgroundImage:
+                                          //     NetworkImage(entry.avatarUrl),
                                           radius: 16.0,
                                         ),
                                         const SizedBox(width: 8.0),
@@ -98,16 +98,16 @@ class LeaderboardList extends StatelessWidget {
                                         Container(
                                           child: Row(
                                             children: [
-                                              (entry.points > 0)
-                                                  ? SvgIcon(
-                                                      TradelyIcons.arrowDown,
-                                                      color:
-                                                          colorScheme.tertiary,
-                                                    )
-                                                  : SvgIcon(
-                                                      TradelyIcons.arrowDown,
-                                                      color: colorScheme.error,
-                                                    ),
+                                              // (entry.points > 0)
+                                              // ? SvgIcon(
+                                              //     TradelyIcons.arrowDown,
+                                              //     color:
+                                              //         colorScheme.tertiary,
+                                              //   )
+                                              // : SvgIcon(
+                                              //     TradelyIcons.arrowDown,
+                                              //     color: colorScheme.error,
+                                              //   ),
                                               // Transform(
                                               //     transform: Matrix4.rotationZ(
                                               //         3.14), // 180 degrees in radians
@@ -211,8 +211,8 @@ class LeaderboardList extends StatelessWidget {
                                         CircleAvatar(
                                           // Example avatar
                                           // backgroundColor: Colors.grey.shade300,
-                                          backgroundImage:
-                                              NetworkImage(entry.avatarUrl),
+                                          // backgroundImage:
+                                          //     NetworkImage(entry.avatarUrl),
                                           radius: 16.0,
                                         ),
                                         const SizedBox(width: 8.0),
@@ -227,16 +227,16 @@ class LeaderboardList extends StatelessWidget {
                                         Container(
                                           child: Row(
                                             children: [
-                                              (entry.points > 0)
-                                                  ? SvgIcon(
-                                                      TradelyIcons.arrowDown,
-                                                      color:
-                                                          colorScheme.tertiary,
-                                                    )
-                                                  : SvgIcon(
-                                                      TradelyIcons.arrowDown,
-                                                      color: colorScheme.error,
-                                                    ),
+                                              // (entry.points > 0)
+                                              //     ? SvgIcon(
+                                              //         TradelyIcons.arrowDown,
+                                              //         color:
+                                              //             colorScheme.tertiary,
+                                              //       )
+                                              //     : SvgIcon(
+                                              //         TradelyIcons.arrowDown,
+                                              //         color: colorScheme.error,
+                                              //       ),
                                               // Transform(
                                               //     transform: Matrix4.rotationZ(
                                               //         3.14), // 180 degrees in radians
