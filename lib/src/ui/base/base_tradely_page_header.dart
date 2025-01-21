@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/account_dropdown.dart';
+import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/broker_connection_dialog.dart';
+import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
@@ -17,6 +20,8 @@ class BaseTradelyPageHeader extends StatelessWidget {
 
   final Widget? buttons;
 
+  final bool showToolkit;
+
   const BaseTradelyPageHeader({
     super.key,
     required this.currentRoute,
@@ -25,6 +30,7 @@ class BaseTradelyPageHeader extends StatelessWidget {
     this.subTitle,
     this.buttons,
     this.icon,
+    this.showToolkit = true,
   });
 
   @override
@@ -67,11 +73,30 @@ class BaseTradelyPageHeader extends StatelessWidget {
                 "General",
                 style: Theme.of(context).textTheme.titleMedium,
               ),
+              if (showToolkit)
+                Expanded(
+                  child: SizedBox(
+                    height: 56,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        PrimaryButton(
+                          text: 'Connect Account',
+                          height: 42,
+                          onTap: () {
+                            BrokerConnectionDialog.show(context);
+                          },
+                        ),
+                        const AccountDropdown(),
+                      ],
+                    ),
+                  ),
+                ),
             ],
           ),
           SizedBox(
             height: 30,
-            width: 570,
+            width: double.infinity,
             child: Divider(
               thickness: 2,
               color: Theme.of(context).colorScheme.outline,

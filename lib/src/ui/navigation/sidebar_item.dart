@@ -16,10 +16,13 @@ class SidebarItem extends StatelessWidget {
   final bool extended;
   final String route;
 
+  final bool useGradient;
+
   const SidebarItem({
     super.key,
     required this.extended,
     required this.route,
+    this.useGradient = false,
   });
 
   static const Map<String, String> routeToIcon = {
@@ -70,22 +73,19 @@ class SidebarItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                 BorderRadii.small,
               ),
-              gradient: selected
-                  ? LinearGradient(
+              gradient: useGradient && selected
+                  ? const LinearGradient(
                       colors: [
-                        const Color.fromARGB(255, 252, 106, 88),
-                        const Color.fromARGB(255, 105, 108, 250)
+                        Color.fromARGB(255, 252, 106, 88),
+                        Color.fromARGB(255, 105, 108, 250)
                       ], // Gradient colors
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     )
-                  : LinearGradient(
-                      colors: [
-                        Colors.transparent,
-                        Colors.transparent
-                      ], // Use a transparent gradient
-                    ),
-              // color: selected ? theme.colorScheme.primaryContainer : null,
+                  : null, // Use a transparent gradient
+              color: selected && !useGradient
+                  ? theme.colorScheme.primaryContainer
+                  : null,
             ),
             child: Row(
               mainAxisAlignment:

@@ -11,6 +11,7 @@ import 'package:tradelog_flutter/src/features/authentication/widgets/auth_screen
 import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/dashboard_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary_screen.dart';
+import 'package:tradelog_flutter/src/features/dashboard/leaderboard/presentation/leaderboard_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/my_trades_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/statistics_screen.dart';
@@ -110,14 +111,14 @@ GoRouter router = GoRouter(
         GoRoute(
           path: DiaryScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              NoTransitionPage(
+              const NoTransitionPage(
             child: DiaryScreen(),
           ),
         ),
         GoRoute(
           path: MyTradesScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              NoTransitionPage(
+              const NoTransitionPage(
             child: MyTradesScreen(),
           ),
         ),
@@ -126,6 +127,13 @@ GoRouter router = GoRouter(
           pageBuilder: (BuildContext context, GoRouterState state) =>
               const NoTransitionPage(
             child: StatisticsScreen(),
+          ),
+        ),
+        GoRoute(
+          path: LeaderboardScreen.route,
+          pageBuilder: (BuildContext context, GoRouterState state) =>
+              const NoTransitionPage(
+            child: LeaderboardScreen(),
           ),
         ),
         GoRoute(

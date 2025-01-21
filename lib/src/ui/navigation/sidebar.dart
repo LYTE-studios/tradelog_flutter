@@ -78,6 +78,7 @@ class Sidebar extends StatelessWidget {
                   SidebarItem(
                     extended: extended,
                     route: LeaderboardScreen.route,
+                    useGradient: true,
                   ),
                   const Spacer(),
                   SidebarFooter(
