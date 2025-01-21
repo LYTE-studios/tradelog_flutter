@@ -22,7 +22,7 @@ class TradeListItemDto {
   });
 
   TradeListItemDto.fromJson(Map<String, dynamic> json)
-      : option = (json['trade_type'] as String).toLowerCase() == 'buy'
+      : option = (json['trade_type'] as String?)?.toLowerCase() == 'buy'
             ? TradeOption.long
             : TradeOption.short,
         symbol = json['symbol'] as String?,
@@ -30,6 +30,8 @@ class TradeListItemDto {
         price = json['price'] as double?,
         profit = json['profit'] as double?,
         openTime = DateTime.parse(json['trade_date'] as String),
-        closeTime = DateTime.parse(json['close_date'] as String),
+        closeTime = json['close_date'] == null
+            ? null
+            : DateTime.tryParse(json['close_date'] as String),
         gain = json['gain'] as double?;
 }
