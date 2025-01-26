@@ -38,6 +38,8 @@ extension AccountStatusExtension on AccountStatus {
 class LinkedAccountBlock extends StatefulWidget {
   final Function()? delete;
 
+  final Function()? toggleAccountStatus;
+
   final String name;
 
   final String currency;
@@ -62,6 +64,7 @@ class LinkedAccountBlock extends StatefulWidget {
     this.selected = false,
     required this.status,
     this.onTap,
+    this.toggleAccountStatus,
   });
 
   @override
@@ -166,9 +169,19 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                             break;
                           case 'Disable':
                             // Do something for Disable
+                            widget.toggleAccountStatus?.call();
+
+                            print('Disable Clicked');
+                          case 'Enable':
+                            // Do something for Disable
+                            widget.toggleAccountStatus?.call();
+
+                            print('Enable Clicked');
                             break;
                           case 'Delete':
-                            widget.delete?.call();
+                            print('Delete Clicked');
+
+                            // widget.delete?.call();
                             break;
                         }
                       },

@@ -28,6 +28,18 @@ class UsersService extends ApiService {
     throw Exception('Could not unlink account');
   }
 
+  Future<void> toggleAccountStatus(int id) async {
+    Response response = await toggleStatus(
+      'toggle-account-mode/$id',
+    );
+
+    if (response.statusCode == 200) {
+      return;
+    }
+
+    throw Exception('Could not toggle account status account');
+  }
+
   Future<bool> authenticateAccount(AccountLoginCredentialsDto dto) async {
     Response response = await post(
       'add-account/',

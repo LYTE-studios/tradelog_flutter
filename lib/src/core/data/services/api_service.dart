@@ -137,6 +137,13 @@ class ApiService {
     );
   }
 
+Future<Response> toggleStatus(
+    String endpoint,
+  ) async {
+    return await dio.patch(
+      endpoint,
+    );
+  }
   Future<Response> post(
     String endpoint, {
     dynamic body,

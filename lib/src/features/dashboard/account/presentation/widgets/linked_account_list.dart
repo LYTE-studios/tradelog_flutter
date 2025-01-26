@@ -40,6 +40,10 @@ class _LinkedAccountListState extends State<LinkedAccountList>
     if (linkedAccount.accountBalance == 0) {
       return AccountStatus.failed;
     }
+    print(linkedAccount.accountStatus);
+    if (linkedAccount.accountStatus == 'disabled') {
+      return AccountStatus.disabled;
+    }
     return AccountStatus.active;
   }
 
@@ -67,6 +71,21 @@ class _LinkedAccountListState extends State<LinkedAccountList>
                             );
                             await loadData();
                           } finally {
+                            setLoading(false);
+                          }
+                        },
+                        toggleAccountStatus: () async {
+                          print('Before Disabling');
+
+                          setLoading(true);
+                          try {
+                            print('Start Disabling');
+                            await UsersService().toggleAccountStatus(
+                              linkedAccount.id,
+                            );
+                            await loadData();
+                          } finally {
+                            print('Disabled Account');
                             setLoading(false);
                           }
                         },
