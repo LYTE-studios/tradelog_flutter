@@ -307,7 +307,7 @@ class _BrokerConnectionDialogState extends State<BrokerConnectionDialog>
                                   error != null && tecPassword.text.isEmpty,
                               height: 52,
                               width: 420,
-                              hint: 'Investor password',
+                              hint: 'Password',
                             ),
                           ),
                           const SizedBox(height: PaddingSizes.xxl),
