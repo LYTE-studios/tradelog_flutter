@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:to_csv/to_csv.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_item_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
@@ -98,68 +99,67 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
         icon: TradelyIcons.myTrades,
         currentRoute: MyTradesScreen.location,
         title: "My trades",
-        titleIconPath: 'assets/images/emojis/chart_emoji.png',
-        buttons: Row(
+        subHeader: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            PrimaryButton(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              padding: EdgeInsets.zero,
-              prefixIconPadding: EdgeInsets.zero,
-              align: MainAxisAlignment.center,
-              prefixIcon: TradelyIcons.refresh,
-              onTap: () async {
-                setLoading(true);
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Total Trades',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(
+                  height: PaddingSizes.extraSmall / 3,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      r"$Loss/Profit",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.refresh,
+                        color: HexColor.fromHex('#7C7C7C'),
+                      ),
+                      onPressed: () async {
+                        setLoading(true);
 
-                await UsersService().refreshAccount();
+                        await UsersService().refreshAccount();
 
-                await loadData();
+                        await loadData();
 
-                setLoading(false);
-              },
-              height: 42,
-              width: 42,
+                        setLoading(false);
+                      },
+                    ),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(
-              width: PaddingSizes.medium,
-            ),
-            PrimaryButton(
-              onTap: () {
-                downloadCsv();
-              },
-              height: 42,
-              text: "Export list",
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
-            const SizedBox(
-              width: PaddingSizes.medium,
-            ),
-            FilterTradesButton(
-                onTap: () {},
-                height: 42,
-                text: "Filter trades",
-                prefixIcon: TradelyIcons.diary,
-                from: from,
-                to: to,
-                onUpdateDateFilter: (DateTime from, DateTime to) {
-                  setState(() {
-                    this.from = from;
-                    this.to = to;
-                  });
-                },
-                onResetFilters: () async {
-                  setState(() {
-                    from = null;
-                    to = null;
-                    loading = true;
-                  });
-                  await loadData();
-                  setLoading(false);
-                },
-                onShowTrades: () async {
-                  setLoading(true);
-                  await loadData();
-                  setLoading(false);
-                }),
+            Row(
+              children: [
+                PrimaryButton(
+                  onTap: () {},
+                  height: 42,
+                  text: "Trade Type",
+                  suffixIcon: TradelyIcons.chevronRight,
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                ),
+                const SizedBox(
+                  width: PaddingSizes.medium,
+                ),
+                PrimaryButton(
+                  onTap: () {
+                    downloadCsv();
+                  },
+                  height: 42,
+                  text: "Export",
+                  suffixIcon: TradelyIcons.chevronRight,
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                ),
+              ],
+            )
           ],
         ),
       ),
