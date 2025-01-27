@@ -41,7 +41,8 @@ class _LinkedAccountListState extends State<LinkedAccountList>
       return AccountStatus.failed;
     }
     print(linkedAccount.accountStatus);
-    if (linkedAccount.accountStatus == 'disabled') {
+    if (linkedAccount.isDisabled == true) {
+      print(AccountStatus.disabled);
       return AccountStatus.disabled;
     }
     return AccountStatus.active;
@@ -63,6 +64,7 @@ class _LinkedAccountListState extends State<LinkedAccountList>
                         currency: '\$',
                         status: getAccountStatus(linkedAccount),
                         balance: linkedAccount.accountBalance,
+                        isDisabled: linkedAccount.isDisabled!,
                         delete: () async {
                           setLoading(true);
                           try {
@@ -75,17 +77,13 @@ class _LinkedAccountListState extends State<LinkedAccountList>
                           }
                         },
                         toggleAccountStatus: () async {
-                          print('Before Disabling');
-
                           setLoading(true);
                           try {
-                            print('Start Disabling');
                             await UsersService().toggleAccountStatus(
                               linkedAccount.id,
                             );
                             await loadData();
                           } finally {
-                            print('Disabled Account');
                             setLoading(false);
                           }
                         },

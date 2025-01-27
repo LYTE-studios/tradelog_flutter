@@ -5,8 +5,9 @@ import 'package:tradelog_flutter/src/ui/theme/tradely_theme.dart';
 
 class CustomPopupMenu extends StatefulWidget {
   final Function(String)? onSelected;
+  bool isDisabled;
 
-  const CustomPopupMenu({super.key, this.onSelected});
+  CustomPopupMenu({super.key, this.onSelected, required this.isDisabled});
 
   @override
   State<CustomPopupMenu> createState() => _CustomPopupMenuState();
@@ -29,6 +30,10 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
               children: [
                 InkWell(
                   onTap: () {
+                    if (widget.isDisabled) {
+                      widget.onSelected?.call("Enable");
+                      return;
+                    }
                     widget.onSelected?.call("Disable");
                   },
                   hoverColor: Colors.white
@@ -41,7 +46,7 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Disable",
+                       widget.isDisabled? "Enable" : "Disable",
                         style: theme.textTheme.labelMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,

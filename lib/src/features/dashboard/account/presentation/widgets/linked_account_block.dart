@@ -46,6 +46,8 @@ class LinkedAccountBlock extends StatefulWidget {
 
   final double balance;
 
+  final bool isDisabled;
+
   final bool selectable;
 
   final bool selected;
@@ -60,6 +62,8 @@ class LinkedAccountBlock extends StatefulWidget {
     required this.name,
     required this.currency,
     required this.balance,
+        required this.isDisabled,
+
     this.selectable = false,
     this.selected = false,
     required this.status,
@@ -158,6 +162,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                     ),
                     // Add the custom popup menu here
                     CustomPopupMenu(
+                      isDisabled: widget.isDisabled,
                       onSelected: (String value) {
                         // Handle the selected option
                         switch (value) {
