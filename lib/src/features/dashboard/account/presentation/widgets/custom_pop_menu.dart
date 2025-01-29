@@ -46,7 +46,7 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                       widget.isDisabled? "Enable" : "Disable",
+                        widget.isDisabled ? "Enable" : "Disable",
                         style: theme.textTheme.labelMedium?.copyWith(
                           fontSize: 15,
                           color: Colors.white,

@@ -140,10 +140,52 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
             Row(
               children: [
                 PrimaryButton(
+                  height: 42,
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                        child: BaseContainer(
+                          height: MediaQuery.of(context).size.height * .73,
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(
+                                child: TradeList(
+                                  loading: loading,
+                                  trades: trades,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  suffixIcon: TradelyIcons.fullScreenIcon,
+                  padding: EdgeInsets.all(5),
+                  suffixIconSize: 35,
+                  suffixIconColor: Color(0xFF898989),
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                ),
+                const SizedBox(
+                  width: PaddingSizes.medium,
+                ),
+                PrimaryButton(
                   onTap: () {},
                   height: 42,
+                  suffixIconPadding: EdgeInsets.only(left: 12.0),
                   text: "Trade Type",
-                  suffixIcon: TradelyIcons.chevronRight,
+                  padding: EdgeInsets.symmetric(horizontal: 14),
+                  textStyle: TextStyle(
+                    color: Color(0xFF898989),
+                    fontSize: 16,
+                  ),
+                  suffixIcon: TradelyIcons.chevronDown,
+                  suffixIconSize: 8,
+                  suffixIconColor: Color(0xFF898989),
                   color: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 const SizedBox(
@@ -153,10 +195,18 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                   onTap: () {
                     downloadCsv();
                   },
+                  suffixIconPadding: EdgeInsets.only(left: 10.0),
                   height: 42,
+                  padding: EdgeInsets.symmetric(horizontal: 14),
                   text: "Export",
+                  textStyle: TextStyle(
+                    color: Color(0xFF898989),
+                    fontSize: 16,
+                  ),
+                  suffixIconSize: 20,
                   suffixIcon: TradelyIcons.chevronRight,
                   color: Theme.of(context).colorScheme.primaryContainer,
+                  suffixIconColor: Color(0xFF898989),
                 ),
               ],
             )

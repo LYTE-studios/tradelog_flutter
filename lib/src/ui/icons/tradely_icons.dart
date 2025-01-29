@@ -57,6 +57,9 @@ class TradelyIcons {
   static const String copied = '$_basePath/copied.svg';
   static const String backDialog = '$_basePath/back_dialog.svg';
   static const String refresh = '$_basePath/refresh.svg';
+  static const String chevronDown = '$_basePath/chevron-down.svg';
+  static const String fullScreenIcon = '$_basePath/full_screen_icon.svg';
+  static const String multiDropdown = '$_basePath/multi_dropdown_icon.svg';
 
   // logos
   static const String tradelyLogo = '$_baseLogosPath/tradely_logo.svg';
@@ -80,6 +83,8 @@ class TradelyIcons {
     account,
     arrowBack,
     checkCircle,
+    chevronDown,
+    fullScreenIcon,
     chevronLeft,
     chevronRight,
     diary,

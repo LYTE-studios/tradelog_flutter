@@ -168,7 +168,7 @@ class _PrimaryButtonState extends State<PrimaryButton> {
                     Padding(
                       padding: widget.suffixIconPadding ??
                           const EdgeInsets.only(
-                            right: PaddingSizes.extraSmall,
+                            right: PaddingSizes.extraSmall / 10,
                           ),
                       child: SvgIcon(
                         widget.suffixIcon!,
