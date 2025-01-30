@@ -5,8 +5,9 @@ import 'package:tradelog_flutter/src/ui/theme/tradely_theme.dart';
 
 class CustomPopupMenu extends StatefulWidget {
   final Function(String)? onSelected;
+  bool isDisabled;
 
-  const CustomPopupMenu({super.key, this.onSelected});
+  CustomPopupMenu({super.key, this.onSelected, required this.isDisabled});
 
   @override
   State<CustomPopupMenu> createState() => _CustomPopupMenuState();
@@ -19,26 +20,54 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
 
     return [
       PopupMenuItem(
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(BorderRadii.extraSmall),
-            child: Material(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              child: InkWell(
-                hoverColor: Colors.red.withOpacity(0.2),
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () {
-                  widget.onSelected?.call("Delete");
-                },
-                child: SizedBox(
-                  height: 42,
-                  width: 128,
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.zero,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(BorderRadii.extraSmall),
+          child: Material(
+            color: Theme.of(context).colorScheme.primaryContainer,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                InkWell(
+                  onTap: () {
+                    if (widget.isDisabled) {
+                      widget.onSelected?.call("Enable");
+                      return;
+                    }
+                    widget.onSelected?.call("Disable");
+                  },
+                  hoverColor: Colors.white
+                      .withOpacity(0.1), // Hover color for "Disable"
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        widget.isDisabled ? "Enable" : "Disable",
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    widget.onSelected?.call("Delete");
+                  },
+                  hoverColor:
+                      Colors.red.withOpacity(0.1), // Hover color for "Delete"
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
                       child: Text(
                         "Delete",
                         style: theme.textTheme.labelMedium?.copyWith(
@@ -49,11 +78,11 @@ class _CustomPopupMenuState extends State<CustomPopupMenu> {
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
-      )
+      ),
     ];
   }
 

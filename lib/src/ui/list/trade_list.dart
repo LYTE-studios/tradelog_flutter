@@ -5,12 +5,13 @@ import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_header.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
 import 'package:tradelog_flutter/src/ui/base/generic_list_view_trades.dart';
+import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/list/header_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/text_profit_loss.dart';
 import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
 
-class TradeList extends StatelessWidget {
+class TradeList extends StatefulWidget {
   final bool loading;
 
   final List<TradeListItemDto> trades;
@@ -25,91 +26,124 @@ class TradeList extends StatelessWidget {
   });
 
   @override
+  State<TradeList> createState() => _TradeListState();
+}
+
+class _TradeListState extends State<TradeList> {
+  final List<_HeaderDefinition> _headers = [
+    _HeaderDefinition(label: 'Open Time', icon: TradelyIcons.multiDropdown),
+    _HeaderDefinition(label: 'Close Time', icon: TradelyIcons.multiDropdown),
+    _HeaderDefinition(label: 'Symbol', icon: TradelyIcons.multiDropdown),
+    _HeaderDefinition(label: 'Direction', icon: TradelyIcons.multiDropdown),
+    _HeaderDefinition(label: 'Lot Size', icon: TradelyIcons.multiDropdown),
+    _HeaderDefinition(label: 'Net P/L', icon: TradelyIcons.multiDropdown),
+    _HeaderDefinition(label: 'Net ROI %', icon: TradelyIcons.multiDropdown),
+  ];
+
+  @override
   Widget build(BuildContext context) {
     return GenericListView(
-      loading: loading,
+      loading: widget.loading,
       header: CustomHeader(
-        horizontalPadding: sidePadding,
-        children: const [
-          HeaderRowItem(
-            flex: 1,
-            text: 'Open Time',
-          ),
-          HeaderRowItem(
-            flex: 1,
-            text: 'Close Time',
-          ),
-          HeaderRowItem(
-            flex: 1,
-            text: 'Symbol',
-          ),
-          HeaderRowItem(
-            flex: 1,
-            text: 'Direction',
-          ),
-          HeaderRowItem(
-            flex: 1,
-            text: 'Lot Size',
-          ),
-          HeaderRowItem(
-            flex: 1,
-            text: 'Net P/L',
-          ),
-          HeaderRowItem(
-            flex: 1,
-            text: 'Net ROI %',
+        horizontalPadding: widget.sidePadding,
+        children: [
+          SizedBox(
+            height: 50,
+            child: ReorderableListView(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              onReorder: (oldIndex, newIndex) {
+                setState(() {
+                  if (newIndex > oldIndex) newIndex--;
+                  final item = _headers.removeAt(oldIndex);
+                  _headers.insert(newIndex, item);
+                });
+              },
+              buildDefaultDragHandles: false,
+              children: _headers.asMap().entries.map((entry) {
+                final index = entry.key;
+                final headerDef = entry.value;
+                return ReorderableDragStartListener(
+                  key: ValueKey(headerDef.label),
+                  index: index,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal:
+                            MediaQuery.of(context).size.width * 0.17 / 8),
+                    child: HeaderRowItem(
+                      flex: 1,
+                      text: headerDef.label,
+                      icon: headerDef.icon,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
         ],
       ),
-      rows: trades
-          .map(
-            (trade) => CustomRow(
-              horizontalPadding: sidePadding,
-              rowItems: [
-                TextRowItem(
-                  text: TradelyDateTimeUtils.toReadableTime(
-                    trade.openTime,
-                    true,
-                  ),
-                  flex: 1,
-                ),
-                TextRowItem(
-                  text: TradelyDateTimeUtils.toReadableTime(
-                    trade.closeTime,
-                    true,
-                  ),
-                  flex: 1,
-                ),
-                TextRowItem(
-                  text: trade.symbol ?? '-',
-                  flex: 1,
-                ),
-                TrendRowItem(
-                  option: trade.option,
-                  flex: 1,
-                ),
-                TextRowItem(
-                  text: trade.quantity?.toStringAsFixed(2) ?? "",
-                  flex: 1,
-                ),
-                TextProfitLoss(
-                  text: TradelyNumberUtils.formatNullableValuta(trade.profit),
-                  short: (trade.profit == null) || (trade.profit == 0)
-                      ? null
-                      : (trade.profit! < 0),
-                  flex: 1,
-                ),
-                TextProfitLoss(
-                  text: "%${trade.gain?.abs().toStringAsFixed(2) ?? "-"}",
-                  short: (trade.profit == null) || (trade.profit == 0)
-                      ? null
-                      : (trade.profit! < 0),
-                  flex: 1,
-                ),
-              ],
-            ),
-          )
-          .toList(),
+      rows: widget.trades.map((trade) {
+        final rowItems = _headers.map((headerDef) {
+          switch (headerDef.label) {
+            case 'Open Time':
+              return TextRowItem(
+                text: TradelyDateTimeUtils.toReadableTime(trade.openTime, true),
+                flex: 1,
+              );
+            case 'Close Time':
+              return TextRowItem(
+                text:
+                    TradelyDateTimeUtils.toReadableTime(trade.closeTime, true),
+                flex: 1,
+              );
+            case 'Symbol':
+              return TextRowItem(
+                text: trade.symbol ?? '-',
+                flex: 1,
+                showFlags: true,
+              );
+            case 'Direction':
+              return TrendRowItem(
+                option: trade.option,
+                flex: 1,
+              );
+            case 'Lot Size':
+              return TextRowItem(
+                text: trade.quantity?.toStringAsFixed(2) ?? "",
+                flex: 1,
+              );
+            case 'Net P/L':
+              return TextProfitLoss(
+                text: TradelyNumberUtils.formatNullableValuta(trade.profit),
+                short: (trade.profit == null || trade.profit == 0)
+                    ? null
+                    : (trade.profit! < 0),
+                flex: 1,
+              );
+            case 'Net ROI %':
+              return TextProfitLoss(
+                text: "%${trade.gain?.abs().toStringAsFixed(2) ?? "-"}",
+                short: (trade.profit == null || trade.profit == 0)
+                    ? null
+                    : (trade.profit! < 0),
+                flex: 1,
+              );
+            default:
+              return const SizedBox.shrink();
+          }
+        }).toList();
+
+        return CustomRow(
+          horizontalPadding: widget.sidePadding,
+          rowItems: rowItems,
+        );
+      }).toList(),
     );
   }
+}
+
+class _HeaderDefinition {
+  final String label;
+  final String? icon;
+  _HeaderDefinition({required this.label, this.icon});
 }

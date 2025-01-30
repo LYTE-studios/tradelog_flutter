@@ -36,21 +36,37 @@ class GenericListView extends StatelessWidget {
                 controller: _scrollController,
                 itemCount: rows.length,
                 itemBuilder: (context, index) {
-                  // Alternate row background color based on index (even/odd)
-                  final Color rowColor = index.isOdd
-                      ? const Color(0xFF111111)
-                      : const Color(0xFF1A1A1A);
-
-                  return Container(
-                    color: rowColor,
-                    child: rows[index],
-                  );
+                  return _HoverRowWrapper(child: rows[index]);
                 },
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+class _HoverRowWrapper extends StatefulWidget {
+  final Widget child;
+  const _HoverRowWrapper({required this.child, Key? key}) : super(key: key);
+
+  @override
+  State<_HoverRowWrapper> createState() => _HoverRowWrapperState();
+}
+
+class _HoverRowWrapperState extends State<_HoverRowWrapper> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: Container(
+        color: !_isHovered ? const Color(0xFF111111) : Colors.transparent,
+        child: widget.child,
+      ),
     );
   }
 }

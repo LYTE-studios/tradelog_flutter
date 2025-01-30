@@ -9,23 +9,24 @@ class BaseTradelyPageHeader extends StatelessWidget {
 
   final String title;
 
-  final String titleIconPath;
+  final String? titleIconPath;
 
   final String? subTitle;
 
   final String? icon;
 
   final Widget? buttons;
+  final Widget? subHeader;
 
-  const BaseTradelyPageHeader({
-    super.key,
-    required this.currentRoute,
-    required this.title,
-    required this.titleIconPath,
-    this.subTitle,
-    this.buttons,
-    this.icon,
-  });
+  const BaseTradelyPageHeader(
+      {super.key,
+      required this.currentRoute,
+      required this.title,
+      this.titleIconPath,
+      this.subTitle,
+      this.buttons,
+      this.icon,
+      this.subHeader});
 
   @override
   Widget build(BuildContext context) {
@@ -93,14 +94,15 @@ class BaseTradelyPageHeader extends StatelessWidget {
                       const SizedBox(
                         width: PaddingSizes.extraSmall,
                       ),
-                      Image.asset(
-                        titleIconPath,
-                        width: 25,
-                      ),
+                      if (titleIconPath != null && titleIconPath!.isNotEmpty)
+                        Image.asset(
+                          titleIconPath!,
+                          width: 25,
+                        ),
                     ],
                   ),
                   const SizedBox(
-                    height: PaddingSizes.small,
+                    height: PaddingSizes.extraSmall / 3,
                   ),
                   if (subTitle != null)
                     Text(
@@ -112,6 +114,10 @@ class BaseTradelyPageHeader extends StatelessWidget {
               if (buttons != null) buttons!,
             ],
           ),
+          SizedBox(
+            height: PaddingSizes.extraLarge * 2,
+          ),
+          if (subHeader != null) subHeader!,
         ],
       ),
     );

@@ -28,6 +28,14 @@ class PrimaryButton extends StatefulWidget {
 
   final Color? prefixIconColor;
 
+  final String? suffixIcon;
+
+  final double? suffixIconSize;
+
+  final EdgeInsets? suffixIconPadding;
+
+  final Color? suffixIconColor;
+
   final Color? color;
 
   final TextStyle? textStyle;
@@ -39,6 +47,7 @@ class PrimaryButton extends StatefulWidget {
   final Color? borderColor;
 
   final Widget? prefixChild;
+  final Widget? suffixChild;
 
   /// expand button to parent widget, overwritten by width.
   final bool expand;
@@ -66,6 +75,11 @@ class PrimaryButton extends StatefulWidget {
     this.borderColor,
     this.prefixChild,
     this.loading = false,
+    this.suffixIcon,
+    this.suffixIconSize,
+    this.suffixIconPadding,
+    this.suffixIconColor,
+    this.suffixChild,
   });
 
   @override
@@ -150,6 +164,21 @@ class _PrimaryButtonState extends State<PrimaryButton> {
                                 fontSize: 16,
                               ),
                     ),
+                  if (widget.suffixIcon != null)
+                    Padding(
+                      padding: widget.suffixIconPadding ??
+                          const EdgeInsets.only(
+                            right: PaddingSizes.extraSmall / 10,
+                          ),
+                      child: SvgIcon(
+                        widget.suffixIcon!,
+                        size: widget.suffixIconSize ?? 22,
+                        color: widget.suffixIconColor ??
+                            Theme.of(context).colorScheme.onPrimary,
+                        leaveUnaltered: widget.leaveIconUnaltered,
+                      ),
+                    ),
+                  if (widget.suffixChild != null) widget.suffixChild!
                 ],
               ),
             ),

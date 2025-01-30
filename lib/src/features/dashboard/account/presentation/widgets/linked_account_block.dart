@@ -38,11 +38,15 @@ extension AccountStatusExtension on AccountStatus {
 class LinkedAccountBlock extends StatefulWidget {
   final Function()? delete;
 
+  final Function()? toggleAccountStatus;
+
   final String name;
 
   final String currency;
 
   final double balance;
+
+  final bool isDisabled;
 
   final bool selectable;
 
@@ -58,10 +62,13 @@ class LinkedAccountBlock extends StatefulWidget {
     required this.name,
     required this.currency,
     required this.balance,
+        required this.isDisabled,
+
     this.selectable = false,
     this.selected = false,
     required this.status,
     this.onTap,
+    this.toggleAccountStatus,
   });
 
   @override
@@ -155,6 +162,7 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                     ),
                     // Add the custom popup menu here
                     CustomPopupMenu(
+                      isDisabled: widget.isDisabled,
                       onSelected: (String value) {
                         // Handle the selected option
                         switch (value) {
@@ -166,9 +174,19 @@ class _LinkedAccountBlockState extends State<LinkedAccountBlock> {
                             break;
                           case 'Disable':
                             // Do something for Disable
+                            widget.toggleAccountStatus?.call();
+
+                            print('Disable Clicked');
+                          case 'Enable':
+                            // Do something for Disable
+                            widget.toggleAccountStatus?.call();
+
+                            print('Enable Clicked');
                             break;
                           case 'Delete':
-                            widget.delete?.call();
+                            print('Delete Clicked');
+
+                            // widget.delete?.call();
                             break;
                         }
                       },
