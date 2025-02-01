@@ -17,7 +17,7 @@ class HeaderRowItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseRowItem(
+    return Expanded(
       flex: flex,
       child: Row(
         mainAxisSize: MainAxisSize.min,

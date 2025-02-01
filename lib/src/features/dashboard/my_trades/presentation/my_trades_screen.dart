@@ -101,6 +101,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
         title: "My trades",
         subHeader: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -138,6 +139,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               ],
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 PrimaryButton(
                   height: 42,
