@@ -43,9 +43,8 @@ class Sidebar extends StatelessWidget {
             ),
             width: extended ? extendedLength : closedLength,
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: PaddingSizes.xxxl,
-              ),
+              padding: const EdgeInsets.only(
+                  top: PaddingSizes.xxxl, bottom: PaddingSizes.extraSmall),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
