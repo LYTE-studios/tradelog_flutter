@@ -102,6 +102,7 @@ class SidebarFooter extends StatelessWidget {
           ),
           (extended)
               ? const ListTile(
+                  contentPadding: EdgeInsets.all(0),
                   leading: CircleAvatar(
                     radius: 16.0,
                     backgroundImage: AssetImage(
@@ -111,8 +112,7 @@ class SidebarFooter extends StatelessWidget {
                   title: Text(
                     'Alexandra Andria',
                     style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
                       color: Colors.white,
                     ),
                   ),
@@ -125,9 +125,9 @@ class SidebarFooter extends StatelessWidget {
                     ),
                   ),
                   trailing: Icon(
-                    Icons.chevron_left,
+                    Icons.chevron_right,
                     color: Color(0xFF808897),
-                    size: 18,
+                    size: 24,
                   ),
                 )
               : CircleAvatar(
