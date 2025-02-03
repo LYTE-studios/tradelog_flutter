@@ -27,7 +27,8 @@ class TradelyIcons {
   static const String account = '$_basePath/account.svg';
   static const String diary = '$_basePath/diary.svg';
   static const String myTrades = '$_basePath/my_trades.svg';
-  static const String overview = '$_basePath/overview.svg';
+  static const String dashboard = '$_basePath/dashboard.svg';
+
   static const String statistics = '$_basePath/statistics.svg';
 
   // util icons
@@ -94,7 +95,7 @@ class TradelyIcons {
     eyeOpen,
     infoCircle,
     myTrades,
-    overview,
+    dashboard,
     plusCircle,
     reset,
     search,

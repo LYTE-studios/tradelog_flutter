@@ -8,6 +8,7 @@ import 'package:tradelog_flutter/src/ui/navigation/sidebar_footer.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_header.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar_item.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class Sidebar extends StatelessWidget {
   final bool extended;
@@ -24,6 +25,8 @@ class Sidebar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+
     return AnimatedSize(
       curve: Curves.fastLinearToSlowEaseIn,
       duration: Sidebar.animationDuration,
@@ -51,8 +54,30 @@ class Sidebar extends StatelessWidget {
                   SidebarHeader(
                     extended: extended,
                   ),
+
                   const SizedBox(
-                    height: PaddingSizes.extraLarge,
+                    height: PaddingSizes.large,
+                  ),
+                  Divider(
+                    color: Color(0xFF272835),
+                    thickness: 1,
+                  ),
+                  const SizedBox(
+                    height: PaddingSizes.large,
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Text(
+                      'Main Menu',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.02,
+                        fontSize: 14,
+                        color: const Color(0xFFA4ABB8),
+                      ),
+                    ),
                   ),
                   SidebarItem(
                     extended: extended,
@@ -66,14 +91,31 @@ class Sidebar extends StatelessWidget {
                     extended: extended,
                     route: MyTradesScreen.route,
                   ),
+                  const SizedBox(
+                    height: PaddingSizes.large,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12.0, vertical: 8),
+                    child: Text(
+                      'Record',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.02,
+                        fontSize: 14,
+                        color: const Color(0xFFA4ABB8),
+                      ),
+                    ),
+                  ),
                   SidebarItem(
                     extended: extended,
                     route: StatisticsScreen.route,
                   ),
-                  SidebarItem(
-                    extended: extended,
-                    route: AccountScreen.route,
-                  ),
+                  // SidebarItem(
+                  //   extended: extended,
+                  //   route: AccountScreen.route,
+                  // ),
                   const Spacer(),
                   SidebarFooter(
                     extended: extended,

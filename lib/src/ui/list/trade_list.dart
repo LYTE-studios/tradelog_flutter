@@ -69,7 +69,7 @@ class _TradeListState extends State<TradeList> {
                   child: Container(
                     margin: EdgeInsets.symmetric(
                         horizontal:
-                            MediaQuery.of(context).size.width * 0.24 / 8),
+                            MediaQuery.of(context).size.width * 0.17 / 8),
                     child: HeaderRowItem(
                       flex: 1,
                       text: headerDef.label,

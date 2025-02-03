@@ -81,7 +81,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "Discover all your performance metrics & progress.",
-        icon: TradelyIcons.overview,
+        icon: TradelyIcons.dashboard,
         currentRoute: OverviewScreen.location,
         title:
             "${getDisplayText()} ${(profile?.firstName.isNotEmpty ?? false) ? profile!.firstName : ''}!",

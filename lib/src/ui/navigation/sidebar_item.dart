@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/features/dashboard/account/presentation/account_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/diary_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/my_trades_screen.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
@@ -22,19 +21,19 @@ class SidebarItem extends StatelessWidget {
   });
 
   static const Map<String, String> routeToIcon = {
-    OverviewScreen.route: TradelyIcons.overview,
+    OverviewScreen.route: TradelyIcons.dashboard,
     DiaryScreen.route: TradelyIcons.diary,
     MyTradesScreen.route: TradelyIcons.myTrades,
     StatisticsScreen.route: TradelyIcons.statistics,
-    AccountScreen.route: TradelyIcons.account,
+    // AccountScreen.route: TradelyIcons.account,
   };
 
   static const Map<String, String> routeToTitle = {
-    OverviewScreen.route: "Overview",
+    OverviewScreen.route: "Dashboard",
     DiaryScreen.route: "Diary",
     MyTradesScreen.route: "My Trades",
     StatisticsScreen.route: "Statistics",
-    AccountScreen.route: "Account",
+    // AccountScreen.route: "Account",
   };
 
   @override
@@ -67,7 +66,7 @@ class SidebarItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(
                 BorderRadii.small,
               ),
-              color: selected ? theme.colorScheme.primaryContainer : null,
+              color: selected ? const Color(0xFF15161E) : null,
             ),
             child: Row(
               mainAxisAlignment:
@@ -81,8 +80,8 @@ class SidebarItem extends StatelessWidget {
                     routeToIcon[route] ?? TradelyIcons.warning,
                     size: 18,
                     color: selected
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : const Color(0xFF898989),
+                        ? const Color(0xFF2D62FE)
+                        : const Color(0xFF666D80),
                   ),
                 ),
                 if (extended)
@@ -96,7 +95,7 @@ class SidebarItem extends StatelessWidget {
                         fontSize: 16,
                         color: selected
                             ? Theme.of(context).colorScheme.onPrimary
-                            : const Color(0xFF898989),
+                            : const Color(0xFF666D80),
                       ),
                     ),
                   )

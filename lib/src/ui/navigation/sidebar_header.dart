@@ -19,12 +19,14 @@ class SidebarHeader extends StatelessWidget {
         padding: EdgeInsets.only(
           left: extended ? PaddingSizes.medium : 0,
         ),
-        child: SvgIcon(
-          extended
-              ? TradelyIcons.tradelySimpleLogo
-              : TradelyIcons.tradelyLogoSmall,
-          leaveUnaltered: true,
-          size: extended ? 25 : 36,
+        child: Center(
+          child: SvgIcon(
+            extended
+                ? TradelyIcons.tradelySimpleLogo
+                : TradelyIcons.tradelyLogoSmall,
+            leaveUnaltered: true,
+            size: extended ? 25 : 36,
+          ),
         ),
       ),
     );
