@@ -41,6 +41,8 @@ class TradelyIcons {
   static const String ellipsisVertical = '$_basePath/ellipsis_vertical.svg';
   static const String eyeClosed = '$_basePath/eye_closed.svg';
   static const String eyeOpen = '$_basePath/eye_open.svg';
+  static const String link_exchange = '$_basePath/link_exchange.svg';
+  static const String add_new_trade = '$_basePath/add_new_trade.svg';
 
   // ui icons
   static const String trendDown = '$_basePath/trend_down.svg';
@@ -79,6 +81,9 @@ class TradelyIcons {
   static const String metatrader = '$_basePath/metatrader.png';
   static const String tradelocker = '$_basePath/tradelocker.png';
   static const String cTrader = '$_basePath/c_trader.png';
+
+// Dummy {Profile Logo}
+  static const String profile = '$_basePath/profile_dummy.png';
 
   static const List<String> icons = [
     account,

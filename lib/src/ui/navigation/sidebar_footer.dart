@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/broker_connection_dialog.dart';
-import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/navigation/sidebar.dart';
+import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
-import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class SidebarFooter extends StatelessWidget {
   final bool extended;
@@ -15,93 +15,127 @@ class SidebarFooter extends StatelessWidget {
     required this.extended,
   });
 
+  Widget footerItems(
+    BuildContext context, {
+    required String title,
+    required String icon,
+    required VoidCallback onTap,
+  }) {
+    final ThemeData theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: PaddingSizes.xxs,
+      ),
+      child: InkWell(
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        hoverColor: theme.colorScheme.primaryContainer.withAlpha(51),
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(
+          BorderRadii.small,
+        ),
+        child: Ink(
+          height: 42,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(
+              BorderRadii.small,
+            ),
+            color: Colors.transparent,
+          ),
+          child: Row(
+            mainAxisAlignment:
+                extended ? MainAxisAlignment.start : MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  left: extended ? PaddingSizes.medium : 0,
+                ),
+                child: SvgIcon(
+                  icon,
+                  size: 18,
+                  color: const Color(0xFF666D80),
+                ),
+              ),
+              if (extended)
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: PaddingSizes.small,
+                  ),
+                  child: Text(
+                    title,
+                    style: theme.textTheme.titleMedium?.copyWith(
+                      fontSize: 16,
+                      color: const Color(0xFF666D80),
+                    ),
+                  ),
+                )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedSize(
       curve: Curves.fastLinearToSlowEaseIn,
       duration: Sidebar.animationDuration,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          PrimaryButton(
-            width: extended ? null : 48,
-            align:
-                extended ? MainAxisAlignment.start : MainAxisAlignment.center,
-            onTap: () => AddTradeDialog.show(context),
-            height: 48,
-            padding: extended ? null : EdgeInsets.zero,
-            prefixIconPadding: extended ? null : EdgeInsets.zero,
-            text: extended ? "Add new trade" : null,
-            prefixIcon: TradelyIcons.plusCircle,
-            prefixIconSize: 22,
-          ),
-          const SizedBox(
-            height: PaddingSizes.small,
-          ),
-          PrimaryButton(
-            onTap: () => BrokerConnectionDialog.show(context),
-            height: 42,
-            align: MainAxisAlignment.start,
-            padding: extended
-                ? const EdgeInsets.symmetric(
-                    horizontal: PaddingSizes.large,
-                  )
-                : const EdgeInsets.symmetric(
-                    horizontal: 9,
-                  ),
-            prefixChild: Padding(
-              padding: EdgeInsets.only(right: extended ? 3 : 0),
-              child: const _RotatingIcons(
-                icons: [
-                  TradelyIcons.metatrader,
-                  TradelyIcons.cTrader,
-                  // TradelyIcons.tradelocker,
-                ],
-              ),
+          footerItems(context,
+              title: extended ? "Add new trade" : "",
+              icon: TradelyIcons.add_new_trade,
+              onTap: () => AddTradeDialog.show(context)),
+          footerItems(context,
+              title: extended ? "Link exchange" : "",
+              icon: TradelyIcons.link_exchange,
+              onTap: () => BrokerConnectionDialog.show(context)),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 6.0),
+            child: Divider(
+              color: Color(0xFF272835),
+              thickness: 1,
             ),
-            outlined: true,
-            color: Colors.transparent,
-            borderColor: Theme.of(context).colorScheme.outline,
-            textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
-                  color: TextStyles.mediumTitleColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-            text: extended ? "Link exchange" : null,
           ),
-          // if (extended)
-          //   const SizedBox(
-          //     height: PaddingSizes.large,
-          //   ),
-          // if (extended)
-          //   Align(
-          //     alignment: Alignment.centerLeft,
-          //     child: Padding(
-          //       padding: const EdgeInsets.only(
-          //         left: PaddingSizes.medium,
-          //       ),
-          //       child: Column(
-          //         crossAxisAlignment: CrossAxisAlignment.start,
-          //         children: [
-          //           Text(
-          //             sessionManager.signedInUser?.fullName ?? '',
-          //             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-          //                   fontSize: 17,
-          //                 ),
-          //           ),
-          //           const SizedBox(
-          //             height: PaddingSizes.xxs,
-          //           ),
-          //           Text(
-          //             sessionManager.signedInUser?.email ?? '',
-          //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          //                   fontSize: 15,
-          //                   fontWeight: FontWeight.w500,
-          //                 ),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
+          (extended)
+              ? const ListTile(
+                  leading: CircleAvatar(
+                    radius: 16.0,
+                    backgroundImage: AssetImage(
+                      TradelyIcons.profile,
+                    ), // Replace with actual image URL
+                  ),
+                  title: Text(
+                    'Alexandra Andria',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  subtitle: Text(
+                    'alexandra@mail.com',
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      color: Color(0xFF666D80),
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.chevron_left,
+                    color: Color(0xFF808897),
+                    size: 18,
+                  ),
+                )
+              : CircleAvatar(
+                  radius: 16.0,
+                  backgroundImage: AssetImage(
+                    TradelyIcons.profile,
+                  ), // Replace with actual image URL
+                ),
         ],
       ),
     );

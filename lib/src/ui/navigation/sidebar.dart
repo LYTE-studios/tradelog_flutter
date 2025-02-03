@@ -58,27 +58,20 @@ class Sidebar extends StatelessWidget {
                   const SizedBox(
                     height: PaddingSizes.large,
                   ),
-                  Divider(
-                    color: Color(0xFF272835),
-                    thickness: 1,
-                  ),
-                  const SizedBox(
-                    height: PaddingSizes.large,
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    child: Text(
-                      'Main Menu',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.02,
-                        fontSize: 14,
-                        color: const Color(0xFFA4ABB8),
+                  if (extended)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      child: Text(
+                        'Main Menu',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.02,
+                          fontSize: 14,
+                          color: const Color(0xFFA4ABB8),
+                        ),
                       ),
                     ),
-                  ),
                   SidebarItem(
                     extended: extended,
                     route: OverviewScreen.route,
@@ -94,20 +87,21 @@ class Sidebar extends StatelessWidget {
                   const SizedBox(
                     height: PaddingSizes.large,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 8),
-                    child: Text(
-                      'Record',
-                      style: theme.textTheme.titleMedium?.copyWith(
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 0.02,
-                        fontSize: 14,
-                        color: const Color(0xFFA4ABB8),
+                  if (extended)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0, vertical: 8),
+                      child: Text(
+                        'Record',
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.02,
+                          fontSize: 14,
+                          color: const Color(0xFFA4ABB8),
+                        ),
                       ),
                     ),
-                  ),
                   SidebarItem(
                     extended: extended,
                     route: StatisticsScreen.route,

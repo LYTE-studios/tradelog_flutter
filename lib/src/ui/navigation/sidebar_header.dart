@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
@@ -19,14 +20,25 @@ class SidebarHeader extends StatelessWidget {
         padding: EdgeInsets.only(
           left: extended ? PaddingSizes.medium : 0,
         ),
-        child: Center(
-          child: SvgIcon(
-            extended
-                ? TradelyIcons.tradelySimpleLogo
-                : TradelyIcons.tradelyLogoSmall,
-            leaveUnaltered: true,
-            size: extended ? 25 : 36,
-          ),
+        child: Column(
+          children: [
+            Center(
+              child: SvgIcon(
+                extended
+                    ? TradelyIcons.tradelySimpleLogo
+                    : TradelyIcons.tradelyLogoSmall,
+                leaveUnaltered: true,
+                size: extended ? 25 : 36,
+              ),
+            ),
+            const SizedBox(
+              height: PaddingSizes.large,
+            ),
+            Divider(
+              color: Color(0xFF272835),
+              thickness: 1,
+            ),
+          ],
         ),
       ),
     );
