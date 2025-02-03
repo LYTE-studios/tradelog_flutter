@@ -14,31 +14,38 @@ class SidebarHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: extended ? Alignment.centerLeft : Alignment.center,
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: extended ? PaddingSizes.medium : 0,
-        ),
-        child: Column(
-          children: [
-            Center(
-              child: SvgIcon(
-                extended
-                    ? TradelyIcons.tradelySimpleLogo
-                    : TradelyIcons.tradelyLogoSmall,
-                leaveUnaltered: true,
-                size: extended ? 25 : 36,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+                        horizontal: PaddingSizes.large,
+
+      ),
+      child: Align(
+        alignment: extended ? Alignment.centerLeft : Alignment.center,
+        child: Padding(
+          padding: EdgeInsets.only(
+            
+            left: extended ? PaddingSizes.medium : 0,
+          ),
+          child: Column(
+            children: [
+              Center(
+                child: SvgIcon(
+                  extended
+                      ? TradelyIcons.tradelySimpleLogo
+                      : TradelyIcons.tradelyLogoSmall,
+                  leaveUnaltered: true,
+                  size: extended ? 25 : 36,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: PaddingSizes.large,
-            ),
-            Divider(
-              color: Color(0xFF272835),
-              thickness: 1,
-            ),
-          ],
+              const SizedBox(
+                height: PaddingSizes.large,
+              ),
+              Divider(
+                color: Color(0xFF272835),
+                thickness: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );

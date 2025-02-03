@@ -45,72 +45,78 @@ class Sidebar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 vertical: PaddingSizes.xxxl,
-                horizontal: PaddingSizes.large,
               ),
               child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SidebarHeader(
-                    extended: extended,
-                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SidebarHeader(
+                        extended: extended,
+                      ),
 
-                  const SizedBox(
-                    height: PaddingSizes.large,
-                  ),
-                  if (extended)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Text(
-                        'Main Menu',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.02,
-                          fontSize: 14,
-                          color: const Color(0xFFA4ABB8),
-                        ),
+                      const SizedBox(
+                        height: PaddingSizes.large,
                       ),
-                    ),
-                  SidebarItem(
-                    extended: extended,
-                    route: OverviewScreen.route,
-                  ),
-                  SidebarItem(
-                    extended: extended,
-                    route: DiaryScreen.route,
-                  ),
-                  SidebarItem(
-                    extended: extended,
-                    route: MyTradesScreen.route,
-                  ),
-                  const SizedBox(
-                    height: PaddingSizes.large,
-                  ),
-                  if (extended)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 8),
-                      child: Text(
-                        'Record',
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.02,
-                          fontSize: 14,
-                          color: const Color(0xFFA4ABB8),
+                      if (extended)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0 + PaddingSizes.large),
+                          child: Text(
+                            'Main Menu',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.02,
+                              fontSize: 12,
+                              color: const Color(0xFFA4ABB8),
+                            ),
+                          ),
                         ),
+                      SidebarItem(
+                        extended: extended,
+                        route: OverviewScreen.route,
                       ),
-                    ),
-                  SidebarItem(
-                    extended: extended,
-                    route: StatisticsScreen.route,
+                      SidebarItem(
+                        extended: extended,
+                        route: DiaryScreen.route,
+                      ),
+                      SidebarItem(
+                        extended: extended,
+                        route: MyTradesScreen.route,
+                      ),
+                      const SizedBox(
+                        height: PaddingSizes.large,
+                      ),
+                      if (extended)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0 + PaddingSizes.large,
+                              vertical: 8),
+                          child: Text(
+                            'Record',
+                            style: theme.textTheme.titleMedium?.copyWith(
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                              letterSpacing: 0.02,
+                              fontSize: 12,
+                              color: const Color(0xFFA4ABB8),
+                            ),
+                          ),
+                        ),
+                      SidebarItem(
+                        extended: extended,
+                        route: StatisticsScreen.route,
+                      ),
+                      // SidebarItem(
+                      //   extended: extended,
+                      //   route: AccountScreen.route,
+                      // ),
+                    ],
                   ),
-                  // SidebarItem(
-                  //   extended: extended,
-                  //   route: AccountScreen.route,
-                  // ),
-                  const Spacer(),
                   SidebarFooter(
                     extended: extended,
                   ),
