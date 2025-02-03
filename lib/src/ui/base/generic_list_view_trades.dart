@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/ui/base/custom_header.dart';
+import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
 import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
 
 class GenericListView extends StatelessWidget {
-  final CustomHeader header;
+  final Widget header;
   final List<CustomRow> rows;
   final bool showFooter;
 
@@ -23,21 +23,25 @@ class GenericListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // Display header
         header,
         Expanded(
-          child: TradelyLoadingSwitcher(
-            loading: loading,
-            child: Scrollbar(
-              thumbVisibility: true,
-              controller: _scrollController,
-              child: ListView.builder(
+          child: Container(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: TradelyLoadingSwitcher(
+              loading: loading,
+              child: Scrollbar(
+                thumbVisibility: true,
                 controller: _scrollController,
-                itemCount: rows.length,
-                itemBuilder: (context, index) {
-                  return _HoverRowWrapper(child: rows[index]);
-                },
+                child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: rows.length,
+                  itemBuilder: (context, index) {
+                    return _HoverRowWrapper(child: rows[index]);
+                  },
+                ),
               ),
             ),
           ),
@@ -64,7 +68,9 @@ class _HoverRowWrapperState extends State<_HoverRowWrapper> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        color: !_isHovered ? const Color(0xFF111111) : Colors.transparent,
+        color: _isHovered
+            ? Theme.of(context).colorScheme.secondaryContainer.withOpacity(.2)
+            : null,
         child: widget.child,
       ),
     );

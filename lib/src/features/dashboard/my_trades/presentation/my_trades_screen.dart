@@ -150,6 +150,8 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                         child: BaseContainer(
                           height: MediaQuery.of(context).size.height * .73,
                           padding: const EdgeInsets.only(top: 10),
+                          backgroundColor:
+                              Theme.of(context).colorScheme.primaryContainer,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,6 +220,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
       child: BaseContainer(
         height: MediaQuery.of(context).size.height * .73,
         padding: const EdgeInsets.only(top: 10),
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

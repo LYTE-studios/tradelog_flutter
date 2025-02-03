@@ -27,7 +27,10 @@ class DataList extends StatelessWidget {
             label: values.keys.toList()[index],
             value: values.values.toList()[index],
             color: index.isEven
-                ? Theme.of(context).colorScheme.secondaryContainer
+                ? Theme.of(context)
+                    .colorScheme
+                    .secondaryContainer
+                    .withOpacity(.2)
                 : null,
           );
         },
