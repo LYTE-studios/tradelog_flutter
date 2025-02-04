@@ -33,6 +33,7 @@ class TradelyIcons {
 
   // util icons
   static const String reset = '$_basePath/reset.svg';
+  static const String menu = '$_basePath/menu.svg';
   static const String search = '$_basePath/search.svg';
   static const String arrowBack = '$_basePath/arrow_back.svg';
   static const String chevronLeft = '$_basePath/chevron_left.svg';

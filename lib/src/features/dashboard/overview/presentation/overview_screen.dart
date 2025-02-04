@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/user_profile_dto.dart';
@@ -12,6 +15,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/co
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/progress_data_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/image_overlay.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/web_statistic_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
@@ -22,7 +26,7 @@ class OverviewScreen extends StatefulWidget {
   const OverviewScreen({super.key});
 
   static const String route = '/$location';
-  static const String location = 'overview';
+  static const String location = 'Dashboard';
 
   @override
   State<OverviewScreen> createState() => _OverviewScreenState();
@@ -80,9 +84,70 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
   Widget build(BuildContext context) {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
+        subHeader: Row(
+          children: [],
+        ),
         subTitle: "Discover all your performance metrics & progress.",
-        icon: TradelyIcons.dashboard,
         currentRoute: OverviewScreen.location,
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ConnectedAccountsWidget(
+              accounts: [
+                {
+                  'image': TradelyIcons.tradelocker,
+                  'backgroundColor': Colors.transparent,
+                },
+                {
+                  'image': TradelyIcons.metatrader,
+                  'backgroundColor': Color(0xFF272835),
+                },
+                {
+                  'image': TradelyIcons.metatrader,
+                  'backgroundColor': Color(0xFF272835),
+                },
+                {
+                  'image': TradelyIcons.metatrader,
+                  'backgroundColor': Color(0xFF272835),
+                },
+              ],
+              onAddAccount: () {
+                print('Add account clicked');
+              },
+              onMoreOptions: () {
+                print('More options clicked');
+              },
+            ),
+            SizedBox(width: 10),
+            Container(
+              width: 4,
+              decoration: BoxDecoration(
+                color: Color(0xFF272835),
+                borderRadius: BorderRadius.all(Radius.circular(40)),
+              ),
+              child: Text(''),
+            ),
+            SizedBox(width: 20),
+            Container(
+              padding: EdgeInsets.all(0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xFF272835), width: 2),
+                color: Colors.transparent,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Image(
+                image: Svg(
+                  TradelyIcons.menu,
+                  color: Color(0xFF272835),
+                ),
+                width: 40,
+                height: 40,
+              ),
+            )
+          ],
+        ),
         title:
             "${getDisplayText()} ${(profile?.firstName.isNotEmpty ?? false) ? profile!.firstName : ''}!",
         titleIconPath: 'assets/images/emojis/hand_emoji.png',
