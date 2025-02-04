@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
@@ -130,20 +131,21 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
             ),
             SizedBox(width: 20),
             Container(
-              padding: EdgeInsets.all(0),
+              padding: EdgeInsets.symmetric(horizontal: 17, vertical: 10),
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF272835), width: 2),
+                border: Border.all(color: Color(0xFF272835), width: 3),
                 color: Colors.transparent,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(12),
               ),
-              child: Image(
-                image: Svg(
-                  TradelyIcons.menu,
-                  color: Color(0xFF272835),
+              child: SvgPicture.asset(
+                TradelyIcons.menu,
+                width: 20,
+                height: 20,
+                colorFilter: ColorFilter.mode(
+                  Color(0xFF272835),
+                  BlendMode.srcIn,
                 ),
-                width: 40,
-                height: 40,
               ),
             )
           ],
