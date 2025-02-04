@@ -111,7 +111,7 @@ class _DateSelectorState extends State<ChartedDateSelector> {
           ),
           Expanded(
             child: SfDateRangePicker(
-              backgroundColor: HexColor.fromHex("#161616"),
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               onSelectionChanged: (args) {
                 widget.onDateChanged?.call(args.value);
               },

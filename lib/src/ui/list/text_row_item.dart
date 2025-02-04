@@ -29,11 +29,11 @@ class TextRowItem extends StatelessWidget {
           ),
           child: (showFlags == true)
               ? Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // FlagOverlay(),
                     showFlags == true ? FlagOverlay() : Container(),
-                    SizedBox(
+                    const SizedBox(
                       width: 3,
                     ),
                     !(text == '-')

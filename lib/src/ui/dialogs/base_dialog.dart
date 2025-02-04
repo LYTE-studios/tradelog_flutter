@@ -41,6 +41,7 @@ class BaseDialog extends StatelessWidget {
               ),
             ),
           Dialog(
+            backgroundColor: theme.scaffoldBackgroundColor,
             child: Container(
               constraints: constraints,
               decoration: BoxDecoration(

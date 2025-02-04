@@ -58,7 +58,7 @@ class BaseContainer extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          color: backgroundColor ?? HexColor.fromHex("#161616"),
+          color: backgroundColor,
           border: Border.all(
             width: borderWidth ?? 1,
             color: !enableBorder

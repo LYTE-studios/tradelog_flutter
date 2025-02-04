@@ -60,6 +60,7 @@ class _FilterTradesButtonState extends State<FilterTradesButton> {
         child: BaseContainer(
           height: 520,
           width: 520,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           child: FilterTradesDialog(
             from: widget.from,
             to: widget.to,

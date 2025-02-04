@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/ui/base/base_Row_Item.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class HeaderRowItem extends StatelessWidget {
   final String text;
@@ -31,14 +31,13 @@ class HeaderRowItem extends StatelessWidget {
               color: const Color(0xFFA2A2AA),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
           if (icon != null)
-            SvgPicture.asset(
+            SvgIcon(
               icon!,
-              width: 15,
-              height: 15,
+              size: 15,
               color: const Color(0xFFA2A2AA),
             )
         ],

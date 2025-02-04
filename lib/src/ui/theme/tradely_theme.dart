@@ -4,7 +4,7 @@ import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 final tradelyTheme = ThemeData(
-  scaffoldBackgroundColor: HexColor.fromHex("#111111"),
+  scaffoldBackgroundColor: HexColor.fromHex("#0D0D12"),
   colorScheme: ColorScheme(
     brightness: Brightness.dark,
     primary: HexColor.fromHex('#2D62FE'),
@@ -18,9 +18,9 @@ final tradelyTheme = ThemeData(
     onErrorContainer: HexColor.fromHex('#1C1612'),
     surface: HexColor.fromHex('#131313'),
     onSurface: HexColor.fromHex('#FFFFFF'),
-    primaryContainer: HexColor.fromHex('#242424'),
+    primaryContainer: HexColor.fromHex('#15161E'),
     onPrimaryContainer: HexColor.fromHex('#CCCCCC'),
-    secondaryContainer: HexColor.fromHex('#1A1A1A'),
+    secondaryContainer: HexColor.fromHex('#272835'),
     onSecondaryContainer: HexColor.fromHex('#CCCCCC'),
     tertiaryContainer: HexColor.fromHex("#171717"),
     onTertiaryContainer: HexColor.fromHex("#8B8B8B"),
