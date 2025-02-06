@@ -122,9 +122,8 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               onMoreOptions: () {
                 print('More options clicked');
               },
-            ),            SizedBox(width: 10),
-
-         
+            ),
+            SizedBox(width: 10),
             Container(
               width: 3,
               decoration: BoxDecoration(
@@ -133,26 +132,24 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               ),
               child: Text(''),
             ),
-                        SizedBox(width: 10),
-
-               PrimaryButton(
-                  outlined: true,
-                  borderColor: Color(0xFF272835),
-                  onTap: () {
-                  },
-                  prefixIconPadding: EdgeInsets.only(right: 10.0),
-                  height: 42,
-                  padding: EdgeInsets.symmetric(horizontal: 14),
-                  text: "Share",
-                  textStyle: const TextStyle(
-                    color: Color(0xFF898989),
-                    fontSize: 16,
-                  ),
-                  prefixIconSize: 16,
-                  prefixIcon: TradelyIcons.share,
-                  color: Theme.of(context).colorScheme.primaryContainer,
-                  prefixIconColor: Color(0xFF898989),
-                ),
+            SizedBox(width: 20),
+            PrimaryButton(
+              outlined: true,
+              borderColor: Color(0xFF272835),
+              onTap: () {},
+              prefixIconPadding: EdgeInsets.only(right: 10.0),
+              height: 42,
+              padding: EdgeInsets.symmetric(horizontal: 14),
+              text: "Share",
+              textStyle: const TextStyle(
+                color: Color(0xFF898989),
+                fontSize: 16,
+              ),
+              prefixIconSize: 16,
+              prefixIcon: TradelyIcons.share,
+              color: Theme.of(context).colorScheme.primaryContainer,
+              prefixIconColor: Color(0xFF898989),
+            ),
             SizedBox(width: 20),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 17, vertical: 10),
