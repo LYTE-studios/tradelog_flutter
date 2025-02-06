@@ -27,22 +27,14 @@ class GenericListView extends StatelessWidget {
       children: [
         // Display header
         header,
-        Expanded(
-          child: Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: TradelyLoadingSwitcher(
-              loading: loading,
-              child: Scrollbar(
-                thumbVisibility: true,
-                controller: _scrollController,
-                child: ListView.builder(
-                  controller: _scrollController,
-                  itemCount: rows.length,
-                  itemBuilder: (context, index) {
-                    return _HoverRowWrapper(child: rows[index]);
-                  },
-                ),
-              ),
+        // Removed Expanded to allow the container to expand naturally with its content.
+        Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: TradelyLoadingSwitcher(
+            loading: loading,
+            child: Column(
+              children:
+                  rows.map((row) => _HoverRowWrapper(child: row)).toList(),
             ),
           ),
         ),
