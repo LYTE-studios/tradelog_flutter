@@ -85,9 +85,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
   Widget build(BuildContext context) {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
-        subHeader: Row(
-          children: [],
-        ),
+        
         subTitle: "Discover all your performance metrics & progress.",
         currentRoute: OverviewScreen.location,
         trailing: Row(
@@ -125,7 +123,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
               width: 4,
               decoration: BoxDecoration(
                 color: Color(0xFF272835),
-                borderRadius: BorderRadius.all(Radius.circular(40)),
+                borderRadius: BorderRadius.all(Radius.circular(50)),
               ),
               child: Text(''),
             ),
@@ -150,35 +148,35 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
             )
           ],
         ),
-        title:
-            "${getDisplayText()} ${(profile?.firstName.isNotEmpty ?? false) ? profile!.firstName : ''}!",
+        title: "Dashboard",
+        // "${getDisplayText()} ${(profile?.firstName.isNotEmpty ?? false) ? profile!.firstName : ''}!",
         titleIconPath: 'assets/images/emojis/hand_emoji.png',
-        buttons: FilterTradesButton(
-          from: from,
-          to: to,
-          onUpdateDateFilter: (from, to) {
-            this.from = from;
-            this.to = to;
-          },
-          onResetFilters: () async {
-            setState(() {
-              from = null;
-              to = null;
-              loading = true;
-            });
-            await loadData();
-            setLoading(false);
-          },
-          onShowTrades: () async {
-            setLoading(true);
-            await loadData();
-            setLoading(false);
-          },
-          onTap: () {},
-          height: 42,
-          text: "Filter",
-          prefixIcon: TradelyIcons.diary,
-        ),
+        // buttons: FilterTradesButton(
+        //   from: from,
+        //   to: to,
+        //   onUpdateDateFilter: (from, to) {
+        //     this.from = from;
+        //     this.to = to;
+        //   },
+        //   onResetFilters: () async {
+        //     setState(() {
+        //       from = null;
+        //       to = null;
+        //       loading = true;
+        //     });
+        //     await loadData();
+        //     setLoading(false);
+        //   },
+        //   onShowTrades: () async {
+        //     setLoading(true);
+        //     await loadData();
+        //     setLoading(false);
+        //   },
+        //   onTap: () {},
+        //   height: 42,
+        //   text: "Filter",
+        //   prefixIcon: TradelyIcons.diary,
+        // ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
