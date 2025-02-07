@@ -125,7 +125,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
             ),
             SizedBox(width: 10),
             Container(
-              width: 3,
+              width: 2,
               decoration: BoxDecoration(
                 color: Color(0xFF272835),
                 borderRadius: BorderRadius.all(Radius.circular(50)),
@@ -154,7 +154,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 17, vertical: 10),
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF272835), width: 3),
+                border: Border.all(color: Color(0xFF272835), width: 2),
                 color: Colors.transparent,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(12),
@@ -174,7 +174,6 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
         title: "My Trades",
         subHeader: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             CalenderWidget(),
 
@@ -259,7 +258,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                   borderColor: Color(0xFF272835),
                   prefixIcon: TradelyIcons.filter,
                   prefixIconColor: Color(0xFF898989),
-                  prefixIconSize: 20,
+                  prefixIconSize: 13,
                   onTap: () {},
                   height: 42,
                   text: "Filter",
@@ -287,7 +286,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                     color: Color(0xFF898989),
                     fontSize: 16,
                   ),
-                  prefixIconSize: 16,
+                  prefixIconSize: 12,
                   prefixIcon: TradelyIcons.export_icon,
                   color: Theme.of(context).colorScheme.primaryContainer,
                   prefixIconColor: Color(0xFF898989),
@@ -299,7 +298,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
       ),
       child: BaseContainer(
         height: MediaQuery.of(context).size.height * .73,
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 0),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
         borderColor: Colors.transparent,
         child: Column(

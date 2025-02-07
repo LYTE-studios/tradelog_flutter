@@ -35,11 +35,15 @@ class PaginationWidget extends StatelessWidget {
             children: [
               const Text(
                 "Show",
-                style: TextStyle(color: Color(0xFF666D80), fontSize: 14),
+                style: TextStyle(
+                    color: Color(0xFF666D80),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Inter'),
               ),
               const SizedBox(width: 8),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 8),
+                padding: EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
                   color: Color(0xFF15161E),
                   border: Border.all(color: Color(0xFF1F1F1F)),
@@ -48,7 +52,11 @@ class PaginationWidget extends StatelessWidget {
                 child: DropdownButton<int>(
                   value: pageSize,
                   dropdownColor: const Color(0xFF1A1A1A), // Dropdown background
-                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  style: const TextStyle(
+                      color: Color(0xFF666D80),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Inter'),
                   underline: Container(), // Remove default underline
                   onChanged: (value) {
                     if (value != null) {
@@ -60,7 +68,11 @@ class PaginationWidget extends StatelessWidget {
                             value: e,
                             child: Text(
                               e.toString(),
-                              style: const TextStyle(color: Colors.white),
+                              style: const TextStyle(
+                                  color: Color(0xFF666D80),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: 'Inter'),
                             ),
                           ))
                       .toList(),
@@ -71,8 +83,9 @@ class PaginationWidget extends StatelessWidget {
                 "from $totalItems trades",
                 style: const TextStyle(
                     color: Color(0xFF666D80),
-                    fontFamily: 'Inter',
-                    fontSize: 14),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400,
+                    fontFamily: 'Inter'),
               ),
             ],
           ),
@@ -123,7 +136,11 @@ class PaginationWidget extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: const TextStyle(fontSize: 14, color: Color(0xFF666D80)),
+          style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Inter',
+              color: Color(0xFF666D80)),
         ),
       ),
     );
@@ -146,7 +163,11 @@ class PaginationWidget extends StatelessWidget {
         onPressed: () => onPageChanged(number),
         child: Text(
           number.toString(),
-          style: const TextStyle(fontSize: 14, color: Color(0xFF666D80)),
+          style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.w400,
+              fontFamily: 'Inter',
+              color: Color(0xFF666D80)),
         ),
       ),
     );

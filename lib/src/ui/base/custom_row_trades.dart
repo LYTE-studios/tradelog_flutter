@@ -17,19 +17,8 @@ class CustomRow extends StatelessWidget {
         horizontal: horizontalPadding,
         vertical: 14,
       ),
-      child: Column(
-        children: [
-          Row(
-            children: rowItems,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0),
-            child: Divider(
-              color: Color(0xFF15161E),
-              thickness: 1.5,
-            ),
-          )
-        ],
+      child: Row(
+        children: rowItems,
       ),
     );
   }

@@ -94,6 +94,10 @@ class _TradeListState extends State<TradeList> {
                         side: BorderSide(
                           color: Color(0xFF272835),
                         ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(4), // increased radius
+                        ),
                         value: _selectAll,
                         onChanged: (value) {
                           setState(() {
@@ -165,6 +169,10 @@ class _TradeListState extends State<TradeList> {
                     Checkbox(
                       side: BorderSide(
                         color: Color(0xFF272835),
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(4), // increased radius
                       ),
                       value: _selected[(_currentPage - 1) * _pageSize + index],
                       onChanged: (value) {

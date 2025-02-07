@@ -27,14 +27,20 @@ class GenericListView extends StatelessWidget {
       children: [
         // Display header
         header,
-        // Removed Expanded to allow the container to expand naturally with its content.
         Container(
           color: Theme.of(context).scaffoldBackgroundColor,
           child: TradelyLoadingSwitcher(
             loading: loading,
             child: Column(
-              children:
-                  rows.map((row) => _HoverRowWrapper(child: row)).toList(),
+              children: [
+                for (int i = 0; i < rows.length; i++) ...[
+                  _HoverRowWrapper(child: rows[i]),
+                  if (i < rows.length - 1)
+                    const Divider(
+                      color: Color(0xFF15161E),
+                    ),
+                ]
+              ],
             ),
           ),
         ),
@@ -60,9 +66,13 @@ class _HoverRowWrapperState extends State<_HoverRowWrapper> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: Container(
-        color: _isHovered
-            ? Theme.of(context).colorScheme.secondaryContainer.withOpacity(.2)
-            : null,
+        // No extra padding so that the hover background is constrained to this row.
+        decoration: BoxDecoration(
+          color: _isHovered
+              ? Theme.of(context).colorScheme.secondaryContainer.withOpacity(.2)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: widget.child,
       ),
     );
