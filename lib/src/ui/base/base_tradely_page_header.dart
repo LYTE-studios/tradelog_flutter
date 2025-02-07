@@ -69,7 +69,7 @@ class BaseTradelyPageHeader extends StatelessWidget {
             height: 30,
             width: double.infinity,
             child: Divider(
-              thickness: 2,
+              thickness: 1.5,
               color: Theme.of(context).colorScheme.outline,
             ),
           ),

@@ -45,7 +45,7 @@ class ConnectedAccountsWidget extends StatelessWidget {
 
   Widget _buildAccountAvatar(Map<String, dynamic> account) {
     return Container(
-      padding: EdgeInsets.all(3),
+      padding: EdgeInsets.all(2),
       decoration: BoxDecoration(
         color: Colors.black,
         shape: BoxShape.circle,
@@ -63,7 +63,7 @@ class ConnectedAccountsWidget extends StatelessWidget {
 
   Widget _buildMoreAccountsCircle(int count) {
     return Container(
-      padding: EdgeInsets.all(3),
+      padding: EdgeInsets.all(2),
       decoration: BoxDecoration(
         color: Colors.black,
         shape: BoxShape.circle,
@@ -77,7 +77,7 @@ class ConnectedAccountsWidget extends StatelessWidget {
 
   Widget _buildAddButton() {
     return Container(
-      padding: EdgeInsets.all(3),
+      padding: EdgeInsets.all(2),
       decoration: BoxDecoration(
         color: Color(0xFF272835),
         shape: BoxShape.circle,

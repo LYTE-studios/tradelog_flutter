@@ -36,14 +36,14 @@ class _CalenderWidgetState extends State<CalenderWidget> {
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF3C3C43).withOpacity(0.3)),
+        border: Border.all(color: const Color(0xFF272835)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           const Icon(
             Icons.calendar_today_outlined,
-            color: Color(0xFF9EA0A6),
+            color: Color(0xFF666D80),
             size: 20,
           ),
           const SizedBox(width: 8),
@@ -51,7 +51,7 @@ class _CalenderWidgetState extends State<CalenderWidget> {
           Text(
             lastUpdated,
             style: const TextStyle(
-              color: Color(0xFF9EA0A6),
+              color: Color(0xFF666D80),
               fontSize: 14,
             ),
           ),
