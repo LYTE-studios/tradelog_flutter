@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "tradely-2048c"
-  }
+    "default": "tradely-2048c",
+    "staging": "tradely-staging"
+  },
+  "targets": {},
+  "etags": {}
 }
