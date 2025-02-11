@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:to_csv/to_csv.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/statistics/presentation/widgets/small_data_container.dart';
@@ -153,7 +154,7 @@ class _StatisticsScreenState extends State<StatisticsScreen>
   @override
   Widget build(BuildContext context) {
     return BaseTradelyPage(
-      header: const BaseTradelyPageHeader(
+      header: BaseTradelyPageHeader(
         subTitle: "Track in-depth statistics, and export them as a csv.",
         icon: TradelyIcons.statistics,
         currentRoute: StatisticsScreen.location,
