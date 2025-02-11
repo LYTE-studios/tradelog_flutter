@@ -12,10 +12,10 @@ class LineProgressBar extends StatefulWidget {
   final double progressGreen;
 
   const LineProgressBar({
-    super.key,
+    Key? key,
     required this.progressRed,
     required this.progressGreen,
-  });
+  }) : super(key: key);
 
   static const double _selectedHeight = 10;
 

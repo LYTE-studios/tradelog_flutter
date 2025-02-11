@@ -4,7 +4,7 @@ import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/co
 // Update the TransparentScrollBehavior class to override more behaviors
 class TransparentScrollBehavior extends ScrollBehavior {
   @override
-  Widget buildOverscrollIndicator(
+  Widget buildViewportChrome(
       BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
   }
@@ -49,7 +49,7 @@ class TradesList extends StatelessWidget {
     ),
   );
 
-  TradesList({super.key});
+  TradesList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +75,8 @@ class TradesList extends StatelessWidget {
               borderRadius: BorderRadius.circular(9),
             ),
             padding: const EdgeInsets.all(10), // reduced padding
-            child: const Row(
-              children: [
+            child: Row(
+              children: const [
                 Expanded(
                   flex: 2,
                   child: Text(

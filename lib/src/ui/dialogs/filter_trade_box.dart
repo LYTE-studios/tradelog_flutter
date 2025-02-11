@@ -5,10 +5,10 @@ class DarkCalendar extends StatelessWidget {
   final Function(DateTime)? onDateSelected;
 
   const DarkCalendar({
-    super.key,
+    Key? key,
     required this.selectedDate,
     this.onDateSelected,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

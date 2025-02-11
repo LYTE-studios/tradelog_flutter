@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:to_csv/to_csv.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
+import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';

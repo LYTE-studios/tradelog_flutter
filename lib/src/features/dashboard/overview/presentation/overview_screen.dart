@@ -223,7 +223,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
             ),
           ),
           // Old bottom section: previously contained Most Traded Pairs and Net Daily P&L
-          const SizedBox(
+          SizedBox(
             height: 360,
             child: Row(
               children: [
@@ -237,7 +237,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                     child: MostTradedPairsScreen(),
                   ),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Expanded(
                   flex: 1,
                   child: BaseDataContainer(

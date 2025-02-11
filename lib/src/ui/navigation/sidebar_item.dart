@@ -48,7 +48,7 @@ class SidebarItem extends StatelessWidget {
           height: 28,
           width: 4,
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
+            borderRadius: BorderRadius.only(
               topRight: Radius.circular(12),
               bottomRight: Radius.circular(12),
             ),

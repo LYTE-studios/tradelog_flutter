@@ -173,9 +173,9 @@ class DashboardScreen extends StatelessWidget {
                     ),
                   ),
                   rightTitles:
-                      const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
                   topTitles:
-                      const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,

@@ -65,7 +65,7 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
+                    Container(
                       width: 126,
                       height: 30,
                       child: const SvgIcon(

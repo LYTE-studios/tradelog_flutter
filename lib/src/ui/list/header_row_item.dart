@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
+import 'package:tradelog_flutter/src/ui/base/base_Row_Item.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class HeaderRowItem extends StatelessWidget {

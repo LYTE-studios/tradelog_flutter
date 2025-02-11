@@ -48,7 +48,7 @@ class DataContainer extends StatelessWidget {
               Container(
                 padding: EdgeInsets.zero,
                 child: Image.asset(
-                  'assets/icons/Icon ($iconNumber).png',
+                  'assets/icons/Icon (${iconNumber}).png',
                   width: 37,
                   height: 37,
                 ),

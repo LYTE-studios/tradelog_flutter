@@ -53,7 +53,7 @@ class GenericListView extends StatelessWidget {
 
 class _HoverRowWrapper extends StatefulWidget {
   final Widget child;
-  const _HoverRowWrapper({required this.child, super.key});
+  const _HoverRowWrapper({required this.child, Key? key}) : super(key: key);
 
   @override
   State<_HoverRowWrapper> createState() => _HoverRowWrapperState();

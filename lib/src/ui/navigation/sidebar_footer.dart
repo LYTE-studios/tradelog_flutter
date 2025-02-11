@@ -149,7 +149,7 @@ class SidebarFooter extends StatelessWidget {
                         AccountScreen.route,
                       );
                     },
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                       radius: 16.0,
                       backgroundImage: AssetImage(
                         TradelyIcons.profile,

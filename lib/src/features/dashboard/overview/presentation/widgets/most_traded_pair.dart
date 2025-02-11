@@ -110,7 +110,7 @@ class MostTradedPairsScreen extends StatelessWidget {
         return Container(
           width: 35,
           height: 35,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
               image: AssetImage('assets/icons/australia.png'),
@@ -122,7 +122,7 @@ class MostTradedPairsScreen extends StatelessWidget {
         return Container(
           width: 35,
           height: 35,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
               image: AssetImage('assets/icons/philippines.png'),
@@ -144,9 +144,9 @@ class MostTradedPairsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                "19,800",
-                style: TextStyle(
+              Text(
+                "\19,800",
+                style: const TextStyle(
                   color: Color(0xFF666D80), // Using the specified color
                   fontSize: 12, // Increased from 10
                   fontWeight: FontWeight.w500,

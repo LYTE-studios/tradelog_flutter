@@ -76,6 +76,10 @@ class _TooltipIconState extends State<TooltipIcon> {
       hitTestBehavior: HitTestBehavior.translucent,
       cursor: SystemMouseCursors.click,
       child: Tooltip(
+        child: SvgIcon(
+          TradelyIcons.infoCircle,
+          color: TextStyles.mediumTitleColor,
+        ),
         verticalOffset: 12,
         preferBelow: true,
         padding: const EdgeInsets.symmetric(
@@ -98,10 +102,6 @@ class _TooltipIconState extends State<TooltipIcon> {
               softWrap: true,
             ),
           ),
-        ),
-        child: SvgIcon(
-          TradelyIcons.infoCircle,
-          color: TextStyles.mediumTitleColor,
         ),
       ),
     );

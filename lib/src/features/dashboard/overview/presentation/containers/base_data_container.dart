@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container_expanded.dart';
+import 'package:tradelog_flutter/src/ui/text/tooltip_title.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class BaseDataContainer extends StatelessWidget {

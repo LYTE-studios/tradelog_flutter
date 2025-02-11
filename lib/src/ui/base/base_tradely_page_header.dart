@@ -114,7 +114,7 @@ class BaseTradelyPageHeader extends StatelessWidget {
               if (buttons != null) buttons!,
             ],
           ),
-          const SizedBox(
+          SizedBox(
             height: PaddingSizes.extraLarge * 2,
           ),
           if (subHeader != null) subHeader!,
