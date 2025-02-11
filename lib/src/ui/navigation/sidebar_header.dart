@@ -40,7 +40,7 @@ class SidebarHeader extends StatelessWidget {
               const SizedBox(
                 height: PaddingSizes.large,
               ),
-              Divider(
+              const Divider(
                 color: Color(0xFF272835),
                 thickness: 1,
               ),

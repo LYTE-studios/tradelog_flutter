@@ -17,6 +17,9 @@ import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/filter_trades_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/most_traded_pair.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/net_daily_chart.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/my_trades_chart.dart';
 
 class OverviewScreen extends StatefulWidget {
   const OverviewScreen({super.key});
@@ -108,7 +111,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
             setLoading(false);
           },
           onTap: () {},
-          height: 42,
+          height: 32,
           text: "Filter",
           prefixIcon: TradelyIcons.diary,
         ),
@@ -116,136 +119,131 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          // Modified top section: summary boxes and split charts row
           SizedBox(
-            height: 600,
-            child: Row(
+            height: 550,
+            child: Column(
               children: [
-                Expanded(
-                  flex: 2,
-                  child: Column(
+                // First row: 4 summary boxes
+                SizedBox(
+                  height: 140,
+                  child: Row(
                     children: [
-                      SizedBox(
-                        height: 140,
-                        child: Row(
-                          children: [
-                            DataContainer(
-                              title: 'Net Profit/Loss',
-                              toolTip:
-                                  'The total realized net profit and loss for all closed trades',
-                              value: statistics?.overallStatistics.totalProfit,
-                              loading: loading,
-                            ),
-                            DataContainer(
-                              isPercentage: true,
-                              title: 'Trade win rate',
-                              toolTip:
-                                  'Reflects the percentage of your winning trades out of total trades taken',
-                              value: statistics?.overallStatistics.winRate,
-                              loading: loading,
-                            ),
-                            ProgressDataContainer(
-                              title: ' Avg realized R:R',
-                              profit: statistics?.overallStatistics.averageWin,
-                              loss: statistics?.overallStatistics.averageLoss,
-                              toolTip:
-                                  'Average Win / Average Loss = Average Realize R:R',
-                              value: statistics?.overallStatistics.averageWin ==
-                                          null ||
-                                      statistics
-                                              ?.overallStatistics.averageLoss ==
-                                          null
-                                  ? null
-                                  : (statistics?.overallStatistics.averageWin ??
-                                          0) /
-                                      (statistics?.overallStatistics
-                                                  .averageLoss ??
-                                              1)
-                                          .abs(),
-                              loading: loading,
-                            )
-                          ],
+                      Expanded(
+                        flex: 1,
+                        child: DataContainer(
+                          title: 'Net Profit/Loss',
+                          toolTip:
+                              'The total realized net profit and loss for all closed trades',
+                          value: statistics?.overallStatistics.totalProfit,
+                          loading: loading,
+                          iconNumber: 1,
+                          isPositive: true,
                         ),
                       ),
-                      ChartContainer(
-                        title: 'Equity line',
-                        toolTip:
-                            "Your equity line shows your account’s value over time, highlighting profits and losses",
-                        loading: loading,
-                        from: from,
-                        to: to,
+                      Expanded(
+                        flex: 1,
+                        child: DataContainer(
+                          title: 'Trade win rate',
+                          toolTip:
+                              'Reflects the percentage of your winning trades out of total trades taken',
+                          value: statistics?.overallStatistics.winRate,
+                          loading: loading,
+                          iconNumber: 2,
+                          isPositive: true,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: DataContainer(
+                          title: 'Avg realized R:R',
+                          toolTip:
+                              'Average Win / Average Loss = Average Realize R:R',
+                          value: 1.5, // Example value
+                          loading: loading,
+                          iconNumber: 3,
+                          isPositive: false,
+                        ),
+                      ),
+                      // Added new Unrealized P/L box with dummy value
+                      Expanded(
+                        flex: 1,
+                        child: DataContainer(
+                          title: 'Unrealized P/L',
+                          toolTip:
+                              'Current unrealized profit/loss from open positions',
+                          value: 2435.50, // Added dummy value
+                          loading: loading,
+                          iconNumber: 4,
+                          isPositive: false,
+                        ),
                       ),
                     ],
                   ),
                 ),
+                // Second row: Updated layout with equity chart and trades list
                 Expanded(
-                  child: Column(
-                    children: [
-                      LongShortContainer(
-                        long: statistics?.overallStatistics.long ?? 0,
-                        short: statistics?.overallStatistics.short ?? 0,
-                        averageWin: statistics?.overallStatistics.averageWin,
-                        averageLoss: statistics?.overallStatistics.averageLoss,
-                        bestWin: statistics?.overallStatistics.bestWin,
-                        bestLoss: statistics?.overallStatistics.worstLoss,
-                        loading: loading,
-                      ),
-                      ProfitContainer(
-                        profit: statistics?.overallStatistics.totalWon,
-                        loss: statistics?.overallStatistics.totalLost,
-                        factor: statistics?.overallStatistics.profitFactor,
-                      ),
-                      HoldingContainer(
-                        holdingTime:
-                            statistics?.overallStatistics.holdingTimeMinutes,
-                        loading: loading,
-                      ),
-                    ],
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(
+                            width: constraints.maxWidth * 0.70 - 10,
+                            child: ChartContainer(
+                              title: 'Equity value chart',
+                              toolTip:
+                                  "Your equity line shows your account's value over time, highlighting profits and losses",
+                              loading: loading,
+                              from: from,
+                              to: to,
+                              titleImage: 'assets/icons/piggy.png',
+                              onViewAllTrades: () {
+                                print('View all trades clicked');
+                              },
+                              onRefresh: () async {
+                                setLoading(true);
+                                await loadData();
+                                setLoading(false);
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 20),
+                          SizedBox(
+                            width: constraints.maxWidth * 0.30 - 10,
+                            child:
+                                TradesList(), // Removed BaseDataContainer wrapper
+                          ),
+                        ],
+                      );
+                    },
                   ),
-                ),
+                )
               ],
             ),
           ),
-          SizedBox(
+          // Old bottom section: previously contained Most Traded Pairs and Net Daily P&L
+          const SizedBox(
             height: 360,
             child: Row(
               children: [
-                BaseDataContainer(
-                  title: 'Weekday',
-                  toolTip:
-                      'Displays the weekday with the highest trading activity',
-                  child: WebStatisticChart(
-                    data: statistics?.weekDistribution.toJson() ??
-                        {
-                          'Monday': 0,
-                          'Tuesday': 0,
-                          'Wednesday': 0,
-                          'Thursday': 0,
-                          'Friday': 0,
-                          'Saturday': 0,
-                        },
+                Expanded(
+                  flex: 1,
+                  child: BaseDataContainer(
+                    isSuffixIcon: true,
+                    isPrefixIcon: false,
+                    title: 'Most Traded Pairs',
+                    toolTip: 'Shows your most frequently traded currency pairs',
+                    child: MostTradedPairsScreen(),
                   ),
                 ),
-                BaseDataContainer(
-                  title: 'Sessions',
-                  toolTip:
-                      'Displays the session with the highest trading activity',
-                  child: WebStatisticChart(
-                    color: HexColor.fromHex('#FFCC00'),
-                    data: statistics?.sessionDistribution.toJson() ??
-                        {
-                          'London': 0,
-                          'New York': 0,
-                          'Asia': 0,
-                          'Pacific': 0,
-                        },
-                  ),
-                ),
-                BaseDataContainer(
-                  title: 'Pairs',
-                  toolTip: 'Highlights the asset you traded most frequently',
-                  child: WebStatisticChart(
-                    data: statistics?.toSymbolChartMap() ??
-                        OverviewStatisticsDto.getDefaultSymbolChartMap(),
+                SizedBox(width: 20),
+                Expanded(
+                  flex: 1,
+                  child: BaseDataContainer(
+                    title: 'Net Daily P&L',
+                    toolTip: 'Shows your daily profit and loss',
+                    child: DashboardScreen(),
                   ),
                 ),
               ],

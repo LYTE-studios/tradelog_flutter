@@ -169,9 +169,9 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                     );
                   },
                   suffixIcon: TradelyIcons.fullScreenIcon,
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   suffixIconSize: 35,
-                  suffixIconColor: Color(0xFF898989),
+                  suffixIconColor: const Color(0xFF898989),
                   color: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 const SizedBox(
@@ -180,16 +180,16 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                 PrimaryButton(
                   onTap: () {},
                   height: 42,
-                  suffixIconPadding: EdgeInsets.only(left: 12.0),
+                  suffixIconPadding: const EdgeInsets.only(left: 12.0),
                   text: "Trade Type",
-                  padding: EdgeInsets.symmetric(horizontal: 14),
-                  textStyle: TextStyle(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  textStyle: const TextStyle(
                     color: Color(0xFF898989),
                     fontSize: 16,
                   ),
                   suffixIcon: TradelyIcons.chevronDown,
                   suffixIconSize: 8,
-                  suffixIconColor: Color(0xFF898989),
+                  suffixIconColor: const Color(0xFF898989),
                   color: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 const SizedBox(
@@ -199,18 +199,18 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                   onTap: () {
                     downloadCsv();
                   },
-                  suffixIconPadding: EdgeInsets.only(left: 10.0),
+                  suffixIconPadding: const EdgeInsets.only(left: 10.0),
                   height: 42,
-                  padding: EdgeInsets.symmetric(horizontal: 14),
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
                   text: "Export",
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                     color: Color(0xFF898989),
                     fontSize: 16,
                   ),
                   suffixIconSize: 20,
                   suffixIcon: TradelyIcons.chevronRight,
                   color: Theme.of(context).colorScheme.primaryContainer,
-                  suffixIconColor: Color(0xFF898989),
+                  suffixIconColor: const Color(0xFF898989),
                 ),
               ],
             )

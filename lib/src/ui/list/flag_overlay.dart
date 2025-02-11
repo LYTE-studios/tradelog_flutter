@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class FlagOverlay extends StatelessWidget {
+  const FlagOverlay({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 40, // Fixed width for the overlay
-      height: 24, // Fixed height for the overlay
+    return SizedBox(
+      width: 38, // Increased from 40
+      height: 33, // Increased from 24
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -15,22 +17,22 @@ class FlagOverlay extends StatelessWidget {
             top: 0,
             child: ClipOval(
               child: Image.asset(
-                'assets/images/usd_flag.png', // Replace with your image path
-                width: 20, // Defined width
-                height: 20, // Defined height
+                'assets/images/usd_flag.png',
+                width: 28, // Increased from 20
+                height: 28, // Increased from 20
                 fit: BoxFit.cover,
               ),
             ),
           ),
-          // Top Flag (EU) slightly overlapping
+          // Top Flag (EU)
           Positioned(
-            left: 12, // Adjusted for overlap
-            top: -10,
+            left: 15, // Adjusted for new sizes
+            top: -12,
             child: ClipOval(
               child: Image.asset(
-                'assets/images/euro_flag.png', // Replace with your image path
-                width: 25, // Defined width
-                height: 25, // Defined height
+                'assets/images/euro_flag.png',
+                width: 32, // Increased from 25
+                height: 32, // Increased from 25
                 fit: BoxFit.cover,
               ),
             ),

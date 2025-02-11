@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
@@ -20,6 +19,8 @@ class DateSelector extends StatefulWidget {
   final DateTime? from;
   final DateTime? to;
 
+  final int firstDayOfWeek; // Add this parameter
+
   /// has a fixed height of 380
   const DateSelector({
     super.key,
@@ -29,6 +30,7 @@ class DateSelector extends StatefulWidget {
     this.onDatesChanged,
     this.from,
     this.to,
+    this.firstDayOfWeek = 7, // Default to Sunday
   });
 
   @override
@@ -210,7 +212,7 @@ class _DateSelectorState extends State<DateSelector> {
                 viewHeaderHeight: 60,
                 showTrailingAndLeadingDates: true,
                 dayFormat: 'EE',
-                firstDayOfWeek: 1,
+                firstDayOfWeek: widget.firstDayOfWeek, // Add this line
                 viewHeaderStyle: DateRangePickerViewHeaderStyle(
                   textStyle: textTheme.titleSmall?.copyWith(
                     fontWeight: FontWeight.w400,

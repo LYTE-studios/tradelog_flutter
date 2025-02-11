@@ -3,16 +3,13 @@ import 'package:lyte_studios_flutter_ui/ui/icons/svg_icon.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_item_dto.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_header.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
 import 'package:tradelog_flutter/src/ui/base/generic_list_view_trades.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
-import 'package:tradelog_flutter/src/ui/list/header_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/text_profit_loss.dart';
 import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
-import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 
 class TradeList extends StatefulWidget {

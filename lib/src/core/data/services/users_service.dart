@@ -189,7 +189,7 @@ class UsersService extends ApiService {
     required String name,
   }) async {
     FormData formData = FormData.fromMap({
-      'file': await MultipartFile.fromBytes(
+      'file': MultipartFile.fromBytes(
         file,
         filename: name,
       ),

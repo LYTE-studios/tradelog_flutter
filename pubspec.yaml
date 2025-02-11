@@ -17,7 +17,7 @@ dependencies:
   super_tooltip: ^2.0.8
   syncfusion_flutter_charts: ^28.0.0
   syncfusion_flutter_gauges: ^28.0.0
-  syncfusion_flutter_datepicker: ^28.0.0
+  syncfusion_flutter_datepicker: ^22.2.12
   flutter_svg_provider: ^1.0.7
   url_launcher: ^6.3.0
   flutter_quill: ^10.8.4
@@ -28,6 +28,8 @@ dependencies:
   image: ^4.2.0
   to_csv: ^4.0.4
   fl_chart: ^0.70.0
+  table_calendar: ^3.0.9
+  calendar_timeline: ^1.1.2
 
   # NAVIGATION
   go_router: ^14.2.3
@@ -43,6 +45,7 @@ dependencies:
     git:
       url: https://github.com/LYTE-studios/lyte_studios_flutter_ui
       ref: main
+  calendar_date_picker2: ^1.1.8
 
 dependency_overrides:
   image_cropper: ^8.0.2

@@ -46,7 +46,7 @@ class TextRowItem extends StatelessWidget {
                               color: const Color(0xFFCCCCCC),
                             ),
                           )
-                        : AnimatedPulseWidget(),
+                        : const AnimatedPulseWidget(),
                   ],
                 )
               : FittedBox(
@@ -56,7 +56,7 @@ class TextRowItem extends StatelessWidget {
                     children: [
                       // FlagOverlay(),
                       showFlags == true ? FlagOverlay() : Container(),
-                      SizedBox(
+                      const SizedBox(
                         width: 3,
                       ),
                       !(text == '-')
@@ -69,7 +69,7 @@ class TextRowItem extends StatelessWidget {
                                 color: const Color(0xFFCCCCCC),
                               ),
                             )
-                          : AnimatedPulseWidget(),
+                          : const AnimatedPulseWidget(),
                     ],
                   ),
                 ),

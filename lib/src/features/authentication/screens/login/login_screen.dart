@@ -10,7 +10,6 @@ import 'package:tradelog_flutter/src/features/authentication/screens/forgot_pass
 import 'package:tradelog_flutter/src/features/authentication/screens/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/auth_error.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/widgets/extra_login_options.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';

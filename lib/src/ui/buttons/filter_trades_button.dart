@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
-import 'package:tradelog_flutter/src/ui/dialogs/filter_trades_dialog.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
+import 'package:tradelog_flutter/src/ui/dialogs/filter_trades_dialog.dart';
 
 class FilterTradesButton extends StatefulWidget {
   final Function() onTap;
@@ -11,10 +9,6 @@ class FilterTradesButton extends StatefulWidget {
   final String? text;
   final String? prefixIcon;
   final bool? leaveIconUnaltered;
-  // final TradeStatus tradeStatusFilter;
-  // final TradeOption tradeTypeFilter;
-  // final Function(TradeOption) onUpdateTradeTypeFilter;
-  // final Function(TradeStatus) onUpdateTradeStatusFilter;
   final DateTime? from;
   final DateTime? to;
   final Function(DateTime, DateTime)? onUpdateDateFilter;
@@ -40,16 +34,11 @@ class FilterTradesButton extends StatefulWidget {
 }
 
 class _FilterTradesButtonState extends State<FilterTradesButton> {
-  TradeOption tradeTypeFilter = TradeOption.long;
-  TradeStatus tradeStatusFilter = TradeStatus.open;
-
   OverlayEntry? _overlayEntry;
 
-  // Method to create the OverlayEntry (dialog)
   OverlayEntry _createOverlayEntry() {
-    print("render");
     RenderBox renderBox = context.findRenderObject() as RenderBox;
-    var size = renderBox.size; // size of the button
+    var size = renderBox.size;
     var offset = renderBox.localToGlobal(Offset.zero);
     double width = MediaQuery.sizeOf(context).width;
 
@@ -57,10 +46,10 @@ class _FilterTradesButtonState extends State<FilterTradesButton> {
       builder: (context) => Positioned(
         right: width - offset.dx - size.width,
         top: offset.dy + widget.height + PaddingSizes.large,
-        child: BaseContainer(
-          height: 520,
-          width: 520,
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        child: Material(
+          // Added Material widget for proper elevation
+          elevation: 8,
+          color: Colors.transparent,
           child: FilterTradesDialog(
             from: widget.from,
             to: widget.to,
@@ -75,24 +64,6 @@ class _FilterTradesButtonState extends State<FilterTradesButton> {
       ),
     );
   }
-
-  // void onUpdateTradeStatus(TradeStatus type) {
-  //   setState(() {
-  //     tradeStatusFilter = type;
-  //     widget.onUpdateTradeStatusFilter(type);
-  //     _hideOverlay();
-  //     _showOverlay();
-  //   });
-  // }
-
-  // void onUpdateTradeType(TradeOption type) {
-  //   setState(() {
-  //     tradeTypeFilter = type;
-  //     widget.onUpdateTradeTypeFilter(type);
-  //     _hideOverlay();
-  //     _showOverlay();
-  //   });
-  // }
 
   void _showOverlay() {
     _overlayEntry = _createOverlayEntry();
