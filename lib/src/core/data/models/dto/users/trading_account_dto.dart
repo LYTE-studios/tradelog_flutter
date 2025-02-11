@@ -1,4 +1,3 @@
-import 'package:tradelog_flutter/src/features/dashboard/account/presentation/widgets/linked_account_block.dart';
 
 class TradingAccountDto {
   final int id;

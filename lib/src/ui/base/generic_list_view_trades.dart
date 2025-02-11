@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
 import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
 
@@ -51,7 +50,7 @@ class GenericListView extends StatelessWidget {
 
 class _HoverRowWrapper extends StatefulWidget {
   final Widget child;
-  const _HoverRowWrapper({required this.child, Key? key}) : super(key: key);
+  const _HoverRowWrapper({required this.child});
 
   @override
   State<_HoverRowWrapper> createState() => _HoverRowWrapperState();

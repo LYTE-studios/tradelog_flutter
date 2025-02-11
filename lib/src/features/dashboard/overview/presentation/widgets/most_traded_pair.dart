@@ -105,12 +105,12 @@ class MostTradedPairsScreen extends StatelessWidget {
   Widget _buildFlag(String name) {
     switch (name) {
       case "EUR/USD":
-        return FlagOverlay();
+        return const FlagOverlay();
       case "Australia":
         return Container(
           width: 35,
           height: 35,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
               image: AssetImage('assets/icons/australia.png'),
@@ -122,7 +122,7 @@ class MostTradedPairsScreen extends StatelessWidget {
         return Container(
           width: 35,
           height: 35,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
               image: AssetImage('assets/icons/philippines.png'),
@@ -144,9 +144,9 @@ class MostTradedPairsScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "\19,800",
-                style: const TextStyle(
+              const Text(
+                "19,800",
+                style: TextStyle(
                   color: Color(0xFF666D80), // Using the specified color
                   fontSize: 12, // Increased from 10
                   fontWeight: FontWeight.w500,

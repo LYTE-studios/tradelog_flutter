@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:super_tooltip/super_tooltip.dart'; // Import the package
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -76,10 +75,6 @@ class _TooltipIconState extends State<TooltipIcon> {
       hitTestBehavior: HitTestBehavior.translucent,
       cursor: SystemMouseCursors.click,
       child: Tooltip(
-        child: SvgIcon(
-          TradelyIcons.infoCircle,
-          color: TextStyles.mediumTitleColor,
-        ),
         verticalOffset: 12,
         preferBelow: true,
         padding: const EdgeInsets.symmetric(
@@ -102,6 +97,10 @@ class _TooltipIconState extends State<TooltipIcon> {
               softWrap: true,
             ),
           ),
+        ),
+        child: SvgIcon(
+          TradelyIcons.infoCircle,
+          color: TextStyles.mediumTitleColor,
         ),
       ),
     );

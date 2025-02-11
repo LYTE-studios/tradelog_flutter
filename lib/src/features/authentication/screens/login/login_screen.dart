@@ -4,13 +4,11 @@ import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/authentication/account_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/authentication/login_account_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/authentication_service.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/forgot_password/forgot_password_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/auth_error.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/widgets/extra_login_options.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';
@@ -31,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> with ScreenStateMixin {
   final TextEditingController emailTec = TextEditingController();
   final TextEditingController pwTec = TextEditingController();
 
+  @override
   String? error;
 
   Future<void> signIn() async {

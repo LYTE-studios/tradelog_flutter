@@ -51,10 +51,10 @@ class _ChartContainerState extends State<ChartContainer> {
       onRefresh: widget.onRefresh, // Add this
       buttonText: 'All Trades', // Specify button text for Chart Container
       // Add custom button content with arrow
-      customButtonContent: Row(
+      customButtonContent: const Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             'All Trades',
             style: TextStyle(
               color: Color(0xFF666D80),
@@ -62,11 +62,11 @@ class _ChartContainerState extends State<ChartContainer> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(width: 4),
+          SizedBox(width: 4),
           Icon(
             Icons.expand_more,
             size: 14, // Smaller icon
-            color: const Color(0xFF666D80),
+            color: Color(0xFF666D80),
           ),
         ],
       ),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
-import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/filter_trades_dialog.dart';

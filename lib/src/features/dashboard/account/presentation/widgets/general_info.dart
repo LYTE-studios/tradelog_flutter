@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/user_profile_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/authentication_service.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';

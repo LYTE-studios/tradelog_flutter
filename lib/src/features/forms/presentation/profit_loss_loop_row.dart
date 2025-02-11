@@ -27,8 +27,8 @@ class ProfitLossLoopRow extends StatelessWidget {
               Container(
                 width: 40,
                 height: 40,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF232323),
+                decoration: const BoxDecoration(
+                  color: Color(0xFF232323),
                   shape: BoxShape.circle,
                 ),
                 child: Center(

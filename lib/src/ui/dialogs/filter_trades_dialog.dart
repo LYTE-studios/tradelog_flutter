@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/dialogs/filter_trade_box.dart';
-import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class FilterTradesDialog extends StatelessWidget {
   final DateTime? from;

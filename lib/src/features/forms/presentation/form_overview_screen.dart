@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/forms/presentation/copy_link_dialog.dart';
 import 'package:tradelog_flutter/src/features/forms/presentation/profit_loss_loop_row.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -65,10 +63,10 @@ class _FormOverviewScreenState extends State<FormOverviewScreen>
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    const SizedBox(
                       width: 126,
                       height: 30,
-                      child: const SvgIcon(
+                      child: SvgIcon(
                         TradelyIcons.tradelyLogoText,
                         color: Colors.white,
                       ),

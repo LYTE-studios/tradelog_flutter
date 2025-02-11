@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statistics_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/user_profile_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/paywall_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/base_data_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/data_container.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/holding_container.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/long_short_container.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/profit_container.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/progress_data_container.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/web_statistic_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
 import 'package:tradelog_flutter/src/ui/buttons/filter_trades_button.dart';
@@ -89,7 +83,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
         title:
             "${getDisplayText()} ${(profile?.firstName.isNotEmpty ?? false) ? profile!.firstName : ''}!",
         titleIconPath: 'assets/images/emojis/hand_emoji.png',
-        buttons: FilterTradesButton(
+        trailing: FilterTradesButton(
           from: from,
           to: to,
           onUpdateDateFilter: (from, to) {
@@ -223,7 +217,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
             ),
           ),
           // Old bottom section: previously contained Most Traded Pairs and Net Daily P&L
-          SizedBox(
+          const SizedBox(
             height: 360,
             child: Row(
               children: [
@@ -237,7 +231,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                     child: MostTradedPairsScreen(),
                   ),
                 ),
-                const SizedBox(width: 20),
+                SizedBox(width: 20),
                 Expanded(
                   flex: 1,
                   child: BaseDataContainer(

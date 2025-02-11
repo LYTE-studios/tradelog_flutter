@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 class FlagOverlay extends StatelessWidget {
+  const FlagOverlay({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 38, // Increased from 40
       height: 33, // Increased from 24
       child: Stack(

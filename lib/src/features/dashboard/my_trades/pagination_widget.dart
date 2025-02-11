@@ -43,10 +43,10 @@ class PaginationWidget extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 12),
                 decoration: BoxDecoration(
-                  color: Color(0xFF15161E),
-                  border: Border.all(color: Color(0xFF1F1F1F)),
+                  color: const Color(0xFF15161E),
+                  border: Border.all(color: const Color(0xFF1F1F1F)),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: DropdownButton<int>(

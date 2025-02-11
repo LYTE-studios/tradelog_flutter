@@ -1,7 +1,7 @@
 name: tradelog_flutter
 description: Tradely - Your trading journal
 publish_to: 'none'
-version: 1.0.0+54
+version: 1.0.0+56
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -46,7 +46,9 @@ dependencies:
       url: https://github.com/LYTE-studios/lyte_studios_flutter_ui
       ref: main
   calendar_date_picker2: ^1.1.8
+  firebase_core: ^3.11.0
 
+  flutter_svg: any
 dependency_overrides:
   image_cropper: ^8.0.2
   intl: ^0.19.0  # Ensure all packages use intl ^0.19.0

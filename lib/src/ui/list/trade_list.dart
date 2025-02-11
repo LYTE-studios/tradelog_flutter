@@ -84,9 +84,9 @@ class _TradeListState extends State<TradeList> {
                     GenericListView(
                       loading: widget.loading,
                       header: Container(
-                        padding: EdgeInsets.only(top: 8, bottom: 4),
+                        padding: const EdgeInsets.only(top: 8, bottom: 4),
                         decoration: BoxDecoration(
-                          color: Color(0xFF15161E),
+                          color: const Color(0xFF15161E),
                           borderRadius: BorderRadius.circular(14),
                         ),
                         child: CustomHeader(
@@ -95,7 +95,7 @@ class _TradeListState extends State<TradeList> {
                             // Header checkbox:
                             Checkbox(
                               splashRadius: 20,
-                              side: BorderSide(
+                              side: const BorderSide(
                                 color: Color(0xFF272835),
                               ),
                               shape: RoundedRectangleBorder(
@@ -173,7 +173,7 @@ class _TradeListState extends State<TradeList> {
                         final rowItems = [
                           // Row checkbox:
                           Checkbox(
-                            side: BorderSide(
+                            side: const BorderSide(
                               color: Color(0xFF272835),
                             ),
                             shape: RoundedRectangleBorder(
@@ -245,7 +245,7 @@ class _TradeListState extends State<TradeList> {
                               default:
                                 return const SizedBox.shrink();
                             }
-                          }).toList(),
+                          }),
                         ];
                         return CustomRow(
                           horizontalPadding: widget.sidePadding,

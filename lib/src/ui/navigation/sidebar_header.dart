@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/lyte_studios_flutter_ui.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
@@ -40,7 +39,7 @@ class SidebarHeader extends StatelessWidget {
               const SizedBox(
                 height: PaddingSizes.large,
               ),
-              Divider(
+              const Divider(
                 color: Color(0xFF272835),
                 thickness: 1,
               ),

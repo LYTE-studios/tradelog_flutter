@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:to_csv/to_csv.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_item_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/calender_widget.dart';
@@ -98,7 +97,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ConnectedAccountsWidget(
-              accounts: [
+              accounts: const [
                 {
                   'image': TradelyIcons.tradelocker,
                   'backgroundColor': Colors.transparent,
@@ -126,21 +125,21 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
             Container(
               width: 1.5,
               height: 42,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xFF272835),
                 borderRadius: BorderRadius.all(Radius.circular(50)),
               ),
-              child: Text(''),
+              child: const Text(''),
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             PrimaryButton(
               outlined: true,
-              borderColor: Color(0xFF272835),
+              borderColor: const Color(0xFF272835),
               onTap: () {},
-              prefixIconPadding: EdgeInsets.only(right: 10.0),
+              prefixIconPadding: const EdgeInsets.only(right: 10.0),
               height: 42,
               borderRadii: 12,
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               text: "Share",
               textStyle: const TextStyle(
                 color: Color(0xFF666D80),
@@ -149,13 +148,13 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               prefixIconSize: 16,
               prefixIcon: TradelyIcons.share,
               color: Theme.of(context).colorScheme.primaryContainer,
-              prefixIconColor: Color(0xFF666D80),
+              prefixIconColor: const Color(0xFF666D80),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF272835), width: 1),
+                border: Border.all(color: const Color(0xFF272835), width: 1),
                 color: Colors.transparent,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(12),
@@ -164,7 +163,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                 TradelyIcons.menu,
                 width: 16,
                 height: 16,
-                colorFilter: ColorFilter.mode(
+                colorFilter: const ColorFilter.mode(
                   Color(0xFF666D80),
                   BlendMode.srcIn,
                 ),
@@ -176,7 +175,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
         subHeader: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CalenderWidget(),
+            const CalenderWidget(),
 
             // Column(
             //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,7 +217,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
               children: [
                 PrimaryButton(
                   outlined: true,
-                  borderColor: Color(0xFF272835),
+                  borderColor: const Color(0xFF272835),
                   height: 42,
                   onTap: () {
                     showDialog(
@@ -246,9 +245,9 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                     );
                   },
                   suffixIcon: TradelyIcons.fullScreenIcon,
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   suffixIconSize: 35,
-                  suffixIconColor: Color(0xFF666D80),
+                  suffixIconColor: const Color(0xFF666D80),
                   color: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 const SizedBox(
@@ -256,9 +255,9 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                 ),
                 PrimaryButton(
                   outlined: true,
-                  borderColor: Color(0xFF272835),
+                  borderColor: const Color(0xFF272835),
                   prefixIcon: TradelyIcons.filter,
-                  prefixIconColor: Color(0xFF666D80),
+                  prefixIconColor: const Color(0xFF666D80),
                   prefixIconSize: 13,
                   onTap: () {},
                   height: 42,
@@ -275,13 +274,13 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                 ),
                 PrimaryButton(
                   outlined: true,
-                  borderColor: Color(0xFF272835),
+                  borderColor: const Color(0xFF272835),
                   onTap: () {
                     downloadCsv();
                   },
-                  prefixIconPadding: EdgeInsets.only(right: 10.0),
+                  prefixIconPadding: const EdgeInsets.only(right: 10.0),
                   height: 42,
-                  padding: EdgeInsets.symmetric(horizontal: 14),
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
                   text: "Import / Export",
                   textStyle: const TextStyle(
                     color: Color(0xFF666D80),
@@ -290,7 +289,7 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                   prefixIconSize: 12,
                   prefixIcon: TradelyIcons.export_icon,
                   color: Theme.of(context).colorScheme.primaryContainer,
-                  prefixIconColor: Color(0xFF666D80),
+                  prefixIconColor: const Color(0xFF666D80),
                 ),
               ],
             )

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/authentication/account_credentials_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/authentication/register_account_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/authentication_service.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/routing/router.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/login/login_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
-import 'package:tradelog_flutter/src/features/authentication/widgets/extra_login_options.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/overview_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/input/password_text_input.dart';

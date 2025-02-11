@@ -110,14 +110,14 @@ GoRouter router = GoRouter(
         GoRoute(
           path: DiaryScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              NoTransitionPage(
+              const NoTransitionPage(
             child: DiaryScreen(),
           ),
         ),
         GoRoute(
           path: MyTradesScreen.route,
           pageBuilder: (BuildContext context, GoRouterState state) =>
-              NoTransitionPage(
+              const NoTransitionPage(
             child: MyTradesScreen(),
           ),
         ),

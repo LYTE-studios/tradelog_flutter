@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/authentication/screens/register/register_screen.dart';
 import 'package:tradelog_flutter/src/features/authentication/widgets/base_auth_screen.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';

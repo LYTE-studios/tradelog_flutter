@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
-import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
 import 'package:tradelog_flutter/src/ui/input/date_selector.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 

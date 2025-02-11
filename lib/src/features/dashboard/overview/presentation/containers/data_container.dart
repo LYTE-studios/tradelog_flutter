@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
-import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/base_data_container.dart';
-import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class DataContainer extends StatelessWidget {
   final String title;
@@ -48,7 +46,7 @@ class DataContainer extends StatelessWidget {
               Container(
                 padding: EdgeInsets.zero,
                 child: Image.asset(
-                  'assets/icons/Icon (${iconNumber}).png',
+                  'assets/icons/Icon ($iconNumber).png',
                   width: 37,
                   height: 37,
                 ),

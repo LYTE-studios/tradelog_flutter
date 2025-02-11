@@ -10,9 +10,7 @@ import 'package:tradelog_flutter/src/core/data/models/dto/users/overview_statist
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_note_dto.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/features/dashboard/diary/presentation/widgets/date_selector_container.dart';
-import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/add_trade_dialog.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/equity_line_chart.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
@@ -194,7 +192,7 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return BaseTradelyPage(
-      header: BaseTradelyPageHeader(
+      header: const BaseTradelyPageHeader(
         subTitle: "Review daily trading analytics, and add annotations.",
         icon: TradelyIcons.diary,
         currentRoute: DiaryScreen.location,

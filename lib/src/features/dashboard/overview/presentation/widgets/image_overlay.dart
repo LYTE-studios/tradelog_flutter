@@ -6,11 +6,11 @@ class ConnectedAccountsWidget extends StatelessWidget {
   final VoidCallback onMoreOptions;
 
   const ConnectedAccountsWidget({
-    Key? key,
+    super.key,
     required this.accounts,
     required this.onAddAccount,
     required this.onMoreOptions,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +45,8 @@ class ConnectedAccountsWidget extends StatelessWidget {
 
   Widget _buildAccountAvatar(Map<String, dynamic> account) {
     return Container(
-      padding: EdgeInsets.all(2),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(2),
+      decoration: const BoxDecoration(
         color: Colors.black,
         shape: BoxShape.circle,
       ),
@@ -63,8 +63,8 @@ class ConnectedAccountsWidget extends StatelessWidget {
 
   Widget _buildMoreAccountsCircle(int count) {
     return Container(
-      padding: EdgeInsets.all(2),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(2),
+      decoration: const BoxDecoration(
         color: Colors.black,
         shape: BoxShape.circle,
       ),
@@ -77,8 +77,8 @@ class ConnectedAccountsWidget extends StatelessWidget {
 
   Widget _buildAddButton() {
     return Container(
-      padding: EdgeInsets.all(2),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.all(2),
+      decoration: const BoxDecoration(
         color: Color(0xFF272835),
         shape: BoxShape.circle,
       ),

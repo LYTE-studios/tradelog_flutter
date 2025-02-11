@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/ui/loading/tradely_loading_spinner.dart';
-import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class TradelyLoadingSwitcher extends StatelessWidget {
   final bool loading;

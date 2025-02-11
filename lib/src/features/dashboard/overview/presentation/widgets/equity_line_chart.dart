@@ -2,14 +2,10 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
+import 'package:lyte_studios_flutter_ui/mixins/screen_state_mixin.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
-import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
-import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
 import 'package:tradelog_flutter/src/ui/loading/tradely_loading_switcher.dart';
-import 'package:tradelog_flutter/src/ui/theme/border_radii.dart';
-import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 import 'package:tradelog_flutter/src/ui/theme/text_styles.dart';
 import 'package:intl/intl.dart'; // Add this import at the top
 
@@ -139,12 +135,12 @@ class _EquityLineChartState extends State<EquityLineChart>
                 axisLine: const AxisLine(width: 0),
                 majorGridLines: MajorGridLines(
                   width: 1,
-                  dashArray: [5, 5],
+                  dashArray: const [5, 5],
                   color: TextStyles.labelTextColor.withOpacity(0.3),
                 ),
                 // Add padding to the plot area
                 plotOffset: 0,
-                plotBands: [
+                plotBands: const [
                   PlotBand(
                     isVisible: true,
                     opacity: 0,
@@ -153,7 +149,7 @@ class _EquityLineChartState extends State<EquityLineChart>
                   ),
                 ],
                 desiredIntervals: 11,
-                majorTickLines: MajorTickLines(width: 0),
+                majorTickLines: const MajorTickLines(width: 0),
                 labelStyle: const TextStyle(
                   fontSize: 0, // Set to 0 to hide default labels
                   color: Colors.transparent, // Make labels transparent
@@ -162,8 +158,8 @@ class _EquityLineChartState extends State<EquityLineChart>
               primaryYAxis: NumericAxis(
                 name: 'Equity',
                 axisLine: const AxisLine(width: 0),
-                majorGridLines: MajorGridLines(width: 0),
-                majorTickLines: MajorTickLines(width: 0),
+                majorGridLines: const MajorGridLines(width: 0),
+                majorTickLines: const MajorTickLines(width: 0),
                 decimalPlaces: 0,
                 minimum: minimum,
                 maximum: maximum,
@@ -188,7 +184,7 @@ class _EquityLineChartState extends State<EquityLineChart>
                       .any((point) => (details.value - point).abs() < 0.01);
 
                   if (!shouldShow) {
-                    return ChartAxisLabel("", TextStyle());
+                    return ChartAxisLabel("", const TextStyle());
                   }
 
                   return ChartAxisLabel(
@@ -341,7 +337,7 @@ class _EquityLineChartState extends State<EquityLineChart>
                 SplineSeries<ChartData, DateTime>(
                   splineType: SplineType.monotonic,
                   cardinalSplineTension: 0.1,
-                  dashArray: [5, 5],
+                  dashArray: const [5, 5],
                   width: 2,
                   color: const Color(0xFF33CFFF),
                   dataSource: comparisonData,
