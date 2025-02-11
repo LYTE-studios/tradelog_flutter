@@ -246,7 +246,18 @@ class OverallStatisticsDto {
   final double totalWon;
   final double totalLost;
 
+  final int breakEvenTrades;
+
+  final int winningDays;
+  final int losingDays;
+  final int breakEvenDays;
+
   final double holdingTimeMinutes;
+
+  final double maxDrawdown;
+  final double maxDrawdownPercent;
+  final double averageDrawdown;
+  final double averageDrawdownPercent;
 
   const OverallStatisticsDto({
     required this.balance,
@@ -264,6 +275,14 @@ class OverallStatisticsDto {
     required this.totalWon,
     required this.totalLost,
     required this.holdingTimeMinutes,
+    required this.maxDrawdown,
+    required this.maxDrawdownPercent,
+    required this.averageDrawdown,
+    required this.averageDrawdownPercent,
+    required this.breakEvenTrades,
+    required this.winningDays,
+    required this.losingDays,
+    required this.breakEvenDays,
   });
 
   OverallStatisticsDto.fromJson(Map<String, dynamic> json)
@@ -281,7 +300,15 @@ class OverallStatisticsDto {
         profitFactor = json['profit_factor'],
         totalWon = json['total_won'],
         totalLost = json['total_lost'],
-        holdingTimeMinutes = json['average_holding_time_minutes'];
+        holdingTimeMinutes = json['average_holding_time_minutes'],
+        maxDrawdown = json['max_drawdown'],
+        maxDrawdownPercent = json['max_drawdown_percent'],
+        averageDrawdown = json['average_drawdown'],
+        averageDrawdownPercent = json['average_drawdown_percent'],
+        breakEvenTrades = json['breakeven_trades'],
+        winningDays = json['winning_days'],
+        losingDays = json['losing_days'],
+        breakEvenDays = json['breakeven_days'];
 }
 
 class MonthlySummaryDto {

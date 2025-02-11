@@ -93,24 +93,36 @@ class _StatisticsScreenState extends State<StatisticsScreen>
         "Total P&L": TradelyNumberUtils.formatNullableValuta(
           statistics?.overallStatistics.totalProfit,
         ),
-
-        // TODO : Average Daily Volume
-
         "Average Winning Trade": TradelyNumberUtils.formatNullableValuta(
           statistics?.overallStatistics.averageWin,
         ),
-
         "Average Losing Trade": TradelyNumberUtils.formatNullableValuta(
           statistics?.overallStatistics.averageLoss,
         ),
-
         "Total Number of Trades":
             statistics?.overallStatistics.totalTrades.toString() ?? '',
-
-        "Number of Winning Trades": tradesWon.toString(),
-        "Number of Losing Trades": tradesLost.toString(),
+        "Trades Won": tradesWon.toString(),
+        "Trades Lost": tradesLost.toString(),
+        "Breakeven Trades":
+            statistics?.overallStatistics.breakEvenTrades.toString() ?? '-',
+        "Winning Days":
+            statistics?.overallStatistics.winningDays.toString() ?? '-',
+        "Losing Days":
+            statistics?.overallStatistics.losingDays.toString() ?? '-',
+        "Breakeven Days":
+            statistics?.overallStatistics.breakEvenDays.toString() ?? '-',
       };
       statMap2 = {
+        "Max Drawdown": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.maxDrawdown,
+        ),
+        "Max Drawdown %":
+            '% ${statistics?.overallStatistics.maxDrawdownPercent.toStringAsFixed(2) ?? '-'}',
+        "Average Drawdown": TradelyNumberUtils.formatNullableValuta(
+          statistics?.overallStatistics.averageDrawdown,
+        ),
+        "Average Drawdown %":
+            '% ${statistics?.overallStatistics.averageDrawdownPercent.toStringAsFixed(2) ?? '-'}',
         "Largest Profit": TradelyNumberUtils.formatNullableValuta(
           statistics?.overallStatistics.bestWin,
         ),
