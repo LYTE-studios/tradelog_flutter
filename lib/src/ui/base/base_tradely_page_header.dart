@@ -15,7 +15,7 @@ class BaseTradelyPageHeader extends StatelessWidget {
 
   final String? icon;
 
-  final Widget? buttons;
+  final Widget? trailing;
   final Widget? subHeader;
 
   const BaseTradelyPageHeader(
@@ -24,8 +24,8 @@ class BaseTradelyPageHeader extends StatelessWidget {
       required this.title,
       this.titleIconPath,
       this.subTitle,
-      this.buttons,
       this.icon,
+      this.trailing,
       this.subHeader});
 
   @override
@@ -38,84 +38,40 @@ class BaseTradelyPageHeader extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              if (icon != null)
-                Padding(
-                  padding: const EdgeInsets.only(
-                    right: PaddingSizes.extraSmall,
-                  ),
-                  child: SvgIcon(
-                    icon!,
-                    color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  ),
-                ),
-              Text(
-                currentRoute,
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      color: TextStyles.bodyColor,
+              Row(
+                children: [
+                  if (icon != null)
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        right: PaddingSizes.extraSmall,
+                      ),
+                      child: SvgIcon(
+                        icon!,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
                     ),
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: TextStyles.titleColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: PaddingSizes.medium,
-                ),
-                child: SvgIcon(
-                  TradelyIcons.slash,
-                  color: Theme.of(context).colorScheme.outline,
-                ),
-              ),
-              Text(
-                "General",
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              trailing ?? const SizedBox.shrink(),
             ],
           ),
           SizedBox(
             height: 30,
-            width: 570,
+            width: double.infinity,
             child: Divider(
-              thickness: 2,
+              thickness: 1.5,
               color: Theme.of(context).colorScheme.outline,
             ),
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        title,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(
-                        width: PaddingSizes.extraSmall,
-                      ),
-                      if (titleIconPath != null && titleIconPath!.isNotEmpty)
-                        Image.asset(
-                          titleIconPath!,
-                          width: 25,
-                        ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: PaddingSizes.extraSmall / 3,
-                  ),
-                  if (subTitle != null)
-                    Text(
-                      subTitle!,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    )
-                ],
-              ),
-              if (buttons != null) buttons!,
-            ],
-          ),
-          SizedBox(
-            height: PaddingSizes.extraLarge * 2,
           ),
           if (subHeader != null) subHeader!,
         ],

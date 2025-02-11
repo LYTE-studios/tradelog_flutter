@@ -23,9 +23,12 @@ class CustomHeader extends StatelessWidget {
       ),
       child: SizedBox(
         height: 37,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: children,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: children,
+          ),
         ),
       ),
     );

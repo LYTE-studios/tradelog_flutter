@@ -162,45 +162,45 @@ class _StatisticsScreenState extends State<StatisticsScreen>
         currentRoute: StatisticsScreen.location,
         title: "Statistics",
         titleIconPath: 'assets/images/emojis/statistics_emoji.png',
-        buttons: Row(
-          children: [
-            PrimaryButton(
-              onTap: downloadCsv,
-              height: 42,
-              text: "Export list",
-              color: Theme.of(context).colorScheme.primaryContainer,
-            ),
-            const SizedBox(
-              width: PaddingSizes.large,
-            ),
-            FilterTradesButton(
-              onTap: () {},
-              height: 42,
-              text: "Filter",
-              prefixIcon: TradelyIcons.diary,
-              from: from,
-              to: to,
-              onUpdateDateFilter: (from, to) {
-                this.from = from;
-                this.to = to;
-              },
-              onResetFilters: () async {
-                setState(() {
-                  from = null;
-                  to = null;
-                  loading = true;
-                });
-                await loadData();
-                setLoading(false);
-              },
-              onShowTrades: () async {
-                setLoading(true);
-                await loadData();
-                setLoading(false);
-              },
-            ),
-          ],
-        ),
+        // buttons: Row(
+        //   children: [
+        //     PrimaryButton(
+        //       onTap: downloadCsv,
+        //       height: 42,
+        //       text: "Export list",
+        //       color: Theme.of(context).colorScheme.primaryContainer,
+        //     ),
+        //     const SizedBox(
+        //       width: PaddingSizes.large,
+        //     ),
+        //     FilterTradesButton(
+        //       onTap: () {},
+        //       height: 42,
+        //       text: "Filter",
+        //       prefixIcon: TradelyIcons.diary,
+        //       from: from,
+        //       to: to,
+        //       onUpdateDateFilter: (from, to) {
+        //         this.from = from;
+        //         this.to = to;
+        //       },
+        //       onResetFilters: () async {
+        //         setState(() {
+        //           from = null;
+        //           to = null;
+        //           loading = true;
+        //         });
+        //         await loadData();
+        //         setLoading(false);
+        //       },
+        //       onShowTrades: () async {
+        //         setLoading(true);
+        //         await loadData();
+        //         setLoading(false);
+        //       },
+        //     ),
+        //   ],
+        // ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

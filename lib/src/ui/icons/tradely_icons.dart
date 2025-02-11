@@ -33,6 +33,7 @@ class TradelyIcons {
 
   // util icons
   static const String reset = '$_basePath/reset.svg';
+  static const String menu = '$_basePath/menu.svg';
   static const String search = '$_basePath/search.svg';
   static const String arrowBack = '$_basePath/arrow_back.svg';
   static const String chevronLeft = '$_basePath/chevron_left.svg';
@@ -43,6 +44,9 @@ class TradelyIcons {
   static const String eyeOpen = '$_basePath/eye_open.svg';
   static const String link_exchange = '$_basePath/link_exchange.svg';
   static const String add_new_trade = '$_basePath/add_new_trade.svg';
+  static const String filter = '$_basePath/filter.svg';
+  static const String export_icon = '$_basePath/export_icon.svg';
+  static const String share = '$_basePath/share.svg';
 
   // ui icons
   static const String trendDown = '$_basePath/trend_down.svg';

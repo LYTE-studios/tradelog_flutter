@@ -1,26 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:lyte_studios_flutter_ui/theme/extensions/hex_color.dart';
 import 'package:to_csv/to_csv.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:tradelog_flutter/src/core/data/models/dto/users/trade_list_item_dto.dart';
 import 'package:tradelog_flutter/src/core/data/models/enums/trade_enums.dart';
 import 'package:tradelog_flutter/src/core/data/services/users_service.dart';
 import 'package:tradelog_flutter/src/core/mixins/screen_state_mixin.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_date_time_utils.dart';
 import 'package:tradelog_flutter/src/core/utils/tradely_number_utils.dart';
+import 'package:tradelog_flutter/src/features/dashboard/my_trades/presentation/calender_widget.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/widgets/image_overlay.dart';
 import 'package:tradelog_flutter/src/ui/base/base_container.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page.dart';
 import 'package:tradelog_flutter/src/ui/base/base_tradely_page_header.dart';
-import 'package:tradelog_flutter/src/ui/base/custom_header.dart';
-import 'package:tradelog_flutter/src/ui/base/custom_row_trades.dart';
-import 'package:tradelog_flutter/src/ui/base/generic_list_view_trades.dart';
-import 'package:tradelog_flutter/src/ui/buttons/filter_trades_button.dart';
 import 'package:tradelog_flutter/src/ui/buttons/primary_button.dart';
 import 'package:tradelog_flutter/src/ui/icons/tradely_icons.dart';
-import 'package:tradelog_flutter/src/ui/list/header_row_item.dart';
-import 'package:tradelog_flutter/src/ui/list/text_profit_loss.dart';
-import 'package:tradelog_flutter/src/ui/list/text_row_item.dart';
 import 'package:tradelog_flutter/src/ui/list/trade_list.dart';
-import 'package:tradelog_flutter/src/ui/list/trend_row_item.dart';
 import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 
 class MyTradesScreen extends StatefulWidget {
@@ -96,52 +92,133 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
     return BaseTradelyPage(
       header: BaseTradelyPageHeader(
         subTitle: "An overview of your trading history.",
-        icon: TradelyIcons.myTrades,
         currentRoute: MyTradesScreen.location,
-        title: "My trades",
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ConnectedAccountsWidget(
+              accounts: [
+                {
+                  'image': TradelyIcons.tradelocker,
+                  'backgroundColor': Colors.transparent,
+                },
+                {
+                  'image': TradelyIcons.metatrader,
+                  'backgroundColor': Color(0xFF272835),
+                },
+                {
+                  'image': TradelyIcons.metatrader,
+                  'backgroundColor': Color(0xFF272835),
+                },
+                {
+                  'image': TradelyIcons.metatrader,
+                  'backgroundColor': Color(0xFF272835),
+                },
+              ],
+              onAddAccount: () {
+                print('Add account clicked');
+              },
+              onMoreOptions: () {
+                print('More options clicked');
+              },
+            ),
+            Container(
+              width: 1.5,
+              height: 42,
+              decoration: BoxDecoration(
+                color: Color(0xFF272835),
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              child: Text(''),
+            ),
+            SizedBox(width: 20),
+            PrimaryButton(
+              outlined: true,
+              borderColor: Color(0xFF272835),
+              onTap: () {},
+              prefixIconPadding: EdgeInsets.only(right: 10.0),
+              height: 42,
+              borderRadii: 12,
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              text: "Share",
+              textStyle: const TextStyle(
+                color: Color(0xFF666D80),
+                fontSize: 16,
+              ),
+              prefixIconSize: 16,
+              prefixIcon: TradelyIcons.share,
+              color: Theme.of(context).colorScheme.primaryContainer,
+              prefixIconColor: Color(0xFF666D80),
+            ),
+            SizedBox(width: 10),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
+              decoration: BoxDecoration(
+                border: Border.all(color: Color(0xFF272835), width: 1),
+                color: Colors.transparent,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: SvgPicture.asset(
+                TradelyIcons.menu,
+                width: 16,
+                height: 16,
+                colorFilter: ColorFilter.mode(
+                  Color(0xFF666D80),
+                  BlendMode.srcIn,
+                ),
+              ),
+            )
+          ],
+        ),
+        title: "Dashboard",
         subHeader: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Total Trades',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(
-                  height: PaddingSizes.extraSmall / 3,
-                ),
-                Row(
-                  children: [
-                    Text(
-                      r"$Loss/Profit",
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.refresh,
-                        color: HexColor.fromHex('#7C7C7C'),
-                      ),
-                      onPressed: () async {
-                        setLoading(true);
+            CalenderWidget(),
 
-                        await UsersService().refreshAccount();
+            // Column(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: [
+            //     Text(
+            //       'Total Trades',
+            //       style: Theme.of(context).textTheme.titleMedium,
+            //     ),
+            //     const SizedBox(
+            //       height: PaddingSizes.extraSmall / 3,
+            //     ),
+            //     Row(
+            //       children: [
+            //         Text(
+            //           r"$Loss/Profit",
+            //           style: Theme.of(context).textTheme.titleLarge,
+            //         ),
+            //         IconButton(
+            //           icon: Icon(
+            //             Icons.refresh,
+            //             color: HexColor.fromHex('#7C7C7C'),
+            //           ),
+            //           onPressed: () async {
+            //             setLoading(true);
 
-                        await loadData();
+            //             await UsersService().refreshAccount();
 
-                        setLoading(false);
-                      },
-                    ),
-                  ],
-                ),
-              ],
-            ),
+            //             await loadData();
+
+            //             setLoading(false);
+            //           },
+            //         ),
+            //       ],
+            //     ),
+            //   ],
+            // ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 PrimaryButton(
+                  outlined: true,
+                  borderColor: Color(0xFF272835),
                   height: 42,
                   onTap: () {
                     showDialog(
@@ -171,46 +248,49 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
                   suffixIcon: TradelyIcons.fullScreenIcon,
                   padding: EdgeInsets.all(5),
                   suffixIconSize: 35,
-                  suffixIconColor: Color(0xFF898989),
+                  suffixIconColor: Color(0xFF666D80),
                   color: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 const SizedBox(
                   width: PaddingSizes.medium,
                 ),
                 PrimaryButton(
+                  outlined: true,
+                  borderColor: Color(0xFF272835),
+                  prefixIcon: TradelyIcons.filter,
+                  prefixIconColor: Color(0xFF666D80),
+                  prefixIconSize: 13,
                   onTap: () {},
                   height: 42,
-                  suffixIconPadding: EdgeInsets.only(left: 12.0),
-                  text: "Trade Type",
-                  padding: EdgeInsets.symmetric(horizontal: 14),
-                  textStyle: TextStyle(
-                    color: Color(0xFF898989),
+                  text: "Filter",
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  textStyle: const TextStyle(
+                    color: Color(0xFF666D80),
                     fontSize: 16,
                   ),
-                  suffixIcon: TradelyIcons.chevronDown,
-                  suffixIconSize: 8,
-                  suffixIconColor: Color(0xFF898989),
                   color: Theme.of(context).colorScheme.primaryContainer,
                 ),
                 const SizedBox(
                   width: PaddingSizes.medium,
                 ),
                 PrimaryButton(
+                  outlined: true,
+                  borderColor: Color(0xFF272835),
                   onTap: () {
                     downloadCsv();
                   },
-                  suffixIconPadding: EdgeInsets.only(left: 10.0),
+                  prefixIconPadding: EdgeInsets.only(right: 10.0),
                   height: 42,
                   padding: EdgeInsets.symmetric(horizontal: 14),
-                  text: "Export",
-                  textStyle: TextStyle(
-                    color: Color(0xFF898989),
+                  text: "Import / Export",
+                  textStyle: const TextStyle(
+                    color: Color(0xFF666D80),
                     fontSize: 16,
                   ),
-                  suffixIconSize: 20,
-                  suffixIcon: TradelyIcons.chevronRight,
+                  prefixIconSize: 12,
+                  prefixIcon: TradelyIcons.export_icon,
                   color: Theme.of(context).colorScheme.primaryContainer,
-                  suffixIconColor: Color(0xFF898989),
+                  prefixIconColor: Color(0xFF666D80),
                 ),
               ],
             )
@@ -219,8 +299,9 @@ class _MyTradesScreenState extends State<MyTradesScreen> with ScreenStateMixin {
       ),
       child: BaseContainer(
         height: MediaQuery.of(context).size.height * .73,
-        padding: const EdgeInsets.only(top: 10),
+        padding: const EdgeInsets.only(top: 0),
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        borderColor: Colors.transparent,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,

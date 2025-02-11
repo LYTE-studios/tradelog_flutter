@@ -200,13 +200,13 @@ class _DiaryScreenState extends State<DiaryScreen> with ScreenStateMixin {
         currentRoute: DiaryScreen.location,
         title: "Your diary",
         titleIconPath: 'assets/images/emojis/pencil_emoji.png',
-        buttons: PrimaryButton(
-          onTap: () => AddTradeDialog.show(context),
-          height: 42,
-          text: "Add new trade",
-          prefixIcon: TradelyIcons.plusCircle,
-          prefixIconSize: 22,
-        ),
+        // buttons: PrimaryButton(
+        //   onTap: () => AddTradeDialog.show(context),
+        //   height: 42,
+        //   text: "Add new trade",
+        //   prefixIcon: TradelyIcons.plusCircle,
+        //   prefixIconSize: 22,
+        // ),
       ),
       child: SingleChildScrollView(
         child: ConstrainedBox(
