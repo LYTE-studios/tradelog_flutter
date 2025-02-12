@@ -7,25 +7,31 @@ import 'package:tradelog_flutter/src/ui/theme/padding_sizes.dart';
 class ChartContainer extends StatefulWidget {
   final String title;
   final String toolTip;
-
   final bool loading;
-
   final DateTime? from;
   final DateTime? to;
-  final String? titleImage; // Add this line
-  final VoidCallback? onViewAllTrades; // Add this
-  final VoidCallback? onRefresh; // Add this
+  final String? titleImage;
+  final VoidCallback? onViewAllTrades;
+  final VoidCallback? onRefresh;
+  final String? buttonText;
+  final Widget? customButtonContent;
+  final Widget? additionalHeaderWidget;
+  final Widget child; // Added missing child parameter
 
   const ChartContainer({
     super.key,
     required this.title,
     required this.toolTip,
-    this.loading = false,
+    required this.loading,
+    required this.child, // Added required child parameter
     this.from,
     this.to,
-    this.titleImage, // Add this line
+    this.titleImage,
     this.onViewAllTrades,
     this.onRefresh,
+    this.buttonText,
+    this.customButtonContent,
+    this.additionalHeaderWidget,
   });
 
   @override
@@ -35,47 +41,41 @@ class ChartContainer extends StatefulWidget {
 class _ChartContainerState extends State<ChartContainer> {
   double? balance;
   double? previousBalance;
-
-  double? get percentageChange {
-    if (balance == null || previousBalance == null) return null;
-    return ((balance! - previousBalance!) / previousBalance!) * 100;
-  }
+  double? percentageChange;
 
   @override
   Widget build(BuildContext context) {
     return BaseDataContainer(
       title: widget.title,
       toolTip: widget.toolTip,
-      titleImage: widget.titleImage, // Add this line
-      onViewAllTrades: widget.onViewAllTrades, // Add this
-      onRefresh: widget.onRefresh, // Add this
-      buttonText: 'All Trades', // Specify button text for Chart Container
-      // Add custom button content with arrow
-      customButtonContent: const Row(
+      titleImage: widget.titleImage,
+      onViewAllTrades: widget.onViewAllTrades,
+      onRefresh: widget.onRefresh,
+      buttonText: widget.buttonText ?? 'All Trades',
+      customButtonContent: widget.customButtonContent ?? const Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             'All Trades',
             style: TextStyle(
               color: Color(0xFF666D80),
-              fontSize: 13, // Slightly smaller font
+              fontSize: 13,
               fontWeight: FontWeight.w500,
             ),
           ),
           SizedBox(width: 4),
           Icon(
             Icons.expand_more,
-            size: 14, // Smaller icon
+            size: 14,
             color: Color(0xFF666D80),
           ),
         ],
       ),
-      // Updated refresh button
-      additionalHeaderWidget: Container(
+      additionalHeaderWidget: widget.additionalHeaderWidget ?? Container(
         margin: const EdgeInsets.only(left: 8),
         child: Container(
-          height: 32, // Match height with "All Trades" button
-          width: 32, // Make it square
+          height: 32,
+          width: 32,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: const Color(0xFF272835)),
@@ -84,11 +84,11 @@ class _ChartContainerState extends State<ChartContainer> {
             onPressed: widget.onRefresh,
             icon: Image.asset(
               'assets/icons/refresh.png',
-              width: 14, // Smaller icon
-              height: 14, // Smaller icon
+              width: 14,
+              height: 14,
             ),
-            padding: EdgeInsets.zero, // Remove padding
-            constraints: const BoxConstraints(), // Remove constraints
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
           ),
         ),
       ),
@@ -97,7 +97,6 @@ class _ChartContainerState extends State<ChartContainer> {
         children: [
           const SizedBox(height: PaddingSizes.large),
           Container(
-            // Add this divider
             height: 1,
             color: const Color(0xFF232135),
           ),
@@ -155,12 +154,11 @@ class _ChartContainerState extends State<ChartContainer> {
                   style: TextStyle(
                     color: Color(0xFF666D80),
                     fontSize: 16,
-                    fontWeight: FontWeight.normal, // Added normal weight
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
               ],
               const Spacer(),
-              // Period indicators moved here
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [

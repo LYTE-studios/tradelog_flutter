@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/base_data_container.dart';
+import 'package:tradelog_flutter/src/features/dashboard/overview/presentation/containers/chart_container.dart'; // Add this import
 
 // Update the TransparentScrollBehavior class to override more behaviors
 class TransparentScrollBehavior extends ScrollBehavior {
@@ -138,8 +139,8 @@ class TradesList extends StatelessWidget {
             child: RawScrollbar(
               radius: const Radius.circular(4),
               thickness: 4,
-              thumbColor: const Color(0xFF666D80).withOpacity(0.3),
-              trackColor: const Color(0xFF272835).withOpacity(0.1),
+              thumbColor: const Color(0xFF666D80).withAlpha(76), // Updated from withOpacity
+              trackColor: const Color(0xFF272835).withAlpha(25), // Updated from withOpacity
               trackRadius: const Radius.circular(4),
               trackVisibility: true,
               thumbVisibility: true,
@@ -217,6 +218,35 @@ class TradesList extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class MyTradesChart extends StatefulWidget {
+  final bool loading;
+  final VoidCallback onViewAllTrades;
+
+  const MyTradesChart({
+    super.key,
+    required this.loading,
+    required this.onViewAllTrades,
+  });
+
+  @override
+  State<MyTradesChart> createState() => _MyTradesChartState();
+}
+
+class _MyTradesChartState extends State<MyTradesChart> {
+  @override
+  Widget build(BuildContext context) {
+    return ChartContainer(
+      title: 'My Trades',
+      toolTip: 'Shows your trading activity',
+      loading: widget.loading,
+      titleImage: 'assets/icons/chart.png',
+      onViewAllTrades: widget.onViewAllTrades,
+      buttonText: 'View all trades',
+      child: Container(), // Add your chart content here
     );
   }
 }

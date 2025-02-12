@@ -200,6 +200,7 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                                 await loadData();
                                 setLoading(false);
                               },
+                              child: Container(), // Add the required child parameter
                             ),
                           ),
                           const SizedBox(width: 20),
@@ -216,13 +217,12 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
               ],
             ),
           ),
-          // Old bottom section: previously contained Most Traded Pairs and Net Daily P&L
-          const SizedBox(
+          // Bottom section with Most Traded Pairs and Net Daily P&L
+          SizedBox(
             height: 360,
             child: Row(
               children: [
-                Expanded(
-                  flex: 1,
+                const Expanded(
                   child: BaseDataContainer(
                     isSuffixIcon: true,
                     isPrefixIcon: false,
@@ -231,13 +231,30 @@ class _OverviewScreenState extends State<OverviewScreen> with ScreenStateMixin {
                     child: MostTradedPairsScreen(),
                   ),
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 Expanded(
-                  flex: 1,
                   child: BaseDataContainer(
                     title: 'Net Daily P&L',
                     toolTip: 'Shows your daily profit and loss',
-                    child: DashboardScreen(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Net Daily P&L",
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          const SizedBox(height: 16),
+                          const Expanded(
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: NetDailyChart(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],

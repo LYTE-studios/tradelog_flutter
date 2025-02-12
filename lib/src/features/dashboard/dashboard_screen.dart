@@ -73,13 +73,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                       height = 1200;
                     }
 
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: SizedBox(
-                        height: height,
-                        width: width,
-                        child: widget.child,
-                      ),
+                    return SizedBox(
+                      height: height,
+                      width: width,
+                      child: widget.child,
                     );
                   },
                 ),
